@@ -1,6 +1,7 @@
 package com.yxld.yxchuangxin.util;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,8 +10,10 @@ import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.QZoneShareContent;
+import com.umeng.socialize.media.SmsShareContent;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SmsHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
@@ -46,12 +49,10 @@ public class YouMengShareUtil {
 		// 配置需要分享的相关平台
 		configPlatforms();
 		// 设置分享的内容
-		setShareContent(shareInfo.Title, shareInfo.ShareCon, shareInfo.ImgUrl);
+		setShareContent(shareInfo.Title, shareInfo.ShareCon, shareInfo.ImgUrl,shareInfo.bitmap
+		);
 
-//		mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN,
-//				SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE);
-
-		mController.getConfig().setPlatforms(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE);
+		mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ,SHARE_MEDIA.SMS);
 		mController.openShare(mActivity, false);
 	}
 
@@ -62,29 +63,33 @@ public class YouMengShareUtil {
 		// 添加QQ、QZone平台
 		addQQQZonePlatform();
 
-//		// 添加微信、微信朋友圈平台
-//		addWXPlatform();
+		// 添加微信、微信朋友圈平台
+		addWXPlatform();
+
+		// 添加短信
+		SmsHandler smsHandler = new SmsHandler();
+		smsHandler.addToSocialSDK();
 	}
 
 	/**
 	 * 根据不同的平台设置不同的分享内容</br>
 	 */
-	public void setShareContent(String title, String content, String url) {
+	public void setShareContent(String title, String content, String url, Bitmap bitmap) {
 
-		UMImage urlImage = new UMImage(mActivity, url);
+		UMImage urlBitMap = new UMImage(mActivity,bitmap);
 
 		WeiXinShareContent weixinContent = new WeiXinShareContent();
 		weixinContent.setShareContent(content);
 		weixinContent.setTitle(title);
 		weixinContent.setTargetUrl(url);
-		weixinContent.setShareImage(urlImage);
+		weixinContent.setShareImage(urlBitMap);
 		mController.setShareMedia(weixinContent);
 
 		// 设置朋友圈分享的内容
 		CircleShareContent circleMedia = new CircleShareContent();
 		circleMedia.setShareContent(content);
 		circleMedia.setTitle(title);
-		circleMedia.setShareImage(urlImage);
+		circleMedia.setShareImage(urlBitMap);
 		circleMedia.setTargetUrl(url);
 		mController.setShareMedia(circleMedia);
 
@@ -93,15 +98,21 @@ public class YouMengShareUtil {
 		qzone.setShareContent(content);
 		qzone.setTargetUrl(url);
 		qzone.setTitle(title);
-		qzone.setShareImage(urlImage);
+		qzone.setShareImage(urlBitMap);
 		mController.setShareMedia(qzone);
 
 		QQShareContent qqShareContent = new QQShareContent();
 		qqShareContent.setShareContent(content);
 		qqShareContent.setTitle(title);
-		qqShareContent.setShareImage(urlImage);
+		qqShareContent.setShareImage(urlBitMap);
 		qqShareContent.setTargetUrl(url);
 		mController.setShareMedia(qqShareContent);
+
+		SmsShareContent smsShareContent = new SmsShareContent();
+		smsShareContent.setShareContent("分享地址为"+url);
+		smsShareContent.setShareImage(urlBitMap);
+// 设置分享内容
+		mController.setShareContent("分享地址为"+url);
 	}
 
 	/**
@@ -111,8 +122,8 @@ public class YouMengShareUtil {
 	public void addWXPlatform() {
 		// 注意：在微信授权的时候，必须传递appSecret
 		// wx967daebe835fbeac是你在微信开发平台注册应用的AppID, 这里需要替换成你注册的AppID
-		String appId = "wxa898ae29403f96d8";
-		String appSecret = "9d0095c924bad66cdd847a3ad0daf5f1";
+		String appId = "wx474645d31f239239";
+		String appSecret = "71a35538363ef0b77417db4b54bafba6";
 		// 添加微信平台
 		UMWXHandler wxHandler = new UMWXHandler(mActivity, appId, appSecret);
 		wxHandler.addToSocialSDK();
@@ -141,5 +152,8 @@ public class YouMengShareUtil {
 		QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(mActivity, appId,
 				appKey);
 		qZoneSsoHandler.addToSocialSDK();
+
+
+
 	}
 }

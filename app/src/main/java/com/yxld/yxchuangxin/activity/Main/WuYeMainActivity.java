@@ -19,7 +19,7 @@ import java.util.List;
  * 社区物业主界面
  */
 public class WuYeMainActivity  extends BaseActivity {
-    private String[]titles=new String[]{"我的物业","费用缴纳","放心出入","邮包查询","报修","投诉建议","社区","我的"};
+    private String[]titles=new String[]{"  我的物业  ","  专享服务  ","  我的社区  ","  个人中心  "};
     private TabLayout tab_layout;
     private ViewPager info_viewpager;
     private List<Fragment> fragments;
@@ -76,7 +76,8 @@ public class WuYeMainActivity  extends BaseActivity {
 
         //设置Tablayout
         //设置TabLayout模式 -该使用Tab数量比较多的情况
-        tab_layout.setTabMode(TabLayout.MODE_SCROLLABLE);
+//        tab_layout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tab_layout.setTabMode(TabLayout.MODE_FIXED);
     }
 
     @Override

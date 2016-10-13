@@ -116,10 +116,11 @@ public class CartAdapter extends BaseAdapter {
 
     /**
      * 实例化Adapter
-     *
+     * @param mRequestQueue
+     * @param progressDialog
      * @param context
-     * @param data
-     * @param resource
+     * @param list
+     * @param handler
      */
     public CartAdapter(RequestQueue mRequestQueue, ProgressDialog progressDialog, Context context, List<CxwyMallCart> list, Handler handler) {
         this.mRequestQueues = mRequestQueue;
@@ -246,7 +247,7 @@ public class CartAdapter extends BaseAdapter {
         curNum = count;
         //请求修改购物车数量接口
         progressDialog.show();
-        cartController.updateCartInfoFromID(mRequestQueues, new Object[]{Contains.CartList.get(position).getCartId(), count}, updateListener);
+        cartController.updateCartInfoFromID(mRequestQueues, new Object[]{Contains.CartList.get(position).getCartId(), count,Contains.CartList.get(position).getCartShangpNum()}, updateListener);
     }
 
     public List<CxwyMallCart> getListData() {

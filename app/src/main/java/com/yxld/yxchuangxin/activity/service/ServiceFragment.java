@@ -15,7 +15,8 @@ import android.widget.ListView;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.adapter.BaseMapListApater;
 import com.yxld.yxchuangxin.base.BaseFragment;
-import com.yxld.yxchuangxin.view.ImageCycleView;
+
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 @SuppressLint("InflateParams")
 /**
@@ -26,7 +27,7 @@ import com.yxld.yxchuangxin.view.ImageCycleView;
  */
 public class ServiceFragment extends BaseFragment {
 	/** 首页轮播图 */
-	private ImageCycleView ad_view1;
+	private BGABanner ad_view1;
 	private GridView mPerimeter;
 	private GridView mProperty;
 
@@ -42,7 +43,7 @@ public class ServiceFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.serve_fragment, container, false);
-		ad_view1 = (ImageCycleView) view.findViewById(R.id.ad_view1);
+		ad_view1 = (BGABanner) view.findViewById(R.id.ad_view1);
 		listView = (ListView) view.findViewById(R.id.listView);
 		mPerimeter = (GridView) view.findViewById(R.id.property);
 		mProperty = (GridView) view.findViewById(R.id.service);

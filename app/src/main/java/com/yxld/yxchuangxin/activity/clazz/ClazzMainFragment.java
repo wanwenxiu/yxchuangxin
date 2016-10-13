@@ -252,7 +252,8 @@ public class ClazzMainFragment extends BaseFragment {
 			}
 
 			if (isEmptyList(info.getClassifyTwo())) {
-				onError("没有详细分类");
+				//onError("没有详细分类");
+				resetView();
 			} else {
 				listSecondDatas.clear();
 				listSecondDatas = info.getClassifyTwo();

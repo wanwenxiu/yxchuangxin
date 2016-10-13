@@ -90,7 +90,6 @@
             android:layout_centerHorizontal="true"
             android:layout_toLeftOf="@+id/cart_Add"
             android:background="@drawable/img_borde2r"
-            android:enabled="false"
             android:gravity="center"
             android:text="1"
             android:textColor="@color/color_333"

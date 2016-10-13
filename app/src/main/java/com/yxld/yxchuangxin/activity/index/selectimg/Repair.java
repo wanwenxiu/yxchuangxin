@@ -293,12 +293,22 @@ public class Repair extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				Log.d("geek","position ="+position);
+				Log.d("geek","Bimp.tempSelectBitmap.size() ="+Bimp.tempSelectBitmap.size());
+
+
+
 				if (position == Bimp.tempSelectBitmap.size()) {
+					if(Bimp.tempSelectBitmap.size() >=PublicWay.num){
+						Toast.makeText(Repair.this,"最多只能上传3张图片",Toast.LENGTH_SHORT).show();
+						return;
+					}
 					ll_popup.startAnimation(AnimationUtils.loadAnimation(
 							Repair.this,
 							R.anim.activity_translate_in));
 					pop.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
-				} else {
+				}
+				else {
 					Intent intent = new Intent(Repair.this,
 							GalleryActivity.class);
 					intent.putExtra("position", "1");

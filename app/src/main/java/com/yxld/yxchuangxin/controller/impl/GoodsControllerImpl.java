@@ -202,21 +202,21 @@ public class GoodsControllerImpl implements GoodsController{
 		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(String.format(URL_DELETE_COLLECT_GOODS_FROM_ID, parm),
 				BaseEntity.class, new Listener<BaseEntity>(){
 
-					@Override
-					public void onResponse(BaseEntity response) {
-						if (listener != null) {
-							listener.onResponse(response);
-						}
-					}
-				}, new ErrorListener() {
+			@Override
+			public void onResponse(BaseEntity response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
+			}
+		}, new ErrorListener() {
 
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						if (listener != null) {
-							listener.onErrorResponse(error.getMessage());
-						}
-					}
-				});
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
 		gsonRequest.setTag(URL_DELETE_COLLECT_GOODS_FROM_ID);
 		mRequestQueue.add(gsonRequest);
 	}

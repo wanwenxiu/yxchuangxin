@@ -9,9 +9,10 @@ package com.yxld.yxchuangxin.controller;
  */
 public interface API {
 
-    String IP_PRODUCT = "http://192.168.0.109:8080/wygl";
-    String PIC = "http://192.168.0.109:8080";
-    String uploadImage = "http://192.168.0.109:8080/wygl/mall/upload_uploadFile";
+   String yuming =  "http://www.hnchxwl.com/wygl";
+   String IP_PRODUCT = "http://192.168.0.102:8080/wygl";
+   String PIC = "http://192.168.0.102:8080";
+   String uploadImage = "http://192.168.0.102:8080/wygl/mall/upload_uploadFile";
 
 //	String IP_PRODUCT = "http://222.240.1.133/wygl";
 //  String PIC="http://222.240.1.133";
@@ -54,10 +55,10 @@ public interface API {
             + "/mall/cart_findByUerId?cart.cartSpare1=%1$s";
 
     /**
-     * 根据用户ID和购物车Id修改购物车信息
+     * 根据购物车Id和购物车数量和购物车商品id,修改购物车信息
      */
     String URL_UPDATE_INFO__CART_FROM_ID = IP_PRODUCT
-            + "/mall/cart_mergeCart?cart.cartId=%1$s&cart.cartNum=%2$s";
+            + "/mall/cart_mergeCart?cart.cartId=%1$s&cart.cartNum=%2$s&cart.cartShangpNum=%3$s";
 
     /**
      * 根据购物车Id删除购物车信息
@@ -382,4 +383,37 @@ public interface API {
      */
     String URL_GET_EXPENDITURE = IP_PRODUCT
             + "/mall/androidUser_findYonghuBalancereCord.action?";
+
+    /**
+     * 获取门禁列表
+     */
+    String URL_GET_DOORLISTBY = IP_PRODUCT
+            + "/menjin/menjin_finddoorA.action?";
+
+    /**
+     * 获取业主访客开门二维码   传入访客姓名 电话 门禁Mac地址 业主ID
+     */
+    String URL_GET_OPENDOORCODE = IP_PRODUCT
+            + "/menjin/erweima_listAndroid.action?";
+
+
+    /**
+     * 获取生成二维码记录接口 (参数为业主id)
+     */
+    String  URL_GET_CODERECORD = IP_PRODUCT
+            + "/menjin/erweima_finderweimaAndroid.action?yezhuid=%1$s&rows=%2$s&page=%3$s";
+
+    /**
+     * 获取业主开门二维码   传入楼盘 楼栋 单元 业主姓名 业主联系方式 业主ID
+     */
+    String URL_GET_YEZHUOPENCODE = IP_PRODUCT
+     + "/menjin/erweima_listAndroidA.action?";
+
+
+ /**
+  * 获取首页通知活动标题
+  *
+  */
+   String URL_GET_NEWMAINTONGZHI = IP_PRODUCT
+         + "/tongzhi/tongzhi_findTitle.action";
 }

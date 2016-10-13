@@ -179,7 +179,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/mine_address_03"
+            android:drawableLeft="@mipmap/youhuquan_icon"
             android:drawablePadding="5dp"/>
 
         <ImageView

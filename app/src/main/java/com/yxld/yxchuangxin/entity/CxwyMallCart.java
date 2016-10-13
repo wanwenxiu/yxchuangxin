@@ -16,7 +16,7 @@ public class CxwyMallCart  extends BaseEntity implements java.io.Serializable {
 	
     // Fields    
      private Integer cartId;//id
-     private String cartShangpNum;//商品编号
+     private String cartShangpNum;//商品id
      private String cartShangpName;//商品名称
      private String cartSpec;//商品规格
      private String cartOneRmb = "0";//商品单价

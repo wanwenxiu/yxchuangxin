@@ -14,7 +14,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity;
 import com.yxld.yxchuangxin.activity.goods.SearchActivity;
 import com.yxld.yxchuangxin.activity.goods.ShopListActivity;
@@ -31,26 +33,28 @@ import com.yxld.yxchuangxin.entity.CxwyMallPezhi;
 import com.yxld.yxchuangxin.entity.CxwyMallProduct;
 import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.listener.ResultListener;
-import com.yxld.yxchuangxin.view.ImageCycleView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bingoogolapple.bgabanner.BGABanner;
+
 /**
  * Created by yishangfei on 2016/3/4.
  */
-public class MallIndexFragment extends BaseFragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
+public class MallIndexFragment extends BaseFragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener,BGABanner.OnItemClickListener,BGABanner.Adapter{
     private SwipeRefreshLayout swipe_container;
-    private ImageCycleView ad_view;
     private ArrayList<String> urls;
     private TextView ckgd;
     private  GridView mGridView1;
     public MallIndexGoodsListAdapter indexGoodsList;
     public  TextView title;
     private ScrollView scrollView;
-    
+
+    private BGABanner banner_guide_content;
     /** 搜素框*/
     private ImageView search;
     
@@ -80,10 +84,6 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
         if(indexListData != null){
             indexListData = null;
-        }
-
-        if(ad_view != null){
-            ad_view = null;
         }
 
         if(mGridView1 != null){
@@ -169,26 +169,25 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 			}
 		});
 
-        ad_view = (ImageCycleView) view.findViewById(R.id.ad_view);
         search = (ImageView) view.findViewById(R.id.search);
         search.setOnClickListener(this);
 
         if(urls == null){
             urls = new ArrayList<>();
         }
-        ad_view.setImageResources(urls, new ImageCycleView.ImageCycleViewListener() {
-            @Override
-            public void onImageClick(int position, View imageView) {
-                Toast.makeText(getActivity(), "" + position, Toast.LENGTH_LONG).show();
-            }
-        }, 0);
-        
+
+        banner_guide_content = (BGABanner)view.findViewById(R.id.banner_guide_content);
+        banner_guide_content.setData(Arrays.asList(""), null);
+        banner_guide_content.setOnItemClickListener(this);
+
+
         scrollView = (ScrollView) view.findViewById(R.id.scrollView2);
         scrollView.scrollTo(0, 0);
         getlunbotubiao();
         initDataFromNet();
         return view;
     }
+
 
     public void onRefresh() {
         initDataFromNet();
@@ -212,14 +211,12 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onResume() {
     	super.onResume();
-    	ad_view.startImageCycle();
         Log.d("geek","商城首页 onResume()");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ad_view.stopImageCycle();
         Log.d("geek","商城首页 onStop()");
     }
 
@@ -286,12 +283,8 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                     for (int i = 0; i < info.getLblist().size(); i++) {
                         urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
                     }
-                    ad_view.setImageResources(urls, new ImageCycleView.ImageCycleViewListener() {
-                        @Override
-                        public void onImageClick(int position, View imageView) {
-                            Toast.makeText(getActivity(), "" + position, Toast.LENGTH_LONG).show();
-                        }
-                    }, 0);
+                    banner_guide_content.setAdapter(MallIndexFragment.this);
+                    banner_guide_content.setData(urls, Arrays.asList("第一页","第二页","第三页"));
                 }
 
                 if(!isEmptyList(info.getTblist())) {
@@ -316,6 +309,18 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     }
 
 
+    @Override
+    public void onBannerItemClick(BGABanner banner, View view, Object model, int position) {
+        Log.d("geek", "点击了第" + (position + 1) + "页");
+        Toast.makeText(getActivity(),"点击了第" + (position + 1) + "页",Toast.LENGTH_SHORT).show();
+    }
 
-
+    @Override
+    public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
+        Glide.with(MallIndexFragment.this)
+                .load(model)
+                .placeholder(R.drawable.holder)
+                .error(R.drawable.holder)
+                .into((ImageView) view);
+    }
 }

@@ -84,6 +84,10 @@ public class ShopListActivity extends BaseActivity implements
 
 	/** 记录上一次选中筛选条件标识 */
 	private int lastPosition = 0;
+	/** 跳转至商品详情*/
+	private int JUMP_GOODSTAIL = 0;
+	/** 从商品详情中点击购物车返回*/
+	public static int JUMP_CART = 1;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -137,7 +141,9 @@ public class ShopListActivity extends BaseActivity implements
 					long arg3) {
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("goods", adapter.getMlist().get(arg2-1));
-				startActivity(GoodsDestailActivity.class,bundle);
+				Intent intent = new Intent(ShopListActivity.this, GoodsDestailActivity.class);
+				intent.putExtras(bundle);
+				startActivityForResult(intent, JUMP_GOODSTAIL);
 			}
 			
 		});
@@ -168,6 +174,21 @@ public class ShopListActivity extends BaseActivity implements
 				}
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == JUMP_GOODSTAIL){ //从跳转至商品详情中返回
+			if(resultCode == JUMP_CART){  //代表跳转至购物车
+				Log.d("geek","进入跳转至购物车界面");
+				Intent intentCart = new Intent(getResources().getString(
+						R.string.index_broad));
+				intentCart.putExtra("IndexJumpTag", 2);
+				sendBroadcast(intentCart);
+				finish();
+			}
+		}
 	}
 
 	/**

@@ -12,6 +12,12 @@ import android.widget.TextView;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
+import com.yxld.yxchuangxin.controller.DoorController;
+import com.yxld.yxchuangxin.controller.impl.DoorControllerImpl;
+import com.yxld.yxchuangxin.entity.BarcodedataAndroid;
+import com.yxld.yxchuangxin.entity.CxwyYezhu;
+import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,18 +30,27 @@ import java.util.Map;
  * @author wwx
  * @date 2016年5月27日 下午5:14:24
  */
-public class AuthorizedReleaseActivity extends BaseActivity {
+public class AuthorizedReleaseActivity extends BaseActivity implements ResultListener<BarcodedataAndroid>{
 
+	private int page = 10;
+
+	private DoorController doorController;
 	/** 授权列表*/
 	private ListView authorizedList;
 
 	private TextView addr;
+
+	private CxwyYezhu yezhu = new CxwyYezhu();
+	private List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
+
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 
 		setContentView(R.layout.authorized_release_activity);
 		getSupportActionBar().setTitle("授权放行");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		List<CxwyYezhu> list = Contains.cxwyYezhu;
+		yezhu = list.get(0);
 	}
 
 	@Override
@@ -49,26 +64,8 @@ public class AuthorizedReleaseActivity extends BaseActivity {
 	@Override
 	protected void initView() {
 		addr = (TextView) findViewById(R.id.addr);
-		addr.setText(Contains.cxwyMallUser.getUserSpare1()+"-"+Contains.cxwyMallUser.getUserUserName());
+		addr.setText( yezhu.getYezhuLoupan()+""+yezhu.getYezhuLoudong()+"栋"+yezhu.getYezhuDanyuan()+"单元" +yezhu.getYezhuFanghao());
 		authorizedList = (ListView) findViewById(R.id.AuthorizedList);
-		List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
-		for (int i = 0;i<9;i++){
-			Map<String,String> map = new HashMap<>();
-			map.put("name","小王");
-			if(i==0){
-				map.put("name","小张");
-				map.put("time","有效期:2016年06月30号 14:00");
-				map.put("state","未过期");
-			}else{
-				map.put("name","小王");
-				map.put("time","有效期:2016年05月1号 14:00");
-				map.put("state","已过期");
-			}
-			mapList.add(map);
-		}
-		authorizedList.setAdapter(new SimpleAdapter(this,mapList, R.layout.authorized_release_activity_item_layout,
-				new String[]{"name","time","state"},new int[]{R.id.name, R.id.time, R.id.state}));
-
 		authorizedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,7 +85,41 @@ public class AuthorizedReleaseActivity extends BaseActivity {
 
 	@Override
 	protected void initDataFromLocal() {
-
+		initDataFromNet();
 	}
 
+	@Override
+	protected void initDataFromNet() {
+		super.initDataFromNet();
+		if(doorController == null){
+			doorController = new DoorControllerImpl();
+		}
+
+		doorController.GetCodeRecordList(mRequestQueue,new Object[]{yezhu.getYezhuId(),1,10},this);
+	}
+
+	@Override
+	public void onResponse(BarcodedataAndroid info) {
+		if(isEmptyList(info.getRows())){
+			ToastUtil.show(AuthorizedReleaseActivity.this, "没有查询到记录");
+		}else{
+			List<BarcodedataAndroid> curData = info.getRows();
+			for (int i = 0;i<curData.size();i++){
+				BarcodedataAndroid data = curData.get(i);
+				Map<String,String> map = new HashMap<>();
+				map.put("name",data.getName()+"	"+data.getDianhua());
+				map.put("time","99");
+				map.put("state",data.getLuopan());
+				mapList.add(map);
+			}
+			authorizedList.setAdapter(new SimpleAdapter(this,mapList, R.layout.authorized_release_activity_item_layout,
+					new String[]{"name","time","state"},new int[]{R.id.name, R.id.time, R.id.state}));
+		}
+		progressDialog.hide();
+	}
+
+	@Override
+	public void onErrorResponse(String errMsg) {
+		onError(errMsg);
+	}
 }

@@ -369,6 +369,8 @@
             android:name=".activity.mine.RecordAcitvity"
             android:label="交易记录"
             ></activity>
+        <activity android:name=".activity.index.YeZhuOpenDoorActivity"
+            android:label="业主开门"></activity>
 
         <!--web-->
         <activity android:name=".activity.Main.WebViewActivity"

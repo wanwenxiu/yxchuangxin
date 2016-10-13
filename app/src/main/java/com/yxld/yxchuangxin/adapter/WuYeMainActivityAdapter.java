@@ -4,30 +4,28 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.activity.index.AuthorizedReleaseActivity;
 import com.yxld.yxchuangxin.activity.index.CameraActivity;
-import com.yxld.yxchuangxin.activity.index.CameraConfigActivity;
 import com.yxld.yxchuangxin.activity.index.ChengyuanguanliActivity;
-import com.yxld.yxchuangxin.activity.index.ComplaintActivity;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
-import com.yxld.yxchuangxin.activity.index.FeiYongListActivity;
 import com.yxld.yxchuangxin.activity.index.VisitorInvitationActivity;
+import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
 import com.yxld.yxchuangxin.activity.index.phoneOpenDoorActivity;
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
+import com.yxld.yxchuangxin.activity.mine.AboutUsActivity;
 import com.yxld.yxchuangxin.activity.mine.EmployerActivity;
-import com.yxld.yxchuangxin.activity.mine.RepairListActivity;
+import com.yxld.yxchuangxin.activity.mine.MemberActivity;
+import com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.entity.AndroidWuYeEntity;
 import com.yxld.yxchuangxin.util.ToastUtil;
@@ -135,124 +133,173 @@ public class WuYeMainActivityAdapter extends BaseAdapter {
 		Bundle bundle = new Bundle();
 		switch (tag){
 			case 0: //我的物业
-				if (position == 1){
+				if (position == 1){  //居家安防
 					startActivity(CameraActivity.class);
-				}else{
-					ToastUtil.show(mContext,"敬请期待");
+				}else if(position == 2){ //手机开门
+					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
+						ToastUtil.show(mContext, "请配置房屋信息再进行邀请");
+						return;
+					}
+					startActivity(YeZhuOpenDoorActivity.class);
+//					Intent intent = new Intent(mContext,
+//							phoneOpenDoorActivity.class);
+//					Bundle bundle1 = new Bundle();
+//					bundle1.putString("name", "1");
+//					intent.putExtras(bundle1);
+//					mContext.startActivity(intent, bundle1);
 				}
-				break;
-			case 1: //费用缴纳
-				if(position == 0){
+				else if(position == 3){ //来访邀请
+//					ToastUtil.show(mContext,"敬请期待");
 					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
-						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
+						ToastUtil.show(mContext, "请配置房屋信息再进行邀请");
 						return;
 					}
-
-					bundle.putString("curType", "物业服务");
-					startActivity(FeiYongListActivity.class,bundle);
-				}else if(position == 1){
-					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
-						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
-						return;
-					}
-					bundle.putString("curType", "水");
-					startActivity(FeiYongListActivity.class,bundle);
-				}else if(position == 2){
-					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
-						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
-						return;
-					}
-					bundle.putString("curType", "电");
-					startActivity(FeiYongListActivity.class,bundle);
-				}else if(position == 3){
-					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
-						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
-						return;
-					}
-					bundle.putString("curType", "机动车停放服务");
-					startActivity(FeiYongListActivity.class,bundle);
-				}else{
-					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
-						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
-						return;
-					}
-					bundle.putString("curType", "天然气");
-					startActivity(FeiYongListActivity.class,bundle);
-				}
-				break;
-			case 2: //安全出入
-				if(position == 0){
-					Intent intent = new Intent(mContext,
-							phoneOpenDoorActivity.class);
-					Bundle bundle1 = new Bundle();
-					bundle1.putString("name", "1");
-					intent.putExtras(bundle1);
-					mContext.startActivity(intent, bundle1);
-				}else if(position == 1){
 					startActivity(VisitorInvitationActivity.class);
-				}else{
+				}
+ 				else if(position == 4){ //访客授权记录
 					startActivity(AuthorizedReleaseActivity.class);
 				}
-				break;
-			case 3: //邮包查询
-				if(position == 0){
-					startActivity(ExpressActivity.class);
-				}
-				break;
-			case 4: //报修
-				if(position == 0){
-					startActivity(Repair.class);
-				}
-				break;
-			case 5: //投诉建议
-				if(position == 0){
-					startActivity(ComplaintActivity.class);
-				}else{
+				else {
 					ToastUtil.show(mContext,"敬请期待");
 				}
 				break;
-			case 6: //社区
-				ToastUtil.show(mContext,"敬请期待");
+			case 1: //专享服务
+				if(position == 2){  //邮包查询
+					startActivity(ExpressActivity.class);
+				}else if(position == 1){
+					startActivity(Repair.class);
+				}
+				else {
+					ToastUtil.show(mContext,"敬请期待");
+				}
+//				if(position == 0){
+//					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
+//						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
+//						return;
+//					}
+//
+//					bundle.putString("curType", "物业服务");
+//					startActivity(FeiYongListActivity.class,bundle);
+//				}else if(position == 1){
+//					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
+//						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
+//						return;
+//					}
+//					bundle.putString("curType", "水");
+//					startActivity(FeiYongListActivity.class,bundle);
+//				}else if(position == 2){
+//					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
+//						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
+//						return;
+//					}
+//					bundle.putString("curType", "电");
+//					startActivity(FeiYongListActivity.class,bundle);
+//				}else if(position == 3){
+//					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
+//						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
+//						return;
+//					}
+//					bundle.putString("curType", "机动车停放服务");
+//					startActivity(FeiYongListActivity.class,bundle);
+//				}else{
+//					if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0){
+//						ToastUtil.show(mContext, "请配置房屋信息再进行查询");
+//						return;
+//					}
+//					bundle.putString("curType", "天然气");
+//					startActivity(FeiYongListActivity.class,bundle);
+//				}
 				break;
-			case 7://我的
-				if(position == 0){
+			case 2: //我的社区
+				ToastUtil.show(mContext,"敬请期待");
+//				if(position == 0){ //我要报修
+//					startActivity(Repair.class);
+//				}else{ //报修处理
+//					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
+//						startActivity(RepairListActivity.class);
+//					}else{
+//						ToastUtil.show(mContext, "请完善业主信息");
+//					}
+//				}
+				break;
+			case 3: //个人中心
+				if(position == 0){  //房屋信息
 					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
 						startActivity(EmployerActivity.class);
 					}else {
 						Toast.makeText(mContext, "业主信息尚未完善", Toast.LENGTH_SHORT).show();
 					}
-				}else if(position == 1){
+				}else if(position == 1){  //入住成员管理
 					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
 						startActivity(ChengyuanguanliActivity.class);
 					}else{
 						ToastUtil.show(mContext, "您没有权限查看");
 					}
-				}else if(position == 2){
-					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
-						startActivity(RepairListActivity.class);
-					}else{
-						ToastUtil.show(mContext, "请完善业主信息");
-					}
-				}else if(position == 3){
-					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
-						startActivity(RepairListActivity.class);
-					}else{
-						ToastUtil.show(mContext, "请完善业主信息");
-					}
-				}else{
-					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
-						startActivity(RepairListActivity.class);
-					}else{
-						ToastUtil.show(mContext, "请完善业主信息");
-					}
+				}else if(position == 2){  //房屋出租
+					Intent tz = new Intent();
+					tz.setClass(mContext, // context
+							WebViewActivity.class);// 跳转的activity
+					Bundle tz1 = new Bundle();
+					tz1.putString("name", "出租信息");
+					tz1.putString("address", "http://222.240.1.133/wygl/addchuzu.jsp");
+					tz.putExtras(tz1);
+					mContext.startActivity(tz);
+				}else if(position == 3){  //版本更新
+					startActivity(MineVisionUpdateMainActivity.class);
+				}else if(position == 4){  //关于我们
+					startActivity(AboutUsActivity.class);
+				}else{ //我的账号
+					startActivity(MemberActivity.class);
 				}
+//				if(position == 0){ //我要查询
+//					startActivity(ExpressActivity.class);
+//				}else{ //我要寄件
+//					ToastUtil.show(mContext,"敬请期待");
+//				}
 				break;
+//			case 4: //我的社区
+//					ToastUtil.show(mContext,"敬请期待");
+//				break;
+//			case 5: //投诉建议
+//				if(position == 0){
+//					startActivity(ComplaintActivity.class);
+//				}else{
+//					ToastUtil.show(mContext,"敬请期待");
+//				}
+//				break;
+//			case 6: //个人中心
+//				if(position == 0){  //房屋信息
+//					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
+//						startActivity(EmployerActivity.class);
+//					}else {
+//						Toast.makeText(mContext, "业主信息尚未完善", Toast.LENGTH_SHORT).show();
+//					}
+//				}else if(position == 1){  //入住成员管理
+//					if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
+//						startActivity(ChengyuanguanliActivity.class);
+//					}else{
+//						ToastUtil.show(mContext, "您没有权限查看");
+//					}
+//				}else if(position == 2){  //房屋出租
+//					Intent tz = new Intent();
+//					tz.setClass(mContext, // context
+//							WebViewActivity.class);// 跳转的activity
+//					Bundle tz1 = new Bundle();
+//					tz1.putString("name", "出租信息");
+//					tz1.putString("address", "http://222.240.1.133/wygl/addchuzu.jsp");
+//					tz.putExtras(tz1);
+//					mContext.startActivity(tz);
+//				}else if(position == 3){  //版本更新
+//					startActivity(MineVisionUpdateMainActivity.class);
+//				}else{  //关于我们
+//					startActivity(AboutUsActivity.class);
+//				}
+//				break;
 		}
 	}
 
 	/**
 	 * 启动Activity
-	 *
 	 * @param <T>
 	 * @param clazz
 	 */

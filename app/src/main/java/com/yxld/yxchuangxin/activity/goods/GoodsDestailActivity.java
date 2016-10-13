@@ -36,11 +36,10 @@ import com.yxld.yxchuangxin.controller.impl.GoodsControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.PraiseControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallComment;
 import com.yxld.yxchuangxin.entity.CxwyMallProduct;
+import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.entity.SureOrderEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
-import com.yxld.yxchuangxin.view.ImageCycleView;
-import com.yxld.yxchuangxin.view.LoadingImg;
 import com.yxld.yxchuangxin.view.SlideShowView;
 
 /**
@@ -56,7 +55,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	private ImageView ToCart = null;
 	/** 广告轮播图 */
 	private SlideShowView indexAdvs;
-	
+
 	/** 商品名*/
 	private TextView goods_name;
 
@@ -66,7 +65,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	private TextView address;
 	/** 商品名*/
 	private TextView goodNum;
-	
+
 	/** 商品评价总条数*/
 	private TextView praiseTotal;
 	/** 评价用户图像*/
@@ -74,21 +73,21 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	/** 商品评价名称*/
 	private TextView praiseName;
 	/** 商品评级内容*/
-	private TextView praiseBody;
-	
+	private TextView praiseBody,goBuy;
+
 	/** 查看全部评价*/
 	private TextView allPraise;
-	
+
 	/** 收藏按钮*/
 	private ImageView collectImg;
-	
+
 	/** 减号按钮 */
 	public ImageView SubtractNum;
 	/** 当前数量*/
 	public EditText cartGoodsNum;
 	/** 加号按钮 */
 	public ImageView AddNum;
-	
+
 	private WebView goodsDestailHtml;
 
 	/** 加入购物车动画 */
@@ -96,16 +95,16 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	private Animation mAnimation;
 	/** 当前商品对象*/
 	private CxwyMallProduct curGood = null;
-	
+
 	/** 是否已收藏 0 收藏 1 未收藏*/
 	private int collectType = 1;
-	
+
 	/** 评价接口实现类*/
 	private PraiseController praiseController;
-	
+
 	/** 购物车接口操作类*/
 	private CartController cartController;
-	
+
 	/** 商品接口操作类*/
 	private GoodsController goodController;
 
@@ -144,40 +143,41 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		goods_price = (TextView) findViewById(R.id.goods_price);
 		address = (TextView) findViewById(R.id.address);
 		goodNum = (TextView) findViewById(R.id.goodNum);
-		
+
 		praiseTotal = (TextView) findViewById(R.id.praiseTotal);
 		praiseName = (TextView) findViewById(R.id.praiseName);
 		praiseBody = (TextView) findViewById(R.id.praiseBody);
 		praiseImg = (ImageView) findViewById(R.id.praiseImg);
-		
+
 		allPraise = (TextView) findViewById(R.id.allPraise);
 		allPraise.setOnClickListener(this);
-		
+
 		collectImg = (ImageView) findViewById(R.id.collectImg);
 		collectImg.setOnClickListener(this);
-		
+
 		SubtractNum = (ImageView)findViewById(R.id.cartOut);
 		SubtractNum.setOnClickListener(this);
 		AddNum = (ImageView)findViewById(R.id.cart_Add);
 		AddNum.setOnClickListener(this);
 		cartGoodsNum = (EditText)findViewById(R.id.cart_goods_Num);
-		
-		findViewById(R.id.goBuy).setOnClickListener(this);
-		
+
+		goBuy = (TextView)findViewById(R.id.goBuy);
+		goBuy.setOnClickListener(this);
+
 		goodsDestailHtml = (WebView) findViewById(R.id.webview);
 	}
 
 	@Override
 	protected void initDataFromLocal() {
-		Intent intent = this.getIntent(); 
+		Intent intent = this.getIntent();
 		curGood = (CxwyMallProduct)intent.getSerializableExtra("goods");
 		Log.d("geek", "curGood ="+curGood.toString());
-		
+
 		initdata();
 		initAnim();
-		
+
 		initDataFromNet();
-		
+
 		WebSettings webSettings = goodsDestailHtml.getSettings();
 		// 设置WebView属性，能够执行JavaScript脚本
 		webSettings.setJavaScriptEnabled(true);
@@ -193,7 +193,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 
 	private void initdata() {
 		ArrayList<String> urls = new ArrayList<>();
-		
+
 		if(curGood.getShangpinImgSrc1() != null && !"".equals(curGood.getShangpinImgSrc1())){
 			String[] urlArray =  curGood.getShangpinImgSrc1().split(";");
 			for (int i = 0; i <urlArray.length; i++) {
@@ -213,7 +213,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 								.show();
 					}
 			}, 0);*/
-		
+
 		if(curGood != null){
 			goods_name.setText(curGood.getShangpinShangpName()+"("+curGood.getShangpinGuige()+")");
 			goods_price.setText("￥ "+curGood.getShangpinRmb()+"");
@@ -250,71 +250,72 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.returnImg:
-			finish();
-			break;
-		case R.id.addCart:
-			joinCartUrl();
-			break;
-		case R.id.allPraise:
-			if(allPraise.getText().toString().equals("暂无评价")){
-				return;
-			}
-			Bundle bundle = new Bundle();
-			bundle.putString("goodsId", curGood.getShangpinId()+"");
-			startActivity(GoodsPraiseListActivity.class,bundle);
-			break;
-		case R.id.collectImg:
-			progressDialog.show();
-			if(goodController == null){
-				goodController = new GoodsControllerImpl();
-			}
-			//当前状态为已收藏时，调用删除收藏接口，否则调用收藏接口
-			if(collectType == 0){
-				goodController.deleteCollectGoodsFromId(mRequestQueue, new Object[]{"",curGood.getShangpinId(),Contains.cxwyMallUser.getUserId()}, addCollectListener);
-			}else{
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("collection.collectionShangpId", curGood.getShangpinId()+ "");
-				params.put("collection.collectionShangpName", curGood.getShangpinShangpName());
-				params.put("collection.collectionShangpOneRmb",curGood.getShangpinRmb()+"");
-				params.put("collection.collectionShangpSpec", curGood.getShangpinGuige());
-				params.put("collection.collectionImgSrc", curGood.getShangpinImgSrc1());
-				params.put("collection.collectionUserId",Contains.cxwyMallUser.getUserId()+"");
-				Log.d("geek","收藏商品 params"+params.toString());
-				goodController.getCollectGoodsFromId(mRequestQueue, params, addCollectListener);
-			}
-			break;
-		case R.id.cartOut:
-			setCount(false);
-			break;
-		case R.id.cart_Add:
-			setCount(true);
-			break;
-		case R.id.goBuy:
-			//拼接确认订单集合
-			Contains.sureOrderList.clear();
-			SureOrderEntity entity = new SureOrderEntity(curGood.getShangpinId()+"", cartGoodsNum.getText().toString(),"0",curGood.getShangpinRmb()+"",curGood.getShangpinImgSrc1(),curGood.getShangpinShangpName(),curGood.getShangpinGuige());
-			Contains.sureOrderList.add(entity);
-			Log.d("geek", "立即购买 Contains.sureOrderList"+Contains.sureOrderList.toString());
-			startActivity(SureOrderActivity.class);
-			break;
-		case R.id.ToCart:
-			// 进入购物车
-			Intent intentCart = new Intent(getResources().getString(
-					R.string.index_broad));
-			intentCart.putExtra("IndexJumpTag", 2);
-			sendBroadcast(intentCart);
-			finish();
+			case R.id.returnImg:
+				finish();
 				break;
-		default:
-			break;
+			case R.id.addCart:
+				joinCartUrl();
+				break;
+			case R.id.allPraise:
+				if(allPraise.getText().toString().equals("暂无评价")){
+					return;
+				}
+				Bundle bundle = new Bundle();
+				bundle.putString("goodsId", curGood.getShangpinId()+"");
+				startActivity(GoodsPraiseListActivity.class,bundle);
+				break;
+			case R.id.collectImg:
+				progressDialog.show();
+				if(goodController == null){
+					goodController = new GoodsControllerImpl();
+				}
+				//当前状态为已收藏时，调用删除收藏接口，否则调用收藏接口
+				if(collectType == 0){
+					goodController.deleteCollectGoodsFromId(mRequestQueue, new Object[]{"",curGood.getShangpinId(),Contains.cxwyMallUser.getUserId()}, addCollectListener);
+				}else{
+					Map<String, String> params = new HashMap<String, String>();
+					params.put("collection.collectionShangpId", curGood.getShangpinId()+ "");
+					params.put("collection.collectionShangpName", curGood.getShangpinShangpName());
+					params.put("collection.collectionShangpOneRmb",curGood.getShangpinRmb()+"");
+					params.put("collection.collectionShangpSpec", curGood.getShangpinGuige());
+					params.put("collection.collectionImgSrc", curGood.getShangpinImgSrc1());
+					params.put("collection.collectionUserId",Contains.cxwyMallUser.getUserId()+"");
+					Log.d("geek","收藏商品 params"+params.toString());
+					goodController.getCollectGoodsFromId(mRequestQueue, params, addCollectListener);
+				}
+				break;
+			case R.id.cartOut:
+				setCount(false);
+				break;
+			case R.id.cart_Add:
+				setCount(true);
+				break;
+			case R.id.goBuy:
+				//拼接确认订单集合
+				Contains.sureOrderList.clear();
+				SureOrderEntity entity = new SureOrderEntity(curGood.getShangpinId()+"",cartGoodsNum.getText().toString(),  "", curGood.getShangpinImgSrc1(), curGood.getShangpinRmb() + "",curGood.getShangpinShangpName(), curGood.getShangpinGuige());
+				Contains.sureOrderList.add(entity);
+				Log.d("geek", "立即购买 Contains.sureOrderList"+Contains.sureOrderList.toString());
+				startActivity(SureOrderActivity.class);
+				break;
+			case R.id.ToCart:
+				// 进入购物车
+				Intent intentCart = new Intent(getResources().getString(
+						R.string.index_broad));
+				intentCart.putExtra("IndexJumpTag", 2);
+				sendBroadcast(intentCart);
+				setResult(ShopListActivity.JUMP_CART);
+				finish();
+				break;
+			default:
+				break;
 		}
 	}
-	
+
 	/**
-	 * @Title: setCount 
+	 * @Title: setCount
 	 * @Description: 修改商品数量
-	 * @param operate    
+	 * @param operate
 	 * @return void
 	 * @throws
 	 */
@@ -325,19 +326,19 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		}
 		else{
 			if(count==1){
-				
+
 			}else{
 				count--;
 			}
 		}
 		cartGoodsNum.setText(count+"");
 	}
-	
+
 	@Override
 	protected void initDataFromNet() {
 		super.initDataFromNet();
 		if(praiseController == null){
-			praiseController = new PraiseControllerImpl(); 
+			praiseController = new PraiseControllerImpl();
 		}
 		praiseController.getPraiseListFromGoodsID(mRequestQueue, new Object[]{5,1,curGood.getShangpinId(),"",Contains.cxwyMallUser.getUserId()}, this);
 	}
@@ -349,16 +350,16 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			onError(info.MSG);
 			return;
 		}
-		
+
 		if(info.getCommentList()!= null && info.getCommentList().size() != 0){
 			praiseName.setText(info.getCommentList().get(0).getPingjiaName());
 			praiseName.setVisibility(View.VISIBLE);
-			
+
 			praiseBody.setText(info.getCommentList().get(0).getPingjiaBody());
 			praiseBody.setVisibility(View.VISIBLE);
-			
+
 			praiseImg.setVisibility(View.VISIBLE);
-			
+
 			allPraise.setText("查看全部评价");
 		}else{
 			praiseName.setVisibility(View.GONE);
@@ -367,14 +368,14 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			allPraise.setText("暂无评价");
 		}
 		praiseTotal.setText("宝贝评价（"+ info.gettotal() +"）");
-		
+
 		collectType = info.getcollection();
 		if(collectType == 1){
 			collectImg.setImageResource(R.mipmap.collect_good_x);
 		}else{
 			collectImg.setImageResource(R.mipmap.collect_good_y);
 		}
-		
+
 		progressDialog.hide();
 	}
 
@@ -382,10 +383,10 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	public void onErrorResponse(String errMsg) {
 		onError(errMsg);
 	}
-	
+
 	/**
-	 * @Title: joinCartUrl 
-	 * @Description: 加入购物车请求    
+	 * @Title: joinCartUrl
+	 * @Description: 加入购物车请求
 	 * @return void
 	 * @throws
 	 */
@@ -416,7 +417,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				progressDialog.hide();
 			}
 			if (info.status != 0) {
-					ToastUtil.show(GoodsDestailActivity.this, ((BaseEntity) info).MSG);
+				ToastUtil.show(GoodsDestailActivity.this, ((BaseEntity) info).MSG);
 				return;
 			}
 			mAnimImageView.setVisibility(View.VISIBLE);
@@ -428,7 +429,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			Toast.makeText(GoodsDestailActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
 		}
 	};
-	
+
 	/** 添加至收藏请求*/
 	private ResultListener<BaseEntity> addCollectListener = new ResultListener<BaseEntity>() {
 
@@ -436,10 +437,10 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		public void onResponse(BaseEntity info) {
 			progressDialog.hide();
 			if (info.status != 0) {
-					ToastUtil.show(GoodsDestailActivity.this, ((BaseEntity) info).MSG);
+				ToastUtil.show(GoodsDestailActivity.this, ((BaseEntity) info).MSG);
 				return;
 			}
-			
+
 			if(collectType == 1){
 				collectType = 0;
 				collectImg.setImageResource(R.mipmap.collect_good_y);
@@ -454,7 +455,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			progressDialog.hide();
 			Toast.makeText(GoodsDestailActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
 		}
-	}; 
+	};
 
 	// Web视图
 	private class webViewClient extends WebViewClient {
@@ -475,7 +476,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 
 		@Override
 		public void onReceivedError(WebView view, int errorCode,
-				String description, String failingUrl) {
+									String description, String failingUrl) {
 		}
 	}
 }

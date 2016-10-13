@@ -16,5 +16,7 @@ public class BaseEntity {
 	 * 详细信息
 	 */
 	public String MSG;
+
+
 	
 }

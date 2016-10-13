@@ -47,12 +47,13 @@ public class GuideActivity extends GuideBaseActivity {
 
 	@Override
 	protected boolean showPoint() {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected Integer[] initImagesArray() {
-		return new Integer[]{R.mipmap.background_logo,R.mipmap.background_logo,R.mipmap.background_logo};
+//		return new Integer[]{R.mipmap.we11,R.mipmap.we12,R.mipmap.we13};
+		return new Integer[]{R.mipmap.we21,R.mipmap.we22,R.mipmap.we23};
 	}
 
 	@Override
