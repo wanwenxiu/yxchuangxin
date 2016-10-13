@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical"
+    android:background="@color/white" 
+    android:paddingLeft="5dp"
+    android:paddingRight="10dp"
+    >
+
+    <TextView 
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="2016年4月"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_15"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"/>
+    
+      <TextView 
+          android:id="@+id/destail"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="本期费用合计400"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"/>
+      
+       <TextView 
+          android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="已结清"
+        android:textColor="@color/color_7AC356"
+        android:textSize="@dimen/size_16"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"/>
+
+</RelativeLayout>

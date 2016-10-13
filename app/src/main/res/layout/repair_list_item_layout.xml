@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" 
+        >
+
+        <TextView
+            android:id="@+id/repairId"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="报修单号:"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/repairState"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="left|center_vertical"
+            android:text="完成"
+            android:textColor="@color/color_main_color"
+            android:textSize="15sp" />
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/repairTime"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/ll_top"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:layout_marginLeft="5dp"
+        android:text="报修时间" 
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/repairDestail"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/repairTime"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:text="报修内容" 
+        android:gravity="center_vertical"
+        />
+
+    <com.yxld.yxchuangxin.view.MyGridView
+        android:id="@+id/gvOrderInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repairDestail"
+        android:background="#F5F5F5"
+        android:cacheColorHint="#00000000"
+        android:fadeScrollbars="false"
+        android:horizontalSpacing="0dp"
+        android:listSelector="#00000000"
+        android:numColumns="5"
+        android:verticalSpacing="0dp" />
+    
+    <View 
+        android:layout_width="fill_parent"
+        android:layout_height="15dp"
+        android:background="@color/transparent"
+        android:layout_below="@id/gvOrderInfo"/>
+
+</RelativeLayout>

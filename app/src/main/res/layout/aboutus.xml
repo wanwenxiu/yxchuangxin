@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:src="@mipmap/logo"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="湖南创欣物联科技有限公司，是全国首家面向以市场化物业服务企业为导体，提供智能化社区解决方案，让业主品质生活和工作充满无限乐趣为宗旨的综合物联网服务提供商。公司始终以卓越的市场前瞻力和科技创新力推动物联网发展，为用户创造价值，推动现代社区服务发展，让社区生活与工作更便捷、更简单、更精彩。"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/banner_border_all"
+        android:padding="@dimen/size_15"
+        android:layout_below="@+id/img"/>
+
+    <TextView
+        android:text="Copyright  2016-2016   湖南创欣物联科技有限公司"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:textColor="@color/gray"
+        android:id="@+id/textView2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

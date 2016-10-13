@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+    <TextView
+        android:text="2016-08-08 14:13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expenditure_time"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/expenditure_shop"
+        android:layout_alignStart="@+id/expenditure_shop"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:text="卫龙麻辣烫"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expenditure_shop"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:text="-2.00元"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expenditure_money"
+        android:textSize="18sp"
+        android:layout_above="@+id/expenditure_time"
+        android:layout_alignEnd="@+id/expenditure_order"/>
+
+    <TextView
+        android:text="6666666666666666666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expenditure_order"
+        android:textSize="12sp"
+        android:layout_marginEnd="30dp"
+        android:layout_alignBaseline="@+id/expenditure_time"
+        android:layout_alignBottom="@+id/expenditure_time"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

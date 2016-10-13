@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/white" >
+
+    <!-- 购物车头部 -->
+
+    <RelativeLayout
+        android:id="@+id/cart_head"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/banner_border_bottom"
+        tools:ignore="UselessParent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/cart_returns"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:src="@mipmap/good_left_arrows"
+            tools:ignore="ContentDescription,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/cart_tl"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="购物车"
+            android:textColor="@color/color_333"
+            android:textSize="15dp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/cart_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/text_edit"
+            android:textColor="@color/color_333"
+            android:textSize="15dp"
+            tools:ignore="SpUsage,RtlHardcoded" />
+    </RelativeLayout>
+    <!-- 购物车登陆提示框 -->
+
+    <RelativeLayout
+        android:id="@+id/cart_loginLips"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/cart_head"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/cart_login_border"
+        android:gravity="center"
+        android:visibility="visible"
+        tools:ignore="UselessParent" >
+
+        <TextView
+            android:id="@+id/cartTips"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/cart_login_tips"
+            android:textColor="@color/color_3f3f3f"
+            android:textSize="12dp"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/cart_toLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/cartTips"
+            android:background="@drawable/cart_to_login"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/login_text"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            tools:ignore="SpUsage,RtlHardcoded" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/cartGoodList"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/cart_loginLips"
+        android:background="@drawable/top_border"
+        android:cacheColorHint="#00000000"
+        android:paddingBottom="47dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"
+        android:descendantFocusability="blocksDescendants"
+        android:visibility="visible"
+        tools:ignore="NestedScrolling,ScrollViewSize" >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/cartIsNullLips"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/cartGoodList"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:visibility="visible" >
+        <ImageView
+            android:id="@+id/cartIsNullImg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/no_cart"
+            android:layout_marginTop="150dp"
+            android:contentDescription="@null"/>
+        <TextView
+            android:id="@+id/cartIsNullText"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/cartIsNullImg"
+            android:gravity="center"
+            android:text="@string/cart_isNull"
+            android:textColor="@color/color_333"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/cartIsNullGo"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/cartIsNullText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/go_shoping_border"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/cart_goShopping"
+            android:textColor="@color/color_333"
+            android:textSize="13sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/cart_editWrap"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:background="@drawable/top_border"
+
+        tools:ignore="UselessParent,ObsoleteLayoutParam" >
+
+        <CheckBox
+            android:id="@+id/cartIsAllSelect"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:button="@drawable/checkbox_selector"
+            android:checked="false"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/all_selete"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/cartIsAllSelect"
+            android:gravity="center"
+            android:text="@string/all_selete"
+            android:textColor="@color/color_3f3f3f"
+            android:textSize="14sp"
+            android:layout_marginLeft="5dp"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/cartPriceConnt"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/all_selete"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="@string/price_connt"
+            android:textColor="@color/color_333"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/cart_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/text_click"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="下单"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="RtlHardcode,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/cart_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/text_click"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_toLeftOf="@+id/cart_sure"
+            tools:ignore="RtlHardcode,RtlHardcoded" />
+    </RelativeLayout>
+
+</RelativeLayout>

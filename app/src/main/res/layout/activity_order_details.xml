@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_e1e1e1" 
+    >
+    <include layout="@layout/layout_empty_data" />
+   <RelativeLayout 
+       android:id="@+id/main"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       >
+       <!--android:layout_below="@+id/orderDetails_head"-->
+    <ScrollView
+        android:id="@+id/orderScroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="46dp"
+        android:scrollbars="none"
+        tools:ignore="UselessLeaf,ScrollViewCount" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/banner_border_bottom"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
+
+                <TextView
+                    android:id="@+id/orderDetailsOrderNumTl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:text="@string/order_num"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13sp"
+                    android:layout_marginRight="5dp"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/orderDetailsOrderNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/orderDetailsOrderNumTl"
+                    android:gravity="center"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13sp"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/orderDetailsOrderCate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:textColor="@color/color_main_color"
+                    android:textSize="15sp"
+                    tools:ignore="RtlHardcoded" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sureOrderAdress"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/sureOrderUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:maxWidth="200dp"
+                    android:minWidth="100dp"
+                    android:textColor="#3f3f3f"
+                    android:textSize="11dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/sureOrderUserTell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/sureOrderUserName"
+                    android:drawableLeft="@mipmap/tell_icon"
+                    android:gravity="center|left"
+                    android:textColor="#3f3f3f"
+                    android:textSize="11dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/sureOrderAdressInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sureOrderUserTell"
+                    android:gravity="center|left"
+                    android:textColor="#3f3f3f"
+                    android:textSize="11dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/banner_border_bottom"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/order_goodList"
+                android:textColor="#3f3f3f"
+                android:textSize="15sp"
+                tools:ignore="RtlSymmetry,RtlHardcoded" />
+
+            <com.yxld.yxchuangxin.view.NoScrollListView
+                android:id="@+id/orderGoodList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:cacheColorHint="#00000000"
+                android:divider="@drawable/banner_border_bottom"
+                tools:ignore="NestedScrolling" >
+            </com.yxld.yxchuangxin.view.NoScrollListView>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/order_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/orderTime"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/orderTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/order_time"
+                    android:gravity="center|left"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/order_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/orderTotalNum"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/order_totalnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/order_num"
+                    android:gravity="center|left"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="@dimen/ui_10_dip"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/robOrder_buyerWrap"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/banner_border_bottom"
+                android:visibility="visible"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+                <TextView
+                    android:id="@+id/robOrder_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/buyer_note"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+                <TextView
+                    android:id="@+id/robOrder_buyerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="150dp"
+                    android:layout_toRightOf="@+id/robOrder_buyer"
+                    android:gravity="center|left"
+                    android:textColor="#3f3f3f"
+                    android:text="@string/get_failed"
+                    android:textSize="13dp"
+                    android:visibility="visible"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/paytype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/par_Methods"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/orderpaytype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/paytype"
+                    android:gravity="center|left"
+                    android:text="@string/goods_left"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/deliverGoods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/orderPeisong"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/orderTradingStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/deliverGoods"
+                    android:gravity="center|left"
+                    android:text="/"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/cancelinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/cancelinfo"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/ordercancelinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/cancelinfo"
+                    android:gravity="center|left"
+                    android:text="/"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/cart_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/color_main_color"
+        tools:ignore="UselessParent,ObsoleteLayoutParam" >
+
+        <TextView
+            android:id="@+id/cartText1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="2dp"
+            android:text="@string/orderConPrice"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded,SpUsage" />
+
+        <TextView
+            android:id="@+id/cartPriceConnt"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/cartText1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded,SpUsage" />
+    </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

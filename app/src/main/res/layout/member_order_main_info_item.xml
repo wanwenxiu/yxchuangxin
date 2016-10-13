@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llDestail"
+    android:layout_width="fill_parent"
+    android:layout_height="90dp"
+    android:background="#F5F5F5"
+    android:orientation="horizontal"
+     >
+
+    <ImageView
+        android:id="@+id/goodsImg"
+        android:layout_width="65dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/empty_photo" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.2"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/orderDestail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="碳烤猪肉铺选用原生态绿色健康食品, 经现代科学加工工艺精制而成"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:maxLength="40"
+                android:lines="2"
+                android:layout_marginTop="2dp"
+                />
+
+            <TextView
+                android:id="@+id/orderClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="口味分类：香辣味"
+                android:textColor="@color/color_999999"
+                android:textSize="13sp"
+                android:layout_marginBottom="3dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.8"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/orderPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="¥1900.00"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/orderSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="x1"
+                android:textColor="@color/color_999999"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

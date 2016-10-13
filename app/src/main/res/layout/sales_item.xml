@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recommendWrap"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/list_button_border"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/recommendListImgs"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:src="@mipmap/empty_photo"
+        android:contentDescription="@null"
+        android:paddingLeft="@dimen/size_15"
+        android:scaleType="fitXY"
+        fresco:placeholderImage="@mipmap/empty_photo"
+        android:paddingRight="@dimen/size_15"/>
+
+   <!-- <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/goodsImg"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:background="@mipmap/empty_photo"
+        />-->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        tools:ignore="UselessLeaf,RtlHardcoded,RtlSymmetry" >
+
+        <TextView
+            android:id="@+id/recommendListName"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#3f3f3f"
+            android:textSize="14sp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/recommendCunt"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:gravity="center_vertical|left"
+            android:textColor="#3f3f3f"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/recommendPrice"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:gravity="center_vertical|left"
+            android:textColor="@color/color_main_color"
+            android:textSize="15sp" />
+        <ImageView
+        android:id="@+id/cate_joinCart"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="-14dp"
+        android:layout_gravity="right"
+        android:background="@color/white"
+        android:src="@mipmap/new_joincart_icon"
+        tools:ignore="RtlHardcoded,ContentDescription" />
+    </LinearLayout>
+</LinearLayout>

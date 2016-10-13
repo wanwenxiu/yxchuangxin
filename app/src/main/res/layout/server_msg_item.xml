@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:weightSum="4"
+    android:padding="5dp"
+    >
+    <TextView 
+        android:id="@+id/msg_info"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:text="文字内容文字内容文字内容文字内容文字内容"
+        android:textColor="@color/color_3f3f3f"
+        android:textSize="@dimen/size_13"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:paddingRight="5dp"
+        />
+    
+    <TextView 
+        android:id="@+id/msg_time"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="2016/04/16"
+        android:textColor="@color/color_3f3f3f"
+        android:textSize="@dimen/size_13"
+        android:gravity="center_vertical"
+        />
+</LinearLayout>

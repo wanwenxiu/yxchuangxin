@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+        
+        <ImageView
+            android:id="@+id/dynamicImg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_data_select"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentLeft="true"
+            />
+        
+        <TextView
+            android:id="@+id/dynamicName"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="宇莫尘"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" 
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/dynamicImg"
+            />
+        
+        <TextView
+            android:id="@+id/dynamicDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="来自Android"
+            android:textColor="#666666"
+            android:textSize="13sp" 
+            android:gravity="center"
+            android:layout_toRightOf="@id/dynamicName"
+            android:layout_marginLeft="10dp"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/dynamicContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="屏幕大小合适么？系统用的习惯么？配件质量如何？快写下你的评价 分享给大家吧！"
+        android:textColor="#717271"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" 
+        android:layout_marginTop="5dp">
+
+         <TextView
+            android:id="@+id/dynamicSum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1楼"
+            android:textColor="#717271"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/dynamicTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="08-25"
+           android:textColor="#717271"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</LinearLayout>

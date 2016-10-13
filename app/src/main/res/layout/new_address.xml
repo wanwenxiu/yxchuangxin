@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+	android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10" 
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="收货人:"
+            android:focusable="true"
+            android:textSize="@dimen/size_14" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="7"
+            android:background="@drawable/whrite_balack_corners_bg"
+            android:hint="请输入您的姓名"
+            android:paddingLeft="10dp" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10" 
+         android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="联系电话:"
+            android:textSize="@dimen/size_14" />
+
+        <EditText
+            android:id="@+id/editPhone"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="7"
+            android:background="@drawable/whrite_balack_corners_bg"
+            android:hint="请输入联系电话"
+            android:inputType="number"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10" 
+         android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="选择省市:"
+            android:textSize="@dimen/size_14" />
+
+        <TextView
+            android:id="@+id/selectAddress"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="7"
+            android:background="@drawable/whrite_balack_corners_bg"
+            android:text="请选择省市区"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10" 
+         android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="选择小区:"
+            android:textSize="@dimen/size_14" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="7"
+            android:background="@drawable/whrite_balack_corners_bg" 
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10"
+         android:layout_marginRight="5dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="详细地址:"
+            android:textSize="@dimen/size_14" />
+
+        <EditText
+            android:id="@+id/editDestail"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="7"
+            android:background="@drawable/whrite_balack_corners_bg"
+            android:hint="请输入详细地址"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/addAddress"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/buttom_seletor"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>

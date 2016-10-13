@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_e1e1e1"
+    >
+
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="12" >
+
+        <TextView
+            android:id="@+id/shopAddressTest"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:gravity="center"
+            android:text="收货人地址为空"
+            android:textColor="@color/text_border"
+            android:textSize="18sp"
+             />
+
+        <ListView
+            android:id="@+id/address_list"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:dividerHeight="10dp"
+            android:listSelector="@null"
+            android:visibility="gone"
+            android:scrollbars="none" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/addAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttom_seletor"
+            android:gravity="center"
+            android:text="新建收货地址"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+    
+</LinearLayout>

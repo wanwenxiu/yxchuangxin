@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/banner_border_bottom"
+        android:paddingLeft="5dp" >
+
+        <ImageView
+            android:id="@+id/goodImgs"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/goodImgs"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请给商品评价:"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" 
+                android:layout_marginTop="12dp"
+                >
+                
+                <RatingBar
+                    android:id="@+id/goods_praise"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="false" 
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edComment"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="-1dp"
+        android:background="@drawable/banner_border_bottom"
+        android:gravity="left|top"
+        android:hint="长度在10-500个字之间\n写下购买体会或使用过程中带来的帮助\n可以为其他小伙伴带来参考哦~"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+      
+        <CheckBox
+            android:id="@+id/praiseType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:button="@drawable/checkbox_selector"
+            android:text="匿名评价"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+             />
+    </LinearLayout>
+
+</LinearLayout>

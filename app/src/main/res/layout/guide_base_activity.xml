@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:id="@+id/rl_guide_main"
+    android:layout_width="fill_parent"  
+    android:layout_height="fill_parent"  
+    android:orientation="vertical"
+     >  
+  
+    <android.support.v4.view.ViewPager  
+        android:id="@+id/contentPager"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:layout_gravity="center"  
+        android:flipInterval="30"  
+        android:persistentDrawingCache="animation" />  
+  
+    <FrameLayout 
+        android:id="@+id/fl" 
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"  
+        android:layout_alignParentBottom="true"  
+        android:layout_centerHorizontal="true"  
+        android:gravity="center"   
+        android:layout_marginBottom="22.0dip">  
+        <LinearLayout  
+            android:id="@+id/dot_contain"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:gravity="center"  
+            android:orientation="horizontal" >             
+        </LinearLayout>  
+  
+        <ImageView  
+            android:id="@+id/cur_dot"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:src="@mipmap/cur_point"
+             />  
+    </FrameLayout>  
+  
+     <ImageView  
+        android:id="@+id/pass"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"  
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"  
+        android:visibility="gone" />  
+    
+    <ImageView  
+        android:id="@+id/open"  
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"  
+        android:src="@android:color/white"  
+        android:visibility="gone" />  
+  
+</RelativeLayout>

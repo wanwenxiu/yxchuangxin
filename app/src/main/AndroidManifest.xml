@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.yxld.yxchuangxin"
+          android:versionCode="1"
+          android:versionName="1.0">
+
+    <!-- 关于versionName：版本重大更新时升级第一位，普通的功能更新升级第二位，紧急打版升级第三位 by:万文秀 -->
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="23"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 定位 -->
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
+    </uses-permission>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
+    </uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE">
+    </uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
+    </uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE">
+    </uses-permission>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE">
+    </uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
+    </uses-permission>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">
+    </uses-permission>
+
+    <!-- 分享 -->
+    <!-- renren sso Permission for Unit Test -->
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+
+
+    <!--推送-->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <permission
+        android:name="com.yxld.yxchuangxin.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.yxld.yxchuangxin.permission.MIPUSH_RECEIVE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!--银联-->
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-feature android:name="android.hardware.nfc.hce"/>
+
+    <application
+        android:name="com.yxld.yxchuangxin.base.AppConfig"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/login_icon_bg"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:replace="icon"
+        >
+        <uses-library
+            android:name="org.simalliance.openmobileapi"
+            android:required="false"/>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="c154e40ac5b85d547a13ee17883387c6">
+        </meta-data>
+
+        <meta-data
+            android:name="design_width"
+            android:value="1080">
+        </meta-data>
+        <meta-data
+            android:name="design_height"
+            android:value="1920">
+        </meta-data>
+
+        <service android:name="com.amap.api.location.APSService">
+        </service>
+
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.login.GuideActivity"
+            android:label="广告页面"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.login.WelcomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.login.LoginActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.order.SureOrderActivity"
+            android:label="确认订单"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+        <activity
+            android:name=".activity.login.RegisterActivity"
+            android:label="注册"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.order.OrderListActivity"
+            android:label="订单列表"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.goods.ShopListActivity"
+            android:label="商品列表">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.order.AddressListActivity"
+            android:label="地址管理">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.order.addAddressActivity"
+            android:label="新建地址">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.goods.SearchActivity"
+            android:label="搜索界面"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.ComplaintActivity"
+            android:label="投诉"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.selectimg.Repair"
+            android:label="报修"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.MemberActivity"
+            android:label="账号设置"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.UpdatePwd"
+            android:label="修改密码"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.UpdateName"
+            android:label="修改昵称"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.UpdateCard"
+            android:label="修改身份证"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.ExpressActivity"
+            android:label="邮包查询"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.FeiYongDestailActivity"
+            android:label="查看缴费"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.EmployerActivity"
+            android:label="业主信息"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity"
+            android:label="商品详情"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.goods.GoodsPraiseListActivity"
+            android:label="商品评价列表"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.order.OrderDetailActivity"
+            android:label="订单详情"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.goods.GoodsPraiseActivity"
+            android:label="评价商品界面"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.Main.SelectPlaceActivity"
+            android:label="选择小区界面"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.JiaoFeiListActivity"
+            android:label="缴费列表界面"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.FeiYongListActivity"
+            android:label="费用列表"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--  这个是用于进行图片浏览时的界面 -->
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.selectimg.GalleryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- 这个类主要是用来进行显示包含图片的文件夹 -->
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.selectimg.ImageFile"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- 这个是进入相册显示所有图片的界面 -->
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.selectimg.AlbumActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--  这个是显示一个文件夹里面的所有图片时的界面-->
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.index.selectimg.ShowAllPhoto"
+            android:screenOrientation="portrait">
+        </activity>
+        <!--  报修列表-->
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.RepairListActivity"
+            android:label="报修列表"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity"
+            android:label="版本更新"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.Main.NewMainActivity2"
+            android:label="蓝色版本"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.Main.WuYeMainActivity"
+            android:label="社区物业主页"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.Main.ServiceMainActivity"
+            android:label="社区助手主页"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.Main.MallMainActivity"
+            android:label="社区商城主页"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.index.phoneOpenDoorActivity"
+            android:label="手机开门"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.index.VisitorInvitationActivity"
+            android:label="来访邀请"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.index.AuthorizedReleaseActivity"
+            android:label="授权放行"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.index.CameraConfigActivity"
+            android:label="居家安防"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.mine.AboutUsActivity"
+            android:label="关于我们"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activity.mine.SaveMoneyActivity"
+            android:label="充值">
+        </activity>
+
+        <activity
+            android:name=".activity.index.ChengyuanguanliActivity"
+            android:label="成员管理">
+        </activity>
+
+        <activity
+            android:name=".activity.index.ChengyuanguanliAddActivity"
+            android:label="成员添加">
+
+        </activity>
+
+        <activity
+            android:name=".activity.order.MyCouponActivity"
+            android:label="我的优惠券"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.order.CouponActivity"
+            android:label="优惠券"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.order.NoCouponActivity"
+            android:label="优惠券"
+            android:screenOrientation="portrait"/>
+
+        <!--摄像头-->
+        <activity
+            android:name=".activity.index.CameraActivity"
+            android:label="摄像头"
+            ></activity>
+
+        <!--交易记录-->
+        <activity
+            android:name=".activity.mine.RecordAcitvity"
+            android:label="交易记录"
+            ></activity>
+
+        <!--web-->
+        <activity android:name=".activity.Main.WebViewActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan"/>
+
+        <!--支付宝-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+
+        <!--微信支付-->
+        <activity
+            android:name="com.yxld.yxchuangxin.activity.order.PayWaySelectActivity"
+            android:label="收银台"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wx474645d31f239239"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+        </activity>
+
+        <!--推送-->
+        <service
+            android:name="com.xiaomi.push.service.XMJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice"/>
+
+        <service
+            android:name="com.xiaomi.push.service.XMPushService"
+            android:enabled="true"
+            android:process=":pushservice"/>
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true"/>
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true"/>
+
+        <receiver
+            android:name="com.yxld.yxchuangxin.mipush.DemoMessageReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false"
+            android:process=":pushservice">
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER"/>
+            </intent-filter>
+        </receiver>
+
+
+        <!-- =======================友盟组件======================= -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5749219b67e58e9705001ab1"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="ejoooo"/>
+
+        <!-- *************************    分享相关的注册 START **************************** -->
+
+        <!-- 分享内容编辑页 -->
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+        </activity>
+
+        <!-- 腾讯SSO授权的Activity注册 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent100424468"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!-- 微信回调activity
+        <activity
+            android:name="com.ejoooo.tuoxing.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!-- *************************    分享相关的注册 END **************************** -->
+    </application>
+
+
+</manifest>

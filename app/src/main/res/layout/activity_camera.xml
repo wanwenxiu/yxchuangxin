@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <com.p2p.core.P2PView
+        android:id="@+id/pview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:id="@+id/btn_screenShot"
+        android:text="截图"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="73dp"
+        android:layout_marginEnd="73dp"
+        android:layout_alignTop="@+id/btn_monitor"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="监控日志"
+        android:id="@+id/tv_content"
+        android:layout_below="@+id/btn_monitor"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设备号"
+        android:id="@+id/textView"
+        android:layout_below="@+id/pview"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_callid"
+        android:layout_below="@+id/pview"
+        android:layout_toEndOf="@+id/textView2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设备密码"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/et_callid"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_callpwd"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_monitor"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/et_callpwd"
+        android:layout_toStartOf="@+id/btn_screenShot"
+        android:text="开始监控"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#56abe4"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:id="@+id/fab"
+        android:layout_below="@+id/tv_content"
+        android:layout_alignParentEnd="true"
+        android:src="@android:drawable/ic_dialog_info"
+        android:layout_marginEnd="29dp"/>
+
+</RelativeLayout>

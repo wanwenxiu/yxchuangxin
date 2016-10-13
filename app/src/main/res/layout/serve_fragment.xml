@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="服务"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_14" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.yxld.yxchuangxin.view.ImageCycleView
+                android:id="@+id/ad_view1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/cccccc" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/banner_border_bottom"
+                android:gravity="left|bottom"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:text="最新通知"
+                android:textColor="@color/color_3f3f3f"
+                android:textSize="@dimen/size_16" />
+
+            <com.yxld.yxchuangxin.view.NoScrollListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:cacheColorHint="#00000000"
+                android:divider="@drawable/cate_border"
+                android:dividerHeight="0dp"
+                android:scrollbars="none" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/banner_border_bottom"
+                android:gravity="left|bottom"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:text="物业消息"
+                android:textColor="@color/color_3f3f3f"
+                android:textSize="@dimen/size_16" />
+
+            <com.yxld.yxchuangxin.view.MyGridView
+                android:id="@+id/property"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:verticalSpacing="5dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/banner_border_bottom"
+                android:gravity="left|bottom"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:text="更多服务"
+                android:textColor="@color/color_3f3f3f"
+                android:textSize="@dimen/size_16" />
+
+            <com.yxld.yxchuangxin.view.MyGridView
+                android:id="@+id/service"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

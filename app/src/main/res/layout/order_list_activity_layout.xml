@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    
+     <LinearLayout
+        android:id="@+id/order_wrap"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/banner_border_bottom"
+        android:orientation="horizontal"
+         >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvAll"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/order_border"
+                android:gravity="center"
+                android:text="@string/allOrder"
+                android:textColor="@color/color_main_color"
+                android:textSize="14sp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvytj"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/ytjOrder"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                 />
+        </RelativeLayout>
+        
+              <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvdfh"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/dfhOrder"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                 />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvdsh"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/dshOrder"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvdpj"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/dpjOrder"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvth"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/dthOrder"
+               android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="5dp" >
+
+        <com.yxld.yxchuangxin.view.XListView
+            android:id="@+id/xListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@drawable/cate_border"
+            android:dividerHeight="0dp"
+            android:padding="0dp"
+            android:scrollbars="none"/>
+
+        <include
+            layout="@layout/layout_loading_failed"
+            android:visibility="gone" />
+
+        <include layout="@layout/layout_empty_data" />
+    </RelativeLayout>
+</LinearLayout>

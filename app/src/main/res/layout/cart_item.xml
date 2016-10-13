@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/product_list"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/cate_border"
+              android:gravity="left|center"
+              android:orientation="horizontal"
+              android:padding="10dp"
+              tools:ignore="RtlHardcoded">
+
+
+    <cn.refactor.library.SmoothCheckBox
+        android:id="@+id/cartIsSelect"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:button="@drawable/checkbox_selector"
+        android:focusable="false"
+        android:gravity="center"
+        app:color_checked="#447eeb"/>
+
+    <RelativeLayout
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:background="@drawable/img_border"
+        android:gravity="center"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/cartListImg"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:scaleType="fitXY"
+            android:src="@mipmap/empty_photo"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="0dp">
+
+        <TextView
+            android:id="@+id/cartListGoodsName"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:textColor="@color/color_3f3f3f"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/cartPriceDv"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/price_danwei"
+            android:textColor="@color/color_333"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/cartListPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/cartPriceDv"
+            android:textColor="@color/color_333"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:id="@+id/cartOut"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/cart_goods_Num"
+            android:background="@mipmap/car_jian"
+            tools:ignore="ContentDescription,RtlHardcoded"/>
+
+        <EditText
+            android:id="@+id/cart_goods_Num"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@+id/cart_Add"
+            android:background="@drawable/img_borde2r"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/color_333"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:id="@+id/cart_Add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/car_jia"
+            tools:ignore="ContentDescription,RtlHardcoded"/>
+    </RelativeLayout>
+</LinearLayout>

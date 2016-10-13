@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:background="@color/white"
+    android:padding="5dp"
+     >
+
+    <TextView
+        android:id="@+id/delivery_address_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:text="张三"
+        android:textSize="@dimen/size_14"
+        />
+
+    <TextView
+        android:id="@+id/delivery_address_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="133XXXXXXXX"
+        android:textSize="@dimen/size_14"
+         />
+
+    <TextView
+        android:id="@+id/delivery_address"
+        android:layout_width="wrap_content" 
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/delivery_address_name"
+        android:layout_below="@+id/delivery_address_name"
+        android:gravity="center_vertical"
+        android:text="上林国际1栋1706"
+        android:textSize="@dimen/size_14" 
+        android:background="@drawable/banner_border_bottom"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/delivery_address"
+        >
+
+        <ImageView 
+            android:id="@+id/img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/cart_03"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/defule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="设为默认"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            />
+
+        <TextView
+            android:id="@+id/update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="编辑"
+            android:drawableLeft="@mipmap/edit"
+            android:drawablePadding="5dp"
+             />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="删除"
+            android:drawableLeft="@mipmap/delete"
+            android:drawablePadding="5dp"
+             />
+    </RelativeLayout>
+
+</RelativeLayout>

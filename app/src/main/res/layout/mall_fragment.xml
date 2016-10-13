@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <!--android:background="@color/color_f4f5f7"-->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/returnImg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@mipmap/good_left_arrows" />
+
+        <TextView
+            android:id="@+id/searchTv"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="7"
+            android:background="@drawable/buttom_white_border"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="请输入搜索关键字"
+            android:textColor="@color/cccccc" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@mipmap/search" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:weightSum="4" >
+
+            <ListView
+                android:id="@+id/firstClassList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:padding="0dp"
+                android:scrollbars="none" >
+            </ListView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:orientation="vertical" >
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:orientation="horizontal">
+                   <ImageView
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       android:background="@mipmap/class_top_img" />
+                   
+                   <TextView
+                       android:id="@+id/allgoods"
+                       android:layout_width="25dp"
+                       android:layout_height="match_parent"
+                       android:layout_marginTop="5dp"
+                       android:layout_marginBottom="5dp"
+                       android:gravity="center"
+                       android:text="查看全部"
+                       android:textColor="@color/white"
+                       android:background="@color/tran_bg"
+                       android:layout_alignParentRight="true"/>
+               </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="全部分类:"
+                        android:textColor="@color/black"
+                        android:gravity="center"/>
+                </LinearLayout>
+                <GridView
+                    android:id="@+id/secondClassList"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:cacheColorHint="#00000000"
+                    android:fadeScrollbars="false"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="#00000000"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:verticalSpacing="10dp" >
+                </GridView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <include layout="@layout/layout_loading_failed" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,189 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:indicator="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_main_color"
+        android:orientation="horizontal"
+        android:weightSum="10" >
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@mipmap/good_left_arrows"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/searchTv"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="7"
+            android:background="@drawable/buttom_white_border"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="请输入搜索关键字"
+            android:textColor="@color/cccccc" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@mipmap/search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_wrap"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/banner_border_bottom"
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvNum"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/order_border"
+                android:gravity="center"
+                android:text="@string/num"
+                android:textColor="@color/color_main_color"
+                android:textSize="15sp"
+                tools:ignore="InefficientWeight,SpUsage" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:ignore="InefficientWeight,SpUsage" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvPopularity"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/popularity"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:ignore="InefficientWeight,SpUsage" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" >
+
+        <com.yxld.yxchuangxin.view.XListView
+            android:id="@+id/xListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@drawable/cate_border"
+            android:dividerHeight="0dp"
+            android:padding="0dp"
+            android:scrollbars="none"/>
+
+        <include
+            layout="@layout/layout_loading_failed"
+            android:visibility="gone" />
+
+        <include layout="@layout/layout_empty_data" />
+    </RelativeLayout>
+
+     <RelativeLayout
+        android:id="@+id/return_topWrap"
+        android:layout_width="fill_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="-110dp"
+        android:paddingBottom="10dp"
+        android:visibility="visible" >
+
+        <RelativeLayout
+            android:id="@+id/goodsDetals_cart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/goodsdetails_cart_selector" >
+
+            <TextView
+                android:id="@+id/goodsDetalsNum"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/cate_cartborder"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                android:visibility="gone"
+                tools:ignore="RtlHardcoded,SpUsage" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/now_goodsNum"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="74dp"
+            android:background="@mipmap/tming"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
+
+        <ImageView
+            android:id="@+id/return_top"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="60dp"
+            android:background="@mipmap/return_top"
+            android:visibility="gone"
+            tools:ignore="ContentDescription,RtlHardcoded" />
+    </RelativeLayout>
+</LinearLayout>

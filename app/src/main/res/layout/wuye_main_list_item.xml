@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@color/activity_bg_color"
+    >
+
+    <com.yxld.yxchuangxin.view.RectangleWaterWave
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        android:id="@+id/reveallayout"
+        >
+
+        <ImageView
+            android:id="@+id/menuSrc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@mipmap/new_joincart_icon"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:weightSum="2.1"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.0"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/menuName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="三级菜单"
+                    android:textColor="@color/color_252525"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/menuDestail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="三级菜单详细"
+                    android:textColor="@color/color_86898B"
+                    android:textSize="@dimen/size_12"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="2dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.yxld.yxchuangxin.view.RectangleWaterWave>
+
+</LinearLayout>

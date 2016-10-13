@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/size_12"
+        android:text="长沙一栋2单元"
+        android:paddingLeft="@dimen/ui_10_dip"
+        android:gravity="bottom"
+        android:paddingBottom="@dimen/size_15"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:weightSum="4.5"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:background="@drawable/banner_border_bottom">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="访客姓名"
+                android:textColor="@color/color_86898B"
+                android:textSize="@dimen/size_14"
+                android:gravity="center_vertical"/>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:hint="请输入"
+                android:textColor="@color/color_86898B"
+                android:textSize="@dimen/size_14"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:weightSum="4.5"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:background="@drawable/banner_border_bottom">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="联系方式"
+                android:textColor="@color/color_86898B"
+                android:textSize="@dimen/size_14"
+                android:gravity="center_vertical"/>
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:hint="请输入"
+                android:textColor="@color/color_86898B"
+                android:textSize="@dimen/size_14"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="访客邀请码生成后24小时内有效"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/size_12"
+        android:paddingTop="5dp"
+        android:paddingLeft="@dimen/ui_10_dip"/>
+
+<TextView
+    android:id="@+id/sure"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/color_D9D9D9"
+    android:text="生成邀请码"
+    android:textColor="@color/white"
+    android:textSize="@dimen/size_16"
+    android:layout_marginLeft="@dimen/ui_10_dip"
+    android:layout_marginRight="10dp"
+    android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/iv_qr_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
