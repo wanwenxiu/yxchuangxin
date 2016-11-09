@@ -52,8 +52,7 @@ public class GuideActivity extends GuideBaseActivity {
 
 	@Override
 	protected Integer[] initImagesArray() {
-//		return new Integer[]{R.mipmap.we11,R.mipmap.we12,R.mipmap.we13};
-		return new Integer[]{R.mipmap.we21,R.mipmap.we22,R.mipmap.we23};
+		return new Integer[]{R.mipmap.welcome_opendoor,R.mipmap.welcome_jiaofei,R.mipmap.welcome_jiaju,R.mipmap.welcom_mall};
 	}
 
 	@Override

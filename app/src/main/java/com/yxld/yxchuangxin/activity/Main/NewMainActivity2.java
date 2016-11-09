@@ -28,6 +28,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 //import com.sunfusheng.marqueeview.MarqueeView;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
@@ -86,7 +87,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     private SwipeRefreshLayout main;
 
-    private TextView  curPlace, secondaryActions, secondaryActionsDestail,marqueeTv;
+    private TextView  curPlace,marqueeTv;
+
+    private MarqueeView secondaryActions,secondaryActionsDestail;
 
     private AppVersionController versionController;
     private PeiZhiController PeiZhiController;
@@ -95,6 +98,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     private ArrayList<String> urls = new ArrayList<>();
 
     private CxwyAppVersion entity;
+
 
 //    /** 跑马灯效果-ViewFinder控件 */
 //    private ViewFlipper viewFlipper;
@@ -109,13 +113,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
      * 动态获取定位权限
      */
     public final static int REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE = 124;
-    private String[] secondaryActionstv = {"我的物业 >>", "专享服务>>", "邮包查寄 >>", "个人中心 >>", "投诉建议 >>"};
-
-    private String[] secondaryActionstvDestail = {"包含车辆识别、居家安防、放心出入、授权放行栏目",
-            "您的专属维修专家，解决日常报修烦恼。处理过程实时跟踪，报修结果及时反馈",
-            "邮包信息我来查，精确及时到您家。快递寄件请找我，各大物流随您挑",
-            "包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目",
-            "您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升"};
+//    private String[] secondaryActionstv = {"我的物业 >>", "专享服务>>", "邮包查寄 >>", "个人中心 >>", "投诉建议 >>"};
+//
+//    private String[] secondaryActionstvDestail = {"包含车辆识别、居家安防、放心出入、授权放行栏目",
+//            "您的专属维修专家，解决日常报修烦恼。处理过程实时跟踪，报修结果及时反馈",
+//            "邮包信息我来查，精确及时到您家。快递寄件请找我，各大物流随您挑",
+//            "包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目",
+//            "您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升"};
 
     public static List<String> logList = new CopyOnWriteArrayList<String>();
     /**
@@ -132,7 +136,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
      */
     private final String CB_SAVE_PWD = "cb_save_pwd";
 
-    private MyTask mTask;
+//    private MyTask mTask;
 
     @Override
     protected void initDataFromLocal() {
@@ -278,14 +282,32 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         curPlace = (TextView) findViewById(R.id.curPlace);
         curPlace.setText(Contains.cxwyMallUser.getUserSpare1()+"");
         curPlace.setOnClickListener(this);
-        secondaryActions = (TextView) findViewById(R.id.secondaryActions);
-        secondaryActions.setOnClickListener(this);
+//        secondaryActions = (TextView) findViewById(R.id.secondaryActions);
+//        secondaryActions.setOnClickListener(this);
+//
+//        secondaryActions.setText(secondaryActionstv[0]);
+//
+//
+//        secondaryActionsDestail = (TextView) findViewById(R.id.secondaryActionsDestail);
+//        secondaryActionsDestail.setText(secondaryActionstvDestail[0]);
 
-        secondaryActions.setText(secondaryActionstv[0]);
+        secondaryActions = (MarqueeView) findViewById(R.id.secondaryActions);
+        List<String> info = new ArrayList<>();
+        info.add("我的物业 >>");
+        info.add("专享服务>>");
+        info.add("邮包查寄 >>");
+        info.add("个人中心 >>");
+        info.add("投诉建议 >>");
+        secondaryActions.startWithList(info);
 
-
-        secondaryActionsDestail = (TextView) findViewById(R.id.secondaryActionsDestail);
-        secondaryActionsDestail.setText(secondaryActionstvDestail[0]);
+        secondaryActionsDestail = (MarqueeView) findViewById(R.id.secondaryActionsDestail);
+        List<String> info1 = new ArrayList<>();
+        info1.add("包含车辆识别、居家安防、放心出入、授权放行栏目");
+        info1.add("您的专属维修专家，解决日常报修烦恼。处理过程实时跟踪，报修结果及时反馈");
+        info1.add("邮包信息我来查，精确及时到您家。快递寄件请找我，各大物流随您挑");
+        info1.add("包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目");
+        info1.add("您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升");
+        secondaryActionsDestail.startWithList(info1);
 
 //        ll_tv_type = (LinearLayout) findViewById(R.id.ll_tv_type);
 //        initFlipper();
@@ -325,9 +347,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
         imageCycleView = (ImageCycleView) findViewById(R.id.indexAdvs);
 
-
-        mTask = new MyTask();
-        mTask.execute();
+//
+//        mTask = new MyTask();
+//        mTask.execute();
     }
 
     public void onRefresh() {
@@ -350,8 +372,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
-                bundle.putInt("tag", 0);
-                startActivity(WuYeMainActivity.class, bundle);
+                startActivity(WuyeActivity.class);
+//                bundle.putInt("tag", 0);
+//                startActivity(WuYeMainActivity.class, bundle);
                 break;
             case R.id.serviceWarp:
                 bundle.putInt("tag", 0);
@@ -573,49 +596,49 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 .into((ImageView) view);
     }
 
-    private  class MyTask extends AsyncTask<Object, Integer, Double> {
-       // private boolean mRun = true;
-
-        @Override
-        protected Double doInBackground(Object... params) {
-
-            //一秒更新一次
-           // while (mRun) {
-                try {
-                   // Log.d("geek","首页mRun ="+mRun);
-                    Thread.sleep(3000);
-                    publishProgress(++count);
-                    Log.d("geek","doInBackground count ="+count);
-//                  if (count == 4) {
-//                        count = -1;
-//                  }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-           // }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            int index = values[0];
-            Log.d("geek","onProgressUpdate index ="+index);
-            if(secondaryActions!= null && secondaryActionstv != null && secondaryActionstv[index] != null){
-                secondaryActions.setText(secondaryActionstv[index]);
-                secondaryActionsDestail.setText(secondaryActionstvDestail[index]);
-                if (curPlace.getText().toString().equals("") || "定位失败,请手动选择小区".equals(curPlace.getText().toString())) {
-                    initDataFromLocal();
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Double result) {
-            //异步任务执行结束
-            Log.d("geek","异步任务执行结束");
-        }
-    };
+//    private  class MyTask extends AsyncTask<Object, Integer, Double> {
+//       // private boolean mRun = true;
+//
+//        @Override
+//        protected Double doInBackground(Object... params) {
+//
+//            //一秒更新一次
+//           // while (mRun) {
+//                try {
+//                   // Log.d("geek","首页mRun ="+mRun);
+//                    Thread.sleep(3000);
+//                    publishProgress(++count);
+//                    Log.d("geek","doInBackground count ="+count);
+////                  if (count == 4) {
+////                        count = -1;
+////                  }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//           // }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+//            int index = values[0];
+//            Log.d("geek","onProgressUpdate index ="+index);
+//            if(secondaryActions!= null && secondaryActionstv != null && secondaryActionstv[index] != null){
+//                secondaryActions.setText(secondaryActionstv[index]);
+//                secondaryActionsDestail.setText(secondaryActionstvDestail[index]);
+//                if (curPlace.getText().toString().equals("") || "定位失败,请手动选择小区".equals(curPlace.getText().toString())) {
+//                    initDataFromLocal();
+//                }
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Double result) {
+//            //异步任务执行结束
+//            Log.d("geek","异步任务执行结束");
+//        }
+//    };
 
     private void getlunbotubiao(){
         if(PeiZhiController == null){
@@ -667,15 +690,15 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         Log.d("geek","首页destory()");
-        secondaryActionstv = null;
-        secondaryActionstvDestail = null;
+//        secondaryActionstv = null;
+//        secondaryActionstvDestail = null;
         urls = null;
 
-        if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
-           // mTask.mRun = false;
-            mTask.cancel(true);  //  如果Task还在运行，则先取消它
-            //mTask = null;
-        }
+//        if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
+//           // mTask.mRun = false;
+//            mTask.cancel(true);  //  如果Task还在运行，则先取消它
+//            //mTask = null;
+//        }
         AppConfig.setMainActivity(null);
     }
 

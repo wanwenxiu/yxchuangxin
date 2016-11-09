@@ -38,6 +38,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
@@ -48,6 +49,7 @@ import com.yxld.yxchuangxin.activity.index.selectimg.util.ImageItem;
 import com.yxld.yxchuangxin.activity.index.selectimg.util.PublicWay;
 import com.yxld.yxchuangxin.activity.index.selectimg.util.Res;
 import com.yxld.yxchuangxin.activity.login.LoginActivity;
+import com.yxld.yxchuangxin.activity.mine.RepairListActivity;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
@@ -112,6 +114,7 @@ public class Repair extends BaseActivity {
 	
 	private RepairController repairController;
 
+	private TextView bxlt;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -147,7 +150,8 @@ public class Repair extends BaseActivity {
 		groupPublic = (RadioGroup) findViewById(R.id.groupPublic);
 		publicSmall = (RadioButton) findViewById(R.id.publicSmall);
 		publicBig = (RadioButton) findViewById(R.id.privatesBig);
-		
+		bxlt= (TextView) findViewById(R.id.bxlt);
+		bxlt.setOnClickListener(this);
 		Log.d("geek", "sssssss"+Contains.repairQuyu);
 		quyu.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
@@ -669,7 +673,7 @@ public class Repair extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
-		
+		startActivity(RepairListActivity.class);
 	}
 
 	@Override

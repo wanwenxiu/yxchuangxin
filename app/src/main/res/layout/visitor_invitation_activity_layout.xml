@@ -109,7 +109,7 @@
             <EditText
                 android:id="@+id/phone"
                 android:layout_width="0dp"
-                android:layout_weight="3.5"
+                android:layout_weight="2.5"
                 android:layout_height="fill_parent"
                 android:background="@null"
                 android:hint="请输入来访人联系方式"
@@ -117,6 +117,14 @@
                 android:phoneNumber="true"
                 android:textColor="@color/color_86898B"
                 android:textSize="@dimen/size_14"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/tongxunlu"
+                android:id="@+id/tongxunlu"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
 

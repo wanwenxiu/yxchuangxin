@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * @author wwx
  * @ClassName: phoneOpenDoorActivity
@@ -63,7 +64,7 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 
 	private int i = 0;
 	/** 更新二维码时间*/
-	private int UPDATETIME = 1000*30;
+	private int UPDATETIME = 1000*10;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -120,10 +121,10 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		update.setOnClickListener(this);
 		codeImg = (ImageView) findViewById(R.id.codeImg);
 		youxiaoqi = (TextView) findViewById(R.id.youxiaoqi);
-		youxiaoqi.setVisibility(View.INVISIBLE);
 		shareSms = (TextView)findViewById(R.id.shareSms);
 		shareSms.setVisibility(View.INVISIBLE);
 		shareSms.setOnClickListener(this);
+		youxiaoqi.setText("二维码即时更新中,复制无效。");
 
 	}
 
@@ -148,7 +149,6 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 				//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
 				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 450);
 				codeImg.setImageBitmap(qrCodeBitmap);
-				youxiaoqi.setText("有效期至："+time);
 				shareInfo.setBitmap(qrCodeBitmap);
 				shareUrl = API.yuming+"/qr_code.html?timr="+time+"&code="+contentString;
 				shareInfo.setImgUrl(shareUrl);

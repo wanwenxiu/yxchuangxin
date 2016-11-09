@@ -44,6 +44,8 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">
     </uses-permission>
 
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <!-- 分享 -->
     <!-- renren sso Permission for Unit Test -->
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
@@ -208,7 +210,8 @@
         <activity
             android:name="com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity"
             android:label="商品详情"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.yxld.yxchuangxin.activity.goods.GoodsPraiseListActivity"
@@ -297,7 +300,8 @@
         <activity
             android:name=".activity.Main.MallMainActivity"
             android:label="社区商城主页"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <activity
             android:name=".activity.index.phoneOpenDoorActivity"
@@ -358,6 +362,11 @@
             android:label="优惠券"
             android:screenOrientation="portrait"/>
 
+
+        <activity android:name=".activity.Main.WuyeActivity"
+            android:label="欣物业"
+            android:screenOrientation="portrait"></activity>
+
         <!--摄像头-->
         <activity
             android:name=".activity.index.CameraActivity"
@@ -371,6 +380,12 @@
             ></activity>
         <activity android:name=".activity.index.YeZhuOpenDoorActivity"
             android:label="业主开门"></activity>
+
+        <activity android:name=".activity.index.AccessActivity"
+            android:label="门禁管理"></activity>
+
+        <activity android:name=".activity.index.ComplaintsActivity"
+            android:label="投诉建议"></activity>
 
         <!--web-->
         <activity android:name=".activity.Main.WebViewActivity"

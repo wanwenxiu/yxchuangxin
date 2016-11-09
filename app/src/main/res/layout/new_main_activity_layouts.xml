@@ -80,9 +80,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/tongzhi"
+                    android:src="@mipmap/tongzhia"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
                     />
 
                 <!--<LinearLayout
@@ -104,10 +105,13 @@
                     android:marqueeRepeatLimit="marquee_forever"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:layout_marginLeft="25dp"
                     android:gravity="center_vertical"/>
             </LinearLayout>
 
+          <View
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -120,12 +124,7 @@
                 android:textSize="24sp"
                 />
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1" />
-
-            <TextView
+         <!--   <TextView
                 android:id="@+id/secondaryActions"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
@@ -146,7 +145,34 @@
                 android:layout_marginTop="5dp"
                 android:text="文字内容文字内容文字"
                 android:textColor="@color/white"
-                android:textSize="@dimen/size_14" />
+                android:textSize="@dimen/size_14" />-->
+
+            <com.sunfusheng.marqueeview.MarqueeView
+                android:id="@+id/secondaryActions"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:mvAnimDuration="1000"
+                app:mvInterval="3000"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="0.25"
+                android:gravity="center_vertical"
+                app:mvTextColor="@color/color_7AC356"
+                app:mvTextSize="14sp"
+                app:mvSingleLine="true"/>
+
+
+            <com.sunfusheng.marqueeview.MarqueeView
+                android:id="@+id/secondaryActionsDestail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="0.25"
+                android:layout_marginTop="5dp"
+                app:mvAnimDuration="1000"
+                app:mvInterval="3000"
+                app:mvTextColor="@color/white"
+                app:mvTextSize="14sp"
+                app:mvSingleLine="true"/>
 
             <View
                 android:layout_width="fill_parent"

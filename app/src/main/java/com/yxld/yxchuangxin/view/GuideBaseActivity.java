@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -28,8 +29,11 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.login.LoginActivity;
+import com.yxld.yxchuangxin.activity.login.RegisterActivity;
 
 /**
  * 引导界面基础类
@@ -63,8 +67,8 @@ public abstract class GuideBaseActivity extends Activity implements
 	private ViewPager pager = null;
 	/** 最外层布局 */
 	private RelativeLayout mRlGuideMain = null;
-	/** 点击体验 */
-	private ImageView ivStart = null;
+//	/** 点击体验 */
+//	private ImageView ivStart = null;
 	/** 底部圆点 */
 	private ImageView curPoint = null;
 	/** 存储圆点的容器 */
@@ -83,6 +87,7 @@ public abstract class GuideBaseActivity extends Activity implements
 	private SharedPreferences sp = null;
 	/** 记录是否安装次数 */
 	private int installCount = 0;
+	private TextView registerTv,loginTv;
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -108,7 +113,9 @@ public abstract class GuideBaseActivity extends Activity implements
 		} else {
 			mRlGuideMain.setBackgroundResource(R.mipmap.background_logo);
 			pager.setOnTouchListener(this);
-			ivStart.setVisibility(View.VISIBLE);
+			//ivStart.setVisibility(View.VISIBLE);
+			registerTv.setVisibility(View.VISIBLE);
+			loginTv.setVisibility(View.VISIBLE);
 			curPoint.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -180,7 +187,7 @@ public abstract class GuideBaseActivity extends Activity implements
 		pointContain = (LinearLayout) this.findViewById(R.id.dot_contain);
 		pager = (ViewPager) findViewById(R.id.contentPager);
 		curPoint = (ImageView) findViewById(R.id.cur_dot);
-		ivStart = (ImageView) findViewById(R.id.open);
+//		ivStart = (ImageView) findViewById(R.id.open);
 		pass = (ImageView) findViewById(R.id.pass);
 		pass.setOnClickListener(new OnClickListener() {
 
@@ -190,20 +197,41 @@ public abstract class GuideBaseActivity extends Activity implements
 			}
 		});
 
-		getAdapterData();
-
-		Integer resId = changeEnterImageBg();
-		if (resId != null) {
-			ivStart.setImageResource(resId);
-			setViewParams(ivStart, mLeft, mTop, mWidth, mHeight);
-		}
-
-		ivStart.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				startJumpActivity();
+		registerTv = (TextView) findViewById(R.id.registerTv);
+		registerTv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.d("geek","点击注册按钮");
+				Intent intent = new Intent(GuideBaseActivity.this, RegisterActivity.class);
+				startActivity(intent);
+				finish();
 			}
 		});
+
+		loginTv = (TextView) findViewById(R.id.loginTv);
+		loginTv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.d("geek","点击登录按钮");
+				Intent intent = new Intent(GuideBaseActivity.this, LoginActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+		getAdapterData();
+
+//		Integer resId = changeEnterImageBg();
+//		if (resId != null) {
+//			ivStart.setImageResource(resId);
+//			setViewParams(ivStart, mLeft, mTop, mWidth, mHeight);
+//		}
+//
+//		ivStart.setOnClickListener(new OnClickListener() {
+//
+//			public void onClick(View v) {
+//				startJumpActivity();
+//			}
+//		});
 	}
 
 	private void getAdapterData() {
@@ -334,10 +362,12 @@ public abstract class GuideBaseActivity extends Activity implements
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			if (msg.what == TO_THE_END)
-				ivStart.setVisibility(View.VISIBLE);
-			else if (msg.what == LEAVE_FROM_END)
-				ivStart.setVisibility(View.GONE);
+			if (msg.what == TO_THE_END){
+				registerTv.setVisibility(View.VISIBLE);
+			    loginTv.setVisibility(View.VISIBLE);}
+			else if (msg.what == LEAVE_FROM_END){
+			    registerTv.setVisibility(View.GONE);
+			    loginTv.setVisibility(View.GONE);}
 		}
 	};
 

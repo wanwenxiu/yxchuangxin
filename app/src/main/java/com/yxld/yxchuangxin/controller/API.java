@@ -10,13 +10,13 @@ package com.yxld.yxchuangxin.controller;
 public interface API {
 
    String yuming =  "http://www.hnchxwl.com/wygl";
-   String IP_PRODUCT = "http://192.168.0.102:8080/wygl";
-   String PIC = "http://192.168.0.102:8080";
-   String uploadImage = "http://192.168.0.102:8080/wygl/mall/upload_uploadFile";
+//   String IP_PRODUCT = "http://192.168.0.117:8080/wygl";
+//   String PIC = "http://192.168.0.117:8080";
+//   String uploadImage = "http://192.168.0.117:8080/wygl/mall/upload_uploadFile";
 
-//	String IP_PRODUCT = "http://222.240.1.133/wygl";
-//  String PIC="http://222.240.1.133";
-//  String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadFile";
+    String IP_PRODUCT = "http://222.240.1.133/wygl";
+    String PIC="http://222.240.1.133";
+    String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL
@@ -29,7 +29,7 @@ public interface API {
             + "/mall/androidClassify_findByclassifyOne?classify.classifyId=%1$s";
 
     /**
-     * 获取商品列表信息通过Id
+     * 获取商品列表信息通过商品分类Id
      * rows=10&page=1&classify.classifyId=&sort=shangpinClassicTwo&order=asc&appxiaoqu=
      */
     String URL_GET_ALL_SHOPLIST_BY_ID = IP_PRODUCT
@@ -41,7 +41,6 @@ public interface API {
      */
     String URL_GET_ALL_SHOPLIST_BY_KEY = IP_PRODUCT
             + "/mall/androidProduct_searchByKeys?";
-
 
     /**
      * 添加商品至购物车

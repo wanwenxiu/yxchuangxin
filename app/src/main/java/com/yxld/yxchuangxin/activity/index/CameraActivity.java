@@ -86,7 +86,7 @@ public class CameraActivity extends BaseMonitorActivity implements View.OnClickL
         btn_monitor.setOnClickListener(this);
         et_callId = (EditText) findViewById(R.id.et_callid);
         et_callPwd = (EditText) findViewById(R.id.et_callpwd);
-        fab= (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
     }
@@ -114,7 +114,7 @@ public class CameraActivity extends BaseMonitorActivity implements View.OnClickL
                 callId = et_callId.getText().toString();//设备号
                 callPwd = et_callPwd.getText().toString();
                 if (callId.equals("") || callPwd.equals("")) {
-                    Toast.makeText(CameraActivity.this,"请输入设备号和密码",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CameraActivity.this, "请输入设备号和密码", Toast.LENGTH_SHORT).show();
                 } else {
                     tv_content.setText("发送监控命令......");
                     pwd = P2PHandler.getInstance().EntryPassword(callPwd);//经过转换后的设备密码
@@ -123,7 +123,8 @@ public class CameraActivity extends BaseMonitorActivity implements View.OnClickL
                 }
                 break;
             case R.id.fab:
-                CircularAnimUtil.startActivity(CameraActivity.this, CameraConfigActivity.class, fab, R.color.c);
+                Intent fab = new Intent(this, CameraConfigActivity.class);
+                startActivity(fab);
                 break;
             default:
                 break;
@@ -283,7 +284,6 @@ public class CameraActivity extends BaseMonitorActivity implements View.OnClickL
     }
 
 
-
     //隐藏键盘
     private void hideKeyboard() {
         View view = getCurrentFocus();
@@ -292,6 +292,7 @@ public class CameraActivity extends BaseMonitorActivity implements View.OnClickL
                     hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     @Override
     protected void onP2PViewSingleTap() {
 

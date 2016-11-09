@@ -27,7 +27,7 @@ import java.util.List;
  * 商城主界面
  */
 public class MallMainActivity extends BaseActivity {
-    private String[]titles=new String[]{"商城","分类","购物车","我的","搜索"};
+    private String[]titles=new String[]{" 商城 "," 购物车 "," 我的 "};
     private TabLayout tab_layout;
     private ViewPager info_viewpager;
     private List<Fragment> fragments;
@@ -37,7 +37,7 @@ public class MallMainActivity extends BaseActivity {
     private MyMallIndexJumpBroad myReceiver = null;
 
     private static MallIndexFragment mallIndexFragment =  new MallIndexFragment();
-    private static ClazzMainFragment clazzMainFragment =  new ClazzMainFragment();
+//    private static ClazzMainFragment clazzMainFragment =  new ClazzMainFragment();
     private static CartMainFragment cartMainFragment =  new CartMainFragment();
     private static MallMineFragment mallMineFragment =  new MallMineFragment();
 
@@ -77,11 +77,11 @@ public class MallMainActivity extends BaseActivity {
         for(int i=0;i<titles.length;i++){
             if(i==0){
                 fragments.add(mallIndexFragment);
-            }else if(i==1){
-                fragments.add(clazzMainFragment);
-            }else if(i == 2){
+//            }else if(i==1){
+//                fragments.add(clazzMainFragment);
+             }else if(i == 1){
                 fragments.add(cartMainFragment);
-            }else if (i==3){
+            }else if (i==2){
                 fragments.add(mallMineFragment);
             }else{
 
@@ -99,7 +99,8 @@ public class MallMainActivity extends BaseActivity {
 
         //设置Tablayout
         //设置TabLayout模式 -该使用Tab数量比较多的情况
-        tab_layout.setTabMode(TabLayout.MODE_FIXED);
+      tab_layout.setTabMode(TabLayout.MODE_FIXED);
+//        tab_layout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
     @Override

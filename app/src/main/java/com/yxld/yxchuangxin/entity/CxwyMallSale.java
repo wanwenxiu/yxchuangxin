@@ -20,6 +20,7 @@ public class CxwyMallSale extends BaseEntity implements java.io.Serializable {
 	private Integer saleShangpNum;//商品id
 	private Integer saleDingdanId;//订单id
 	private String saleShangpName;//商品名称
+	private String saleGoodsBianhao;//商品编号
 	private Integer saleNum;//数量
 	private String saleGuige;//规格
 	private Float saleTotalRmb;//总金额
@@ -33,11 +34,6 @@ public class CxwyMallSale extends BaseEntity implements java.io.Serializable {
 	private String saleOrderBianhao; //订单编号
 
 	private String saleJinhuojia; //进货价
-
-//	private String saleBeiyong1;//备用字段
-//	private String saleBeiyong2;
-//	private String saleBeiyong3;
-//	private String saleBeiyong4;
 
 	// Constructors
 
@@ -217,6 +213,7 @@ public class CxwyMallSale extends BaseEntity implements java.io.Serializable {
 				", saleShangpNum=" + saleShangpNum +
 				", saleDingdanId=" + saleDingdanId +
 				", saleShangpName='" + saleShangpName + '\'' +
+				", saleGoodsBianhao='" + saleGoodsBianhao + '\'' +
 				", saleNum=" + saleNum +
 				", saleGuige='" + saleGuige + '\'' +
 				", saleTotalRmb=" + saleTotalRmb +

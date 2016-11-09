@@ -1,20 +1,17 @@
 package com.yxld.yxchuangxin.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +30,9 @@ import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.LoadingImg;
 import com.yxld.yxchuangxin.view.ProgressDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.refactor.library.SmoothCheckBox;
 
@@ -80,7 +80,11 @@ public class CartAdapter extends BaseAdapter {
 
     private int curPosition = 0;
 
+    /** 当前商品数量*/
     private int curNum = 0;
+
+    private myWatcher mWatcher;
+    private int index=-1;//记录选中的位置
 
 
     class ListItemView { // 自定义控件集合
@@ -158,7 +162,6 @@ public class CartAdapter extends BaseAdapter {
             listItemView.SubtractNum = (ImageView) convertView.findViewById(R.id.cartOut);
             listItemView.AddNum = (ImageView) convertView.findViewById(R.id.cart_Add);
             listItemView.cartGoodsNum = (EditText) convertView.findViewById(R.id.cart_goods_Num);
-
             // 设置控件集到convertView
             convertView.setTag(listItemView);
         } else {
@@ -217,6 +220,7 @@ public class CartAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
+                Log.d("geek","减号Po="+position+"index="+index);
                 setCount(position, false);
             }
         });
@@ -226,11 +230,88 @@ public class CartAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
+                Log.d("geek","加号Po="+position+"index="+index);
                 setCount(position, true);
             }
         });
+
+
+//        listItemView.cartGoodsNum.setOnTouchListener(new View.OnTouchListener() {
+//
+//            @SuppressLint("ClickableViewAccessibility")
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                // TODO Auto-generated method stub
+//                if(event.getAction()==MotionEvent.ACTION_UP){
+//                    index=position;
+//                }
+//                return false;
+//            }
+//        });
+//
+//        listItemView.cartGoodsNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            //设置焦点监听，当获取到焦点的时候才给它设置内容变化监听解决卡的问题
+//
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                EditText et=(EditText) v;
+//                if(mWatcher==null){
+//                    mWatcher=new myWatcher();
+//                }
+//                if(hasFocus){
+//                    et.addTextChangedListener(mWatcher);//设置edittext内容监听
+//                }else {
+//                    et.removeTextChangedListener(mWatcher);
+//                }
+//
+//            }
+//        });
+//
+//        listItemView.cartGoodsNum.clearFocus();//防止点击以后弹出键盘，重新getview导致的焦点丢失
+//        if (index != -1 && index == position) {
+//            // 如果当前的行下标和点击事件中保存的index一致，手动为EditText设置焦点。
+//            listItemView.cartGoodsNum.requestFocus();
+//        }
+//        listItemView.cartGoodsNum.setText(goodsVo.getCartNum());//这一定要放在clearFocus()之后，否则最后输入的内容在拉回来时会消失
+//        listItemView.cartGoodsNum.setSelection(listItemView.cartGoodsNum.getText().length());
+////		viewHolder.editText.addTextChangedListener(new myWatcher());//放弃直接的为每一个edittext设置监听内容变化
         return convertView;
     }
+
+    class myWatcher implements TextWatcher{
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+//           // text[index]=s.toString();//为输入的位置内容设置数组管理器，防止item重用机制导致的上下内容一样的问题
+//            if(index == -1){
+//                return;
+//            }
+//            if(listData.get(index).getCartNum().equals(s.toString())){
+//                Log.d("geek","afterTextChanged 修改时数量一致 ="+index);
+//                return;
+//            }
+//            if(s == null || s.toString().equals("")){
+//                Log.d("geek","afterTextChanged 没有修改值 ="+index);
+//                return;
+//            }
+//            listData.get(index).setCartNum(s.toString());
+//            Log.d("geek","afterTextChanged index ="+index);
+//            cartController.updateCartInfoFromID(mRequestQueues, new Object[]{Contains.CartList.get(index).getCartId(), s.toString(),Contains.CartList.get(index).getCartShangpNum()}, updateListener);
+//            curNum = Integer.parseInt(s.toString());
+//            curPosition = index;
+        }
+    }
+
 
     private void setCount(int position, boolean operate) {
         int count = Integer.parseInt(Contains.CartList.get(position).getCartNum());
@@ -246,7 +327,6 @@ public class CartAdapter extends BaseAdapter {
         curPosition = position;
         curNum = count;
         //请求修改购物车数量接口
-        progressDialog.show();
         cartController.updateCartInfoFromID(mRequestQueues, new Object[]{Contains.CartList.get(position).getCartId(), count,Contains.CartList.get(position).getCartShangpNum()}, updateListener);
     }
 
@@ -265,11 +345,11 @@ public class CartAdapter extends BaseAdapter {
 
         @Override
         public void onResponse(BaseEntity info) {
-            progressDialog.hide();
             if (info.status != 0) {
                 ToastUtil.show(mContext, ((BaseEntity) info).MSG);
                 return;
             }
+            Log.d("geek","请求完成="+curNum);
             //请求成功
             Contains.CartList.get(curPosition).setCartNum(curNum + "");
             listItemView.cartGoodsNum.setText(curNum + "");
@@ -279,7 +359,6 @@ public class CartAdapter extends BaseAdapter {
 
         @Override
         public void onErrorResponse(String errMsg) {
-            progressDialog.hide();
             Toast.makeText(mContext, "修改失败", Toast.LENGTH_SHORT).show();
         }
     };

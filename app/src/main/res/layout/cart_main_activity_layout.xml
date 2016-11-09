@@ -102,10 +102,10 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:scrollbars="none"
-        android:descendantFocusability="blocksDescendants"
         android:visibility="visible"
-        tools:ignore="NestedScrolling,ScrollViewSize" >
+        >
     </ListView>
+    <!--descendantFocusability="beforeDescendants"会优先其子类控件而获取到焦点-->
 
     <RelativeLayout
         android:id="@+id/cartIsNullLips"
