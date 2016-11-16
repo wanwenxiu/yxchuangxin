@@ -10,7 +10,7 @@
         android:layout_height="120dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@mipmap/empty_photo"
+        android:src="@mipmap/plugin_camera_no_pictures"
         />
     <TextView
         android:layout_width="wrap_content"

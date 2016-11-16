@@ -26,6 +26,8 @@ import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class LoginActivity extends BaseActivity {
 	private final String LAST_LOGIN_USER_ID = "lastLoginUserId";
 	private final String CB_SAVE_PWD = "cb_save_pwd";
@@ -162,7 +164,7 @@ public class LoginActivity extends BaseActivity {
 
 		@Override
 		public void onErrorResponse(String errMsg) {
-			onError("请求失败");
+			onError(errMsg);
 			loginSubmit.setClickable(true);
 		}
 	};

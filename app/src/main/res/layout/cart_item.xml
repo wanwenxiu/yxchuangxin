@@ -37,7 +37,7 @@
             android:contentDescription="@null"
             android:gravity="center"
             android:scaleType="fitXY"
-            android:src="@mipmap/empty_photo"/>
+            android:src="@mipmap/plugin_camera_no_pictures"/>
     </RelativeLayout>
 
     <RelativeLayout

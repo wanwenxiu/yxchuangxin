@@ -38,6 +38,36 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/banner_border_bottom"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="真实姓名"
+            android:textColor="@color/color_333"
+            android:textSize="@dimen/size_15"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/yz_zhenshiname"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_15" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/menberNameWrap"
         android:layout_width="fill_parent"
         android:layout_height="46dp"
@@ -99,29 +129,28 @@
             android:textSize="@dimen/size_15"
             tools:ignore="RtlHardcoded" />
 
-        <ImageView
-            android:id="@+id/update_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:contentDescription="@null"
-            android:src="@mipmap/mine_right_arrows"
-            tools:ignore="RtlHardcoded" />
+        <!--<ImageView-->
+            <!--android:id="@+id/update_card"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:contentDescription="@null"-->
+            <!--android:src="@mipmap/mine_right_arrows"-->
+            <!--tools:ignore="RtlHardcoded" />-->
 
         <TextView
             android:id="@+id/account_card"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/update_card"
             android:layout_toRightOf="@id/test"
             android:drawablePadding="10dp"
+            android:layout_alignParentRight="true"
             android:ellipsize="marquee"
             android:gravity="center_vertical|right"
             android:maxWidth="200dp"
             android:paddingLeft="10dp"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/size_15"
             tools:ignore="RtlHardcoded" />

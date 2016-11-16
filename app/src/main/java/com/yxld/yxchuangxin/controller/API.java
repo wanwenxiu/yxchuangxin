@@ -10,13 +10,13 @@ package com.yxld.yxchuangxin.controller;
 public interface API {
 
    String yuming =  "http://www.hnchxwl.com/wygl";
-//   String IP_PRODUCT = "http://192.168.0.117:8080/wygl";
-//   String PIC = "http://192.168.0.117:8080";
-//   String uploadImage = "http://192.168.0.117:8080/wygl/mall/upload_uploadFile";
+ String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
+ String PIC = "http://192.168.0.166:8080";
+ String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
 
-    String IP_PRODUCT = "http://222.240.1.133/wygl";
-    String PIC="http://222.240.1.133";
-    String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadFile";
+//    String IP_PRODUCT = "http://222.240.1.133/wygl";
+//    String PIC="http://222.240.1.133";
+//    String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL
@@ -41,6 +41,9 @@ public interface API {
      */
     String URL_GET_ALL_SHOPLIST_BY_KEY = IP_PRODUCT
             + "/mall/androidProduct_searchByKeys?";
+
+   String URL_GETPRODUCT_BYGOODID = IP_PRODUCT
+           + "/mall/androidProduct_findGoodsById?id=%1$s";
 
     /**
      * 添加商品至购物车
@@ -156,7 +159,7 @@ public interface API {
     /**
      * 修改昵称
      */
-    String URL_GET_ALL_UPDATE_NAME = IP_PRODUCT + "/mall/androidUser_mergeUser?";
+    String URL_GET_ALL_UPDATE_NAME = IP_PRODUCT + "/mall/androidUser_mergeUserName?";
 
     /**
      * 修改身份证
@@ -259,7 +262,6 @@ public interface API {
      */
     String URL_APP_GETVERSION = IP_PRODUCT
             + "/mall/androidApp_findNewVersion";
-
 
     /*
      * 获取所有报修项目列表

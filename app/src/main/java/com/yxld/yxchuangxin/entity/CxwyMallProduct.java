@@ -4,6 +4,10 @@ package com.yxld.yxchuangxin.entity;
  * CxwyMallProduct entity. @author MyEclipse Persistence Tools
  */
 
+import com.yxld.yxchuangxin.base.BaseEntity;
+
+import java.io.Serializable;
+
 /**
  * @author wwx
  * @ClassName: CxwyMallProduct
@@ -11,7 +15,9 @@ package com.yxld.yxchuangxin.entity;
  * @date 2016年3月14日 下午2:47:38
  */
 @SuppressWarnings("serial")
-public class CxwyMallProduct implements java.io.Serializable {
+public class CxwyMallProduct extends BaseEntity implements Serializable{
+    private CxwyMallProduct product;
+
     // Fields
     private Integer shangpinId;//商品id
     private String shangpinShangpName;//商品名/标题名
@@ -215,6 +221,14 @@ public class CxwyMallProduct implements java.io.Serializable {
 
     public void setShangpinBeiyong5(String shangpinBeiyong5) {
         this.shangpinBeiyong5 = shangpinBeiyong5;
+    }
+
+    public CxwyMallProduct getProduct() {
+        return product;
+    }
+
+    public void setProduct(CxwyMallProduct product) {
+        this.product = product;
     }
 
     @Override

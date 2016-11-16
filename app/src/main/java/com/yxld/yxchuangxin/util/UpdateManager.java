@@ -88,7 +88,7 @@ public class UpdateManager {
 		Builder builder = new Builder(mContext);
 		builder.setTitle("版本更新"+versionCode);
 		builder.setMessage(updateMsg+"\n"+"版本号:"+versionCode+"\n"+"版本描述:"+versionMsg);
-		
+		builder.setCancelable(false);
 		//强制更新
 		if(versionIsCompulsory == 1){
 			builder.setPositiveButton("立即更新", new OnClickListener() {
@@ -189,8 +189,6 @@ public class UpdateManager {
 
 	/**
 	 * 下载apk
-	 * 
-	 * @param url
 	 */
 
 	private void downloadApk() {
@@ -200,8 +198,6 @@ public class UpdateManager {
 
 	/**
 	 * 安装apk
-	 * 
-	 * @param url
 	 */
 	private void installApk() {
 		File apkfile = new File(saveFileName);

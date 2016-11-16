@@ -13,7 +13,7 @@
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
-        android:src="@mipmap/empty_photo" />
+        android:src="@mipmap/plugin_camera_no_pictures" />
 
     <LinearLayout
         android:layout_width="fill_parent"

@@ -2,7 +2,7 @@ package com.yxld.yxchuangxin.activity.index;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -13,18 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.WriterException;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.controller.API;
-import com.yxld.yxchuangxin.controller.DoorController;
-import com.yxld.yxchuangxin.controller.impl.DoorControllerImpl;
 import com.yxld.yxchuangxin.entity.ShareInfo;
 import com.yxld.yxchuangxin.util.YouMengShareUtil;
-import com.zxing.encoding.EncodingHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author wwx
@@ -123,10 +117,10 @@ public class phoneOpenDoorActivity extends BaseActivity {
 
 
 	private void getOpenDoor(String contentString){
-		try {
 			if (!contentString.equals("")) {
 				//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 450);
+				Bitmap qrCodeBitmap = CodeUtils.createImage(contentString, 450, 450, BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg));
+
 				codeImg.setImageBitmap(qrCodeBitmap);
 				youxiaoqi.setText("有效期至："+time);
 				shareInfo.setBitmap(qrCodeBitmap);
@@ -134,9 +128,6 @@ public class phoneOpenDoorActivity extends BaseActivity {
 			}else {
 				Toast.makeText(phoneOpenDoorActivity.this, "生成二维码失败", Toast.LENGTH_SHORT).show();
 			}
-		} catch (WriterException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -150,7 +141,6 @@ public class phoneOpenDoorActivity extends BaseActivity {
 	@Override
 	protected void initDataFromNet() {
 		super.initDataFromNet();
-
 	}
 
 //	/**

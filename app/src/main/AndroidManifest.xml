@@ -83,7 +83,7 @@
         <uses-library
             android:name="org.simalliance.openmobileapi"
             android:required="false"/>
-
+        <meta-data android:value="a843dab6158839b18f5d14b4d04f0d4e" android:name="BUG_HD_SDK_GENERAL_KEY" />
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="c154e40ac5b85d547a13ee17883387c6">
@@ -284,12 +284,6 @@
             android:name=".activity.Main.NewMainActivity2"
             android:label="蓝色版本"
             android:screenOrientation="portrait"></activity>
-
-        <activity
-            android:name=".activity.Main.WuYeMainActivity"
-            android:label="社区物业主页"
-            android:screenOrientation="portrait">
-        </activity>
 
         <activity
             android:name=".activity.Main.ServiceMainActivity"

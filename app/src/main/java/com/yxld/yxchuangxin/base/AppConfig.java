@@ -2,8 +2,11 @@ package com.yxld.yxchuangxin.base;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
@@ -19,9 +22,11 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
+import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.util.MemoryCache;
 import com.yxld.yxchuangxin.view.LoadingImg;
@@ -31,6 +36,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import im.fir.sdk.FIR;
+
 /**
  * @ClassName: AppConfig
  * @Description: Application 对象
@@ -39,6 +46,7 @@ import java.util.Map;
  *
  */
 public class AppConfig extends Application {
+	PendingIntent restartIntent;
 	/** 配置文件�? */
 	public String SP_FILE_NAME = "ChuangXinConfig";
 	/** 配置文件工具 */
@@ -105,6 +113,8 @@ public class AppConfig extends Application {
 	public void onCreate() {
 		super.onCreate();
 		app = this;
+		FIR.init(this);
+		ZXingLibrary.initDisplayOpinion(this);
 		// 创建加载图片
 		Contains.loadingImg = LoadingImg.LoadingImgs(getApplicationContext());
 
@@ -159,7 +169,28 @@ public class AppConfig extends Application {
 
 		//在自己的Application中添加如下代码
 //		refWatcher = LeakCanary.install(this);
+
+//		// 以下用来捕获程序崩溃异常
+//		Intent intent = new Intent();
+//		// 参数1：包名，参数2：程序入口的activity
+//		intent.setClassName("com.yxld.yxchuangxin", "com.yxld.yxchuangxin.activity.login.WelcomeActivity");
+//		intent.setClass(this,WelcomeActivity.class);
+//		restartIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+//				intent,0);
+////		Intent.FLAG_ACTIVITY_NEW_TASK
+//		Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程
 	}
+
+//	public Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
+//		@Override
+//		public void uncaughtException(Thread thread, Throwable ex) {
+//			Log.d("geek","异常异常异常");
+//			AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//			mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
+//					restartIntent); // 1秒钟后重启应用
+//			AppConfig.getInstance().exit();
+//		}
+//	};
 
 	/***
 	 * @Title: addActivity
@@ -194,7 +225,7 @@ public class AppConfig extends Application {
 					activity.finish();
 			}
 		}
-		// System.exit(0);
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 
 	/**

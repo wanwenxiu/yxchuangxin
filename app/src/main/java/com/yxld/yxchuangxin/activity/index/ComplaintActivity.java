@@ -39,7 +39,6 @@ public class ComplaintActivity extends BaseActivity {
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
-
 		setContentView(R.layout.complaint);
 		getSupportActionBar().setTitle("我的投诉");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -24,8 +24,8 @@ public class LoadingImg {
 	public static ImageLoader loader;
 	public static DisplayImageOptions options;
 	public static DisplayImageOptions option1 = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.mipmap.empty_photo).showImageOnFail(R.mipmap.empty_photo)
-			.showImageForEmptyUri(R.mipmap.empty_photo)
+			.showImageOnLoading(R.mipmap.plugin_camera_no_pictures).showImageOnFail(R.mipmap.plugin_camera_no_pictures)
+			.showImageForEmptyUri(R.mipmap.plugin_camera_no_pictures)
 			// 正在加载
 			.cacheInMemory(true).considerExifParams(true).cacheOnDisc(true)
 			.bitmapConfig(Bitmap.Config.ARGB_8888).build();
@@ -42,7 +42,7 @@ public class LoadingImg {
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
 				.cacheInMemory().cacheOnDisc().build();
 		File cacheDir = StorageUtils.getOwnCacheDirectory(context,
-				"unclePhone/Cache");
+				"chuangxin/Cache");
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				context)
 				.defaultDisplayImageOptions(defaultOptions)

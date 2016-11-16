@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    xmlns:htext="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,42 +11,43 @@
         android:background="@drawable/banner_border_bottom" >
     </LinearLayout>
 
-    <RelativeLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="#99DBF6" >
 
-        <com.yxld.yxchuangxin.view.CircularImage
-            android:id="@+id/touxiang"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
-
         <TextView
+            android:id="@+id/touxiang"
+            android:textSize="80px"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            />
+
+       <!-- <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/touxiang"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="用户账户:123456789"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_13" />
-    </RelativeLayout>
+            android:textSize="@dimen/size_13" />-->
+    </com.zhy.autolayout.AutoRelativeLayout>
     
     <RelativeLayout 
         android:id="@+id/allOrderWarp"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/banner_border_all"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="5dp">
 
         <TextView 
@@ -58,7 +60,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_all_order_03"
-            android:drawablePadding="5dp"/>
+            android:drawablePadding="10dp"/>
         
         <ImageView 
             android:layout_width="wrap_content"
@@ -127,60 +129,48 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size_12" />
     </LinearLayout>
-    
-    <RelativeLayout 
-        android:id="@+id/mineMoney"
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/banner_border_all"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
-        
-        <TextView
-            android:id="@+id/yue"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-             android:text="余额充值"
-            android:textColor="@color/color_a5a5a5"
-            android:textSize="@dimen/size_14"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/mine_yue_03"
-            android:drawablePadding="5dp"/>
-        
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/mine_arror_right"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/mineMoney"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="@drawable/banner_border_all"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:paddingRight="5dp">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/yue"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+             <!--android:text="余额充值"-->
+            <!--android:textColor="@color/color_a5a5a5"-->
+            <!--android:textSize="@dimen/size_14"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:drawableLeft="@mipmap/mine_yue_03"-->
+            <!--android:drawablePadding="5dp"/>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/mine_arror_right"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"/>-->
+    <!--</RelativeLayout>-->
     <RelativeLayout
         android:id="@+id/coupon"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/banner_border_all"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:text="优惠券"
-            android:textColor="@color/color_a5a5a5"
-            android:textSize="@dimen/size_14"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/youhuquan_icon"
-            android:drawablePadding="5dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -188,17 +178,29 @@
             android:src="@mipmap/mine_arror_right"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="优惠券"
+            android:textColor="@color/color_a5a5a5"
+            android:textSize="@dimen/size_14"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/youhuquan_icon"
+            android:drawablePadding="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/address"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/banner_border_all"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="5dp">
 
         <TextView
@@ -211,7 +213,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_address_03"
-            android:drawablePadding="5dp"/>
+            android:drawablePadding="10dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -225,11 +227,11 @@
         android:id="@+id/updatePwd"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/banner_border_all"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="5dp">
 
         <TextView
@@ -242,7 +244,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_pwd_03"
-            android:drawablePadding="5dp"/>
+            android:drawablePadding="10dp"/>
         
         <ImageView 
             android:layout_width="wrap_content"
@@ -256,11 +258,11 @@
         android:id="@+id/record"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@drawable/banner_border_all"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="5dp">
 
         <TextView
@@ -272,8 +274,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/mine_pwd_03"
-            android:drawablePadding="5dp"/>
+            android:drawableLeft="@mipmap/mine_jiaoyi_03"
+            android:drawablePadding="10dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -288,11 +290,11 @@
 		android:id="@+id/mineInfo"        
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@drawable/banner_border_all"
+        android:background="@color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="5dp"
         android:visibility="gone">
         
@@ -306,7 +308,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_msg_03"
-            android:drawablePadding="5dp"/>
+            android:drawablePadding="15dp"/>
         
         <ImageView 
             android:layout_width="wrap_content"

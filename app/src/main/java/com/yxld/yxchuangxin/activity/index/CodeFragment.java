@@ -2,6 +2,7 @@ package com.yxld.yxchuangxin.activity.index;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.WriterException;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseFragment;
 import com.yxld.yxchuangxin.contain.Contains;
@@ -27,7 +29,6 @@ import com.yxld.yxchuangxin.entity.ShareInfo;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.YouMengShareUtil;
-import com.zxing.encoding.EncodingHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,9 +60,11 @@ public class CodeFragment extends BaseFragment {
 	private CxwyYezhu yezhu = new CxwyYezhu();
 	private String shareUrl = "";
 
-	private int i = 0;
 	/** 更新二维码时间*/
 	private int UPDATETIME = 1000*10;
+
+	/** 是否是第一次加载*/
+	private boolean isFrist = true;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,9 +97,6 @@ public class CodeFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-//			case R.id.update:
-//				initDataFromNet();
-//				break;
 		}
 	}
 
@@ -127,42 +127,27 @@ public class CodeFragment extends BaseFragment {
 
 	@Override
 	protected void initDataFromLocal() {
-		Log.d("geek", "进入initDataFromLocal（）");
 		mengShareUtil = new YouMengShareUtil(getActivity());
 	}
 
 	private void getOpenDoor(String contentString,String time){
-		try {
 			if (!contentString.equals("")) {
 				//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 450);
+				Bitmap qrCodeBitmap =  CodeUtils.createImage(contentString, 450, 450, BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg));
 				codeImg.setImageBitmap(qrCodeBitmap);
 				shareInfo.setBitmap(qrCodeBitmap);
 				shareUrl = API.yuming+"/qr_code.html?timr="+time+"&code="+contentString;
 				shareInfo.setImgUrl(shareUrl);
+				youxiaoqi.setText("二维码即时更新中,复制无效。");
+				codeImg.setVisibility(View.VISIBLE);
 			}else {
 				Toast.makeText(getActivity(), "生成二维码失败", Toast.LENGTH_SHORT).show();
 			}
-		} catch (WriterException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			getActivity().finish();
-//			if (name.equals("1")) {
-//				Intent intent = new Intent(phoneOpenDoorActivity.this, NewMainActivity2.class);
-//				setResult(RESULT_OK, intent);
-//				ActivityOptions opts = null;
-//				opts = ActivityOptions.makeCustomAnimation(
-//						phoneOpenDoorActivity.this, R.anim.slide_up_in,
-//						R.anim.slide_down_out);
-//				startActivity(intent, opts.toBundle());
-//				finish();
-//			}   else if (name.equals("2")){
-//				finish();
-//			}
 		}
 		return false;
 	}
@@ -170,6 +155,11 @@ public class CodeFragment extends BaseFragment {
 
 	@Override
 	protected void initDataFromNet() {
+		if(!netWorkIsAvailable()){
+			codeImg.setVisibility(View.INVISIBLE);
+			youxiaoqi.setText("更新二维码失败！请检查您的网络状态");
+			return;
+		}
 		Log.d("geek","initDataFromNet");
 		if(doorController == null ){
 			doorController = new DoorControllerImpl();
@@ -192,20 +182,21 @@ public class CodeFragment extends BaseFragment {
 		@Override
 		public void onResponse(OpenDoorCode info) {
 			Log.d("geek","业主开门 OpenDoorCode info"+info.toString());
-
-			Log.d("geek","OpenDoorCode 数据"+info.getCode().toString());
 			if(info != null && info.getCode().getStr() != null && !"".equals(info.getCode().getStr()) && info.getCode().getShijian() != null
 					&& !"".equals(info.getCode().getShijian() )){
 				getOpenDoor(info.getCode().getStr(),info.getCode().getShijian());
 			}else{
 				ToastUtil.show(getActivity(),"获取业主二维码失败");
 			}
+			isFrist = false;
 			progressDialog.hide();
 		}
 
 		@Override
 		public void onErrorResponse(String errMsg) {
-			onError(errMsg);
+			if(!isFrist){
+				onError("网络连接失败");
+			}
 		}
 	};
 

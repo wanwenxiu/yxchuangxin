@@ -254,6 +254,11 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				finish();
 				break;
 			case R.id.addCart:
+//				int a = Integer.parseInt("2.2");
+				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
+					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
+					return;
+				}
 				joinCartUrl();
 				break;
 			case R.id.allPraise:
@@ -285,12 +290,24 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				}
 				break;
 			case R.id.cartOut:
+				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
+					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
+					return;
+				}
 				setCount(false);
 				break;
 			case R.id.cart_Add:
+				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
+					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
+					return;
+				}
 				setCount(true);
 				break;
 			case R.id.goBuy:
+				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
+					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
+					return;
+				}
 				//拼接确认订单集合
 				Contains.sureOrderList.clear();
 				SureOrderEntity entity = new SureOrderEntity(curGood.getShangpinId()+"",cartGoodsNum.getText().toString(),  "", curGood.getShangpinImgSrc1(), curGood.getShangpinRmb() + "",curGood.getShangpinShangpName(), curGood.getShangpinGuige());
@@ -302,7 +319,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				// 进入购物车
 				Intent intentCart = new Intent(getResources().getString(
 						R.string.index_broad));
-				intentCart.putExtra("IndexJumpTag", 2);
+				intentCart.putExtra("IndexJumpTag", 1);
 				sendBroadcast(intentCart);
 				setResult(ShopListActivity.JUMP_CART);
 				finish();

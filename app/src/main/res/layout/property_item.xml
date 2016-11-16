@@ -8,6 +8,6 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@mipmap/empty_photo"
+        android:src="@mipmap/plugin_camera_no_pictures"
         />
 </LinearLayout>

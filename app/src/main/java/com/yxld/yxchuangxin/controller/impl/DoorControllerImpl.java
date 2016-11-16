@@ -34,9 +34,9 @@ public class DoorControllerImpl implements DoorController{
 
 					@Override
 					public void onResponse(String response) {
-						Log.d("geek","GetDoorList response"+response.toString());
+						//Log.d("geek","GetDoorList response"+response.toString());
 						BaseEntity info = null;
-						Log.d("geek","GetDoorList response"+response.toString());
+						//Log.d("geek","GetDoorList response"+response.toString());
 						if(response != null){
 							info = gson.fromJson(response, BaseEntity.class);
 						}

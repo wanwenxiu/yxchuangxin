@@ -4,7 +4,9 @@ import java.util.Map;
 
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
+import com.yxld.yxchuangxin.entity.CxwyMallProduct;
 import com.yxld.yxchuangxin.entity.FirstClassGoodsInfo;
+import com.yxld.yxchuangxin.entity.ProductInfo;
 import com.yxld.yxchuangxin.entity.SecondClassGoodsInfo;
 import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.listener.ResultListener;
@@ -97,5 +99,14 @@ public interface GoodsController extends API{
 	 */
 	void getIndexGoodsList(RequestQueue mRequestQueue, Map<String, String> parm, ResultListener<ShopList> listener);
 
+	/**
+	 * @Title: getProductByGoodId
+	 * @Description: 根据ID获取商品详情
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getProductByGoodId(RequestQueue mRequestQueue, Object[] parm, ResultListener<ProductInfo> listener);
 
 }

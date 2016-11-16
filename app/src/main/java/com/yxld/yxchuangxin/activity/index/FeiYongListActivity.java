@@ -141,6 +141,10 @@ public class FeiYongListActivity extends BaseActivity implements ResultListener<
 			ToastUtil.show(FeiYongListActivity.this, "敬请期待");
 			break;
 		case R.id.bottom2:
+			if(listData.size() == 0){
+				ToastUtil.show(FeiYongListActivity.this,"暂没有可缴费数据哦");
+				return;
+			}
 			Bundle bundle = new Bundle();
 			bundle.putString("curType", type);
 			startActivity(FeiYongDestailActivity.class,bundle);

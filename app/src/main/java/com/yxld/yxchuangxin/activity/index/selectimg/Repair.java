@@ -163,7 +163,7 @@ public class Repair extends BaseActivity {
 					findViewById(R.id.addwarp).setVisibility(View.VISIBLE);
 				}else if(privates.getId() == checkedId){
 					groupPublic.setVisibility(View.GONE);
-					Contains.repairQuyu = "专有区域";
+					Contains.repairQuyu = "专有部位";
 					findViewById(R.id.addwarp).setVisibility(View.GONE);
 				}
 			}
@@ -174,7 +174,7 @@ public class Repair extends BaseActivity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(publicBig.getId() == checkedId){
-					Contains.repairQuyu = "中大修";
+					Contains.repairQuyu = "大修";
 				}else if(publicSmall.getId() == checkedId){
 					Contains.repairQuyu = "小修";
 				}
@@ -211,10 +211,10 @@ public class Repair extends BaseActivity {
 			address.setSelection(Contains.repairAddressStr.length());
 		}
 		
-		if(Contains.repairQuyu.equals("专有区域")){
+		if(Contains.repairQuyu.equals("专有部位")){
 			privates.setChecked(true);
 			groupPublic.setVisibility(View.GONE);
-		}else if(Contains.repairQuyu.equals("中大修")){
+		}else if(Contains.repairQuyu.equals("大修")){
 			publics.setChecked(true);
 			publicBig.setChecked(true);
 			groupPublic.setVisibility(View.VISIBLE);
@@ -435,7 +435,7 @@ public class Repair extends BaseActivity {
 					.show();
 			return;
 		}
-		if(!Contains.repairQuyu.equals("专有区域")){
+		if(!Contains.repairQuyu.equals("专有部位")){
 			if(StringUitl.isNotEmpty(this, address, "请输入地点")){
 				Contains.repairAddressStr = address.getText().toString();
 			}
@@ -644,7 +644,7 @@ public class Repair extends BaseActivity {
 		finish();
 		Contains.repairContextStr = "";
 		Contains.repairAddressStr = "";
-		Contains.repairQuyu = "专有区域";
+		Contains.repairQuyu = "专有部位";
 		Contains.repairXiangmu = "";
 		Bimp.tempSelectBitmap.clear();
 		Bimp.max = 0;

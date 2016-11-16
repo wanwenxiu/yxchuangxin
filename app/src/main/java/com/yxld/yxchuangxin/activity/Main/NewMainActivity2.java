@@ -4,39 +4,25 @@ import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
-//import com.sunfusheng.marqueeview.MarqueeView;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
 import com.yxld.yxchuangxin.activity.index.VisitorInvitationActivity;
 import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
-import com.yxld.yxchuangxin.activity.mine.AboutUsActivity;
-import com.yxld.yxchuangxin.activity.mine.MemberActivity;
-import com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
@@ -57,15 +43,13 @@ import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.UpdateManager;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 
-import android.widget.RelativeLayout.LayoutParams;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
+
+//import com.sunfusheng.marqueeview.MarqueeView;
 
 /**
  * @author wwx
@@ -74,8 +58,6 @@ import cn.bingoogolapple.bgabanner.BGABanner;
  * @date 2016年5月4日 下午5:39:42
  */
 public class NewMainActivity2 extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener ,BGABanner.Adapter{
-
-//    private BGABanner indexAdvs;
 
     private ImageCycleView imageCycleView;
 
@@ -99,27 +81,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     private CxwyAppVersion entity;
 
-
-//    /** 跑马灯效果-ViewFinder控件 */
-//    private ViewFlipper viewFlipper;
-//    /** 跑马灯效果 - 设置进入动画 */
-//    private TranslateAnimation inAnim;
-//    /** 跑马灯效果- 设置退出动画 */
-//    private TranslateAnimation outAnim;
-//    /** 线性布局 - 文字的跑马灯效果 */
-//    private LinearLayout ll_tv_type = null;
+    /** 测试门禁*/
+    private  LinearLayout menjin;
 
     /**
      * 动态获取定位权限
      */
     public final static int REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE = 124;
-//    private String[] secondaryActionstv = {"我的物业 >>", "专享服务>>", "邮包查寄 >>", "个人中心 >>", "投诉建议 >>"};
-//
-//    private String[] secondaryActionstvDestail = {"包含车辆识别、居家安防、放心出入、授权放行栏目",
-//            "您的专属维修专家，解决日常报修烦恼。处理过程实时跟踪，报修结果及时反馈",
-//            "邮包信息我来查，精确及时到您家。快递寄件请找我，各大物流随您挑",
-//            "包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目",
-//            "您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升"};
 
     public static List<String> logList = new CopyOnWriteArrayList<String>();
     /**
@@ -135,8 +103,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
      * 上次登录用户是否保存密码
      */
     private final String CB_SAVE_PWD = "cb_save_pwd";
-
-//    private MyTask mTask;
 
     @Override
     protected void initDataFromLocal() {
@@ -181,98 +147,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         initDataFromNet();
     }
 
-    /**
-     * 初始化跑马灯效果
-     */
-    private void initFlipper() {
-//        createViewFlipper();
-//        addText("各位亲爱的业主，2016年10月26日19点开始停水!请大家做好停水准备！以免造成损失！");
-//        addText("各位业主，请速到物业中心缴纳");
-//        addText("祝亲们元旦快乐，新年心想事成!");
-//        ll_tv_type.addView(viewFlipper);
-//        // 切换所有的View，切换会循环进行
-//        viewFlipper.startFlipping();
-//        ll_tv_type.setVisibility(View.VISIBLE);
-    }
-
-
-    /**
-     * 初始化ViewFlipper参数
-     */
-    @SuppressWarnings("deprecation")
-    public void createViewFlipper() {
-//        ViewFlipper flipper = new ViewFlipper(this);
-//        android.widget.LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-//        flipper.setLayoutParams(lp);
-//        // 设置View之间切换的时间间隔
-//        flipper.setFlipInterval(5000);
-//        flipper.setInAnimation(getInAnim());
-//        flipper.setOutAnimation(getOutAnim());
-//        viewFlipper = flipper;
-//        viewFlipper.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("geek","viewFlipper onClick()");
-//                Intent tz = new Intent();
-//                tz.setClass(NewMainActivity2.this, // context
-//                        WebViewActivity.class);// 跳转的activity
-//                Bundle tz1 = new Bundle();
-//                tz1.putString("name", "通知活动");
-//                tz1.putString("address", "http://222.240.1.133/wygl/tongzhi.jsp");
-//                tz.putExtras(tz1);
-//                startActivity(tz);
-//            }
-//        });
-    }
-
-    /**
-     * 跑马灯文字进入动画
-     *
-     * @return
-     */
-//    public Animation getInAnim() {
-//        if (inAnim == null) {
-//            inAnim = new TranslateAnimation(800, 0, 0, 0);
-//            inAnim.setDuration(5000);
-//            inAnim.setFillAfter(false);
-//            inAnim.setStartOffset(0);
-//        }
-//        return inAnim;
-//    }
-
-    /**
-     * 跑马灯文字退出动画
-     *
-     * @return
-     */
-//    public Animation getOutAnim() {
-//        if (outAnim == null) {
-//            outAnim = new TranslateAnimation(0, -1000, 0, 0);
-//            outAnim.setDuration(3000);
-//            outAnim.setFillAfter(false);
-//            outAnim.setStartOffset(0);
-//        }
-//        return outAnim;
-//    }
-
-    /**
-     * 创建跑马灯中文字消息
-     * @param text
-     */
-    @SuppressWarnings("deprecation")
-    public void addText(String text) {
-//        TextView tv_add = new TextView(this);
-//        tv_add.setTextColor(Color.WHITE);
-//        tv_add.setText(text);
-//        tv_add.setTextSize(14);
-//        tv_add.setGravity(Gravity.CENTER_VERTICAL);
-//        android.widget.LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-//        tv_add.setPadding(10, 0, 0, 0);
-//        viewFlipper.addView(tv_add, lp);
-    }
-
     @Override
     protected void initView() {
         buttomwarp = (LinearLayout) findViewById(R.id.buttomwarp);
@@ -282,14 +156,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         curPlace = (TextView) findViewById(R.id.curPlace);
         curPlace.setText(Contains.cxwyMallUser.getUserSpare1()+"");
         curPlace.setOnClickListener(this);
-//        secondaryActions = (TextView) findViewById(R.id.secondaryActions);
-//        secondaryActions.setOnClickListener(this);
-//
-//        secondaryActions.setText(secondaryActionstv[0]);
-//
-//
-//        secondaryActionsDestail = (TextView) findViewById(R.id.secondaryActionsDestail);
-//        secondaryActionsDestail.setText(secondaryActionstvDestail[0]);
 
         secondaryActions = (MarqueeView) findViewById(R.id.secondaryActions);
         List<String> info = new ArrayList<>();
@@ -308,12 +174,8 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         info1.add("包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目");
         info1.add("您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升");
         secondaryActionsDestail.startWithList(info1);
-
-//        ll_tv_type = (LinearLayout) findViewById(R.id.ll_tv_type);
-//        initFlipper();
-
         marqueeTv = (TextView) findViewById(R.id.marqueeTv);
-         marqueeTv.setOnClickListener(this);
+        marqueeTv.setOnClickListener(this);
 
         img1 = (ImageView) findViewById(R.id.img1);
         img2 = (ImageView) findViewById(R.id.img2);
@@ -330,33 +192,15 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         main.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-//        indexAdvs = (BGABanner) findViewById(R.id.indexAdvs);
-//        indexAdvs.setData(Arrays.asList(""),null);
-//        indexAdvs.setOnItemClickListener(new BGABanner.OnItemClickListener() {
-//            @Override
-//            public void onBannerItemClick(BGABanner banner, View view, Object model, int position) {
-//                if (position == 0) {
-//                    startActivity(YeZhuOpenDoorActivity.class);
-//                } else if (position == 1) {
-//                    startActivity(VisitorInvitationActivity.class);
-//                } else if (position == 2){
-//                    startActivity(ExpressActivity.class);
-//                }
-//            }
-//        });
 
         imageCycleView = (ImageCycleView) findViewById(R.id.indexAdvs);
-
-//
-//        mTask = new MyTask();
-//        mTask.execute();
     }
 
     public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run() { main.setRefreshing(false);
-
+            public void run() {
+                main.setRefreshing(false);
                 Intent intent = new Intent(NewMainActivity2.this,
                         YeZhuOpenDoorActivity.class);
                 ActivityOptions opts = null;
@@ -373,8 +217,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.wuyeWarp:
                 startActivity(WuyeActivity.class);
-//                bundle.putInt("tag", 0);
-//                startActivity(WuYeMainActivity.class, bundle);
                 break;
             case R.id.serviceWarp:
                 bundle.putInt("tag", 0);
@@ -390,42 +232,10 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                         WebViewActivity.class);// 跳转的activity
                 Bundle tz1 = new Bundle();
                 tz1.putString("name", "通知活动");
-                tz1.putString("address", "http://222.240.1.133/wygl/tongzhi.jsp");
+                tz1.putString("address", "http://222.240.1.133/wygl/MyJsp.jsp");
                 tz.putExtras(tz1);
-                startActivity(tz);
+                startActivity(tz,tz1);
                 break;
-
-//                PopupMenu popup = new PopupMenu(NewMainActivity2.this, mine);
-//                //Inflating the Popup using xml file
-//                popup.getMenuInflater()
-//                        .inflate(R.menu.popup_menu, popup.getMenu());
-//
-//                //registering popup with OnMenuItemClickListener
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()) {
-//                            case R.id.menumine:
-//                                Log.d("geek", "个人中心");
-//                                startActivity(MemberActivity.class);
-//                                break;
-//                            case R.id.menumsg:
-//                                ToastUtil.show(NewMainActivity2.this, "通知敬请期待");
-//                                break;
-//                            case R.id.menuact:
-//                                ToastUtil.show(NewMainActivity2.this, "活动敬请期待");
-//                                break;
-//                            case R.id.menuversion:
-//                                startActivity(MineVisionUpdateMainActivity.class);
-//                                break;
-//                            case R.id.aboutus:
-//                                startActivity(AboutUsActivity.class);
-//                                break;
-//                        }
-//                        return true;
-//                    }
-//                });
-//
-//                popup.show(); //showing popup menu
             case R.id.curPlace:
                 startActivity(SelectPlaceActivity.class);
                 break;
@@ -439,30 +249,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
      * 跳转二级页面
      */
     private void jumpSecondView() {
-        Bundle bundle = new Bundle();
-        Log.d("geek", "jumpSecondView count=" + count);
-        switch (count) {
-            case 0: //我的物业
-                bundle.putInt("tag", 0);
-                startActivity(WuYeMainActivity.class, bundle);
-                break;
-            case 1: //维修服务
-                bundle.putInt("tag", 1);
-                startActivity(WuYeMainActivity.class, bundle);
-                break;
-            case 2: //邮包查寄
-                startActivity(ExpressActivity.class, bundle);
-                break;
-            case 3: //个人中心
-                bundle.putInt("tag", 3);
-                startActivity(WuYeMainActivity.class, bundle);
-                break;
-            case 4: //投诉建议
-                bundle.putInt("tag", 2);
-                startActivity(WuYeMainActivity.class, bundle);
-                break;
-
-        }
     }
 
     /**
@@ -527,12 +313,12 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         public void onResponse(BaseEntity info) {
             Log.d("geek","门禁 info="+info.toString());
             String tongzhi =  info.MSG;
-           // marqueeTv.setText("各位亲爱的业主，2016年10月26日19点开始停水!请大家做好停水准备！以免造成损失！      各位业主，请速到物业中心缴纳!     ");
             marqueeTv.setText(tongzhi);
         }
 
         @Override
-        public void onErrorResponse(String errMsg) {
+        public void onErrorResponse(String errMsg)
+        {
             onError(errMsg);
         }
     };
@@ -596,49 +382,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 .into((ImageView) view);
     }
 
-//    private  class MyTask extends AsyncTask<Object, Integer, Double> {
-//       // private boolean mRun = true;
-//
-//        @Override
-//        protected Double doInBackground(Object... params) {
-//
-//            //一秒更新一次
-//           // while (mRun) {
-//                try {
-//                   // Log.d("geek","首页mRun ="+mRun);
-//                    Thread.sleep(3000);
-//                    publishProgress(++count);
-//                    Log.d("geek","doInBackground count ="+count);
-////                  if (count == 4) {
-////                        count = -1;
-////                  }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//           // }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(Integer... values) {
-//            super.onProgressUpdate(values);
-//            int index = values[0];
-//            Log.d("geek","onProgressUpdate index ="+index);
-//            if(secondaryActions!= null && secondaryActionstv != null && secondaryActionstv[index] != null){
-//                secondaryActions.setText(secondaryActionstv[index]);
-//                secondaryActionsDestail.setText(secondaryActionstvDestail[index]);
-//                if (curPlace.getText().toString().equals("") || "定位失败,请手动选择小区".equals(curPlace.getText().toString())) {
-//                    initDataFromLocal();
-//                }
-//            }
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Double result) {
-//            //异步任务执行结束
-//            Log.d("geek","异步任务执行结束");
-//        }
-//    };
 
     private void getlunbotubiao(){
         if(PeiZhiController == null){
@@ -674,8 +417,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                                 }
                             }, 0);
 
-//                    indexAdvs.setAdapter(NewMainActivity2.this);
-//                    indexAdvs.setData(urls, null);
                 }
             }
 
@@ -690,15 +431,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         Log.d("geek","首页destory()");
-//        secondaryActionstv = null;
-//        secondaryActionstvDestail = null;
-        urls = null;
-
-//        if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
-//           // mTask.mRun = false;
-//            mTask.cancel(true);  //  如果Task还在运行，则先取消它
-//            //mTask = null;
-//        }
         AppConfig.setMainActivity(null);
     }
 
@@ -707,24 +439,22 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-            if((System.currentTimeMillis()-exitTime) > 2000){
-                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                finish();
-                System.exit(0);
-            }
+//            if((System.currentTimeMillis()-exitTime) > 2000){
+//                Toast.makeText(getApplicationContext(), "再按一次在后台运行", Toast.LENGTH_SHORT).show();
+//                exitTime = System.currentTimeMillis();
+//            } else {
+//                Intent home = new Intent(Intent.ACTION_MAIN);
+//                home.addCategory(Intent.CATEGORY_HOME);
+//                startActivity(home);
+////                finish();
+////                System.exit(0);
+//            }
+            Intent home = new Intent(Intent.ACTION_MAIN);
+            home.addCategory(Intent.CATEGORY_HOME);
+            startActivity(home);
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
-
-//    public void refreshLogInfo() {
-//        String AllLog = "";
-//        for (String log : logList) {
-//            AllLog = AllLog + log + "\n\n";
-//        }
-//        //Toast.makeText(NewMainActivity2.this,AllLog,Toast.LENGTH_SHORT).show();
-//    }
 
 }

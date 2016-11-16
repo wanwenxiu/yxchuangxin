@@ -9,5 +9,5 @@
         android:id="@+id/goodsImg"
         android:layout_width="70dp"
         android:layout_height="55dp"
-        android:src="@mipmap/empty_photo"/>
+        android:src="@mipmap/plugin_camera_no_pictures"/>
 </LinearLayout>

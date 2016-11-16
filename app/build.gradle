@@ -20,8 +20,8 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 4
-        versionName "1.4"
+        versionCode 10
+        versionName "2.0"
         ndk {
             abiFilters "armeabi"
         }
@@ -59,7 +59,6 @@ dependencies {
     compile files('libs/org.apache.http.legacy.jar')
     compile files('libs/titlebar.jar')
     compile files('libs/volley.jar')
-    compile files('libs/zxing.jar')
     compile files('libs/SocialSDK_QQZone_1.jar')
     compile files('libs/SocialSDK_QQZone_2.jar')
     compile files('libs/SocialSDK_QQZone_3.jar')
@@ -69,7 +68,6 @@ dependencies {
     compile files('libs/umeng_social_sdk.jar')
     compile files('libs/MobCommons-2016.0624.1326.jar')
     compile files('libs/MobTools-2016.0624.1326.jar')
-    compile files('libs/MiPush_SDK_Client_3_0_3.jar')
     compile files('libs/emailUtils.jar')
     compile files('libs/EMTMFSDK1605260955.jar')
     compile files('libs/jaSDK0.0.71_jiwei.jar')
@@ -96,6 +94,9 @@ dependencies {
 
     //compile 'com.sunfusheng:marqueeview:1.1.0'
     compile files('libs/SocialSDK_sms.jar')
+    compile files('libs/Bughd_android_sdk_v1.3.7.jar')
+    //二维码
+    compile 'cn.yipianfengye.android:zxing-library:2.0'
 }
 
 

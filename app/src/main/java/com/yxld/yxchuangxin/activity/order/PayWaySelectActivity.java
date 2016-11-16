@@ -80,10 +80,12 @@ public class PayWaySelectActivity extends BaseActivity {
 	private ListView payWayList;
 
 	private String[] payName = {"账户余额支付", "微信支付", "支付宝支付","银联支付"};
-
+//	private String[] payName = { "微信支付", "支付宝支付","银联支付"};
 	private String[] payDestail = {"使用账户中的余额支付", "微信安全支付", "支付宝安全支付","银联安全支付"};
-
+//	private String[] payDestail = {"微信安全支付", "支付宝安全支付","银联安全支付"};
+//
 	private Integer[] payImg = {R.mipmap.balance_icon, R.mipmap.weixin_icon, R.mipmap.alipay_icon,R.mipmap.unionpay_icon};
+//	private Integer[] payImg = {R.mipmap.weixin_icon, R.mipmap.alipay_icon,R.mipmap.unionpay_icon};
 
 	/**
 	 * 获取订单ID
@@ -217,7 +219,8 @@ public class PayWaySelectActivity extends BaseActivity {
 //							sDialog.setTitleText("派单成功").setContentText("您已经成功此次派单").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 						}
 					}).show();
-				}else if (arg2==1){
+				}else
+               if (arg2==1){
 					// 使用微信进行支付
 					Contains.pay=1;
 					new CreateOrderThread().start();
@@ -290,7 +293,7 @@ public class PayWaySelectActivity extends BaseActivity {
 					intent.putExtras(ylzf);
 					startActivity(intent);
 				}else {
-					ToastUtil.show(PayWaySelectActivity.this, payName[arg2] + "暂不支持支付，请选择余额支付");
+//					ToastUtil.show(PayWaySelectActivity.this, payName[arg2] + "暂不支持支付，请选择余额支付");
 				}
 			}
 		});

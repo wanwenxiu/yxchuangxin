@@ -1,6 +1,7 @@
 package com.yxld.yxchuangxin.activity.mine;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
-import com.yxld.yxchuangxin.util.ToastUtil;
 
 /**
  * @ClassName: EmployerActivity 
@@ -104,7 +104,6 @@ public class EmployerActivity extends BaseActivity {
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
 					xixi(position);
-
 				}
 
 				@Override
@@ -137,7 +136,19 @@ public class EmployerActivity extends BaseActivity {
 
 		//如果是房东展示完整身份证信息
 		if(Contains.cxwyYezhu.get(position).getYezhuParentId() == 0){
-			yz_card.setText(Contains.cxwyYezhu.get(position).getYezhuCardNum());
+			String shenfenzheng = Contains.cxwyYezhu.get(position).getYezhuCardNum();
+			if(!TextUtils.isEmpty(shenfenzheng) && shenfenzheng.length() >= 18 ){
+				StringBuilder sb  =new StringBuilder();
+				for (int i = 0; i < shenfenzheng.length(); i++) {
+					char c = shenfenzheng.charAt(i);
+					if (i >= 6 && i <= 18) {
+						sb.append('*');
+					} else {
+						sb.append(c);
+					}
+				}
+				yz_card.setText(sb.toString());
+			}
 		}else{
 			yz_card.setText("******************");
 		}

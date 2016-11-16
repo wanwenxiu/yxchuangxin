@@ -55,6 +55,26 @@ public class Network {
 		return !(networkinfo == null || !networkinfo.isAvailable());
 	}
 
+
+	/**
+	 * 判断网络是否可用
+	 * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
+	 *
+	 * @param context 上下文
+	 * @return {@code true}: 可用<br>{@code false}: 不可用
+	 */
+	public static boolean isAvailableByPing(Context context) {
+		ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 123.125.114.144", false);
+		boolean ret = result.result == 0;
+		if (result.errorMsg != null) {
+			Log.d("geek", "isAvailableByPing errorMsg"+result.errorMsg);
+		}
+		if (result.successMsg != null) {
+			Log.d("geek","isAvailableByPing successMsg"+ result.successMsg);
+		}
+		return ret;
+	}
+
 	/**
 	 * 获取当前的网络状态 -1： 没有网络 1： WIFI网络 2： wap网络 3： net网络
 	 * 
@@ -71,10 +91,7 @@ public class Network {
 		}
 		int nType = networkInfo.getType();
 		if (nType == ConnectivityManager.TYPE_MOBILE) {
-			Log.e(
-					"networkInfo.getExtraInfo()",
-					"networkInfo.getExtraInfo() is "
-							+ networkInfo.getExtraInfo());
+			Log.e("geek","networkInfo.getExtraInfo() is "+ networkInfo.getExtraInfo());
 			if (networkInfo.getExtraInfo().toLowerCase().equals("cmnet")) {
 				netType = 3;
 			} else {
@@ -86,10 +103,35 @@ public class Network {
 		return netType;
 	}
 
+	//-1： 没有网络 1： WIFI网络 2： wap网络 3： net网络
+	public static boolean customIsAvailable(Context context){
+		int type = getAPNType(context);
+		Log.d("geek","type = "+ type);
+		if(type == 1){
+			if(isWIFIActivate(context)){
+				Log.d("geek","isWIFIActivate = true");
+				return  true;
+			}else {
+				Log.d("geek","isWIFIActivate = false");
+				return  false;
+			}
+		}else if(type == 2 || type == 3){
+			if(isMobileConnected(context)){
+				Log.d("geek","isMobileConnected = true");
+				return  true;
+			}else {
+				Log.d("geek","isMobileConnected = false");
+				return  false;
+			}
+		}else{
+			Log.d("geek","ww = false");
+			return  false;
+		}
+	}
+
 	/**
 	 * Wifi是否可用
 	 * 
-	 * @param c
 	 * @return
 	 */
 	public static boolean isWIFIActivate(Context context) {
@@ -111,7 +153,7 @@ public class Network {
 	 * @param context
 	 * @return
 	 */
-	public boolean isMobileConnected(Context context) {
+	public static boolean isMobileConnected(Context context) {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -211,9 +253,6 @@ public class Network {
 
 	/**
 	 * 提示打开网络设置
-	 * 
-	 * @param c
-	 * @param status
 	 */
 	public static void showNetworkSetting(final Context context) {
 		Builder builder = new Builder(context);

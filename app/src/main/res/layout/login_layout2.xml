@@ -119,7 +119,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="#0A8FC7"
-        android:text="登陆"
+        android:text="登录"
         android:textColor="@color/white" />
-
 </LinearLayout>

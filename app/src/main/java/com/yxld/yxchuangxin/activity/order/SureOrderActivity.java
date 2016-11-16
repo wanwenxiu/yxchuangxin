@@ -246,7 +246,7 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 				 if(imgUrl.get(i) != null && !"".equals(imgUrl.get(i))){
 					 LoadingImg.LoadingImgs(this).displayImage(imgUrl.get(i), imageView, LoadingImg.option1);
 				 }else{
-					 imageView.setImageResource(R.mipmap.empty_photo);
+					 imageView.setImageResource(R.mipmap.plugin_camera_no_pictures);
 				 }
 			     goodsWarp.addView(imageView);
 			}

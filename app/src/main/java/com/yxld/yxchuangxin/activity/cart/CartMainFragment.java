@@ -1,6 +1,7 @@
 package com.yxld.yxchuangxin.activity.cart;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,20 +15,27 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity;
+import com.yxld.yxchuangxin.activity.mine.MemberActivity;
 import com.yxld.yxchuangxin.activity.order.SureOrderActivity;
 import com.yxld.yxchuangxin.adapter.CartAdapter;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.base.BaseFragment;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.CartController;
+import com.yxld.yxchuangxin.controller.GoodsController;
 import com.yxld.yxchuangxin.controller.impl.CartControllerImpl;
+import com.yxld.yxchuangxin.controller.impl.GoodsControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallCart;
+import com.yxld.yxchuangxin.entity.ProductInfo;
 import com.yxld.yxchuangxin.entity.SureOrderEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.CxUtil;
 import com.yxld.yxchuangxin.util.StringUitl;
+import com.yxld.yxchuangxin.util.ToastUtil;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -53,6 +61,10 @@ public class CartMainFragment extends BaseFragment {
      * 更新价格
      */
     public static final int updateCurPrise = 2;
+    /**
+     * 跳转至商品详情界面
+     */
+    public static final int jumpGoodsDestail = 3;
 
     /**
      * 购物车实现类
@@ -83,6 +95,8 @@ public class CartMainFragment extends BaseFragment {
     private  String queryCartInfo = "";
 
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+
+    private GoodsController goodsController;
 
     @Override
     public void onDestroy() {
@@ -388,6 +402,11 @@ public class CartMainFragment extends BaseFragment {
                     }
                     cartPriceConnt.setText("总计：￥" + decimalFormat.format(curPrise)+ "元");
                     break;
+                case jumpGoodsDestail:
+                    int goodsId = msg.arg1;
+                    Log.d("geek", "goodsId: "+goodsId);
+                    requestGoodsDestail(goodsId+"");
+                   break;
                 default:
                     break;
             }
@@ -397,5 +416,38 @@ public class CartMainFragment extends BaseFragment {
     };
 
 
+    /**
+     * 根据商品ID获取商品详情
+     * @param goodId
+     */
+    private void  requestGoodsDestail(String goodId){
+        if(goodsController == null){
+            goodsController = new GoodsControllerImpl();
+        }
+        Log.d("geek", "获取商品goodId="+goodId);
+        goodsController.getProductByGoodId(mRequestQueue,new Object[]{goodId},goodsRequest);
+    }
+
+    private ResultListener<ProductInfo>  goodsRequest = new ResultListener<ProductInfo>() {
+        @Override
+        public void onResponse(ProductInfo info) {
+            if(info.getStatus() != 0){
+                onError(info.MSG);
+                return;
+            }
+
+            Log.d("geek", "获取商品info="+info.toString());
+            if(info.getProduct() != null){
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("goods", info.getProduct());
+                startActivity(GoodsDestailActivity.class, bundle);
+            }
+        }
+
+        @Override
+        public void onErrorResponse(String errMsg) {
+            onError(errMsg);
+        }
+    };
 
 }

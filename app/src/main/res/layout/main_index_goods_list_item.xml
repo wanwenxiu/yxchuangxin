@@ -18,7 +18,7 @@
         android:layout_height="110dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:background="@mipmap/empty_photo"
+        android:background="@mipmap/plugin_camera_no_pictures"
             />
         <!--fresco:placeholderImage="@mipmap/empty_photo"-->
 

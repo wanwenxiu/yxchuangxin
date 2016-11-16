@@ -2,6 +2,7 @@ package com.yxld.yxchuangxin.activity.index;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.alipay.security.mobile.module.commonutils.LOG;
 import com.google.zxing.WriterException;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
@@ -26,11 +28,12 @@ import com.yxld.yxchuangxin.entity.ShareInfo;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.YouMengShareUtil;
-import com.zxing.encoding.EncodingHandler;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 /**
@@ -62,9 +65,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 	private CxwyYezhu yezhu = new CxwyYezhu();
 	private String shareUrl = "";
 
-	private int i = 0;
 	/** 更新二维码时间*/
 	private int UPDATETIME = 1000*10;
+
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -75,7 +78,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		shareInfo.setShareCon(address);
 
 		List<CxwyYezhu> list = Contains.cxwyYezhu;
-		yezhu = list.get(0);
+		if(list != null && list.size() != 0){
+			yezhu = list.get(0);
+		}
 		address = yezhu.getYezhuLoupan()+""+yezhu.getYezhuLoudong()+"栋"+yezhu.getYezhuDanyuan()+"单元" +yezhu.getYezhuFanghao();
 		Log.d("geek","业主"+yezhu.toString());
 		handler.postDelayed(runnable, UPDATETIME); //每隔1s执行
@@ -125,76 +130,61 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		shareSms.setVisibility(View.INVISIBLE);
 		shareSms.setOnClickListener(this);
 		youxiaoqi.setText("二维码即时更新中,复制无效。");
-
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-//			case R.id.update:
-//				initDataFromNet();
-//				break;
 		}
 	}
 
 	@Override
 	protected void initDataFromLocal() {
-		Log.d("geek", "进入initDataFromLocal（）");
 		mengShareUtil = new YouMengShareUtil(this);
 	}
 
 	private void getOpenDoor(String contentString,String time){
-		try {
 			if (!contentString.equals("")) {
 				//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 450);
+				Bitmap qrCodeBitmap =CodeUtils.createImage(contentString, 450, 450, BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg));
 				codeImg.setImageBitmap(qrCodeBitmap);
 				shareInfo.setBitmap(qrCodeBitmap);
 				shareUrl = API.yuming+"/qr_code.html?timr="+time+"&code="+contentString;
 				shareInfo.setImgUrl(shareUrl);
+				youxiaoqi.setText("二维码即时更新中,复制无效。");
+				codeImg.setVisibility(View.VISIBLE);
 			}else {
 				Toast.makeText(YeZhuOpenDoorActivity.this, "生成二维码失败", Toast.LENGTH_SHORT).show();
 			}
-		} catch (WriterException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			finish();
-//			if (name.equals("1")) {
-//				Intent intent = new Intent(phoneOpenDoorActivity.this, NewMainActivity2.class);
-//				setResult(RESULT_OK, intent);
-//				ActivityOptions opts = null;
-//				opts = ActivityOptions.makeCustomAnimation(
-//						phoneOpenDoorActivity.this, R.anim.slide_up_in,
-//						R.anim.slide_down_out);
-//				startActivity(intent, opts.toBundle());
-//				finish();
-//			}   else if (name.equals("2")){
-//				finish();
-//			}
 		}
 		return false;
 	}
 
-
 	@Override
 	protected void initDataFromNet() {
-		Log.d("geek","initDataFromNet");
+		if(!netWorkIsAvailable()){
+			codeImg.setVisibility(View.INVISIBLE);
+			youxiaoqi.setText("更新二维码失败！请检查您的网络状态");
+			return;
+		}
 		if(doorController == null ){
 			doorController = new DoorControllerImpl();
 		}
-		Map<String, String> parm = new HashMap<String, String>();
-		parm.put("houses", yezhu.getYezhuLoupan());
-		parm.put("dong", yezhu.getYezhuLoudong());
-		parm.put("danyuan", yezhu.getYezhuDanyuan());
-		parm.put("name", yezhu.getYezhuName());
-		parm.put("tel", yezhu.getYezhuShouji());
-		parm.put("yezhuid", yezhu.getYezhuId()+"");
-		doorController.GetYEZHUDoorCODE(mRequestQueue,parm,yezhuDoorCode);
-
+		if(yezhu != null ){
+			Map<String, String> parm = new HashMap<String, String>();
+			parm.put("houses", yezhu.getYezhuLoupan());
+			parm.put("dong", yezhu.getYezhuLoudong());
+			parm.put("danyuan", yezhu.getYezhuDanyuan());
+			parm.put("name", yezhu.getYezhuName());
+			parm.put("tel", yezhu.getYezhuShouji());
+			parm.put("yezhuid", yezhu.getYezhuId()+"");
+			doorController.GetYEZHUDoorCODE(mRequestQueue,parm,yezhuDoorCode);
+		}
 	}
 
 	/**
@@ -216,8 +206,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		}
 
 		@Override
-		public void onErrorResponse(String errMsg) {
-			onError(errMsg);
+		public void onErrorResponse(String errMsg)
+		{
+				onError("网络连接失败");
 		}
 	};
 

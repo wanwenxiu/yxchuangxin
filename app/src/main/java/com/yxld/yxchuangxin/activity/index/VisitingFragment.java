@@ -82,8 +82,6 @@ public class VisitingFragment extends BaseFragment implements ResultListener<Bas
         Log.d("geek", "业主" + yezhu.toString());
         initDataFromNet();
         initview(view);
-
-
         return view;
     }
 
@@ -161,8 +159,13 @@ public class VisitingFragment extends BaseFragment implements ResultListener<Bas
 
     @Override
     public void onResponse(BaseEntity info) {
-        Log.d("geek", "门禁 info=" + info.toString());
-        mac = info.MSG;
+        if(info != null){
+            Log.d("geek", "门禁 info=" + info.toString());
+            mac = info.MSG;
+        }else{
+            ToastUtil.show(getActivity(),"获取门禁数据失败");
+            mac = "";
+        }
 
 //		if (isEmptyList(info.getRows())) {
 //			ToastUtil.show(VisitorInvitationActivity.this, "没有查询到记录");

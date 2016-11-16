@@ -80,7 +80,7 @@ public class WelcomeActivity extends BaseActivity implements
 		setToorBar(false);
 		//permission.READ_PHONE_STATE
 		checkPermission(REQUEST_CODE_ASK_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
-	}
+}
 
 	Handler handler = new Handler() {
 		@SuppressWarnings("static-access")
@@ -94,11 +94,11 @@ public class WelcomeActivity extends BaseActivity implements
 				finish();
 				break;
 			case LOCATION_FINISH:
-				if(!locationClient.isStarted()){
-					// 启动定位
-					locationClient.setLocationListener(WelcomeActivity.this);
-					locationClient.startLocation();
-				}
+//				if(!locationClient.isStarted()){
+//					// 启动定位
+//					locationClient.setLocationListener(WelcomeActivity.this);
+//					locationClient.startLocation();
+//				}
 				queryShipperInfo();
 				break;
 			default:
@@ -121,7 +121,7 @@ public class WelcomeActivity extends BaseActivity implements
 		boolean savePsd = (boolean) SPUtils.get(this, CB_SAVE_PWD, false);
 		if (!savePsd) {
 			Log.d("geek", "GuideActivity getLogin()  curUser 没有保存密码");
-			handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 1000);
+			handler.sendEmptyMessage(JUMP_ACTIVITY);
 			return;
 		}
 		String userId = String.valueOf(SPUtils
@@ -150,7 +150,8 @@ public class WelcomeActivity extends BaseActivity implements
 			Log.d("geek", "数据库查询 curUser == null等");
 		}
 		
-		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 2000);
+//		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 500);
+		handler.sendEmptyMessage(JUMP_ACTIVITY);
 	}
 
 	@Override
@@ -169,7 +170,7 @@ public class WelcomeActivity extends BaseActivity implements
 
 	@Override
 	public void onResponse(LoginEntity info) {
-		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 2000);
+		handler.sendEmptyMessage(JUMP_ACTIVITY);
 		if (info.status != STATUS_CODE_OK) {
 			Log.d("geek","自动登录失败");
 			return;
@@ -194,15 +195,14 @@ public class WelcomeActivity extends BaseActivity implements
 			SPUtils.put(WelcomeActivity.this, LAST_LOGIN_USER_ID, info
 					.getUser().getUserId() + "");
 		} else {
-			//ToastUtil.show(WelcomeActivity.this, "自动登录失败");
 			Log.d("geek","自动登录失败");
 		}
 	}
 
 	@Override
 	public void onErrorResponse(String errMsg) {
-		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 2000);
-		//ToastUtil.show(WelcomeActivity.this, "登录失败, 请重试!");
+		//handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 500);
+		handler.sendEmptyMessage(JUMP_ACTIVITY);
 	}
 
 	@Override

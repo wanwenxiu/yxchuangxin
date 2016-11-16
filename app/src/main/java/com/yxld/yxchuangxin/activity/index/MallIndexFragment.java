@@ -68,22 +68,17 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     private MallTubaioImageAdapter adapter;
 
     /**首页推荐商品*/
-    private List<CxwyMallProduct> indexListData;
+    private List<CxwyMallProduct> indexListData = new ArrayList<CxwyMallProduct>();
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("geek","商城首页 ondestory()");
         if(urls != null){
             urls = null;
         }
 
         if(msctbList != null){
             msctbList = null;
-        }
-
-        if(indexListData != null){
-            indexListData = null;
         }
 
         if(mGridView1 != null){
@@ -114,7 +109,6 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("geek","商城首页 onCreate()");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -180,11 +174,9 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
         banner_guide_content.setData(Arrays.asList(""), null);
         banner_guide_content.setOnItemClickListener(this);
 
-
         scrollView = (ScrollView) view.findViewById(R.id.scrollView2);
         scrollView.scrollTo(0, 0);
         getlunbotubiao();
-        initDataFromNet();
         return view;
     }
 
@@ -227,7 +219,6 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     protected void initDataFromNet() {
-        super.initDataFromNet();
         if (goodsController == null) {
             goodsController = new GoodsControllerImpl();
         }
@@ -267,10 +258,10 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     };
 
     private void getlunbotubiao(){
+        progressDialog.show();
         if(PeiZhiController == null){
             PeiZhiController = new PeiZhiControllerImpl();
         }
-
         PeiZhiController.getAllScLbTbList(mRequestQueue, new Object[]{}, new ResultListener<CxwyMallPezhi>() {
             @Override
             public void onResponse(CxwyMallPezhi info) {
@@ -284,23 +275,23 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                         urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
                     }
                     banner_guide_content.setAdapter(MallIndexFragment.this);
-                    banner_guide_content.setData(urls, Arrays.asList("第一页","第二页","第三页"));
+                    banner_guide_content.setData(urls, null);
                 }
 
                 if(!isEmptyList(info.getTblist())) {
                     msctbList = info.getTblist();
                     adapter.setmList(msctbList);
                 }
+
+                initDataFromNet();
             }
 
             @Override
             public void onErrorResponse(String errMsg) {
-                onError("暂未获取到最新图片");
+                initDataFromNet();
             }
         });
     }
-
-
 
     @Override
     public void onPause() {
@@ -312,7 +303,6 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onBannerItemClick(BGABanner banner, View view, Object model, int position) {
         Log.d("geek", "点击了第" + (position + 1) + "页");
-        Toast.makeText(getActivity(),"点击了第" + (position + 1) + "页",Toast.LENGTH_SHORT).show();
     }
 
     @Override

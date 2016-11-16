@@ -24,6 +24,7 @@ import com.yxld.yxchuangxin.activity.index.FeiYongListActivity;
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 import com.yxld.yxchuangxin.activity.mine.AboutUsActivity;
 import com.yxld.yxchuangxin.activity.mine.EmployerActivity;
+import com.yxld.yxchuangxin.activity.mine.MemberActivity;
 import com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.util.ToastUtil;
@@ -45,8 +46,8 @@ public class Wuyeadapter extends BaseAdapter {
     int[] icon2 = {R.mipmap.tongzhi, R.mipmap.baoxiu, R.mipmap.shouq, R.mipmap.kuaidi,R.mipmap.tousu,R.mipmap.manyi};
     String[] name2 = {"通知公告", "维修服务","授权放行","邮包查寄","投诉建议","满意度调查"};
 
-    int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.gengxin, R.mipmap.guanyu};
-    String[] name3 = {"房屋信息", "入住成员", "版本更新", "关于我们"};
+    int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.zhanghao,R.mipmap.gengxin, R.mipmap.guanyu};
+    String[] name3 = {"房屋信息", "入住成员","账号管理", "版本更新", "关于我们"};
 
 
     public Wuyeadapter(String[] title, Context context) {
@@ -126,7 +127,6 @@ public class Wuyeadapter extends BaseAdapter {
                                     ToastUtil.show(context, "请配置房屋信息再进行查询");
                                     return;
                                 }
-
                                 bundle.putString("curType", "物业服务");
                                 startActivity(FeiYongListActivity.class, bundle);
                                 break;
@@ -171,9 +171,10 @@ public class Wuyeadapter extends BaseAdapter {
                                         WebViewActivity.class);// 跳转的activity
                                 Bundle tz1 = new Bundle();
                                 tz1.putString("name", "通知活动");
-                                tz1.putString("address", "http://222.240.1.133/wygl/tongzhi.jsp");
+                                tz1.putString("address", "http://222.240.1.133/wygl/MyJsp.jsp");
+//                                tz1.putString("address", "http://192.168.0.114:8080/wygl/tongzhi.jsp");
                                 tz.putExtras(tz1);
-                                context.startActivity(tz);
+                                context.startActivity(tz,tz1);
                                 break;
                             case 1://维修服务
                                 startActivity(Repair.class);
@@ -217,9 +218,12 @@ public class Wuyeadapter extends BaseAdapter {
                         }
                         break;
                     case 2:
-                        startActivity(MineVisionUpdateMainActivity.class);
+                        startActivity(MemberActivity.class);
                         break;
                     case 3:
+                        startActivity(MineVisionUpdateMainActivity.class);
+                        break;
+                    case 4:
                         startActivity(AboutUsActivity.class);
                         break;
                 }

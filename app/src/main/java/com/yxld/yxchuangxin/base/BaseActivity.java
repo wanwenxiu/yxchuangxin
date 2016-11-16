@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -109,6 +108,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (Contains.isKill == null) {
+			Intent home = new Intent(Intent.ACTION_MAIN);
+			home.addCategory(Intent.CATEGORY_HOME);
+			startActivity(home);
+            finish();
+            System.exit(0);
+			return;
+		}
 		super.onCreate(savedInstanceState);
 		// 这句很关键，注意是调用父类的方法
 		super.setContentView(R.layout.activity_base);
@@ -118,17 +125,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
 			localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
 		}
 		initToolbar();
-
-		if (Contains.isKill == null) {
-			AppConfig.getInstance().exit();
-			return;
-		}
-
 //		//在自己的应用初始Activity中加入如下两行代码
 //		RefWatcher refWatcher = AppConfig.getRefWatcher(this);
 //		refWatcher.watch(this);
-
-		netWorkIsAvailable();
+		if(!netWorkIsAvailable()){
+			Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
+		}
 		AppConfig.getInstance().addActivity(this);
 
 		// 请不要更改以下方法的调用顺序
@@ -194,8 +196,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	 * @throws
 	 */
 	public boolean netWorkIsAvailable() {
-		if (!Network.isAvailable(this)) {
-			Toast.makeText(this, "网络无连接?", Toast.LENGTH_SHORT).show();
+		if (!Network.isAvailableByPing(this)) {
 			return false;
 		} else {
 			return true;
@@ -382,13 +383,21 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	}
 
 	public void onError(String errMsg) {
-		new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-				.setTitleText("请求失败")
-				.setContentText(errMsg)
-				.show();
-		//Toast.makeText(this, errMsg, Toast.LENGTH_SHORT).show();
-		resetView();
-		showErrorPage(true);
+		if(!this.isFinishing()){
+			if(!netWorkIsAvailable()){
+				new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+						.setTitleText("连接失败")
+						.setContentText("网络连接失败，请检查您的网络状态")
+						.show();
+			}else{
+				new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+						.setTitleText("连接失败")
+						.setContentText(errMsg)
+						.show();
+			}
+			resetView();
+			showErrorPage(true);
+		}
 	}
 
 	@Override
@@ -514,6 +523,5 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		for (String log : logList) {
 			AllLog = AllLog + log + "\n\n";
 		}
-		//Toast.makeText(this,AllLog,Toast.LENGTH_SHORT).show();
 	}
 }

@@ -2,6 +2,7 @@ package com.yxld.yxchuangxin.activity.mine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,6 +16,9 @@ import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.util.SPUtils;
+import com.yxld.yxchuangxin.util.ToastUtil;
+
+import static com.yxld.yxchuangxin.R.id.phone;
 
 /**
  * @ClassName: MemberActivity 
@@ -28,7 +32,7 @@ public class MemberActivity extends BaseActivity {
 
 	private TextView account_id;
 	private TextView account_name;
-	private TextView account_card;
+	private TextView account_card,yz_zhenshiname;
 	private View securityAccountWrap;
 	private View menberNameWrap;
 	
@@ -56,6 +60,14 @@ public class MemberActivity extends BaseActivity {
 		account_id = (TextView) findViewById(R.id.yz_name);
 		account_name = (TextView) findViewById(R.id.yz_id);
 		account_card = (TextView) findViewById(R.id.account_card);
+		yz_zhenshiname = (TextView) findViewById(R.id.yz_zhenshiname);
+
+		if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+			yz_zhenshiname.setText("业主信息未完善");
+		}else{
+			yz_zhenshiname.setText(Contains.cxwyYezhu.get(0).getYezhuName());
+		}
+
 		securityAccountWrap=findViewById(R.id.securityAccountWrap);
 		menberNameWrap=findViewById(R.id.menberNameWrap);
 		
@@ -63,28 +75,51 @@ public class MemberActivity extends BaseActivity {
 		
 		loginOut = (TextView) findViewById(R.id.loginOut);
 		loginOut.setOnClickListener(this);
-		
-		account_id.setText(Contains.cxwyMallUser.getUserTel());
 
+		String phone=Contains.cxwyMallUser.getUserTel();
+
+		if(!TextUtils.isEmpty(phone) && phone.length() >= 11 ){
+			StringBuilder sb  =new StringBuilder();
+			for (int i = 0; i < phone.length(); i++) {
+				char c = phone.charAt(i);
+				if (i >= 3 && i <= 6) {
+					sb.append('*');
+				} else {
+					sb.append(c);
+				}
+			}
+			account_id.setText(sb.toString());
+		}
 		
 		account_name.setOnClickListener(this);
 		account_card.setOnClickListener(this);
 		securityAccountWrap.setOnClickListener(this);
-		menberNameWrap.setOnClickListener(this);
 		
 		mineVisionUpdate.setOnClickListener(this);
 	}
 
 	@Override
 	protected void initDataFromLocal() {
-
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		account_name.setText(Contains.cxwyMallUser.getUserUserName());
-		account_card.setText(Contains.cxwyMallUser.getUserIdCard());
+		String card=Contains.cxwyMallUser.getUserIdCard();
+
+		if(!TextUtils.isEmpty(card) && card.length() >= 18 ){
+			StringBuilder sb  =new StringBuilder();
+			for (int i = 0; i < card.length(); i++) {
+				char c = card.charAt(i);
+				if (i >= 6 && i <= 18) {
+					sb.append('*');
+				} else {
+					sb.append(c);
+				}
+			}
+			account_card.setText(sb.toString());
+		}
 	}
 
 	@Override
@@ -93,10 +128,6 @@ public class MemberActivity extends BaseActivity {
 		case R.id.yz_id:
 			Intent aname = new Intent(MemberActivity.this, UpdateName.class);
 			startActivity(aname);
-			break;
-		case R.id.account_card:
-			Intent acard = new Intent(MemberActivity.this, UpdateCard.class);
-			startActivity(acard);
 			break;
 		case R.id.menberNameWrap:
 			Intent NameWrap = new Intent(MemberActivity.this, UpdateName.class);

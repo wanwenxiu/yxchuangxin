@@ -13,7 +13,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.GoodsController;
+import com.yxld.yxchuangxin.entity.CxwyMallProduct;
 import com.yxld.yxchuangxin.entity.FirstClassGoodsInfo;
+import com.yxld.yxchuangxin.entity.ProductInfo;
 import com.yxld.yxchuangxin.entity.SecondClassGoodsInfo;
 import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.http.GsonRequest;
@@ -257,5 +259,29 @@ public class GoodsControllerImpl implements GoodsController{
 		stringRequest.setTag(URL_INDEX_GOODS_LIST);
 		mRequestQueue.add(stringRequest);
 	}
-	
+
+	@Override
+	public void getProductByGoodId(RequestQueue mRequestQueue, Object[] parm,final ResultListener<ProductInfo> listener) {
+		GsonRequest<ProductInfo> gsonRequest = new GsonRequest<ProductInfo>(String.format(URL_GETPRODUCT_BYGOODID, parm), ProductInfo.class, new Listener<ProductInfo>() {
+
+			@Override
+			public void onResponse(ProductInfo response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
+
+			}
+		}, new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_GETPRODUCT_BYGOODID);
+		mRequestQueue.add(gsonRequest);
+	}
 }

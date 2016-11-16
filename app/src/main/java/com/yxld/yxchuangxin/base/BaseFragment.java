@@ -38,6 +38,8 @@ import com.yxld.yxchuangxin.view.ProgressDialog;
 import com.yxld.yxchuangxin.view.XListView;
 import com.yxld.yxchuangxin.view.XListView.IXListViewListener;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * @ClassName: BaseFragment 
  * @Description: 基础Fragment�?
@@ -84,11 +86,9 @@ OnCancelListener, IXListViewListener {
 	 */
 	protected int pageCode = 0;
 	/**
-	 * 
 	 */
 	protected XListView xlistView;
-	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,7 +101,10 @@ OnCancelListener, IXListViewListener {
 //		RefWatcher refWatcher = AppConfig.getRefWatcher(getActivity());
 //		refWatcher.watch(this);
 
-		netWorkIsAvailable();
+		if(!netWorkIsAvailable()){
+			Toast.makeText(getActivity(), "网络不可用", Toast.LENGTH_SHORT).show();
+		}
+
 		AppConfig.getInstance().addFragment(this);
 		
 		if (dbUtil == null) {
@@ -117,8 +120,7 @@ OnCancelListener, IXListViewListener {
 	 * @throws
 	 */
 	public boolean netWorkIsAvailable() {
-		if (!Network.isAvailable(getActivity())) {
-			Toast.makeText(getActivity(), "网络无连接?", Toast.LENGTH_SHORT).show();
+		if (!Network.isAvailableByPing(getActivity())) {
 			return false;
 		} else {
 			return true;
@@ -418,10 +420,16 @@ OnCancelListener, IXListViewListener {
 	}
 
 	public void onError(String errMsg) {
-		if(StringUitl.isNoEmpty(errMsg)){
-			Toast.makeText(getActivity(), errMsg,Toast.LENGTH_LONG).show();
+		if(!netWorkIsAvailable()){
+			new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+					.setTitleText("连接失败")
+					.setContentText("网络连接失败，请检查您的网络状态")
+					.show();
 		}else{
-			Toast.makeText(getActivity(), "数据加载失败！",Toast.LENGTH_SHORT).show();
+			new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+					.setTitleText("连接失败")
+					.setContentText(errMsg)
+					.show();
 		}
 		resetView();
 		showErrorPage(true);
@@ -431,8 +439,6 @@ OnCancelListener, IXListViewListener {
 		Log.d("geek", "BaseFragment onRefresh()");
 		pageCode = 0;
 		initDataFromNet();
-		
-		
 	}
 
 	@Override

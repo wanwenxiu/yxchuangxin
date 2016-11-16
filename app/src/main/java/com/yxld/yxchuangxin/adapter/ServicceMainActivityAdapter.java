@@ -27,7 +27,7 @@ import com.yxld.yxchuangxin.util.ToastUtil;
 import java.util.List;
 
 /**
- * @ClassName: WuYeMainActivityAdapter
+ * @ClassName: ServicceMainActivityAdapter
  * @Description: 社区助手主界面适配器
  * @author wwx
  * @date 2016年4月5日 下午2:40:00 

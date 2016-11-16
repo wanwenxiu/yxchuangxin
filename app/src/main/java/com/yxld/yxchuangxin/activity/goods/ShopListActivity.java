@@ -139,11 +139,13 @@ public class ShopListActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("goods", adapter.getMlist().get(arg2-1));
-				Intent intent = new Intent(ShopListActivity.this, GoodsDestailActivity.class);
-				intent.putExtras(bundle);
-				startActivityForResult(intent, JUMP_GOODSTAIL);
+				if(arg2-1>=0){
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("goods", adapter.getMlist().get(arg2-1));
+					Intent intent = new Intent(ShopListActivity.this, GoodsDestailActivity.class);
+					intent.putExtras(bundle);
+					startActivityForResult(intent, JUMP_GOODSTAIL);
+				}
 			}
 			
 		});
@@ -184,7 +186,7 @@ public class ShopListActivity extends BaseActivity implements
 				Log.d("geek","进入跳转至购物车界面");
 				Intent intentCart = new Intent(getResources().getString(
 						R.string.index_broad));
-				intentCart.putExtra("IndexJumpTag", 2);
+				intentCart.putExtra("IndexJumpTag", 1);
 				sendBroadcast(intentCart);
 				finish();
 			}
@@ -232,7 +234,7 @@ public class ShopListActivity extends BaseActivity implements
 			// 进入购物车
 			Intent intentCart = new Intent(getResources().getString(
 					R.string.index_broad));
-			intentCart.putExtra("IndexJumpTag", 2);
+			intentCart.putExtra("IndexJumpTag", 1);
 			sendBroadcast(intentCart);
 			finish();
 			break;

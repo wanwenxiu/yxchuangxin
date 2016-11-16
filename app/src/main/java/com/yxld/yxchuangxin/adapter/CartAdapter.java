@@ -3,11 +3,11 @@ package com.yxld.yxchuangxin.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -51,6 +51,8 @@ public class CartAdapter extends BaseAdapter {
     private String LOG_TAG = "geek";
 
     private CartController cartController;
+
+
     /**
      * 网络请求列队
      */
@@ -235,6 +237,15 @@ public class CartAdapter extends BaseAdapter {
             }
         });
 
+        listItemView.cartGoodsImg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Message msg = new Message();
+                msg.arg1 = Integer.valueOf(goodsVo.getCartShangpNum());
+                msg.what = CartMainFragment.jumpGoodsDestail;
+                handler.sendMessage(msg);
+            }
+        });
 
 //        listItemView.cartGoodsNum.setOnTouchListener(new View.OnTouchListener() {
 //

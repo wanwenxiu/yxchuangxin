@@ -17,11 +17,11 @@
         android:layout_height="100dp"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:src="@mipmap/empty_photo"
+        android:src="@mipmap/plugin_camera_no_pictures"
         android:contentDescription="@null"
         android:paddingLeft="@dimen/size_15"
         android:scaleType="fitXY"
-        fresco:placeholderImage="@mipmap/empty_photo"
+        fresco:placeholderImage="@mipmap/plugin_camera_no_pictures"
         android:paddingRight="@dimen/size_15"/>
 
    <!-- <com.facebook.drawee.view.SimpleDraweeView

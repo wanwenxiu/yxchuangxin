@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.order.AddressListActivity;
 import com.yxld.yxchuangxin.activity.order.CouponActivity;
@@ -23,7 +22,6 @@ import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
 import com.yxld.yxchuangxin.entity.Base1Entity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
-import com.yxld.yxchuangxin.view.CircularImage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,18 +60,19 @@ public class MallMineFragment extends BaseFragment {
      */
     private TextView llth;
 
-    /**
-     * 用户名
-     */
-    private TextView user_name;
+//    /**
+//     * 用户名
+//     */
+//    private TextView user_name;
 
     /**
      * 头像
      */
-    private CircularImage touxiang;
+//    private CircularImage touxiang;
+    private TextView touxiang;
 
     /** 余额*/
-    private TextView yue;
+//    private TextView yue;
 
     private View coupon;
 
@@ -101,8 +100,8 @@ public class MallMineFragment extends BaseFragment {
         llysh.setOnClickListener(this);
         llth = (TextView) view.findViewById(R.id.llth);
         llth.setOnClickListener(this);
-        touxiang = (CircularImage) view.findViewById(R.id.touxiang);
-        touxiang.setImageResource(R.mipmap.mine_touxiang_03);
+        touxiang = (TextView) view.findViewById(R.id.touxiang);
+        touxiang.setText(Contains.cxwyMallUser.getUserUserName()); // animate
         touxiang.setOnClickListener(this);
         coupon=view.findViewById(R.id.coupon);
         coupon.setOnClickListener(this);
@@ -112,20 +111,20 @@ public class MallMineFragment extends BaseFragment {
 
         view.findViewById(R.id.updatePwd).setOnClickListener(this);
 
-        view.findViewById(R.id.mineMoney).setOnClickListener(this);
+//        view.findViewById(R.id.mineMoney).setOnClickListener(this);
 
         view.findViewById(R.id.mineInfo).setOnClickListener(this);
 
         view.findViewById(R.id.record).setOnClickListener(this);
-        yue = (TextView) view.findViewById(R.id.yue);
+//        yue = (TextView) view.findViewById(R.id.yue);
 
-        user_name = (TextView) view.findViewById(R.id.user_name);
-        user_name.setText("用户账号:" + Contains.cxwyMallUser.getUserTel());
-        if(Contains.cxwyMallUser.getUserIntegral() != null && !"".equals(Contains.cxwyMallUser.getUserIntegral())){
-            yue.setText("余额充值("+Contains.cxwyMallUser.getUserIntegral()+")元");
-        }else {
-            yue.setText("余额充值(0元)");
-        }
+//        user_name = (TextView) view.findViewById(R.id.user_name);
+//        user_name.setText("用户账号:" + Contains.cxwyMallUser.getUserTel());
+//        if(Contains.cxwyMallUser.getUserIntegral() != null && !"".equals(Contains.cxwyMallUser.getUserIntegral())){
+//            yue.setText("余额充值("+Contains.cxwyMallUser.getUserIntegral()+")元");
+//        }else {
+//            yue.setText("余额充值(0元)");
+//        }
     }
 
     @Override
@@ -166,9 +165,9 @@ public class MallMineFragment extends BaseFragment {
             case R.id.updatePwd:
                 startActivity(UpdatePwd.class);
                 break;
-            case R.id.mineMoney:
-                startActivity(SaveMoneyActivity.class);
-                break;
+//            case R.id.mineMoney:
+//                startActivity(SaveMoneyActivity.class);
+//                break;
             case R.id.mineInfo:
                 ToastUtil.show(getActivity(), "敬请期待");
                 break;
@@ -222,14 +221,14 @@ public class MallMineFragment extends BaseFragment {
         }
     };
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(Contains.cxwyMallUser.getUserIntegral() != null && !"".equals(Contains.cxwyMallUser.getUserIntegral())){
-            yue.setText("余额充值("+Contains.cxwyMallUser.getUserIntegral()+")元");
-        }else {
-            yue.setText("余额充值(0元)");
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if(Contains.cxwyMallUser.getUserIntegral() != null && !"".equals(Contains.cxwyMallUser.getUserIntegral())){
+//            yue.setText("余额充值("+Contains.cxwyMallUser.getUserIntegral()+")元");
+//        }else {
+//            yue.setText("余额充值(0元)");
+//        }
+//    }
 
 }

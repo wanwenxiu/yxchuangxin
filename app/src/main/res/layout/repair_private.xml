@@ -51,7 +51,7 @@
 
              <RadioButton
                 android:id="@+id/privates"
-                android:text="专有区域"
+                android:text="专有部位"
                 android:checked="true" />
             <RadioButton
                 android:id="@+id/publics"
@@ -91,7 +91,7 @@
             <RadioButton
                 android:id="@+id/privatesBig"
                 android:layout_marginLeft="10dp"
-                android:text="中大修"
+                android:text="大修"
                  />
         </RadioGroup>
     </LinearLayout>

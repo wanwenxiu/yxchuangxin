@@ -16,7 +16,6 @@
             android:id="@+id/dynamicImg"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@mipmap/icon_data_select"
             android:layout_marginRight="5dp"
             android:layout_alignParentLeft="true"
             />
