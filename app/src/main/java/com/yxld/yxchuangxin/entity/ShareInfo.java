@@ -18,22 +18,19 @@ public class ShareInfo {
 	/** 图片路径*/
 	public String ImgUrl;
 
+	/** QQ图片路径(解决qq编码)*/
+	public String QQImgUrl;
+
 	public Bitmap bitmap;
 
 	public ShareInfo() {
 	}
 
-	public ShareInfo(String title, String shareCon, String imgUrl) {
+	public ShareInfo(String title, String shareCon, String imgUrl, String QQImgUrl, Bitmap bitmap) {
 		Title = title;
 		ShareCon = shareCon;
 		ImgUrl = imgUrl;
-	}
-
-	public ShareInfo(com.yxld.yxchuangxin.entity.ShareInfo shareInfo, String title, String shareCon, String imgUrl, Bitmap bitmap) {
-		ShareInfo = shareInfo;
-		Title = title;
-		ShareCon = shareCon;
-		ImgUrl = imgUrl;
+		this.QQImgUrl = QQImgUrl;
 		this.bitmap = bitmap;
 	}
 
@@ -69,13 +66,21 @@ public class ShareInfo {
 		this.bitmap = bitmap;
 	}
 
+	public String getQQImgUrl() {
+		return QQImgUrl;
+	}
+
+	public void setQQImgUrl(String QQImgUrl) {
+		this.QQImgUrl = QQImgUrl;
+	}
+
 	@Override
 	public String toString() {
 		return "ShareInfo{" +
-				"ShareInfo=" + ShareInfo +
-				", Title='" + Title + '\'' +
+				"Title='" + Title + '\'' +
 				", ShareCon='" + ShareCon + '\'' +
 				", ImgUrl='" + ImgUrl + '\'' +
+				", QQImgUrl='" + QQImgUrl + '\'' +
 				", bitmap=" + bitmap +
 				'}';
 	}

@@ -28,9 +28,13 @@ import com.android.volley.toolbox.ClearCacheRequest;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.Volley;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.login.LoginActivity;
+import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
+import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.util.Network;
+import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.ProgressDialog;
 import com.yxld.yxchuangxin.view.XListView;
@@ -52,6 +56,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public abstract class BaseActivity extends AppCompatActivity implements
 		OnClickListener, OnCancelListener, IXListViewListener,
 		OnItemClickListener {
+	public    final String LAST_LOGIN_USER_ID = "lastLoginUserId";
+	public final String CB_SAVE_PWD = "cb_save_pwd";
 	/** 服务器请求成功 */
 	protected static final int STATUS_CODE_OK = 0;
 	/** 服务器请求失败 */
@@ -108,17 +114,23 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (Contains.isKill == null) {
-			Intent home = new Intent(Intent.ACTION_MAIN);
-			home.addCategory(Intent.CATEGORY_HOME);
-			startActivity(home);
-            finish();
-            System.exit(0);
-			return;
-		}
+//		if(Contains.cxwyMallUser == null){
+//			if(dbUtil == null){
+//				dbUtil = new DBUtil(this);
+//			}
+//			dbUtil.clearData(CxwyMallUser.class);
+//			Contains.cxwyMallUser = null;
+//			//保存用户ID和账号至配置文件中
+//			SPUtils.put(this, CB_SAVE_PWD, false);
+//			SPUtils.put(this, LAST_LOGIN_USER_ID, "");
+//			finish();
+//			AppConfig.getInstance().exit();
+//			startActivity(LoginActivity.class);
+//		}
 		super.onCreate(savedInstanceState);
 		// 这句很关键，注意是调用父类的方法
 		super.setContentView(R.layout.activity_base);
+
 		// 经测试在代码里直接声明透明状态栏更有效
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
@@ -129,7 +141,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 //		RefWatcher refWatcher = AppConfig.getRefWatcher(this);
 //		refWatcher.watch(this);
 		if(!netWorkIsAvailable()){
-			Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
 		}
 		AppConfig.getInstance().addActivity(this);
 
@@ -302,7 +314,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 			e.printStackTrace();
 		}
 		// 停止定位
-		if(locationClient.isStarted()){
+		if(locationClient != null && locationClient.isStarted()){
 			locationClient.stopLocation();
 		}
 		if (null != locationClient) {

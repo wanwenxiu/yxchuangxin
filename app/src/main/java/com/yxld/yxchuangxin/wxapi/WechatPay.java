@@ -26,6 +26,7 @@ public class WechatPay {
 	 */
 	public static String createOrder(String tradeNo, String totalFee, String subject) {
 		String result = "";
+		//http://222.240.1.133/WechatPayServer/UnifiedOrderServlet?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject
 		String URL_PREPAY = Contains.URL_PAY_CALLBACK + "/UnifiedOrderServlet";
 
 		try {

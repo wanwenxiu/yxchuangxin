@@ -79,13 +79,13 @@ public class PayWaySelectActivity extends BaseActivity {
 	 */
 	private ListView payWayList;
 
-	private String[] payName = {"账户余额支付", "微信支付", "支付宝支付","银联支付"};
-//	private String[] payName = { "微信支付", "支付宝支付","银联支付"};
-	private String[] payDestail = {"使用账户中的余额支付", "微信安全支付", "支付宝安全支付","银联安全支付"};
-//	private String[] payDestail = {"微信安全支付", "支付宝安全支付","银联安全支付"};
+//	private String[] payName = {"账户余额支付", "微信支付", "支付宝支付","银联支付"};
+	private String[] payName = { "微信支付", "支付宝支付","银联支付"};
+//	private String[] payDestail = {"使用账户中的余额支付", "微信安全支付", "支付宝安全支付","银联安全支付"};
+	private String[] payDestail = {"微信安全支付", "支付宝安全支付","银联安全支付"};
 //
-	private Integer[] payImg = {R.mipmap.balance_icon, R.mipmap.weixin_icon, R.mipmap.alipay_icon,R.mipmap.unionpay_icon};
-//	private Integer[] payImg = {R.mipmap.weixin_icon, R.mipmap.alipay_icon,R.mipmap.unionpay_icon};
+//	private Integer[] payImg = {R.mipmap.balance_icon, R.mipmap.weixin_icon, R.mipmap.alipay_icon,R.mipmap.unionpay_icon};
+	private Integer[] payImg = {R.mipmap.weixin_icon, R.mipmap.alipay_icon,R.mipmap.unionpay_icon};
 
 	/**
 	 * 获取订单ID
@@ -96,7 +96,6 @@ public class PayWaySelectActivity extends BaseActivity {
 	 * 获取订单总价
 	 */
 	private String orderMoney = "";
-
 
 	private String orderShop="";
 
@@ -204,29 +203,29 @@ public class PayWaySelectActivity extends BaseActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				//余额支付
-				if (arg2 == 0) {
-					new SweetAlertDialog(PayWaySelectActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("支付信息" + money.getText().toString()).setContentText("你是否确定采用余额支付").setCancelText("取消").setConfirmText("确定").showCancelButton(true).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-						@Override
-						public void onClick(SweetAlertDialog sDialog) {
-							sDialog.setTitleText("余额支付失败").setContentText("您已经取消此次支付").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.ERROR_TYPE);
-						}
-					}).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-						@Override
-						public void onClick(SweetAlertDialog sDialog) {
-							sDialog.dismissWithAnimation();
-							initDataFromNet();
-//							sDialog.setTitleText("派单成功").setContentText("您已经成功此次派单").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-						}
-					}).show();
-				}else
-               if (arg2==1){
+//				//余额支付
+//				if (arg2 == 0) {
+//					new SweetAlertDialog(PayWaySelectActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("支付信息" + money.getText().toString()).setContentText("你是否确定采用余额支付").setCancelText("取消").setConfirmText("确定").showCancelButton(true).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//						@Override
+//						public void onClick(SweetAlertDialog sDialog) {
+//							sDialog.setTitleText("余额支付失败").setContentText("您已经取消此次支付").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.ERROR_TYPE);
+//						}
+//					}).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//						@Override
+//						public void onClick(SweetAlertDialog sDialog) {
+//							sDialog.dismissWithAnimation();
+//							initDataFromNet();
+////							sDialog.setTitleText("派单成功").setContentText("您已经成功此次派单").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+//						}
+//					}).show();
+//				}else
+               if (arg2==0){
 					// 使用微信进行支付
 					Contains.pay=1;
 					new CreateOrderThread().start();
 				}
 
-				else if (arg2 == 2) {
+				else if (arg2 == 1) {
 					/**
 					 * call alipay sdk pay. 调用SDK支付
 					 *
@@ -234,7 +233,6 @@ public class PayWaySelectActivity extends BaseActivity {
 					if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE) || TextUtils.isEmpty(SELLER)) {
 						new AlertDialog.Builder(PayWaySelectActivity.this).setTitle("警告").setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER").setPositiveButton("确定", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialoginterface, int i) {
-								//
 								finish();
 							}
 						}).show();
@@ -280,7 +278,7 @@ public class PayWaySelectActivity extends BaseActivity {
 					Thread payThread = new Thread(payRunnable);
 					payThread.start();
 				}
-				else if (arg2 == 3){
+				else if (arg2 == 2){
 					float a=Float.parseFloat(orderMoney)*100;
                     int money=(int)a;
 					Intent intent = new Intent();

@@ -9,14 +9,18 @@ package com.yxld.yxchuangxin.controller;
  */
 public interface API {
 
+   //域名
    String yuming =  "http://www.hnchxwl.com/wygl";
- String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
- String PIC = "http://192.168.0.166:8080";
- String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
 
-//    String IP_PRODUCT = "http://222.240.1.133/wygl";
-//    String PIC="http://222.240.1.133";
-//    String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadFile";
+   String menjinIP ="http://120.25.78.92/";
+
+//   String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
+//   String PIC = "http://192.168.0.166:8080";
+//   String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
+
+   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+   String PIC="http://www.hnchxwl.com";
+   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL
@@ -385,30 +389,18 @@ public interface API {
     String URL_GET_EXPENDITURE = IP_PRODUCT
             + "/mall/androidUser_findYonghuBalancereCord.action?";
 
-    /**
-     * 获取门禁列表
-     */
-    String URL_GET_DOORLISTBY = IP_PRODUCT
-            + "/menjin/menjin_finddoorA.action?";
 
-    /**
-     * 获取业主访客开门二维码   传入访客姓名 电话 门禁Mac地址 业主ID
-     */
-    String URL_GET_OPENDOORCODE = IP_PRODUCT
-            + "/menjin/erweima_listAndroid.action?";
+  /**
+   * 获取业主开门二维码   /业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元120.25.78.92
+   */
+  String URL_GET_YEZHUOPENCODE = menjinIP+"door/coed/getcode/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s";
 
 
-    /**
-     * 获取生成二维码记录接口 (参数为业主id)
-     */
-    String  URL_GET_CODERECORD = IP_PRODUCT
-            + "/menjin/erweima_finderweimaAndroid.action?yezhuid=%1$s&rows=%2$s&page=%3$s";
+ /**
+  * 获取业主访客二维码  coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
 
-    /**
-     * 获取业主开门二维码   传入楼盘 楼栋 单元 业主姓名 业主联系方式 业主ID
-     */
-    String URL_GET_YEZHUOPENCODE = IP_PRODUCT
-     + "/menjin/erweima_listAndroidA.action?";
+  */
+ String URL_GET_FangKeOPENCODE = menjinIP+"door/coed/getcodes/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s/%7$s/%8$s/%9$s";
 
 
  /**
@@ -416,5 +408,5 @@ public interface API {
   *
   */
    String URL_GET_NEWMAINTONGZHI = IP_PRODUCT
-         + "/tongzhi/tongzhi_findTitle.action";
+         + "/tongzhi/tongzhi_findTitle.action?";
 }

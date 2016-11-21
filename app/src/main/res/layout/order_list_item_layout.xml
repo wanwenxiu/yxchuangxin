@@ -151,6 +151,18 @@
             android:text="取消订单"
             android:textColor="@android:color/black"
             android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/orderType3"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/banner_border_all"
+            android:gravity="center"
+            android:text="订单投诉"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
     </LinearLayout>
 
    <!-- <View

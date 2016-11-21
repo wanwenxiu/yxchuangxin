@@ -139,7 +139,7 @@ public class ShopListActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if(arg2-1>=0){
+				if((arg2-1)>=0){
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("goods", adapter.getMlist().get(arg2-1));
 					Intent intent = new Intent(ShopListActivity.this, GoodsDestailActivity.class);

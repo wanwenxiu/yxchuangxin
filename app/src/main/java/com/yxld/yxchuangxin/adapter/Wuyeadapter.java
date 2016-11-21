@@ -27,6 +27,7 @@ import com.yxld.yxchuangxin.activity.mine.EmployerActivity;
 import com.yxld.yxchuangxin.activity.mine.MemberActivity;
 import com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity;
 import com.yxld.yxchuangxin.contain.Contains;
+import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.MyGridView;
 
@@ -98,17 +99,25 @@ public class Wuyeadapter extends BaseAdapter {
                                 ToastUtil.show(context, "敬请期待");
                                 break;
                             case 2:
-                                startActivity(CameraActivity.class);
+                                ToastUtil.show(context, "敬请期待");
+                               // startActivity(CameraActivity.class);
                                 break;
                             case 3:
-                                Intent cz = new Intent();
-                                cz.setClass(context, // context
-                                        WebViewActivity.class);// 跳转的activity
-                                Bundle cz1 = new Bundle();
-                                cz1.putString("name", "房屋出租");
-                                cz1.putString("address", "http://222.240.1.133/wygl/addchuzu.jsp");
-                                cz.putExtras(cz1);
-                                context.startActivity(cz);
+                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0
+                                        || Contains.cxwyMallUser.getUserIdCard() == null
+                                        || Contains.cxwyMallUser.getUserTel() == null) {
+                                    ToastUtil.show(context, "请至物业完善业主身份证和手机号码信息再进行查询");
+                                    return;
+                                }else {
+                                    Intent cz = new Intent();
+                                    cz.setClass(context, // context
+                                            WebViewActivity.class);// 跳转的activity
+                                    Bundle cz1 = new Bundle();
+                                    cz1.putString("name", "房屋出租");
+                                    cz1.putString("address", API.IP_PRODUCT+"/houseRent.jsp?shenfenzheng="+Contains.cxwyMallUser.getUserIdCard()+"&shouji="+Contains.cxwyMallUser.getUserTel());
+                                    cz.putExtras(cz1);
+                                    context.startActivity(cz);
+                                }
                                 break;
                         }
                     }
@@ -123,36 +132,40 @@ public class Wuyeadapter extends BaseAdapter {
                         Log.d("...", "缴费服务" + position);
                         switch (position) {
                             case 0:
-                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-                                    return;
-                                }
-                                bundle.putString("curType", "物业服务");
-                                startActivity(FeiYongListActivity.class, bundle);
+                                ToastUtil.show(context, "敬请期待");
+//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+//                                    return;
+//                                }
+//                                bundle.putString("curType", "物业服务");
+//                                startActivity(FeiYongListActivity.class, bundle);
                                 break;
                             case 1:
-                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-                                    return;
-                                }
-                                bundle.putString("curType", "水");
-                                startActivity(FeiYongListActivity.class, bundle);
+                                ToastUtil.show(context, "敬请期待");
+//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+//                                    return;
+//                                }
+//                                bundle.putString("curType", "水");
+//                                startActivity(FeiYongListActivity.class, bundle);
                                 break;
                             case 2:
-                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-                                    return;
-                                }
-                                bundle.putString("curType", "电");
-                                startActivity(FeiYongListActivity.class, bundle);
+                                ToastUtil.show(context, "敬请期待");
+//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+//                                    return;
+//                                }
+//                                bundle.putString("curType", "电");
+//                                startActivity(FeiYongListActivity.class, bundle);
                                 break;
                             case 3:
-                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-                                    return;
-                                }
-                                bundle.putString("curType", "机动车停放服务");
-                                startActivity(FeiYongListActivity.class, bundle);
+                                ToastUtil.show(context, "敬请期待");
+//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+//                                    return;
+//                                }
+//                                bundle.putString("curType", "机动车停放服务");
+//                                startActivity(FeiYongListActivity.class, bundle);
                                 break;
                         }
                     }
@@ -171,13 +184,14 @@ public class Wuyeadapter extends BaseAdapter {
                                         WebViewActivity.class);// 跳转的activity
                                 Bundle tz1 = new Bundle();
                                 tz1.putString("name", "通知活动");
-                                tz1.putString("address", "http://222.240.1.133/wygl/MyJsp.jsp");
+                                tz1.putString("address", API.IP_PRODUCT+"/MyJsp.jsp");
 //                                tz1.putString("address", "http://192.168.0.114:8080/wygl/tongzhi.jsp");
                                 tz.putExtras(tz1);
                                 context.startActivity(tz,tz1);
                                 break;
                             case 1://维修服务
-                                startActivity(Repair.class);
+                                ToastUtil.show(context, "敬请期待");
+                               // startActivity(Repair.class);
                                 break;
                             case 2:
                                 ToastUtil.show(context, "敬请期待");
@@ -186,7 +200,19 @@ public class Wuyeadapter extends BaseAdapter {
                                 startActivity(ExpressActivity.class);
                                 break;
                             case 4://投诉建议
-                                startActivity(ComplaintsActivity.class);
+//                              startActivity(ComplaintsActivity.class);
+                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+                                    Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Intent ts = new Intent();
+                                    ts.setClass(context, // context
+                                            WebViewActivity.class);// 跳转的activity
+                                    Bundle ts1 = new Bundle();
+                                    ts1.putString("name", "投诉建议");
+                                    ts1.putString("address", API.IP_PRODUCT+"l/tousujianyi.jsp?yezhuid="+Contains.cxwyYezhu.get(0).getYezhuId());
+                                    ts.putExtras(ts1);
+                                    context.startActivity(ts);
+                                }
                                 break;
                             case 5://满意度调查
                                 ToastUtil.show(context, "敬请期待");

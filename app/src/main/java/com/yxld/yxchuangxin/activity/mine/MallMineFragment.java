@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.activity.order.AddressListActivity;
 import com.yxld.yxchuangxin.activity.order.CouponActivity;
 import com.yxld.yxchuangxin.activity.order.OrderListActivity;
@@ -76,6 +77,7 @@ public class MallMineFragment extends BaseFragment {
 
     private View coupon;
 
+    private View jianyi;
 
     private YeZhuController yeZhuController;
     private String url = API.URL_YUE;
@@ -105,7 +107,8 @@ public class MallMineFragment extends BaseFragment {
         touxiang.setOnClickListener(this);
         coupon=view.findViewById(R.id.coupon);
         coupon.setOnClickListener(this);
-
+        jianyi=view.findViewById(R.id.jianyi);
+        jianyi.setOnClickListener(this);
 
         view.findViewById(R.id.address).setOnClickListener(this);
 
@@ -179,6 +182,17 @@ public class MallMineFragment extends BaseFragment {
                 Intent record=new Intent(getActivity(), RecordAcitvity.class);
                 startActivity(record);
                 break;
+            case R.id.jianyi:
+                Intent jy = new Intent();
+                jy.setClass(getActivity(), // context
+                        WebViewActivity.class);// 跳转的activity
+                Bundle jy1 = new Bundle();
+                jy1.putString("name", "商城建议");
+                jy1.putString("address", "http://222.240.1.133/wygl/malljianyi.jsp?malluserid="+Contains.cxwyMallUser.getUserId());
+                jy.putExtras(jy1);
+                startActivity(jy);
+                break;
+
             default:
                 break;
         }

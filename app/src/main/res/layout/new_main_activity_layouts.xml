@@ -20,13 +20,6 @@
             android:layout_height="0dp"
             android:layout_weight="4.4" >
 
-
-           <!-- <cn.bingoogolapple.bgabanner.BGABanner
-                android:id="@+id/indexAdvs"
-                style="@style/BannerDefaultStyle"
-                app:banner_transitionEffect="fade"
-                />-->
-
             <com.yxld.yxchuangxin.view.ImageCycleView
                 android:id="@+id/indexAdvs"
                 android:layout_width="fill_parent"

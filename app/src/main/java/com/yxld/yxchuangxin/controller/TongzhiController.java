@@ -4,6 +4,8 @@ import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 
+import java.util.Map;
+
 /**
  * @ClassName: TongzhiController
  * @Description: 获取通知信息
@@ -20,6 +22,6 @@ public interface TongzhiController extends API{
 	 * @return void
 	 * @throws
 	 */
-	void getAppTongzhiInfo(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
+	void getAppTongzhiInfo(RequestQueue mRequestQueue, final Map<String, String> parm, ResultListener<BaseEntity> listener);
 
 }

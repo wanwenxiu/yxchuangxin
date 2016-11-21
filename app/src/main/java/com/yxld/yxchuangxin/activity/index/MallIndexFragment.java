@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity;
@@ -33,6 +32,7 @@ import com.yxld.yxchuangxin.entity.CxwyMallPezhi;
 import com.yxld.yxchuangxin.entity.CxwyMallProduct;
 import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.view.ImageCycleView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,21 +40,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.bingoogolapple.bgabanner.BGABanner;
-
 /**
  * Created by yishangfei on 2016/3/4.
  */
-public class MallIndexFragment extends BaseFragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener,BGABanner.OnItemClickListener,BGABanner.Adapter{
+public class MallIndexFragment extends BaseFragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
     private SwipeRefreshLayout swipe_container;
     private ArrayList<String> urls;
     private TextView ckgd;
-    private  GridView mGridView1;
-    public MallIndexGoodsListAdapter indexGoodsList;
+    private GridView mGridView1;
+    public  MallIndexGoodsListAdapter indexGoodsList;
     public  TextView title;
     private ScrollView scrollView;
 
-    private BGABanner banner_guide_content;
+    private ImageCycleView mall_lunbo;
     /** 搜素框*/
     private ImageView search;
     
@@ -170,9 +168,7 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
             urls = new ArrayList<>();
         }
 
-        banner_guide_content = (BGABanner)view.findViewById(R.id.banner_guide_content);
-        banner_guide_content.setData(Arrays.asList(""), null);
-        banner_guide_content.setOnItemClickListener(this);
+        mall_lunbo = (ImageCycleView) view.findViewById(R.id.mall_lunbo);
 
         scrollView = (ScrollView) view.findViewById(R.id.scrollView2);
         scrollView.scrollTo(0, 0);
@@ -243,8 +239,13 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                 onError("没有推荐商品");
             }else {
                 indexListData.clear();
-                indexListData = info.getProductList();
-                indexGoodsList.refreshData(indexListData);
+                try{
+                    indexListData = info.getProductList();
+                    indexGoodsList.refreshData(indexListData);
+                }catch (Exception e){
+
+                }
+
             }
             progressDialog.hide();
             swipe_container.setRefreshing(false);
@@ -271,18 +272,23 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                 }
 
                 if(!isEmptyList(info.getLblist())) {
-                    for (int i = 0; i < info.getLblist().size(); i++) {
-                        urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
-                    }
-                    banner_guide_content.setAdapter(MallIndexFragment.this);
-                    banner_guide_content.setData(urls, null);
+                        for (int i = 0; i < info.getLblist().size(); i++) {
+                            if(urls != null && info.getLblist().get(i) != null && info.getLblist().get(i).getMallPeizhiValue() != null && !"".equals(info.getLblist().get(i).getMallPeizhiValue())){
+                                urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
+                            }
+                        }
+                    mall_lunbo.setImageResources(urls,
+                            new ImageCycleView.ImageCycleViewListener() {
+                                @Override
+                                public void onImageClick(int position, View imageView) {
+                                }
+                            }, 0);
                 }
 
                 if(!isEmptyList(info.getTblist())) {
                     msctbList = info.getTblist();
                     adapter.setmList(msctbList);
                 }
-
                 initDataFromNet();
             }
 
@@ -299,18 +305,4 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
         Log.d("geek","商城首页 onPause()");
     }
 
-
-    @Override
-    public void onBannerItemClick(BGABanner banner, View view, Object model, int position) {
-        Log.d("geek", "点击了第" + (position + 1) + "页");
-    }
-
-    @Override
-    public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
-        Glide.with(MallIndexFragment.this)
-                .load(model)
-                .placeholder(R.drawable.holder)
-                .error(R.drawable.holder)
-                .into((ImageView) view);
-    }
 }

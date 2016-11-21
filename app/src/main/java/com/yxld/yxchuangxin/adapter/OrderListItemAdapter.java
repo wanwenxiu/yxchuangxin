@@ -3,6 +3,7 @@ package com.yxld.yxchuangxin.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.activity.goods.GoodsPraiseActivity;
 import com.yxld.yxchuangxin.activity.order.OrderDetailActivity;
 import com.yxld.yxchuangxin.contain.Contains;
@@ -59,6 +61,7 @@ public class OrderListItemAdapter extends BaseAdapter {
      * 自定义视图
      */
     private ListItemView listItemView = null;
+//    private int orderids;
 
     /**
      * 总价
@@ -100,6 +103,8 @@ public class OrderListItemAdapter extends BaseAdapter {
          * 操作按钮2
          */
         private TextView orderType2 = null;
+
+        private TextView orderType3 = null;
     }
 
     /**
@@ -140,7 +145,9 @@ public class OrderListItemAdapter extends BaseAdapter {
             listItemView.orderType2 = (TextView) convertView
                     .findViewById(R.id.orderType2);
             listItemView.orderType2.setOnClickListener(clickListener);
-
+            listItemView.orderType3 = (TextView) convertView
+                    .findViewById(R.id.orderType3);
+            listItemView.orderType3.setOnClickListener(clickListener);
             // 设置控件集到convertView
             convertView.setTag(listItemView);
         } else {
@@ -148,6 +155,7 @@ public class OrderListItemAdapter extends BaseAdapter {
         }
 
         CxwyMallOrder order = listOrderDatas.get(position);
+//        orderids=listOrderDatas.get(position).getDingdanId();
         listItemView.orderTime.setText("下单时间:" + order.getDingdanXiadanTime());
         //listItemView.orderBianhao.setText("订单编号:"+ order.getDingdanBianhao());
         listItemView.orderState.setText(order.getDingdanZhuangtai());
@@ -182,7 +190,7 @@ public class OrderListItemAdapter extends BaseAdapter {
             }
         });
 
-        updateView(orderId, order.getDingdanZhuangtai(), listItemView.llOperate, listItemView.orderType1, listItemView.orderType2);
+        updateView(orderId, order.getDingdanZhuangtai(), listItemView.llOperate, listItemView.orderType1, listItemView.orderType2,listItemView.orderType3);
         return convertView;
     }
 
@@ -288,42 +296,49 @@ public class OrderListItemAdapter extends BaseAdapter {
      * @Title: updateView
      * @Description: 更新操作栏
      */
-    private void updateView(int orderID, String state, LinearLayout llOperate, TextView orderType1, TextView orderType2) {
+    private void updateView(int orderID, String state, LinearLayout llOperate, TextView orderType1, TextView orderType2, TextView orderType3) {
         orderType1.setTag(orderID);
         orderType2.setTag(orderID);
-
+        orderType3.setTag(orderID);
         if (state.equals("待付款")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("立即付款");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setText("取消订单");
             orderType2.setVisibility(View.VISIBLE);
+            orderType3.setVisibility(View.GONE);
         } else if (state.equals("待发货")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("退款");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setVisibility(View.GONE);
+            orderType3.setVisibility(View.GONE);
         } else if (state.equals("待收货")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("确认收货");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setVisibility(View.GONE);
+            orderType3.setVisibility(View.GONE);
         } else if (state.equals("待评价")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("立即评价");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setText("申请退货");
             orderType2.setVisibility(View.VISIBLE);
+//            orderType3.setText("订单投诉");
+            orderType3.setVisibility(View.GONE);
         } else if (state.equals("退货") || state.equals("退货中") || state.equals("退款中")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("删除订单");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setVisibility(View.GONE);
+            orderType3.setVisibility(View.GONE);
         } else {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("删除订单");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setVisibility(View.GONE);
+            orderType3.setVisibility(View.GONE);
         }
 
     }
@@ -354,7 +369,19 @@ public class OrderListItemAdapter extends BaseAdapter {
                 //跳转至评价界面
                 Intent intent = new Intent(mContext, GoodsPraiseActivity.class);
                 mContext.startActivity(intent);
-            } else {
+            }
+//            else if(tv.getText().toString().equals("订单投诉")){
+//                Intent ts = new Intent();
+//                ts.setClass(mContext, // context
+//                        WebViewActivity.class);// 跳转的activity
+//                Bundle ts1 = new Bundle();
+//                ts1.putString("name", "订单投诉");
+//                Log.d("...", orderids+"");
+//                ts1.putString("address", "http://222.240.1.133/wygl/malltousu.jsp?malluserid="+Contains.cxwyMallUser.getUserId()+"&orderid="+orderids);
+//                ts.putExtras(ts1);
+//                mContext.startActivity(ts);
+//            }
+            else {
                 Message msg = new Message();
                 msg.arg1 = Integer.parseInt(v.getTag() + "");
                 msg.obj = tv.getText().toString();

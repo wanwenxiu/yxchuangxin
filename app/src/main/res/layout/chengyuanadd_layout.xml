@@ -199,14 +199,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="家人"
-                android:checked="true"/>
+                android:checked="true"
+                android:background="@null"/>
 
             <RadioButton
                 android:id="@+id/renter"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="租客"
-                android:layout_marginLeft="25dp"/>
+                android:layout_marginLeft="25dp"
+                android:background="@null"/>
         </RadioGroup>
     </LinearLayout>
 

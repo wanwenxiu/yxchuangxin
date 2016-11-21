@@ -296,6 +296,9 @@ public class FeiYongDestailActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.sure:
+			if(adapter.getListData() == null || adapter.getListData().size()==0){
+				return;
+			}
 			//surePay();
 			if(checkBoxbalance.isChecked()){
 				payType = "1";
@@ -408,6 +411,7 @@ public class FeiYongDestailActivity extends BaseActivity implements
 		if(payController == null){
 			payController = new PayControllerImpl();
 		}
+
 		progressDialog.show();
 		
 		Map<String, String> parm = new HashMap<String, String>();

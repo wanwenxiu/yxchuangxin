@@ -16,13 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
 import com.yxld.yxchuangxin.activity.index.VisitorInvitationActivity;
 import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
+import com.yxld.yxchuangxin.activity.login.LoginActivity;
+import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
@@ -34,20 +35,24 @@ import com.yxld.yxchuangxin.controller.TongzhiController;
 import com.yxld.yxchuangxin.controller.impl.AppVersionControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.PeiZhiControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.TongzhiControllerImpl;
+import com.yxld.yxchuangxin.db.DBUtil;
 import com.yxld.yxchuangxin.entity.CxwyAppVersion;
 import com.yxld.yxchuangxin.entity.CxwyMallPezhi;
+import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.CxUtil;
+import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.UpdateManager;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import cn.bingoogolapple.bgabanner.BGABanner;
 
 //import com.sunfusheng.marqueeview.MarqueeView;
 
@@ -57,7 +62,7 @@ import cn.bingoogolapple.bgabanner.BGABanner;
  * @Description:新首页
  * @date 2016年5月4日 下午5:39:42
  */
-public class NewMainActivity2 extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener ,BGABanner.Adapter{
+public class NewMainActivity2 extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ImageCycleView imageCycleView;
 
@@ -136,6 +141,18 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.new_main_activity_layouts);
         AppConfig.setMainActivity(this);
+        if (Contains.cxwyMallUser == null || Contains.cxwyMallUser.getUserTel() == null) {
+//			Intent home = new Intent(Intent.ACTION_MAIN);
+//			home.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(home);
+//			finish();
+//			System.exit(0);
+//			return;
+            finish();
+            AppConfig.getInstance().exit();
+            startActivity(WelcomeActivity.class);
+            return;
+        }
         String alias=Contains.cxwyMallUser.getUserTel().toString();
         String account=Contains.cxwyMallUser.getUserTel().toString();
         MiPushClient.setAlias(NewMainActivity2.this, account, null);
@@ -226,13 +243,22 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 startActivity(MallMainActivity.class);
                 break;
             case R.id.marqueeTv:
+                if(marqueeTv == null || marqueeTv.getText() == null
+                        || "".equals(marqueeTv.getText().toString())
+                        || "没有活动通知".equals(marqueeTv.getText().toString())){
+                    return;
+                }
             case R.id.mine: //右上角按钮
+                String xiaoqu = "";
+                if(Contains.cxwyMallUser != null){
+                    xiaoqu= Contains.cxwyMallUser.getUserSpare1();
+                }
                 Intent tz = new Intent();
                 tz.setClass(NewMainActivity2.this, // context
                         WebViewActivity.class);// 跳转的activity
                 Bundle tz1 = new Bundle();
                 tz1.putString("name", "通知活动");
-                tz1.putString("address", "http://222.240.1.133/wygl/MyJsp.jsp");
+                tz1.putString("address",API.IP_PRODUCT+"/MyJsp.jsp?luopan="+xiaoqu);
                 tz.putExtras(tz1);
                 startActivity(tz,tz1);
                 break;
@@ -277,7 +303,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             tongzhiController = new TongzhiControllerImpl();
         }
 
-        tongzhiController.getAppTongzhiInfo(mRequestQueue,new Object[]{},tongzhiLinstener);
+        Map<String, String> params = new HashMap<String, String>();
+        if(Contains.cxwyMallUser != null){
+            params.put("luopan", Contains.cxwyMallUser.getUserSpare1());
+        }else{
+            params.put("luopan", "");
+        }
+        tongzhiController.getAppTongzhiInfo(mRequestQueue,params,tongzhiLinstener);
     }
 
     private ResultListener<CxwyAppVersion> versionListener = new ResultListener<CxwyAppVersion>() {
@@ -372,16 +404,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             }
         }
     }
-
-    @Override
-    public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
-        Glide.with(NewMainActivity2.this)
-                .load(model)
-                .placeholder(R.drawable.holder)
-                .error(R.drawable.holder)
-                .into((ImageView) view);
-    }
-
 
     private void getlunbotubiao(){
         if(PeiZhiController == null){

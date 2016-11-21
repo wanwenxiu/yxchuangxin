@@ -14,27 +14,7 @@ import java.util.Map;
  */
 public interface DoorController extends API{
 
-	/**
-	 * 获得门禁列表
-	 * @param mRequestQueue
-	 * @param parm  楼盘、楼栋、单元
-	 * @param listener
-     */
-	void GetDoorList(RequestQueue mRequestQueue, Map<String, String> parm,
-					final ResultListener<BaseEntity> listener);
 
-	/**
-	 * 获得访客二维码
-	 * @param mRequestQueue
-	 * @param parm  tring name;
-	String tel;
-	String houses;
-	String dong;
-	String machineIP;
-	 * @param listener
-	 */
-	void GetOPENDoorList(RequestQueue mRequestQueue, Map<String, String> parm,
-					 final ResultListener<OpenDoorCode> listener);
 
 
 	/**
@@ -43,17 +23,19 @@ public interface DoorController extends API{
 	 * @param mRequestQueue
 	 * @param parm
 	 * @param listener
-     */
-	void GetYEZHUDoorCODE(RequestQueue mRequestQueue, Map<String, String> parm,
-						 final ResultListener<OpenDoorCode> listener);
+	 */
+	void GetYEZHUDoorCODE(RequestQueue mRequestQueue,Object[] parm,
+						  final ResultListener<OpenDoorCode> listener);
 
 
 	/**
-	 * 获取生成二维码记录
+	 * 获得访客开门二维码
+	 * GetFangKeDoorCODE
 	 * @param mRequestQueue
-	 * @param parm  业主id
+	 * @param parm
 	 * @param listener
-     */
-	void GetCodeRecordList(RequestQueue mRequestQueue, Object[] parm, ResultListener<BarcodedataAndroid> listener);
+	 */
+	void GetFangKeDoorCODE(RequestQueue mRequestQueue,Object[] parm,
+						  final ResultListener<OpenDoorCode> listener);
 
 }

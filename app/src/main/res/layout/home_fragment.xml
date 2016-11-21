@@ -57,23 +57,10 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
-                <cn.bingoogolapple.bgabanner.BGABanner
-                    android:id="@+id/banner_guide_content"
-                    style="@style/BannerDefaultStyle"
-                    app:banner_transitionEffect="fade"
-                    />
-
-                <TextView
-                    android:id="@+id/title"
+                <com.yxld.yxchuangxin.view.ImageCycleView
+                    android:id="@+id/mall_lunbo"
                     android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@color/transparent"
-                    android:gravity="center"
-                    android:text="上林国际"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/size_20"
-                    android:visibility="invisible"/>
+                    android:layout_height="fill_parent" />
             </RelativeLayout>
 
             <RelativeLayout

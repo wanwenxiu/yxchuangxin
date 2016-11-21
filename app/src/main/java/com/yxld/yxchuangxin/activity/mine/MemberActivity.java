@@ -27,9 +27,6 @@ import static com.yxld.yxchuangxin.R.id.phone;
  * @date 2016年4月13日 上午9:31:12 
  */
 public class MemberActivity extends BaseActivity {
-	private   final String LAST_LOGIN_USER_ID = "lastLoginUserId";
-	private final String CB_SAVE_PWD = "cb_save_pwd";
-
 	private TextView account_id;
 	private TextView account_name;
 	private TextView account_card,yz_zhenshiname;

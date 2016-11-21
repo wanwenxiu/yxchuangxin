@@ -24,6 +24,7 @@ import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.LoginEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.SPUtils;
+import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -180,9 +181,10 @@ public class LoginActivity extends BaseActivity {
 			loginSubmit.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					loginSubmit.setClickable(false);
-					initDataFromNet();
-
+					if(StringUitl.isNotEmpty(LoginActivity.this,login_tel,"请输入手机号码") && StringUitl.isNotEmpty(LoginActivity.this,login_pwd,"请输入密码")){
+						loginSubmit.setClickable(false);
+						initDataFromNet();
+					}
 				}
 			});
 		}
@@ -200,7 +202,6 @@ public class LoginActivity extends BaseActivity {
 			Intent register = new Intent(LoginActivity.this,
 					RegisterActivity.class);
 			startActivity(register);
-
 			break;
 		}
 	}

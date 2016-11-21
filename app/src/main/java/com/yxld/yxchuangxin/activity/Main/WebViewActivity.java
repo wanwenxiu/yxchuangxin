@@ -46,7 +46,7 @@ public class WebViewActivity extends BaseActivity {
         bar= (ProgressBar) findViewById(R.id.WProgressBar);
         init();
         webView.getSettings().setCacheMode(
-                WebSettings.LOAD_CACHE_ELSE_NETWORK);
+                WebSettings.LOAD_NO_CACHE);
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

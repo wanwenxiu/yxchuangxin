@@ -50,7 +50,7 @@ public class YouMengShareUtil {
 		configPlatforms();
 		// 设置分享的内容
 		setShareContent(shareInfo.Title, shareInfo.ShareCon, shareInfo.ImgUrl,shareInfo.bitmap
-		);
+		,shareInfo.getQQImgUrl());
 
 		mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.QQ,SHARE_MEDIA.SMS);
 		mController.openShare(mActivity, false);
@@ -74,10 +74,11 @@ public class YouMengShareUtil {
 	/**
 	 * 根据不同的平台设置不同的分享内容</br>
 	 */
-	public void setShareContent(String title, String content, String url, Bitmap bitmap) {
+	public void setShareContent(String title, String content, String url, Bitmap bitmap,String qqurl) {
 
 		UMImage urlBitMap = new UMImage(mActivity,bitmap);
 
+		//微信分享内容
 		WeiXinShareContent weixinContent = new WeiXinShareContent();
 		weixinContent.setShareContent(content);
 		weixinContent.setTitle(title);
@@ -85,33 +86,19 @@ public class YouMengShareUtil {
 		weixinContent.setShareImage(urlBitMap);
 		mController.setShareMedia(weixinContent);
 
-		// 设置朋友圈分享的内容
-		CircleShareContent circleMedia = new CircleShareContent();
-		circleMedia.setShareContent(content);
-		circleMedia.setTitle(title);
-		circleMedia.setShareImage(urlBitMap);
-		circleMedia.setTargetUrl(url);
-		mController.setShareMedia(circleMedia);
-
-		// 设置QQ空间分享内容
-		QZoneShareContent qzone = new QZoneShareContent();
-		qzone.setShareContent(content);
-		qzone.setTargetUrl(url);
-		qzone.setTitle(title);
-		qzone.setShareImage(urlBitMap);
-		mController.setShareMedia(qzone);
-
+		//QQ分享内容
 		QQShareContent qqShareContent = new QQShareContent();
 		qqShareContent.setShareContent(content);
 		qqShareContent.setTitle(title);
 		qqShareContent.setShareImage(urlBitMap);
-		qqShareContent.setTargetUrl(url);
+		qqShareContent.setTargetUrl(qqurl);
 		mController.setShareMedia(qqShareContent);
 
+		//短信分享内容
 		SmsShareContent smsShareContent = new SmsShareContent();
 		smsShareContent.setShareContent("分享地址为"+url);
-		smsShareContent.setShareImage(urlBitMap);
-// 设置分享内容
+
+         // 设置分享内容
 		mController.setShareContent("分享地址为"+url);
 	}
 
@@ -142,8 +129,8 @@ public class YouMengShareUtil {
 	 * @return
 	 */
 	public void addQQQZonePlatform() {
-		String appId = "100424468";
-		String appKey = "c7394704798a158208a74ab60104f0ba";
+		String appId = "1105723141";
+		String appKey = "6CI0p9aZ7uCzWrzJ";
 		// 添加QQ支持, 并且设置QQ分享内容的target url
 		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(mActivity, appId, appKey);
 		qqSsoHandler.addToSocialSDK();
@@ -152,8 +139,6 @@ public class YouMengShareUtil {
 		QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(mActivity, appId,
 				appKey);
 		qZoneSsoHandler.addToSocialSDK();
-
-
-
 	}
+
 }

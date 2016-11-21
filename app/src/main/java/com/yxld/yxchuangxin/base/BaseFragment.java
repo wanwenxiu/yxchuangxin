@@ -102,7 +102,7 @@ OnCancelListener, IXListViewListener {
 //		refWatcher.watch(this);
 
 		if(!netWorkIsAvailable()){
-			Toast.makeText(getActivity(), "网络不可用", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getActivity(), "网络不可用", Toast.LENGTH_SHORT).show();
 		}
 
 		AppConfig.getInstance().addFragment(this);

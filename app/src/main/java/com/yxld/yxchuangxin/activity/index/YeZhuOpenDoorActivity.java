@@ -26,9 +26,11 @@ import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.OpenDoorCode;
 import com.yxld.yxchuangxin.entity.ShareInfo;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.HttpUtils;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.YouMengShareUtil;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +68,7 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 	private String shareUrl = "";
 
 	/** 更新二维码时间*/
-	private int UPDATETIME = 1000*10;
+	private int UPDATETIME = 1000*30;
 
 
 	@Override
@@ -83,8 +85,8 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		}
 		address = yezhu.getYezhuLoupan()+""+yezhu.getYezhuLoudong()+"栋"+yezhu.getYezhuDanyuan()+"单元" +yezhu.getYezhuFanghao();
 		Log.d("geek","业主"+yezhu.toString());
-		handler.postDelayed(runnable, UPDATETIME); //每隔1s执行
 		initDataFromNet();
+		handler.postDelayed(runnable, UPDATETIME); //每隔1s执行
 	}
 
 	Handler handler = new Handler();
@@ -168,22 +170,42 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 	@Override
 	protected void initDataFromNet() {
 		if(!netWorkIsAvailable()){
-			codeImg.setVisibility(View.INVISIBLE);
-			youxiaoqi.setText("更新二维码失败！请检查您的网络状态");
+			if(codeImg != null){
+				codeImg.setVisibility(View.INVISIBLE);
+			}
+			if(youxiaoqi != null){
+				youxiaoqi.setText("更新二维码失败！请检查您的网络状态");
+			}
+
 			return;
 		}
 		if(doorController == null ){
 			doorController = new DoorControllerImpl();
 		}
 		if(yezhu != null ){
-			Map<String, String> parm = new HashMap<String, String>();
-			parm.put("houses", yezhu.getYezhuLoupan());
-			parm.put("dong", yezhu.getYezhuLoudong());
-			parm.put("danyuan", yezhu.getYezhuDanyuan());
-			parm.put("name", yezhu.getYezhuName());
-			parm.put("tel", yezhu.getYezhuShouji());
-			parm.put("yezhuid", yezhu.getYezhuId()+"");
-			doorController.GetYEZHUDoorCODE(mRequestQueue,parm,yezhuDoorCode);
+
+			int Role = 0;
+			if(yezhu.getYezhuParentId() == 0){
+				Role = 0;
+			}
+
+			if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi())){
+				if("家人".equals(yezhu.getYezhuGuanxi())){
+					Role = 1;
+				}else if("租客".equals(yezhu.getYezhuGuanxi())){
+	              Role = 2;
+				}
+			}
+
+			String name = "";
+			try {
+				name =  URLEncoder.encode(yezhu.getYezhuName(),"UTF-8").toString();
+			}catch (Exception e){
+				Log.d("geek","业主用户名编码失败");
+			}
+			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
+			doorController.GetYEZHUDoorCODE(mRequestQueue,new Object[]{name,yezhu.getYezhuShouji(),Role,yezhu.getYezhuBeizhu2()
+			,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},yezhuDoorCode);
 		}
 	}
 
@@ -194,13 +216,13 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		@Override
 		public void onResponse(OpenDoorCode info) {
 			Log.d("geek","业主开门 OpenDoorCode info"+info.toString());
-
-			Log.d("geek","OpenDoorCode 数据"+info.getCode().toString());
-			if(info != null && info.getCode().getStr() != null && !"".equals(info.getCode().getStr()) && info.getCode().getShijian() != null
-					&& !"".equals(info.getCode().getShijian() )){
-				getOpenDoor(info.getCode().getStr(),info.getCode().getShijian());
+			//成功
+			if(info != null && info.getState() != null && "0".equals(info.getState())){
+				getOpenDoor(info.getCode(),info.getTime());
 			}else{
-				ToastUtil.show(YeZhuOpenDoorActivity.this,"获取业主二维码失败");
+				if(youxiaoqi != null){
+					youxiaoqi.setText("更新二维码失败！");
+				}
 			}
 			progressDialog.hide();
 		}
@@ -208,7 +230,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		@Override
 		public void onErrorResponse(String errMsg)
 		{
-				onError("网络连接失败");
+			if(youxiaoqi != null){
+				youxiaoqi.setText("网络连接失败！");
+			}
 		}
 	};
 

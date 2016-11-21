@@ -25,21 +25,21 @@
             android:gravity="center"
             />
 
-       <!-- <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/touxiang"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="15dp"
-            android:text="用户账户:123456789"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_13" />-->
+        <!-- <TextView
+             android:id="@+id/user_name"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/touxiang"
+             android:layout_centerHorizontal="true"
+             android:layout_marginBottom="5dp"
+             android:layout_marginTop="15dp"
+             android:text="用户账户:123456789"
+             android:textAppearance="?android:attr/textAppearanceSmall"
+             android:textColor="@color/white"
+             android:textSize="@dimen/size_13" />-->
     </com.zhy.autolayout.AutoRelativeLayout>
-    
-    <RelativeLayout 
+
+    <RelativeLayout
         android:id="@+id/allOrderWarp"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
@@ -50,10 +50,10 @@
         android:paddingLeft="10dp"
         android:paddingRight="5dp">
 
-        <TextView 
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-             android:text="全部订单"
+            android:text="全部订单"
             android:textColor="@color/color_a5a5a5"
             android:textSize="@dimen/size_14"
             android:layout_centerVertical="true"
@@ -61,16 +61,16 @@
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_all_order_03"
             android:drawablePadding="10dp"/>
-        
-        <ImageView 
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/mine_arror_button"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
@@ -78,9 +78,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:weightSum="6">
-        
+
         <TextView
-             android:id="@+id/llytj"
+            android:id="@+id/llytj"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -88,7 +88,7 @@
             android:text="@string/ytjOrder"
             android:textColor="@color/white"
             android:textSize="@dimen/size_12" />
-        
+
         <TextView
             android:id="@+id/lldfh"
             android:layout_width="0dp"
@@ -108,7 +108,7 @@
             android:text="@string/dshOrder"
             android:textColor="@color/white"
             android:textSize="@dimen/size_12" />
-        
+
         <TextView
             android:id="@+id/llysh"
             android:layout_width="0dp"
@@ -120,7 +120,7 @@
             android:textSize="@dimen/size_12" />
 
         <TextView
-              android:id="@+id/llth"
+            android:id="@+id/llth"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -131,35 +131,35 @@
     </LinearLayout>
 
     <!--<RelativeLayout-->
-        <!--android:id="@+id/mineMoney"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="45dp"-->
-        <!--android:background="@drawable/banner_border_all"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:layout_marginRight="20dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:paddingRight="5dp">-->
+    <!--android:id="@+id/mineMoney"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="45dp"-->
+    <!--android:background="@drawable/banner_border_all"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:paddingRight="5dp">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/yue"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="fill_parent"-->
-             <!--android:text="余额充值"-->
-            <!--android:textColor="@color/color_a5a5a5"-->
-            <!--android:textSize="@dimen/size_14"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:drawableLeft="@mipmap/mine_yue_03"-->
-            <!--android:drawablePadding="5dp"/>-->
+    <!--<TextView-->
+    <!--android:id="@+id/yue"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:text="余额充值"-->
+    <!--android:textColor="@color/color_a5a5a5"-->
+    <!--android:textSize="@dimen/size_14"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:drawableLeft="@mipmap/mine_yue_03"-->
+    <!--android:drawablePadding="5dp"/>-->
 
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@mipmap/mine_arror_right"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"/>-->
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@mipmap/mine_arror_right"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"/>-->
     <!--</RelativeLayout>-->
     <RelativeLayout
         android:id="@+id/coupon"
@@ -206,7 +206,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-             android:text="地址管理"
+            android:text="地址管理"
             android:textColor="@color/color_a5a5a5"
             android:textSize="@dimen/size_14"
             android:layout_centerVertical="true"
@@ -223,7 +223,7 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
-    <RelativeLayout 
+    <RelativeLayout
         android:id="@+id/updatePwd"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
@@ -237,7 +237,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-             android:text="修改密码"
+            android:text="修改密码"
             android:textColor="@color/color_a5a5a5"
             android:textSize="@dimen/size_14"
             android:layout_centerVertical="true"
@@ -245,8 +245,8 @@
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_pwd_03"
             android:drawablePadding="10dp"/>
-        
-        <ImageView 
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/mine_arror_right"
@@ -286,8 +286,40 @@
     </RelativeLayout>
 
 
-    <RelativeLayout 
-		android:id="@+id/mineInfo"        
+    <RelativeLayout
+        android:id="@+id/jianyi"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="商城建议"
+            android:textColor="@color/color_a5a5a5"
+            android:textSize="@dimen/size_14"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/mine_jianyi"
+            android:drawablePadding="5dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/mine_arror_right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/mineInfo"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:background="@color/white"
@@ -297,11 +329,11 @@
         android:paddingLeft="10dp"
         android:paddingRight="5dp"
         android:visibility="gone">
-        
-        <TextView 
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-             android:text="我的消息"
+            android:text="我的消息"
             android:textColor="@color/color_a5a5a5"
             android:textSize="@dimen/size_14"
             android:layout_centerVertical="true"
@@ -309,8 +341,8 @@
             android:gravity="center_vertical"
             android:drawableLeft="@mipmap/mine_msg_03"
             android:drawablePadding="15dp"/>
-        
-        <ImageView 
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/mine_arror_right"

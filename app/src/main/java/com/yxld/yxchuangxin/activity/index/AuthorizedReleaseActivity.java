@@ -95,7 +95,6 @@ public class AuthorizedReleaseActivity extends BaseActivity implements ResultLis
 			doorController = new DoorControllerImpl();
 		}
 
-		doorController.GetCodeRecordList(mRequestQueue,new Object[]{yezhu.getYezhuId(),1,10},this);
 	}
 
 	@Override

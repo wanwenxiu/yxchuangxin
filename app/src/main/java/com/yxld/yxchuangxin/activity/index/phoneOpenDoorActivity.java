@@ -20,6 +20,11 @@ import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.entity.ShareInfo;
 import com.yxld.yxchuangxin.util.YouMengShareUtil;
 
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author wwx
  * @ClassName: phoneOpenDoorActivity
@@ -54,11 +59,14 @@ public class phoneOpenDoorActivity extends BaseActivity {
 		bundle1 = intent.getExtras();
 		codestr = bundle1.getString("codestr");
 		time = bundle1.getString("time");
+		Log.d("geek","获取内容为："+codestr+","+time);
 		address = bundle1.getString("address");
 		shareInfo.setTitle("手机开门二维码");
 		shareInfo.setShareCon(address);
+	}
 
-		Log.d("geek",codestr+","+time);
+	@Override
+	protected void initDataFromLocal() {
 	}
 
 	@Override
@@ -74,6 +82,9 @@ public class phoneOpenDoorActivity extends BaseActivity {
 		}
 
 		if (item.getItemId() == R.id.action_share) {
+			if(mengShareUtil == null){
+				mengShareUtil = new YouMengShareUtil(this);
+			}
 			mengShareUtil.addCustomPlatforms(shareInfo);
 		}
 
@@ -90,41 +101,52 @@ public class phoneOpenDoorActivity extends BaseActivity {
 		shareSms.setOnClickListener(this);
 		update.setVisibility(View.INVISIBLE);
 
-		getOpenDoor(codestr);
+		try {
+			getOpenDoor(codestr);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-//			case R.id.update:
-//				break;
-//			case R.id.shareSms:
-//				if(shareUrl == null || "".equals(shareUrl)){
-//					Toast.makeText(phoneOpenDoorActivity.this,"未获取到分享二维码链接",Toast.LENGTH_SHORT).show();
-//					return;
-//				}
-//				sendSMS(shareUrl);
-//				break;
 		}
 	}
 
-
-	@Override
-	protected void initDataFromLocal() {
-		Log.d("geek", "进入initDataFromLocal（）");
-		mengShareUtil = new YouMengShareUtil(this);
+	public static String getFormatedDateTime(String pattern, long dateTime) {
+		Log.d("geek", "getFormatedDateTime: pattern"+pattern+",dateTime="+dateTime);
+		SimpleDateFormat sDateFormat = new SimpleDateFormat(pattern);
+		return sDateFormat.format(new Date(dateTime));
 	}
 
-
-	private void getOpenDoor(String contentString){
+	private void getOpenDoor(String contentString)  throws  Exception{
 			if (!contentString.equals("")) {
 				//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
 				Bitmap qrCodeBitmap = CodeUtils.createImage(contentString, 450, 450, BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg));
-
+				//设置二维码图片
 				codeImg.setImageBitmap(qrCodeBitmap);
-				youxiaoqi.setText("有效期至："+time);
+				Log.d("geek", "getOpenDoor: time"+time);
+				Timestamp dateStr = new Timestamp(Long.parseLong(time));
+
+				System.out.println(time.toString());
+				Log.d("geek", "getOpenDoor: dateStr"+dateStr);
+				youxiaoqi.setText("有效期至："+dateStr);
+
+				//设置分享内容
 				shareInfo.setBitmap(qrCodeBitmap);
+				String qqurl = API.yuming+"/qr_code.html?timr="+time+"&code="+codestr;
+				shareInfo.setQQImgUrl(qqurl);
+
+				try{
+					codestr = URLEncoder.encode(codestr,"UTF-8").toString();
+				}catch (Exception e){
+					e.printStackTrace();
+				}
 				shareInfo.setImgUrl(API.yuming+"/qr_code.html?timr="+time+"&code="+codestr);
+
+				Log.d("geek","手机界面设置完成shareInfo ="+shareInfo.toString());
+
 			}else {
 				Toast.makeText(phoneOpenDoorActivity.this, "生成二维码失败", Toast.LENGTH_SHORT).show();
 			}

@@ -37,7 +37,7 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable {
 	private String yezhuMianji;//面积
 	private String yezhuZuoji2;//座机２
 	private String yezhuBiezhu1;//备注１
-	private String yezhuBeizhu2;//备注２
+	private String yezhuBeizhu2;//楼盘ID
 
 	// Constructors
 
