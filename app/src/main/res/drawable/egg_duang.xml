@@ -2,29 +2,16 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false" >
 
-    <item
-        android:drawable="@mipmap/egg1"
-        android:duration="80">
-    </item>
-    <item
-        android:drawable="@mipmap/egg2"
-        android:duration="80">
-    </item>
-    <item
-        android:drawable="@mipmap/egg3"
-        android:duration="80">
-    </item>
-    <item
-        android:drawable="@mipmap/egg4"
-        android:duration="80">
-    </item>
-    <item
-        android:drawable="@mipmap/egg5"
-        android:duration="80">
-    </item>
-    <item
-        android:drawable="@mipmap/egg6"
-        android:duration="80">
-    </item>
-
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_01" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_02" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_03" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_04" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_05" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_06" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_07" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_08" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_09" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_10" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_11" />
+    <item android:duration="83" android:drawable="@mipmap/ic_loading_white_12" />
 </animation-list>

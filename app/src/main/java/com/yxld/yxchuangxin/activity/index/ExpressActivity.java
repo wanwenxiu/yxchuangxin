@@ -51,7 +51,6 @@ public class ExpressActivity extends BaseActivity {
 		express_webView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
-				// TODO Auto-generated method stub
 				if (newProgress == 100) {
 					// 网页加载完成
 					bar.setVisibility(View.GONE);

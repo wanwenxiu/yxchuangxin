@@ -142,12 +142,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.new_main_activity_layouts);
         AppConfig.setMainActivity(this);
         if (Contains.cxwyMallUser == null || Contains.cxwyMallUser.getUserTel() == null) {
-//			Intent home = new Intent(Intent.ACTION_MAIN);
-//			home.addCategory(Intent.CATEGORY_HOME);
-//			startActivity(home);
-//			finish();
-//			System.exit(0);
-//			return;
             finish();
             AppConfig.getInstance().exit();
             startActivity(WelcomeActivity.class);
@@ -218,6 +212,10 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             @Override
             public void run() {
                 main.setRefreshing(false);
+                if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
+                    ToastUtil.show(NewMainActivity2.this,"业主信息不完善");
+                    return;
+                }
                 Intent intent = new Intent(NewMainActivity2.this,
                         YeZhuOpenDoorActivity.class);
                 ActivityOptions opts = null;
@@ -245,7 +243,8 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             case R.id.marqueeTv:
                 if(marqueeTv == null || marqueeTv.getText() == null
                         || "".equals(marqueeTv.getText().toString())
-                        || "没有活动通知".equals(marqueeTv.getText().toString())){
+                        || "没有通知活动".equals(marqueeTv.getText().toString())){
+                    ToastUtil.show(NewMainActivity2.this,"没有通知活动");
                     return;
                 }
             case R.id.mine: //右上角按钮
@@ -430,15 +429,22 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                                 @Override
                                 public void onImageClick(int position, View imageView) {
                                     if (position == 0) {
+                                        if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
+                                            ToastUtil.show(NewMainActivity2.this,"业主信息不完善");
+                                            return;
+                                        }
                                         startActivity(YeZhuOpenDoorActivity.class);
                                     } else if (position == 1) {
+                                        if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
+                                            ToastUtil.show(NewMainActivity2.this,"业主信息不完善");
+                                            return;
+                                        }
                                         startActivity(VisitorInvitationActivity.class);
                                     } else if (position == 2){
                                         startActivity(ExpressActivity.class);
                                     }
                                 }
                             }, 0);
-
                 }
             }
 

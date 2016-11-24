@@ -242,9 +242,11 @@ public class RegisterActivity extends BaseActivity {
 				public void onClick(View v) {
 					String code=register_yzm.getText().toString();
 					if (!TextUtils.isEmpty(code)) {
+						progressDialog.show();
 						SMSSDK.submitVerificationCode("86",register_tel.getText().toString(),register_yzm.getText().toString());
 						strCode = code;
 					}else {
+						progressDialog.hide();
 						Toast.makeText(RegisterActivity.this,"验证码错误，请重新输入",Toast.LENGTH_LONG).show();
 					}
 				}
@@ -252,18 +254,6 @@ public class RegisterActivity extends BaseActivity {
 		}
 	}
 
-	private void reset(View regsubmit) {
-		if (regsubmit instanceof ViewGroup) {
-			ViewGroup parent = (ViewGroup) regsubmit;
-			for (int i = 0; i < parent.getChildCount(); i++) {
-				reset(parent.getChildAt(i));
-			}
-		} else {
-			regsubmit.setScaleX(1);
-			regsubmit.setScaleY(1);
-			regsubmit.setAlpha(1);
-		}
-	}
 
 	@Override
 	protected void initDataFromLocal() {

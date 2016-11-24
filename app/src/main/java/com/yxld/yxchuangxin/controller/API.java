@@ -14,9 +14,9 @@ public interface API {
 
    String menjinIP ="http://120.25.78.92/";
 
-//   String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
-//   String PIC = "http://192.168.0.166:8080";
-//   String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
+// String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
+// String PIC = "http://192.168.0.166:8080";
+// String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
 
    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
    String PIC="http://www.hnchxwl.com";
@@ -76,7 +76,6 @@ public interface API {
      * 提交订单
      */
     String URL_ADD_ORDER = IP_PRODUCT + "/mall/androidOrder_addOrder?";
-
 
     /**
      * 根据用户名和订单状态获取订单列表
@@ -398,7 +397,6 @@ public interface API {
 
  /**
   * 获取业主访客二维码  coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
-
   */
  String URL_GET_FangKeOPENCODE = menjinIP+"door/coed/getcodes/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s/%7$s/%8$s/%9$s";
 

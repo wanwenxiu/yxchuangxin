@@ -45,7 +45,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * @Description: 基础Fragment�?
  * @author wwx
  * @date 2015�?1�?6�?下午1:38:32 
- *
  */
 @SuppressLint("ShowToast")
 public abstract class BaseFragment extends Fragment implements OnClickListener,
@@ -446,6 +445,13 @@ OnCancelListener, IXListViewListener {
 		Log.d("geek", "BaseFragment onLoadMore()");
 		initDataFromNet();
 	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
+
+
 
 	/**
 	 * 

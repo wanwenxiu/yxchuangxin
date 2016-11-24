@@ -60,8 +60,8 @@ public class AppConfig extends Application {
 	private RequestQueue mRequestQueue;
 	public static ImageLoader mImageLoader;
 	
-	//public static AMapLocationClient locationClient = null;
-	//private AMapLocationClientOption locationOption = null;
+//	public static AMapLocationClient locationClient = null;
+//	private AMapLocationClientOption locationOption = null;
 
 	public RequestQueue getRequestQueue() {
 		return mRequestQueue;
@@ -170,28 +170,28 @@ public class AppConfig extends Application {
 		//在自己的Application中添加如下代码
 //		refWatcher = LeakCanary.install(this);
 
-		// 以下用来捕获程序崩溃异常
-		Intent intent = new Intent();
-		// 参数1：包名，参数2：程序入口的activity
-		intent.setClassName("com.yxld.yxchuangxin", "com.yxld.yxchuangxin.activity.login.WelcomeActivity");
-		intent.setClass(this,WelcomeActivity.class);
-		restartIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-				intent,0);
-//		Intent.FLAG_ACTIVITY_NEW_TASK
-		Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程
+//		// 以下用来捕获程序崩溃异常
+//		Intent intent = new Intent();
+//		// 参数1：包名，参数2：程序入口的activity
+//		intent.setClassName("com.yxld.yxchuangxin", "com.yxld.yxchuangxin.activity.login.WelcomeActivity");
+//		intent.setClass(this,WelcomeActivity.class);
+//		restartIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+//				intent,0);
+////		Intent.FLAG_ACTIVITY_NEW_TASK
+//		Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程
 	}
 
-	public Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
-		@Override
-		public void uncaughtException(Thread thread, Throwable ex) {
-			Log.d("geek","异常异常异常");
-			AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-			mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
-					restartIntent); // 1秒钟后重启应用
-			AppConfig.getInstance().exit();
-			android.os.Process.killProcess(android.os.Process.myPid());
-		}
-	};
+//	public Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
+//		@Override
+//		public void uncaughtException(Thread thread, Throwable ex) {
+//			Log.d("geek","异常异常异常");
+//			AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//			mgr.set(AlarmManager.RTC, System.currentTimeMillis(),
+//					restartIntent); //重启应用
+//			AppConfig.getInstance().exit();
+//			android.os.Process.killProcess(android.os.Process.myPid());
+//		}
+//	};
 
 	/***
 	 * @Title: addActivity

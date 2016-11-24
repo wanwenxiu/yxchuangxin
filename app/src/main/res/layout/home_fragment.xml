@@ -60,7 +60,8 @@
                 <com.yxld.yxchuangxin.view.ImageCycleView
                     android:id="@+id/mall_lunbo"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    />
             </RelativeLayout>
 
             <RelativeLayout

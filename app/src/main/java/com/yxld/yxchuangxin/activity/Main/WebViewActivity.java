@@ -50,7 +50,6 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                // TODO Auto-generated method stub
                 if (newProgress == 100) {
                     // 网页加载完成
                     bar.setVisibility(View.GONE);
@@ -129,7 +128,13 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-           finish();
+            Log.d("geek","返回键");
+            if (webView != null && webView.canGoBack()) {
+                webView.goBack();// 返回上一页面
+                return true;
+            } else {
+                finish();// 退出程序
+            }
         }
         return super.onOptionsItemSelected(item);
     }
