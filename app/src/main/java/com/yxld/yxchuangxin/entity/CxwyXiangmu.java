@@ -7,40 +7,38 @@ package com.yxld.yxchuangxin.entity;
 public class CxwyXiangmu {
 
 	// Fields
-
+	// Fields
 	private Integer xiangmuId; //id
 	private String xiangmuLoupan; //楼盘
-	private String xiangmuLd; //楼栋
-	private String xiangmuDy; // 单元
 	private String xiangmuZimupingyin;
-	private Integer xiangmuParentId;  //父级id
-	
+	private String xiangmuTelphone;//电话号码
+
 	//经纬度
 	private  String xiangmuLatitude; //纬度
-    private String  xiangmuLongitude; //经度
+	private String  xiangmuLongitude; //经度
+	private Integer xiangmuIsUse;
+
 	// Constructors
 
 	/** default constructor */
 	public CxwyXiangmu() {
 	}
 
-	/** full constructor */
-	public CxwyXiangmu(String xiangmuLoupan, String xiangmuLd,
-			String xiangmuDy, String xiangmuZimupingyin, Integer xiangmuParentId,String xiangmuLatitude,String xiangmuLongitude) {
+	public CxwyXiangmu(Integer xiangmuId, String xiangmuLoupan, String xiangmuZimupingyin, String xiangmuTelphone, String xiangmuLatitude, String xiangmuLongitude, Integer xiangmuIsUse) {
+		this.xiangmuId = xiangmuId;
 		this.xiangmuLoupan = xiangmuLoupan;
-		this.xiangmuLd = xiangmuLd;
-		this.xiangmuDy = xiangmuDy;
 		this.xiangmuZimupingyin = xiangmuZimupingyin;
-		this.xiangmuParentId = xiangmuParentId;
-		this.xiangmuLongitude=xiangmuLongitude;
-		this.xiangmuLatitude=xiangmuLatitude;
-		
+		this.xiangmuTelphone = xiangmuTelphone;
+		this.xiangmuLatitude = xiangmuLatitude;
+		this.xiangmuLongitude = xiangmuLongitude;
+		this.xiangmuIsUse = xiangmuIsUse;
 	}
 
-	// Property accessors
+// Property accessors
+
 
 	public Integer getXiangmuId() {
-		return this.xiangmuId;
+		return xiangmuId;
 	}
 
 	public void setXiangmuId(Integer xiangmuId) {
@@ -48,43 +46,27 @@ public class CxwyXiangmu {
 	}
 
 	public String getXiangmuLoupan() {
-		return this.xiangmuLoupan;
+		return xiangmuLoupan;
 	}
 
 	public void setXiangmuLoupan(String xiangmuLoupan) {
 		this.xiangmuLoupan = xiangmuLoupan;
 	}
 
-	public String getXiangmuLd() {
-		return this.xiangmuLd;
-	}
-
-	public void setXiangmuLd(String xiangmuLd) {
-		this.xiangmuLd = xiangmuLd;
-	}
-
-	public String getXiangmuDy() {
-		return this.xiangmuDy;
-	}
-
-	public void setXiangmuDy(String xiangmuDy) {
-		this.xiangmuDy = xiangmuDy;
-	}
-
 	public String getXiangmuZimupingyin() {
-		return this.xiangmuZimupingyin;
+		return xiangmuZimupingyin;
 	}
 
 	public void setXiangmuZimupingyin(String xiangmuZimupingyin) {
 		this.xiangmuZimupingyin = xiangmuZimupingyin;
 	}
 
-	public Integer getXiangmuParentId() {
-		return this.xiangmuParentId;
+	public String getXiangmuTelphone() {
+		return xiangmuTelphone;
 	}
 
-	public void setXiangmuParentId(Integer xiangmuParentId) {
-		this.xiangmuParentId = xiangmuParentId;
+	public void setXiangmuTelphone(String xiangmuTelphone) {
+		this.xiangmuTelphone = xiangmuTelphone;
 	}
 
 	public String getXiangmuLatitude() {
@@ -103,13 +85,24 @@ public class CxwyXiangmu {
 		this.xiangmuLongitude = xiangmuLongitude;
 	}
 
+	public Integer getXiangmuIsUse() {
+		return xiangmuIsUse;
+	}
+
+	public void setXiangmuIsUse(Integer xiangmuIsUse) {
+		this.xiangmuIsUse = xiangmuIsUse;
+	}
+
 	@Override
 	public String toString() {
-		return "CxwyXiangmu [xiangmuId=" + xiangmuId + ", xiangmuLoupan="
-				+ xiangmuLoupan + ", xiangmuLd=" + xiangmuLd + ", xiangmuDy="
-				+ xiangmuDy + ", xiangmuZimupingyin=" + xiangmuZimupingyin
-				+ ", xiangmuParentId=" + xiangmuParentId + ", xiangmuLatitude="
-				+ xiangmuLatitude + ", xiangmuLongitude=" + xiangmuLongitude
-				+ "]";
+		return "CxwyXiangmu{" +
+				"xiangmuId=" + xiangmuId +
+				", xiangmuLoupan='" + xiangmuLoupan + '\'' +
+				", xiangmuZimupingyin='" + xiangmuZimupingyin + '\'' +
+				", xiangmuTelphone='" + xiangmuTelphone + '\'' +
+				", xiangmuLatitude='" + xiangmuLatitude + '\'' +
+				", xiangmuLongitude='" + xiangmuLongitude + '\'' +
+				", xiangmuIsUse=" + xiangmuIsUse +
+				'}';
 	}
 }

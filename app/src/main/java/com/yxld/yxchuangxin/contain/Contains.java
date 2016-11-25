@@ -62,9 +62,9 @@ public class Contains {
 	/** 定位城市*/
 	public static String locationCity = null;
 	
-	/** 选择小区*/
+	/** 选择小区名字*/
 	public static String  curSelectXiaoQuName = "";
-	/** 选择小区*/
+	/** 选择小区ID*/
 	public static int  curSelectXiaoQuId = 0;
 
 	/** 确认订单集合*/

@@ -25,7 +25,6 @@ import com.yxld.yxchuangxin.util.StringUitl;
 
 /**
  * @ClassName: SelectPlaceActivity 
- * @Description: TODO(这里用一句话描述这个类的作用aaaa) 
  * @author 选择地点界面
  * @date 2016年4月6日 下午2:49:40 
  */
