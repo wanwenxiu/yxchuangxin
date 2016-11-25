@@ -1,6 +1,8 @@
 package com.yxld.yxchuangxin.activity.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.media.CamcorderProfile.get;
 import static com.yxld.yxchuangxin.R.id.login_pwd;
+import static com.yxld.yxchuangxin.R.id.phone;
 import static com.yxld.yxchuangxin.R.id.register_button_phone;
 import static com.yxld.yxchuangxin.R.id.register_pwd;
 
@@ -50,6 +54,8 @@ public class LoginActivity extends BaseActivity {
 
 	/** 记住密码 */
 	private CheckBox checkBox1;
+	private SharedPreferences sp;
+	private String userNameValue,passwordValue;
 
 	/** 数据库保存的用户信息 */
 	private CxwyYezhu curUser = null;
@@ -57,11 +63,11 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.login_layout2);
+		sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 		setToorBar(false);
 	}
 	@Override
 	protected void initView() {
-
 		txt_register = (TextView) findViewById(R.id.txt_register);
 		login_tel = (EditText) findViewById(R.id.login_tel);
 		login_pwd = (EditText) findViewById(R.id.login_pwd);
@@ -70,7 +76,27 @@ public class LoginActivity extends BaseActivity {
 		txt_register.setOnClickListener(this);
 		mExplosionField = ExplosionField.attach2Window(this);
 		addListener(findViewById(R.id.loginSubmit));
+		//判断记住密码多选框的状态
+		if(sp.getBoolean("ISCHECK", false))
+		{
+			//设置默认是记录密码状态
+			checkBox1.setChecked(true);
+			login_tel.setText(sp.getString("NAME", ""));
+			login_pwd.setText(sp.getString("PASSWORD", ""));
+		}
 
+		checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (checkBox1.isChecked()) {
+					sp.edit().putBoolean("ISCHECK", true).commit();
+
+				}else {
+					sp.edit().putBoolean("ISCHECK", false).commit();
+
+				}
+			}
+		});
 		//queryShipperInfo();
 	}
 
@@ -150,17 +176,25 @@ public class LoginActivity extends BaseActivity {
 				loginSubmit.setOnClickListener(null);
 				Contains.token=info.getToken();
 				Contains.user = info.getUser();
-				Contains.appYezhuFangwus=info.getHouse();
+				if (info.getHouse()!=null && info.getHouse().size() >0 ){
+					Contains.appYezhuFangwus=info.getHouse();
+					Contains.curSelectXiaoQuName = info.getHouse().get(0).getXiangmuLoupan();
+					Contains.curSelectXiaoQuId = info.getHouse().get(0).getFwLoupanId();
+				}
+				SharedPreferences.Editor editor = sp.edit();
+				editor.putString("NAME", userNameValue);
+				editor.putString("PASSWORD", passwordValue);
+				editor.commit();
+				sp.edit().putBoolean("ISCHECK", true).commit();
 //				Contains.cxwyMallUser = info.getUser();
 //				Log.d("denglu","登陆info.getDefuleaddr()  ="+info.getDefuleaddr().toString());
 //				Contains.defuleAddress = info.getDefuleaddr();
 //				Log.d("denglu","登陆 Contains.defuleAddress  ="+Contains.defuleAddress.toString());
 				// 保存用户ID和账号至配置文件中
-				SPUtils.put(LoginActivity.this, CB_SAVE_PWD,
-						checkBox1.isChecked());
-				SPUtils.put(LoginActivity.this, LAST_LOGIN_USER_ID, info
-						.getUser().getYezhuId() + "");
-				Contains.curSelectXiaoQu = info.getHouse().get(0).getXiangmuLoupan();
+//				SPUtils.put(LoginActivity.this, CB_SAVE_PWD,
+//						checkBox1.isChecked());
+//				SPUtils.put(LoginActivity.this, LAST_LOGIN_USER_ID, info
+//						.getUser().getYezhuId() + "");
 				new Thread() {
 					public void run() {
 						try {
@@ -199,17 +233,18 @@ public class LoginActivity extends BaseActivity {
 			loginSubmit.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					userNameValue = login_tel.getText().toString();
+					passwordValue = login_pwd.getText().toString();
 					if(StringUitl.isNotEmpty(LoginActivity.this,login_tel,"请输入手机号码") && StringUitl.isNotEmpty(LoginActivity.this,login_pwd,"请输入密码")){
 						loginSubmit.setClickable(false);
 						int len = login_tel.getText().toString().length();
 						int len1=login_pwd.getText().toString().length();
-						initDataFromNet();
-//						if (len1 >= 6 &&  len==11 ) {
-//							initDataFromNet();
-//						} else {
-//							Toast.makeText(LoginActivity.this, "请确定账号密码格式是否正确", Toast.LENGTH_SHORT).show();
-//							loginSubmit.setClickable(true);
-//						}
+						if (len1 >= 6 &&  len==11 ) {
+							initDataFromNet();
+						} else {
+							Toast.makeText(LoginActivity.this, "请确定账号密码格式是否正确", Toast.LENGTH_SHORT).show();
+							loginSubmit.setClickable(true);
+						}
 
 						initDataFromNet();
 					}
@@ -217,6 +252,9 @@ public class LoginActivity extends BaseActivity {
 			});
 		}
 	}
+
+
+
 
 	@Override
 	protected void initDataFromLocal() {

@@ -28,8 +28,8 @@ public class CxUtil {
 	
 	// 用户是否已经登陆
 		public static boolean isLoginOk() {
-			if (Contains.cxwyMallUser == null || Contains.cxwyMallUser.getUserTel() == null
-					|| Contains.cxwyMallUser.getUserPassWord() == null) {
+			if (Contains.user == null || Contains.user.getYezhuShouji() == null
+					|| Contains.user.getYezhuPwd()== null) {
 				return false;
 			}
 			return true;

@@ -73,7 +73,7 @@ public class UpdatePwd extends BaseActivity {
 		String old_pwd = old_password.getText().toString();
 		String new_pwd = new_password.getText().toString();
 		String repeat_pwd = repeat_password.getText().toString();
-		String id = Contains.cxwyMallUser.getUserTel();
+		String id = Contains.user.getYezhuShouji();
 		if (new_pwd.equals(repeat_pwd)) {
 			loginController.getUpdatePwd(mRequestQueue, new Object[] { id,
 					old_pwd, new_pwd }, listener);
@@ -100,9 +100,9 @@ public class UpdatePwd extends BaseActivity {
 			}
 			mExplosionField.explode(next_step);
 			next_step.setOnClickListener(null);
-			Contains.cxwyMallUser.setUserPassWord(new_password.getText().toString());
-			dbUtil.clearData(CxwyMallUser.class);
-			dbUtil.insert(Contains.cxwyMallUser, Contains.cxwyMallUser.getUserId() + "");
+			Contains.user.setYezhuPwd(new_password.getText().toString());
+//			dbUtil.clearData(CxwyMallUser.class);
+//			dbUtil.insert(Contains.cxwyMallUser, Contains.cxwyMallUser.getUserId() + "");
 			finish();
 		}
 

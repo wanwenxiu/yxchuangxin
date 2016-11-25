@@ -271,7 +271,7 @@ public class SaveMoneyActivity extends BaseActivity {
 						Bundle ylzf = new Bundle();
 						ylzf.putString("name", "银联支付");
 						ylzf.putString("address","http://222.240.1.133/CHINAPAY_DEMO/signServlet.do?BusiType=0001&Version=20140728&CommodityMsg=wwxtest&MerPageUrl=http://222.240.1.133/CHINAPAY_DEMO/pgReturn.do&MerBgUrl=http://222.240.1.133/CHINAPAY_DEMO/bgReturn.do&MerId=531121608230001&" +
-								"MerOrderNo="+System.currentTimeMillis()+""+"&OrderAmt="+money+"&TranDate="+getNowDateShort()+"&TranTime="+getTimeShort()+"&MerResv="+Contains.cxwyMallUser.getUserId()+"u"+money+"");
+								"MerOrderNo="+System.currentTimeMillis()+""+"&OrderAmt="+money+"&TranDate="+getNowDateShort()+"&TranTime="+getTimeShort()+"&MerResv="+Contains.user.getYezhuId()+"u"+money+"");
 						intent.putExtras(ylzf);
 						startActivity(intent);
 					}
@@ -304,10 +304,10 @@ public class SaveMoneyActivity extends BaseActivity {
 			yeZhuController = new YeZhuControllerImpl();
 		}
 		Map<String, String> parms = new HashMap<String, String>();
-		parms.put("user.userTel", Contains.cxwyMallUser.getUserTel());
-		parms.put("user.userIdCard", Contains.cxwyMallUser.getUserIdCard());
-		parms.put("user.userIntegral", payPrice.getText().toString());
-		yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
+//		parms.put("user.userTel", Contains.user.getUserTel());
+//		parms.put("user.userIdCard", Contains.cxwyMallUser.getUserIdCard());
+//		parms.put("user.userIntegral", payPrice.getText().toString());
+//		yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
 	}
 
 	private ResultListener<BaseEntity2> listening = new ResultListener<BaseEntity2>() {
@@ -322,7 +322,7 @@ public class SaveMoneyActivity extends BaseActivity {
 			}
 			if (info.MSG !=null && !"".equals(info.MSG) ) {
 				Toast.makeText(SaveMoneyActivity.this,info.MSG,Toast.LENGTH_SHORT).show();
-				Contains.cxwyMallUser.setUserIntegral(info.curMoney);
+//				Contains.cxwyMallUser.setUserIntegral(info.curMoney);
 				finish();
 			}
 		}

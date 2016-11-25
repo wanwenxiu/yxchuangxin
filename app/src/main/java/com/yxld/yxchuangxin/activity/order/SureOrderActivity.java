@@ -307,11 +307,11 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 				map.put("ord.dingdanDizhi", user_addr.getText().toString());
 				map.put("ord.dingdanTel", user_phone.getText().toString());
 				map.put("ord.dingdanTotalRmb", decimalFormat.format(lasttotalPrice));
-				map.put("ord.dingdanUserName", Contains.cxwyMallUser.getUserTel());
+				map.put("ord.dingdanUserName", Contains.user.getYezhuShouji());
 				map.put("ord.dingdanBeiyong1", "未支付");
 				map.put("ord.dingdanImgSrc", Contains.sureOrderList.get(0).getGoodsSrc());
-				map.put("ord.dingdanVillage", Contains.defuleAddress.getAddVillage());
-				map.put("ord.dingdanUserId",Contains.cxwyMallUser.getUserId()+"");
+				map.put("ord.dingdanVillage", Contains.curSelectXiaoQuId+"");
+				map.put("ord.dingdanUserId",Contains.user.getYezhuId()+"");
 
 				//备注
 				map.put("ord.dingdanBeiyong3", order_mark.getText().toString()+"");

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -51,12 +52,11 @@ public class SelectPlaceActivity extends BaseActivity {
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.select_place_activity_layout);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	protected void initView() {
-		setTitle("选择小区");
-		findViewById(R.id.returnWrap).setOnClickListener(this);
 		addressList = (ListView) findViewById(R.id.addressList);
 		placeTipTv = (TextView) findViewById(R.id.placeTip);
 		placeTv = (TextView) findViewById(R.id.place);
@@ -73,7 +73,8 @@ public class SelectPlaceActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Contains.curSelectXiaoQu = listData.get(arg2).getXiangmuLoupan();
+				Contains.curSelectXiaoQuName = listData.get(arg2).getXiangmuLoupan();
+				Contains.curSelectXiaoQuId = listData.get(arg2).getXiangmuId();
 				finish();
 			}
 		});
@@ -100,11 +101,8 @@ public class SelectPlaceActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.returnWrap:
-			finish();
-			break;
 			case R.id.location:
-				Contains.curSelectXiaoQu = placeTv.getText().toString();
+				Contains.curSelectXiaoQuName = placeTv.getText().toString();
 				finish();
 				break;
 		default:
@@ -144,5 +142,11 @@ public class SelectPlaceActivity extends BaseActivity {
 			onError("请求失败");
 		}
 	};
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == android.R.id.home){
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

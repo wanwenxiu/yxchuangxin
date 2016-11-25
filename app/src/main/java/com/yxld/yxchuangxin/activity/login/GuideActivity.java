@@ -20,7 +20,7 @@ public class GuideActivity extends GuideBaseActivity {
 	
 	@Override
 	protected void startJumpActivity() {
-		if(Contains.cxwyMallUser ==null || Contains.cxwyMallUser.getUserId() == null){
+		if(Contains.user ==null || Contains.user.getYezhuId() == null){
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 			finish();

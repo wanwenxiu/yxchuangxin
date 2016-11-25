@@ -6,9 +6,6 @@
     android:background="@color/color_eeeeee"
      android:clipToPadding="true"
 	android:fitsSystemWindows="true">
-    
-   <include 
-       layout="@layout/top_title"/>
 
     <RelativeLayout
         android:id="@+id/location"

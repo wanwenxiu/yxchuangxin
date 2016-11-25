@@ -164,7 +164,7 @@ public class CartMainFragment extends BaseFragment {
         }
         // 获取购物车里面的商品list(如果购物车不为空就加载购物车的数据)
         cartController.getCartInfoFromUserID(mRequestQueue,
-                new Object[]{Contains.cxwyMallUser.getUserTel()}, new ResultListener<CxwyMallCart>() {
+                new Object[]{Contains.user.getYezhuId()}, new ResultListener<CxwyMallCart>() {
 
                     @Override
                     public void onResponse(CxwyMallCart info) {

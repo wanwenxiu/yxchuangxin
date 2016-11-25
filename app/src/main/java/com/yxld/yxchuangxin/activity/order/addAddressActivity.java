@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -225,9 +226,10 @@ public class addAddressActivity extends BaseActivity {
 		map.put("add.addTel", editPhone.getText().toString());
 		map.put("add.addSpare1", selectAddress.getText().toString());
 		map.put("add.addAdd", editDestail.getText().toString());
-		map.put("add.addUserName", Contains.cxwyMallUser.getUserTel()+"");
+		map.put("add.addUserName", Contains.user.getYezhuName()+"");
 		map.put("add.addStatus", "1");
-		
+		map.put("add.addSpare2", Contains.user.getYezhuId()+"");
+		Log.d("geek","添加修改地址map"+map.toString());
 		if(isADD){
 			addressController.addAddress(mRequestQueue, map, AddressListener);
 		}else{

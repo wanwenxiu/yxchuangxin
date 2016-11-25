@@ -34,6 +34,7 @@ import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
+import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.util.Network;
 import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.ToastUtil;
@@ -66,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	protected static final int STATUS_CODE_FAILED = 1;
 
 	/** 保存当前选择小区*/
-	private String SAVEXIAOQU = "SAVEXIAOQU";
+	private String SAVEXIAOQUID = "SAVEXIAOQUID";
 	/** 保存当前登录用户信息*/
 	private String SAVEYONGHU = "SAVEYONGHU";
 	/** 保存当前登录业主信息*/
@@ -465,9 +466,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		System.out.println("Baseactivity onSaveInstanceState()");
-		outState.putString(SAVEXIAOQU, Contains.curSelectXiaoQu);
-		outState.putSerializable(SAVEYONGHU,Contains.cxwyMallUser);
-		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.cxwyYezhu);
+		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
+		outState.putSerializable(SAVEYONGHU,Contains.user);
+		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -475,9 +476,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		try {
 			if (savedInstanceState != null) {
-			Contains.curSelectXiaoQu = savedInstanceState.getString(SAVEXIAOQU);
-			Contains.cxwyMallUser = (CxwyMallUser) savedInstanceState.getSerializable(SAVEYONGHU);
-			Contains.cxwyYezhu = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+			Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
+			Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
+			Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
 		}
 			super.onRestoreInstanceState(savedInstanceState);
 		} catch (Exception e) {

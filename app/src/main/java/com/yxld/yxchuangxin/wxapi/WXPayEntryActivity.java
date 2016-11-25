@@ -120,11 +120,11 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         if (yeZhuController == null) {
             yeZhuController = new YeZhuControllerImpl();
         }
-        Map<String, String> parms = new HashMap<String, String>();
-        parms.put("user.userTel", Contains.cxwyMallUser.getUserTel());
-        parms.put("user.userIdCard", Contains.cxwyMallUser.getUserIdCard());
-        parms.put("user.userIntegral", Contains.payPrice);
-        yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
+//        Map<String, String> parms = new HashMap<String, String>();
+//        parms.put("user.userTel", Contains.u.getUserTel());
+//        parms.put("user.userIdCard", Contains.cxwyMallUser.getUserIdCard());
+//        parms.put("user.userIntegral", Contains.payPrice);
+//        yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
     }
 
     private ResultListener<BaseEntity2> listening = new ResultListener<BaseEntity2>() {
@@ -139,7 +139,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             }
             if (info.MSG !=null && !"".equals(info.MSG) ) {
                 Toast.makeText(WXPayEntryActivity.this,info.MSG,Toast.LENGTH_SHORT).show();
-                Contains.cxwyMallUser.setUserIntegral(info.curMoney);
+//                Contains.cxwyMallUser.setUserIntegral(info.curMoney);
                 finish();
             }
         }

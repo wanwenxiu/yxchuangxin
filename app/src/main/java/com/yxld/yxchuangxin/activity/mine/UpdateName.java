@@ -58,7 +58,7 @@ public class UpdateName extends BaseActivity {
 		clear = (ImageView) findViewById(R.id.clear);
 		update_name = (TextView) findViewById(R.id.update_name);
 
-		old_name.setText(Contains.cxwyMallUser.getUserUserName());
+		old_name.setText(Contains.user.getYezhuName());
 		old_name.setSelection(old_name.getText().length());
 		clear.setOnClickListener(this);
 		mExplosionField = ExplosionField.attach2Window(this);
@@ -70,7 +70,7 @@ public class UpdateName extends BaseActivity {
 		if (loginController == null) {
 			loginController = new LoginControllerImpl();
 		}
-		String id = Contains.cxwyMallUser.getUserId().toString();
+		String id = Contains.user.getYezhuId().toString();
 		String name = old_name.getText().toString();
 		Map<String, String> parm = new HashMap<String, String>();
 		parm.put("user.userId", id);
@@ -89,8 +89,8 @@ public class UpdateName extends BaseActivity {
 			}
 			mExplosionField.explode(update_name);
 			update_name.setOnClickListener(null);
-			Contains.cxwyMallUser
-					.setUserUserName(old_name.getText().toString());
+			Contains.user
+					.setYezhuName(old_name.getText().toString());
 			Toast.makeText(UpdateName.this, "修改成功", Toast.LENGTH_SHORT).show();
 			new Thread() {
 				public void run() {

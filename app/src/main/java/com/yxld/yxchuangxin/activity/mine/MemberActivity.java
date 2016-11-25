@@ -1,6 +1,8 @@
 package com.yxld.yxchuangxin.activity.mine;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -37,10 +39,12 @@ public class MemberActivity extends BaseActivity {
 	
 	/**退出登录*/
 	private TextView loginOut;
+	private SharedPreferences sp;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_member);
+		sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 		getSupportActionBar().setTitle("账号设置");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -73,7 +77,7 @@ public class MemberActivity extends BaseActivity {
 		loginOut = (TextView) findViewById(R.id.loginOut);
 		loginOut.setOnClickListener(this);
 
-		String phone=Contains.cxwyMallUser.getUserTel();
+		String phone=Contains.user.getYezhuShouji();
 
 		if(!TextUtils.isEmpty(phone) && phone.length() >= 11 ){
 			StringBuilder sb  =new StringBuilder();
@@ -102,8 +106,8 @@ public class MemberActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		account_name.setText(Contains.cxwyMallUser.getUserUserName());
-		String card=Contains.cxwyMallUser.getUserIdCard();
+		account_name.setText(Contains.user.getYezhuName());
+		String card=Contains.user.getYezhuCardNum();
 
 		if(!TextUtils.isEmpty(card) && card.length() >= 18 ){
 			StringBuilder sb  =new StringBuilder();
@@ -135,14 +139,21 @@ public class MemberActivity extends BaseActivity {
 			startActivity(AccountWrap);
 			break;
 		case R.id.loginOut:
-			if(dbUtil == null){
-				dbUtil = new DBUtil(this);
-			}
-			dbUtil.clearData(CxwyMallUser.class);
-			Contains.cxwyMallUser = null;
-			//保存用户ID和账号至配置文件中
-			SPUtils.put(this, CB_SAVE_PWD, false);
-			SPUtils.put(this, LAST_LOGIN_USER_ID, "");
+//			if(dbUtil == null){
+//				dbUtil = new DBUtil(this);
+//			}
+//			dbUtil.clearData(CxwyMallUser.class);
+//			Contains.cxwyMallUser = null;
+//			//保存用户ID和账号至配置文件中
+//			SPUtils.put(this, CB_SAVE_PWD, false);
+//			SPUtils.put(this, LAST_LOGIN_USER_ID, "");
+			Contains.user = null;
+			SharedPreferences.Editor editor = sp.edit();
+			editor.putString("NAME", "");
+			editor.putString("PASSWORD", "");
+			editor.putBoolean("ISCHECK", false);
+			editor.commit();
+
 			finish();
 			AppConfig.getInstance().exit();
 			startActivity(LoginActivity.class);

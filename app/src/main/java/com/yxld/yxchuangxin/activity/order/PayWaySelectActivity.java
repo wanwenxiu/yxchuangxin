@@ -343,7 +343,7 @@ public class PayWaySelectActivity extends BaseActivity {
 				} else {
 					String curMoney = info.MSG;
 					if (StringUitl.isNoEmpty(curMoney)) {
-						Contains.cxwyMallUser.setUserIntegral(curMoney);
+//						Contains.cxwyMallUser.setUserIntegral(curMoney);
 					//	new SweetAlertDialog(PayWaySelectActivity.this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("支付成功!").setContentText("您已经成功支付,当前余额" + curMoney + "元").show();
 
 						new SweetAlertDialog(PayWaySelectActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("支付成功").setContentText("您已经成功支付,当前余额" + curMoney + "元").setConfirmText("确认").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

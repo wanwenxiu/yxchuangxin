@@ -225,7 +225,7 @@
         </activity>
         <activity
             android:name=".activity.Main.SelectPlaceActivity"
-            android:label="选择小区界面"
+            android:label="选择小区"
             android:screenOrientation="portrait">
         </activity>
         <activity

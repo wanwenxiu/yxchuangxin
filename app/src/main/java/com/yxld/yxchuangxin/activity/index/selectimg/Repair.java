@@ -183,7 +183,7 @@ public class Repair extends BaseActivity {
 		
 		
 		Init();
-		if (Contains.cxwyMallUser == null) {
+		if (Contains.user == null) {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
@@ -447,8 +447,8 @@ public class Repair extends BaseActivity {
 		parm.put("bx.baoxiuUnit", Contains.appYezhuFangwus.get(0).getFwDanyuan());
 		parm.put("bx.baoxiuProperty", Contains.repairQuyu);
 		parm.put("bx.baoxiuRoom", Contains.appYezhuFangwus.get(0).getFwFanghao()+"");
-		parm.put("bx.baoxiuName", Contains.cxwyMallUser.getUserUserName());
-		parm.put("bx.baoxiuPhone", Contains.cxwyMallUser.getUserTel());
+		parm.put("bx.baoxiuName", Contains.user.getYezhuName());
+		parm.put("bx.baoxiuPhone", Contains.user.getYezhuShouji());
 		if(Contains.repairAddressStr != null &&  !"".equals(Contains.repairAddressStr)){
 			parm.put("bx.baoxiuPlace", Contains.repairAddressStr+"");
 		}

@@ -2,7 +2,9 @@ package com.yxld.yxchuangxin.activity.login;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.LoginController;
@@ -53,6 +56,8 @@ public class WelcomeActivity extends BaseActivity implements
 	private CxwyMallUser curUser = null;
 	/** 登陆接口实现类 */
 	private LoginController loginController;
+	private SharedPreferences sp;
+	private String name,pwd;
 
 	@Override
 	protected void onDestroy() {
@@ -78,6 +83,7 @@ public class WelcomeActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.welcom_activity_layout);
+		sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 		setToorBar(false);
 		//permission.READ_PHONE_STATE
 		checkPermission(REQUEST_CODE_ASK_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -115,44 +121,28 @@ public class WelcomeActivity extends BaseActivity implements
 	 * @throws
 	 */
 	private void queryShipperInfo() {
-		if (dbUtil == null) {
-			dbUtil = new DBUtil(this);
-		}
+		boolean savePsd = sp.getBoolean("ISCHECK", false);
 
-		boolean savePsd = (boolean) SPUtils.get(this, CB_SAVE_PWD, false);
 		if (!savePsd) {
 			Log.d("geek", "GuideActivity getLogin()  curUser 没有保存密码");
 			handler.sendEmptyMessage(JUMP_ACTIVITY);
 			return;
-		}
-		String userId = String.valueOf(SPUtils
-				.get(this, LAST_LOGIN_USER_ID, ""));
-
-		if (!TextUtils.isEmpty(userId)) {
-			if (!isEmptyList(dbUtil.query(CxwyYezhu.class, userId))) {
-				curUser = (CxwyMallUser) (dbUtil.query(CxwyYezhu.class,
-						userId));
-//				Log.d("geek", "数据库查询 curUser " + curUser.toString());
-			}
-		}
-
-		if (curUser != null && curUser.getUserTel() != null
-				&& curUser.getUserPassWord() != null) {
-
+		}else {
+			 name=sp.getString("NAME", "");
+			 pwd=sp.getString("PASSWORD", "");
+			Log.d("...",name);
+			Log.d("...",pwd);
 			if (loginController == null) {
 				loginController = new LoginControllerImpl();
 			}
 			loginController.getLogin(
 					mRequestQueue,
-					new Object[] { curUser.getUserTel(),
-							curUser.getUserPassWord() }, this);
-			return;
-		} else {
-			Log.d("geek", "数据库查询 curUser == null等");
+					new Object[] {name,
+							pwd}, this);
 		}
-		
+
 //		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 500);
-		handler.sendEmptyMessage(JUMP_ACTIVITY);
+//		handler.sendEmptyMessage(JUMP_ACTIVITY);
 	}
 
 	@Override
@@ -176,24 +166,36 @@ public class WelcomeActivity extends BaseActivity implements
 			Log.d("geek","自动登录失败");
 			return;
 		}
-		if (info.MSG.equals("已存在用户")) {
-
-			dbUtil.clearData(CxwyMallUser.class);
-			long result = dbUtil.insert(info.getUser(), info.getUser()
-					.getYezhuId() + "");
-
-			if (result == -1) {
-				ToastUtil.show(this, "登录失败,数据插入错误, 请重试!");
-				return;
+		if (info.MSG.equals("登录成功")) {
+			Contains.token=info.getToken();
+			Contains.user = info.getUser();
+			if (info.getHouse()!=null && info.getHouse().size() >0 ){
+				Contains.appYezhuFangwus=info.getHouse();
+				Contains.curSelectXiaoQuName = info.getHouse().get(0).getXiangmuLoupan();
+				Contains.curSelectXiaoQuId = info.getHouse().get(0).getFwLoupanId();
 			}
 
-			Contains.user = info.getUser();
+			SharedPreferences.Editor editor = sp.edit();
+			editor.putString("NAME", name);
+			editor.putString("PASSWORD", pwd);
+			editor.commit();
+			sp.edit().putBoolean("ISCHECK", true).commit();
+//			dbUtil.clearData(CxwyMallUser.class);
+//			long result = dbUtil.insert(info.getUser(), info.getUser()
+//					.getYezhuId() + "");
 //
-			Contains.curSelectXiaoQu = info.getHouse().get(0).getXiangmuLoupan();
-
-			// 保存用户ID至配置文件中
-			SPUtils.put(WelcomeActivity.this, LAST_LOGIN_USER_ID, info
-					.getUser().getYezhuId() + "");
+//			if (result == -1) {
+//				ToastUtil.show(this, "登录失败,数据插入错误, 请重试!");
+//				return;
+//			}
+//
+//			Contains.user = info.getUser();
+////
+//			Contains.curSelectXiaoQu = info.getHouse().get(0).getXiangmuLoupan();
+//
+//			// 保存用户ID至配置文件中
+//			SPUtils.put(WelcomeActivity.this, LAST_LOGIN_USER_ID, info
+//					.getUser().getYezhuId() + "");
 		} else {
 			Log.d("geek","自动登录失败");
 		}

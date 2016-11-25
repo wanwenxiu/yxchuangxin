@@ -67,7 +67,7 @@ public class ChengyuanguanliActivity extends BaseActivity {
 	@Override
 	protected void initView() {
 		addr = (TextView) findViewById(R.id.addr);
-		addr.setText(Contains.cxwyMallUser.getUserSpare1()+"-"+Contains.cxwyMallUser.getUserUserName());
+		addr.setText(Contains.appYezhuFangwus.get(0).getXiangmuLoupan()+"-"+Contains.user.getYezhuName());
 		AuthorizedList = (ListView) findViewById(R.id.AuthorizedList);
 		adapter = new ChengyuanListAdapter(listdata,this,handler);
 		AuthorizedList.setAdapter(adapter);

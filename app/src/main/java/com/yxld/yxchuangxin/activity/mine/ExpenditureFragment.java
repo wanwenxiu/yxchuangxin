@@ -57,7 +57,7 @@ public class ExpenditureFragment extends BaseFragment implements View.OnClickLis
             yeZhuController = new YeZhuControllerImpl();
         }
         Map<String, String> parm = new HashMap<String, String>();
-        parm.put("balance.balanceUserId", Contains.cxwyMallUser.getUserId().toString());
+        parm.put("balance.balanceUserId", Contains.user.getYezhuId().toString());
         parm.put("balance.balanceType", "消费");
         yeZhuController.getAllExpenditure(mRequestQueue, url, parm, this);
     }

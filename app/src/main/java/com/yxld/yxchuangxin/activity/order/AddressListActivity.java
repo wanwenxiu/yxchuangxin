@@ -118,7 +118,7 @@ public class AddressListActivity extends BaseActivity {
 			addressController = new AddressControllerImpl();
 		}
 		
-		addressController.getAddressListFromID(mRequestQueue, new Object[]{Contains.cxwyMallUser.getUserTel()}, getListListener);
+		addressController.getAddressListFromID(mRequestQueue, new Object[]{Contains.user.getYezhuId()}, getListListener);
 	}
 	
 	private  ResultListener<CxwyMallAdd> getListListener = new ResultListener<CxwyMallAdd>() {

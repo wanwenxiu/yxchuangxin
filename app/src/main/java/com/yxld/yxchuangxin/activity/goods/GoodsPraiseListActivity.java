@@ -147,7 +147,7 @@ public class GoodsPraiseListActivity extends BaseActivity implements ResultListe
 		if(praiseController == null){
 			praiseController = new PraiseControllerImpl(); 
 		}
-		praiseController.getPraiseListFromGoodsID(mRequestQueue, new Object[]{5,1,goodId,level,Contains.cxwyMallUser.getUserId()}, this);
+		praiseController.getPraiseListFromGoodsID(mRequestQueue, new Object[]{5,1,goodId,level,Contains.user.getYezhuId()}, this);
 	}
 
 	@Override

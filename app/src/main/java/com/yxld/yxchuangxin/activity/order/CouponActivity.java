@@ -56,7 +56,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
             yeZhuController = new YeZhuControllerImpl();
         }
         Map<String, String> parm = new HashMap<String, String>();
-        parm.put("useDaijinquan.daijinquanUseYonghuid", Contains.cxwyMallUser.getUserId().toString());
+        parm.put("useDaijinquan.daijinquanUseYonghuid", Contains.user.getYezhuId().toString());
         parm.put("useDaijinquan.daijinquanUseState", "0");
         Log.d("geek", "可以用优惠券parm+"+parm.toString());
         yeZhuController.getAllYHQ(mRequestQueue, url, parm, this);

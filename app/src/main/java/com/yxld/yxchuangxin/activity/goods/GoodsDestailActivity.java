@@ -254,7 +254,6 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				finish();
 				break;
 			case R.id.addCart:
-//				int a = Integer.parseInt("2.2");
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
 					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
 					return;
@@ -276,7 +275,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				}
 				//当前状态为已收藏时，调用删除收藏接口，否则调用收藏接口
 				if(collectType == 0){
-					goodController.deleteCollectGoodsFromId(mRequestQueue, new Object[]{"",curGood.getShangpinId(),Contains.cxwyMallUser.getUserId()}, addCollectListener);
+					goodController.deleteCollectGoodsFromId(mRequestQueue, new Object[]{"",curGood.getShangpinId(),Contains.user.getYezhuId()}, addCollectListener);
 				}else{
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("collection.collectionShangpId", curGood.getShangpinId()+ "");
@@ -284,7 +283,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 					params.put("collection.collectionShangpOneRmb",curGood.getShangpinRmb()+"");
 					params.put("collection.collectionShangpSpec", curGood.getShangpinGuige());
 					params.put("collection.collectionImgSrc", curGood.getShangpinImgSrc1());
-					params.put("collection.collectionUserId",Contains.cxwyMallUser.getUserId()+"");
+					params.put("collection.collectionUserId",Contains.user.getYezhuId()+"");
 					Log.d("geek","收藏商品 params"+params.toString());
 					goodController.getCollectGoodsFromId(mRequestQueue, params, addCollectListener);
 				}
@@ -357,7 +356,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		if(praiseController == null){
 			praiseController = new PraiseControllerImpl();
 		}
-		praiseController.getPraiseListFromGoodsID(mRequestQueue, new Object[]{5,1,curGood.getShangpinId(),"",Contains.cxwyMallUser.getUserId()}, this);
+		praiseController.getPraiseListFromGoodsID(mRequestQueue, new Object[]{5,1,curGood.getShangpinId(),"",Contains.user.getYezhuId()}, this);
 	}
 
 	@Override
@@ -421,7 +420,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		params.put("cart.cartOneRmb", curGood.getShangpinRmb()+"");
 		params.put("cart.cartImgSrc", curGood.getShangpinImgSrc1());
 		params.put("cart.cartNum", cartGoodsNum.getText().toString());
-		params.put("cart.cartSpare1", Contains.cxwyMallUser.getUserTel());
+		params.put("cart.cartSpare1", Contains.user.getYezhuId()+"");
 		cartController.addInfoToCart(mRequestQueue, params, addCartListener);
 	}
 

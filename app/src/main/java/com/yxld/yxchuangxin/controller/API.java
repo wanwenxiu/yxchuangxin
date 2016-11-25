@@ -135,7 +135,7 @@ public interface API {
      * 获取商品评价列表 根据商品ID
      */
     String URL_PRAISE_LIST_FROM_GOOD = IP_PRODUCT
-            + "/mall/comment_findComment?rows=%1$s&page=%2$s&comment.pingjiaShangpNum=%3$s&comment.pingjiaLevel=%4$s&collection.collectionUserId=%5$s";
+            + "/mall/comment_findComment?rows=%1$s&page=%2$s&comment.pingjiaShangpNum=%3$s&comment.pingjiaLevel=%4$s&comment.pingjiaBeiyong4=%5$s";
 
     /**
      * 判断是否已注册
@@ -202,7 +202,7 @@ public interface API {
      * 根据用户查询收获地址列表
      */
     String URL_GET_ADDRESS_LIST_FROM_USER = IP_PRODUCT
-            + "/mall/add_findAdd?add.addUserName=%1$s";
+            + "/mall/add_findAdd?add.addSpare2=%1$s";
 
     /**
      * 根据地址Id删除地址

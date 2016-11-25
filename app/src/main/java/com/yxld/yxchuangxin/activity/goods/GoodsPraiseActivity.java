@@ -116,8 +116,8 @@ public class GoodsPraiseActivity extends BaseActivity implements
 					.getPingjiaBeiyong1() + ""); //商品名称
 		}
 		//用户id 订单id
-		map.put("comment.pingjiaName", Contains.cxwyMallUser.getUserTel()+"");
-
+		map.put("comment.pingjiaName", Contains.user.getYezhuShouji()+"");
+		map.put("comment.pingjiaBeiyong4", Contains.user.getYezhuId()+"");
 		map.put("comment.pingjiaBeiyong2", mData.get(0).getPingjiaBeiyong2());
 		Log.d("geek", mData.toString() + ",map" + map.toString());
 		praiseContaoller.getPraiseGoodsFromUser(mRequestQueue, map, this);

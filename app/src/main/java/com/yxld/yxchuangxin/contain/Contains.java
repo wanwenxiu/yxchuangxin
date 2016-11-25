@@ -41,8 +41,8 @@ public class Contains {
 	/** 收货地址 */
 	public static CxwyMallAdd defuleAddress = new CxwyMallAdd();
 
-	/** 用户信息 */
-	public static CxwyMallUser cxwyMallUser = new CxwyMallUser();
+//	/** 用户信息 */
+//	public static CxwyMallUser cxwyMallUser = new CxwyMallUser();
 
 	/** 业主信息 */
 	public static CxwyYezhu user = new CxwyYezhu();
@@ -63,7 +63,9 @@ public class Contains {
 	public static String locationCity = null;
 	
 	/** 选择小区*/
-	public static String  curSelectXiaoQu = "";
+	public static String  curSelectXiaoQuName = "";
+	/** 选择小区*/
+	public static int  curSelectXiaoQuId = 0;
 
 	/** 确认订单集合*/
 	public static List<SureOrderEntity> sureOrderList = new ArrayList<SureOrderEntity>();

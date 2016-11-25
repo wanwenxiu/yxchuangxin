@@ -1,5 +1,6 @@
 package com.yxld.yxchuangxin.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
  * @author wwx
  * @date 2016-11-24 下午6:09:20 
  */
-public class AppYezhuFangwu {
+public class AppYezhuFangwu  implements Serializable{
 
 	private Integer yezhuId; //业主id
 	

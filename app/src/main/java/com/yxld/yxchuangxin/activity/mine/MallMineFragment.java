@@ -103,7 +103,7 @@ public class MallMineFragment extends BaseFragment {
         llth = (TextView) view.findViewById(R.id.llth);
         llth.setOnClickListener(this);
         touxiang = (TextView) view.findViewById(R.id.touxiang);
-        touxiang.setText(Contains.cxwyMallUser.getUserUserName()); // animate
+        touxiang.setText(Contains.user.getYezhuName()); // animate
         touxiang.setOnClickListener(this);
         coupon=view.findViewById(R.id.coupon);
         coupon.setOnClickListener(this);
@@ -188,7 +188,7 @@ public class MallMineFragment extends BaseFragment {
                         WebViewActivity.class);// 跳转的activity
                 Bundle jy1 = new Bundle();
                 jy1.putString("name", "商城建议");
-                jy1.putString("address", "http://222.240.1.133/wygl/malljianyi.jsp?malluserid="+Contains.cxwyMallUser.getUserId());
+                jy1.putString("address", "http://222.240.1.133/wygl/malljianyi.jsp?malluserid="+Contains.user.getYezhuId());
                 jy.putExtras(jy1);
                 startActivity(jy);
                 break;
@@ -209,7 +209,7 @@ public class MallMineFragment extends BaseFragment {
             yeZhuController = new YeZhuControllerImpl();
         }
         Map<String, String> parms = new HashMap<String, String>();
-        parms.put("id", Contains.cxwyMallUser.getUserId()+"");
+        parms.put("id", Contains.user.getYezhuId()+"");
         yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
     }
 
@@ -225,7 +225,7 @@ public class MallMineFragment extends BaseFragment {
             }
             if (info.MSG !=null && !"".equals(info.MSG) ) {
                 Toast.makeText(getActivity(),info.MSG,Toast.LENGTH_SHORT).show();
-                Contains.cxwyMallUser.setUserIntegral(info.curMoney);
+//                Contains.cxwyMallUser.setUserIntegral(info.curMoney);
             }
         }
 

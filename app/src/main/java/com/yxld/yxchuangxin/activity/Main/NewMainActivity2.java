@@ -113,14 +113,14 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void initDataFromLocal() {
         if (StringUitl.isNoEmpty(Contains.AoiName)) {
             curPlace.setText(Contains.AoiName);
-            Contains.curSelectXiaoQu = Contains.AoiName;
+            Contains.curSelectXiaoQuName = Contains.AoiName;
         } else {
             if (StringUitl.isNoEmpty(Contains.locationCity)) {
                 curPlace.setText(Contains.locationCity);
-                Contains.curSelectXiaoQu = Contains.locationCity;
+                Contains.curSelectXiaoQuName = Contains.locationCity;
             } else {
                 curPlace.setText("定位失败,请手动选择小区");
-                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
                     curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
                 }
             }
@@ -130,13 +130,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        if (Contains.curSelectXiaoQu == null || "".equals(Contains.curSelectXiaoQu)) {
+        if (Contains.curSelectXiaoQuName == null || "".equals(Contains.curSelectXiaoQuName)) {
             curPlace.setText("定位失败,请手动选择小区");
-            if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+            if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
                 curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
             }
         } else {
-            curPlace.setText(Contains.curSelectXiaoQu);
+            curPlace.setText(Contains.curSelectXiaoQuName);
         }
         refreshLogInfo();
     }
@@ -169,7 +169,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         mine = (ImageView) findViewById(R.id.mine);
         mine.setOnClickListener(this);
         curPlace = (TextView) findViewById(R.id.curPlace);
-        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
             curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
         }
         curPlace.setOnClickListener(this);
@@ -237,7 +237,11 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
-                startActivity(WuyeActivity.class);
+                if(Contains.user !=null && Contains.user.getYezhuType()==0){
+                    startActivity(WuyeActivity.class);
+                }else {
+                    Toast.makeText(this, "您暂时没有业主权限", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.serviceWarp:
                 bundle.putInt("tag", 0);
@@ -255,7 +259,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 }
             case R.id.mine: //右上角按钮
                 String xiaoqu = "";
-                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
                     xiaoqu= Contains.appYezhuFangwus.get(0).getXiangmuLoupan();
                 }
                 Intent tz = new Intent();
@@ -310,7 +314,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
         Map<String, String> params = new HashMap<String, String>();
 
-        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
             params.put("luopan", Contains.appYezhuFangwus.get(0).getFwLoupanId()+"");
         }else{
             params.put("luopan", "");

@@ -59,7 +59,7 @@ public class RechargeFragment extends BaseFragment implements View.OnClickListen
             yeZhuController = new YeZhuControllerImpl();
         }
         Map<String, String> parm = new HashMap<String, String>();
-        parm.put("balance.balanceUserId", Contains.cxwyMallUser.getUserId().toString());
+        parm.put("balance.balanceUserId", Contains.user.getYezhuId().toString());
         parm.put("balance.balanceType", "充值");
         yeZhuController.getAllRecharge(mRequestQueue, url, parm, this);
     }

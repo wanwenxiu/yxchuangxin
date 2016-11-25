@@ -1,20 +1,23 @@
 package com.yxld.yxchuangxin.entity;
 
 /**
- * CxwyXiangmu entity. @author Carrol
+ * CxwyXiangmu entity. @author MyEclipse Persistence Tools
  */
 
 public class CxwyXiangmu {
+
 	// Fields
+
 	private Integer xiangmuId; //id
 	private String xiangmuLoupan; //楼盘
+	private String xiangmuLd; //楼栋
+	private String xiangmuDy; // 单元
 	private String xiangmuZimupingyin;
-	private String xiangmuTelphone;//电话号码
+	private Integer xiangmuParentId;  //父级id
 	
 	//经纬度
 	private  String xiangmuLatitude; //纬度
     private String  xiangmuLongitude; //经度
-    private Integer xiangmuIsUse;
 	// Constructors
 
 	/** default constructor */
@@ -23,12 +26,14 @@ public class CxwyXiangmu {
 
 	/** full constructor */
 	public CxwyXiangmu(String xiangmuLoupan, String xiangmuLd,
-			 String xiangmuZimupingyin, String xiangmuLatitude, String xiangmuLongitude, String xiangmuTelphone) {
+			String xiangmuDy, String xiangmuZimupingyin, Integer xiangmuParentId,String xiangmuLatitude,String xiangmuLongitude) {
 		this.xiangmuLoupan = xiangmuLoupan;
+		this.xiangmuLd = xiangmuLd;
+		this.xiangmuDy = xiangmuDy;
 		this.xiangmuZimupingyin = xiangmuZimupingyin;
+		this.xiangmuParentId = xiangmuParentId;
 		this.xiangmuLongitude=xiangmuLongitude;
 		this.xiangmuLatitude=xiangmuLatitude;
-		this.xiangmuTelphone=xiangmuTelphone;
 		
 	}
 
@@ -50,12 +55,36 @@ public class CxwyXiangmu {
 		this.xiangmuLoupan = xiangmuLoupan;
 	}
 
+	public String getXiangmuLd() {
+		return this.xiangmuLd;
+	}
+
+	public void setXiangmuLd(String xiangmuLd) {
+		this.xiangmuLd = xiangmuLd;
+	}
+
+	public String getXiangmuDy() {
+		return this.xiangmuDy;
+	}
+
+	public void setXiangmuDy(String xiangmuDy) {
+		this.xiangmuDy = xiangmuDy;
+	}
+
 	public String getXiangmuZimupingyin() {
 		return this.xiangmuZimupingyin;
 	}
 
 	public void setXiangmuZimupingyin(String xiangmuZimupingyin) {
 		this.xiangmuZimupingyin = xiangmuZimupingyin;
+	}
+
+	public Integer getXiangmuParentId() {
+		return this.xiangmuParentId;
+	}
+
+	public void setXiangmuParentId(Integer xiangmuParentId) {
+		this.xiangmuParentId = xiangmuParentId;
 	}
 
 	public String getXiangmuLatitude() {
@@ -74,20 +103,13 @@ public class CxwyXiangmu {
 		this.xiangmuLongitude = xiangmuLongitude;
 	}
 
-	public String getXiangmuTelphone() {
-		return xiangmuTelphone;
+	@Override
+	public String toString() {
+		return "CxwyXiangmu [xiangmuId=" + xiangmuId + ", xiangmuLoupan="
+				+ xiangmuLoupan + ", xiangmuLd=" + xiangmuLd + ", xiangmuDy="
+				+ xiangmuDy + ", xiangmuZimupingyin=" + xiangmuZimupingyin
+				+ ", xiangmuParentId=" + xiangmuParentId + ", xiangmuLatitude="
+				+ xiangmuLatitude + ", xiangmuLongitude=" + xiangmuLongitude
+				+ "]";
 	}
-
-	public void setXiangmuTelphone(String xiangmuTelphone) {
-		this.xiangmuTelphone = xiangmuTelphone;
-	}
-
-	public Integer getXiangmuIsUse() {
-		return xiangmuIsUse;
-	}
-
-	public void setXiangmuIsUse(Integer xiangmuIsUse) {
-		this.xiangmuIsUse = xiangmuIsUse;
-	}
-
 }

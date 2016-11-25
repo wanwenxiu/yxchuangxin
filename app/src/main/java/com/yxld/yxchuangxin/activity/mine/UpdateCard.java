@@ -47,7 +47,7 @@ public class UpdateCard extends BaseActivity {
 		card_clear = (ImageView) findViewById(R.id.card_clear);
 		update_card = (TextView) findViewById(R.id.update_card);
 
-		old_card.setText(Contains.cxwyMallUser.getUserIdCard());
+		old_card.setText(Contains.user.getYezhuCardNum());
 		old_card.setSelection(old_card.getText().length());
 		card_clear.setOnClickListener(this);
 		mExplosionField = ExplosionField.attach2Window(this);
@@ -59,7 +59,7 @@ public class UpdateCard extends BaseActivity {
 		if (loginController == null) {
 			loginController = new LoginControllerImpl();
 		}
-		String id = Contains.cxwyMallUser.getUserId().toString();
+		String id = Contains.user.getYezhuId().toString();
 		String card = old_card.getText().toString();
 
 		loginController.getUpdateCard(mRequestQueue, new Object[] { id, card },
@@ -77,8 +77,8 @@ public class UpdateCard extends BaseActivity {
 			}
 			mExplosionField.explode(update_card);
 			update_card.setOnClickListener(null);
-			Contains.cxwyMallUser
-					.setUserIdCard(old_card.getText().toString());
+			Contains.user
+					.setYezhuCardNum(old_card.getText().toString());
 			Toast.makeText(UpdateCard.this, "修改成功", Toast.LENGTH_SHORT).show();
 			new Thread() {
 				public void run() {

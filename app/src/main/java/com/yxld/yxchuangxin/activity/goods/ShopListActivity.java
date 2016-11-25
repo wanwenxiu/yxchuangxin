@@ -322,7 +322,7 @@ public class ShopListActivity extends BaseActivity implements
 			params.put("rows", page+"");
 			params.put("page", pageCode + 1 + "");
 			params.put("classify.classifyId", calssId);
-			params.put("appxiaoqu",Contains.curSelectXiaoQu);
+			params.put("appxiaoqu",Contains.curSelectXiaoQuId+"");
 			params.put("sort", goodsSort);
 			params.put("order", goodsOrderSelect);
 			Log.d("geek", "根据商品id查询 ="+params.toString());
@@ -334,7 +334,7 @@ public class ShopListActivity extends BaseActivity implements
 			params.put("rows", page+"");
 			params.put("page", pageCode + 1 + "");
 			params.put("product.shangpinClassicShow", "0");
-			params.put("appxiaoqu",Contains.curSelectXiaoQu);
+			params.put("appxiaoqu",Contains.curSelectXiaoQuId+"");
 			Log.d("geek", "根据首页推荐查询 ="+params.toString());
 			goodsController.getIndexGoodsList(mRequestQueue, params, this);
 		}
@@ -344,7 +344,7 @@ public class ShopListActivity extends BaseActivity implements
 			params.put("rows", page+"");
 			params.put("page", pageCode + 1 + "");
 			params.put("keys", searchFlg);
-			params.put("appxiaoqu",Contains.curSelectXiaoQu);
+			params.put("appxiaoqu",Contains.curSelectXiaoQuId+"");
 			params.put("sort", goodsSort);
 			params.put("order", goodsOrderSelect);
 			Log.d("geek", "根据关键字查询 ="+params.toString());

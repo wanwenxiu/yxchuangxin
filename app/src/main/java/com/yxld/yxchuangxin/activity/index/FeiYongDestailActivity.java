@@ -424,7 +424,7 @@ public class FeiYongDestailActivity extends BaseActivity implements
 		}
 		parm.put("i", urlType);
 		parm.put("payType",payType);
-		parm.put("userid",Contains.cxwyMallUser.getUserId()+"");
+		parm.put("userid",Contains.user.getYezhuId()+"");
 		parm.put("payTotalPrice",adapter.getTotalPrice()+"");
 		Log.d("geek","支付"+parm.toString());
 		payController.getWuyePay(mRequestQueue, parm, payListener);
@@ -443,7 +443,7 @@ public class FeiYongDestailActivity extends BaseActivity implements
 				if(info.MSG.contains(",")){
 					String[] price = info.MSG.split(",");
 					info.MSG = price[0]+",当前余额为:"+price[1]+"元";
-					Contains.cxwyMallUser.setUserIntegral(price[1]);
+//					Contains.cxwyMallUser.setUserIntegral(price[1]);
 				}
 				new SweetAlertDialog(FeiYongDestailActivity.this, SweetAlertDialog.WARNING_TYPE).setTitleText("支付成功").setContentText(info.MSG).setConfirmText("确认").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
 					@Override

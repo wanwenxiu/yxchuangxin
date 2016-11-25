@@ -222,8 +222,9 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
         params.put("rows", "6");
         params.put("page", "0");
         params.put("product.shangpinClassicShow", "0");
-        params.put("appxiaoqu", Contains.curSelectXiaoQu);
+        params.put("appxiaoqu", Contains.curSelectXiaoQuId+"");
         // 请求获取首页推荐商品
+        Log.d("geek","获取首页推荐商品"+params.toString());
         goodsController.getIndexGoodsList(mRequestQueue, params, menuListener);
     }
 
