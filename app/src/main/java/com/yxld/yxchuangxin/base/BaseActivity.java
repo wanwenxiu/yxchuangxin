@@ -5,6 +5,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -41,6 +42,7 @@ import com.yxld.yxchuangxin.view.XListView;
 import com.yxld.yxchuangxin.view.XListView.IXListViewListener;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -56,13 +58,20 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public abstract class BaseActivity extends AppCompatActivity implements
 		OnClickListener, OnCancelListener, IXListViewListener,
 		OnItemClickListener {
-	public    final String LAST_LOGIN_USER_ID = "lastLoginUserId";
+	public final String LAST_LOGIN_USER_ID = "lastLoginUserId";
 	public final String CB_SAVE_PWD = "cb_save_pwd";
 	/** 服务器请求成功 */
 	protected static final int STATUS_CODE_OK = 0;
 	/** 服务器请求失败 */
 	protected static final int STATUS_CODE_FAILED = 1;
-	
+
+	/** 保存当前选择小区*/
+	private String SAVEXIAOQU = "SAVEXIAOQU";
+	/** 保存当前登录用户信息*/
+	private String SAVEYONGHU = "SAVEYONGHU";
+	/** 保存当前登录业主信息*/
+	private String SAVEYEZHU = "SAVEYEZHU";
+
 	/**
 	 * 数据库操作类
 	 */
@@ -114,19 +123,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		if(Contains.cxwyMallUser == null){
-//			if(dbUtil == null){
-//				dbUtil = new DBUtil(this);
-//			}
-//			dbUtil.clearData(CxwyMallUser.class);
-//			Contains.cxwyMallUser = null;
-//			//保存用户ID和账号至配置文件中
-//			SPUtils.put(this, CB_SAVE_PWD, false);
-//			SPUtils.put(this, LAST_LOGIN_USER_ID, "");
-//			finish();
-//			AppConfig.getInstance().exit();
-//			startActivity(LoginActivity.class);
-//		}
 		super.onCreate(savedInstanceState);
 		// 这句很关键，注意是调用父类的方法
 		super.setContentView(R.layout.activity_base);
@@ -467,8 +463,22 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		System.out.println("Baseactivity onSaveInstanceState()");
+		outState.putString(SAVEXIAOQU, Contains.curSelectXiaoQu);
+		outState.putSerializable(SAVEYONGHU,Contains.cxwyMallUser);
+		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.cxwyYezhu);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		try {
+			if (savedInstanceState != null) {
+			Contains.curSelectXiaoQu = savedInstanceState.getString(SAVEXIAOQU);
+			Contains.cxwyMallUser = (CxwyMallUser) savedInstanceState.getSerializable(SAVEYONGHU);
+			Contains.cxwyYezhu = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+		}
 			super.onRestoreInstanceState(savedInstanceState);
 		} catch (Exception e) {
 		}
@@ -536,4 +546,5 @@ public abstract class BaseActivity extends AppCompatActivity implements
 			AllLog = AllLog + log + "\n\n";
 		}
 	}
+
 }

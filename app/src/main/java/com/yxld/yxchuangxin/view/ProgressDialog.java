@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
 
+import static com.yxld.yxchuangxin.R.drawable.egg_duang;
+
 /**
  * @ClassName: ProgressDialog 
  * @Description: 公用等待加载条 
@@ -33,7 +35,6 @@ public class ProgressDialog {
 	public ProgressDialog(Context context) {
 		initDialog(context, initView(context));
 		// dialog.setCancelable(false); // 点击屏幕不消失
-
 	}
 
 	public ProgressDialog(Context context, boolean message) {
@@ -55,7 +56,7 @@ public class ProgressDialog {
 	 */
 	public ProgressDialog(Context context, String message) {
 		View dialogView = initView(context);
-		egg_duang = (ImageView) dialogView.findViewById(R.id.egg_duang);
+	//	egg_duang = (ImageView) dialogView.findViewById(R.id.egg_duang);
 		initDialog(context, dialogView);
 	}
 	public void setProgress(int progress){
@@ -72,9 +73,10 @@ public class ProgressDialog {
 	public View initView(Context context) {
 		View popView = LayoutInflater.from(context)
 				.inflate(R.layout.dialog_progress, null);
-		egg_duang = (ImageView) popView.findViewById(R.id.egg_duang);
-		animationDrawable = (AnimationDrawable) egg_duang.getDrawable();
+	//	egg_duang = (ImageView) popView.findViewById(R.id.egg_duang);
+	//	animationDrawable = (AnimationDrawable) egg_duang.getDrawable();
 		tv_progress = (TextView) popView.findViewById(R.id.tv_progress);
+		tv_progress.setText("卖力加载中");
 		return popView;
 	}
 	
@@ -93,15 +95,16 @@ public class ProgressDialog {
 		dialog.setFeatureDrawableAlpha(Window.FEATURE_OPTIONS_PANEL, 20);
 	}
 
-	private AnimationDrawable animationDrawable;
-	private ImageView egg_duang;
+//	private AnimationDrawable animationDrawable;
+//	private ImageView egg_duang;
 
 	/***
 	 * 
 	 * 显示等待加载条
 	 */
 	public void show() {
-		animationDrawable.start();
+	//	animationDrawable.start();
+		tv_progress.setVisibility(View.VISIBLE);
 		if (dialog!=null&&!dialog.isShowing())
 			dialog.show();
 	}
@@ -110,7 +113,7 @@ public class ProgressDialog {
 	 * 隐藏等待加载条
 	 */
 	public void hide() {
-		animationDrawable.stop();
+	//                                                                                                               	animationDrawable.stop();
 		tv_progress.setVisibility(View.GONE);
 		if (dialog!=null&&dialog.isShowing()){
 			dialog.dismiss();

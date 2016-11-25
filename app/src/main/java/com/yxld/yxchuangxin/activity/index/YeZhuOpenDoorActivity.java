@@ -182,10 +182,13 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		if(doorController == null ){
 			doorController = new DoorControllerImpl();
 		}
-		if(yezhu != null ){
+		if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
+				&& yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
+				&& yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
+				&& yezhu.getYezhuDanyuan() != null){
 
 			int Role = 0;
-			if(yezhu.getYezhuParentId() == 0){
+			if(yezhu.getYezhuParentId() != null && yezhu.getYezhuParentId() == 0){
 				Role = 0;
 			}
 
@@ -206,6 +209,8 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
 			doorController.GetYEZHUDoorCODE(mRequestQueue,new Object[]{name,yezhu.getYezhuShouji(),Role,yezhu.getYezhuBeizhu2()
 			,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},yezhuDoorCode);
+		}else{
+			ToastUtil.show(this,"业主信息不完善");
 		}
 	}
 

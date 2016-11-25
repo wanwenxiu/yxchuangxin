@@ -279,6 +279,9 @@ public class PayWaySelectActivity extends BaseActivity {
 					payThread.start();
 				}
 				else if (arg2 == 2){
+				   if(orderMoney == null || "".equals(orderMoney)){
+						return;
+				   }
 					float a=Float.parseFloat(orderMoney)*100;
                     int money=(int)a;
 					Intent intent = new Intent();

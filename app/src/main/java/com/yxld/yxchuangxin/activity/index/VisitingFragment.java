@@ -1,25 +1,25 @@
 package com.yxld.yxchuangxin.activity.index;
 
-import android.app.Activity;
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mylhyl.acp.Acp;
+import com.mylhyl.acp.AcpListener;
+import com.mylhyl.acp.AcpOptions;
 import com.yxld.yxchuangxin.R;
-import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.base.BaseFragment;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.DoorController;
@@ -33,9 +33,7 @@ import com.yxld.yxchuangxin.util.ToastUtil;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -111,7 +109,10 @@ public class VisitingFragment extends BaseFragment  {
                 if(DoorController == null ){
                     DoorController = new DoorControllerImpl();
                 }
-                if(yezhu != null ){
+                if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
+                          && yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
+                          && yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
+                          && yezhu.getYezhuDanyuan() != null){
                     //业主角色
                     int Role = 0;
                     if(yezhu.getYezhuParentId() == 0){
@@ -142,14 +143,27 @@ public class VisitingFragment extends BaseFragment  {
                             fangkename,phone.getText().toString(),3,yezhuname,yezhu.getYezhuShouji(),Role,
                             yezhu.getYezhuBeizhu2()
                             ,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},OpenDoorCode);
+                }else{
+                    ToastUtil.show(getActivity(),"业主信息不完善");
                 }
             }
                 break;
             case R.id.tongxunlu:
-                Uri uri = ContactsContract.Contacts.CONTENT_URI;
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        uri);
-                startActivityForResult(intent, 0);
+                Acp.getInstance(getActivity()).request(new AcpOptions.Builder().setPermissions(Manifest.permission.READ_CONTACTS).build(),
+                        new AcpListener() {
+                            @Override
+                            public void onGranted() {
+                                Uri uri = ContactsContract.Contacts.CONTENT_URI;
+                                Intent intent = new Intent(Intent.ACTION_PICK,
+                                        uri);
+                                startActivityForResult(intent, 0);
+                            }
+
+                            @Override
+                            public void onDenied(List<String> permissions) {
+                                Toast.makeText(getActivity(), permissions.toString() + "权限拒绝", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                 break;
             default:
                 break;

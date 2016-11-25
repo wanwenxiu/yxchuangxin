@@ -20,8 +20,8 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 20
-        versionName "3.0"
+        versionCode 1
+        versionName "1"
         ndk {
             abiFilters "armeabi"
         }
@@ -96,6 +96,7 @@ dependencies {
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
     //二维码
     compile 'cn.yipianfengye.android:zxing-library:2.0'
+    compile 'com.mylhyl:acp:1.1.7'
 }
 
 

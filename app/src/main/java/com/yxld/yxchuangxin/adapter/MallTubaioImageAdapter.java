@@ -81,6 +81,9 @@ public class MallTubaioImageAdapter extends BaseAdapter{
 	}
 
 	public void setmList(List<CxwyMallPezhi> mList) {
+		if(mList == null || mList.size() == 0){
+			return;
+		}
 		this.mlist = mList;
 		notifyDataSetChanged();
 	}
