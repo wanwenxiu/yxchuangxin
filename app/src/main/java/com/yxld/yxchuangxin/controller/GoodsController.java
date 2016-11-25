@@ -41,11 +41,11 @@ public interface GoodsController extends API{
 	void getAllSecondClassList(RequestQueue mRequestQueue, Object[] parm, ResultListener<SecondClassGoodsInfo> listener);
 
 	/**
-	 * @Title: getShopListById 
+	 * @Title: getShopListById
 	 * @Description: 通过ID获取商品列表
 	 * @param mRequestQueue
 	 * @param params
-	 * @param listener    
+	 * @param listener
 	 * @return void
 	 * @throws
 	 */

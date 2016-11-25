@@ -10,7 +10,7 @@ package com.yxld.yxchuangxin.entity;
 public class CxwyMallUser  implements java.io.Serializable {
 
     // Fields    
-	private Integer userId;//用户id
+	 private Integer userId;//用户id
      private String userUserName;//用户名
      private String userPassWord;//密码
      private String userTel;//电话

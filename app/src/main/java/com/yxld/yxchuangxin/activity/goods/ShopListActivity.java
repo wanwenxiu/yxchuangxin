@@ -337,7 +337,6 @@ public class ShopListActivity extends BaseActivity implements
 			params.put("appxiaoqu",Contains.curSelectXiaoQu);
 			Log.d("geek", "根据首页推荐查询 ="+params.toString());
 			goodsController.getIndexGoodsList(mRequestQueue, params, this);
-
 		}
 		else {
 			//根据关键字查询

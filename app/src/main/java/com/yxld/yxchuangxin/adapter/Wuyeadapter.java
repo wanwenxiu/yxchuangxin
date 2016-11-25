@@ -90,7 +90,7 @@ public class Wuyeadapter extends BaseAdapter {
                         Log.d("...", "我的物业" + position);
                         switch (position) {
                             case 0://门禁管理
-                                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+                                if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
                                     ToastUtil.show(context,"业主信息不完善");
                                     return;
                                 }
@@ -104,7 +104,7 @@ public class Wuyeadapter extends BaseAdapter {
                                // startActivity(CameraActivity.class);
                                 break;
                             case 3:
-                                if (Contains.user == null || Contains.appYezhuFangwus.size() == 0
+                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0
                                         || Contains.cxwyMallUser.getUserIdCard() == null
                                         || Contains.cxwyMallUser.getUserTel() == null) {
                                     ToastUtil.show(context, "请至物业完善业主身份证和手机号码信息再进行查询");
@@ -134,7 +134,7 @@ public class Wuyeadapter extends BaseAdapter {
                         switch (position) {
                             case 0:
 //                                ToastUtil.show(context, "敬请期待");
-                                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
                                     ToastUtil.show(context, "请配置房屋信息再进行查询");
                                     return;
                                 }
@@ -196,7 +196,7 @@ public class Wuyeadapter extends BaseAdapter {
                                 break;
                             case 1://维修服务
 //                                ToastUtil.show(context, "敬请期待");
-                                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
                                     Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -209,7 +209,7 @@ public class Wuyeadapter extends BaseAdapter {
                                 startActivity(ExpressActivity.class);
                                 break;
                             case 4://投诉建议
-                                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
                                 Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
                             }else{
                                 Intent ts = new Intent();
@@ -217,7 +217,7 @@ public class Wuyeadapter extends BaseAdapter {
                                         WebViewActivity.class);// 跳转的activity
                                 Bundle ts1 = new Bundle();
                                 ts1.putString("name", "投诉建议");
-//                                ts1.putString("address", API.IP_PRODUCT+"/tousujianyi.jsp?yezhuid="+Contains.cxwyYezhu.get(0).getYezhuId());
+                                ts1.putString("address", API.IP_PRODUCT+"/tousujianyi.jsp?yezhuid="+Contains.cxwyYezhu.get(0).getYezhuId());
                                 ts.putExtras(ts1);
                                 context.startActivity(ts);
                             }
@@ -238,14 +238,14 @@ public class Wuyeadapter extends BaseAdapter {
                 Log.d("...", "个人中心" + position);
                 switch (position) {
                     case 0:
-                        if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+                        if (Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0) {
                             startActivity(EmployerActivity.class);
                         } else {
                             Toast.makeText(context, "业主信息尚未完善", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 1:
-                        if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+                        if (Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0) {
                             startActivity(ChengyuanguanliActivity.class);
                         } else {
                             ToastUtil.show(context, "您没有权限查看");

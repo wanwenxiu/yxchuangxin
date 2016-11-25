@@ -466,8 +466,8 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	protected void onSaveInstanceState(Bundle outState) {
 		System.out.println("Baseactivity onSaveInstanceState()");
 		outState.putString(SAVEXIAOQU, Contains.curSelectXiaoQu);
-//		outState.putSerializable(SAVEYONGHU,Contains.cxwyMallUser);
-//		outState.putSerializable(SAVEYEZHU,Contains.user);
+		outState.putSerializable(SAVEYONGHU,Contains.cxwyMallUser);
+		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.cxwyYezhu);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -476,8 +476,8 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		try {
 			if (savedInstanceState != null) {
 			Contains.curSelectXiaoQu = savedInstanceState.getString(SAVEXIAOQU);
-//			Contains.cxwyMallUser = (CxwyMallUser) savedInstanceState.getSerializable(SAVEYONGHU);
-//			Contains.cxwyYezhu = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+			Contains.cxwyMallUser = (CxwyMallUser) savedInstanceState.getSerializable(SAVEYONGHU);
+			Contains.cxwyYezhu = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
 		}
 			super.onRestoreInstanceState(savedInstanceState);
 		} catch (Exception e) {
