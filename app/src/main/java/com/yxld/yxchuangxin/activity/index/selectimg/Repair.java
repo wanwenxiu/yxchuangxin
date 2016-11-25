@@ -442,11 +442,11 @@ public class Repair extends BaseActivity {
 		}
 		progressDialog.show();
 		Map<String, String> parm = new HashMap<String, String>();
-		parm.put("bx.baoxiuHouses", Contains.cxwyYezhu.get(0).getYezhuLoupan());
-		parm.put("bx.baoxiuFloor",  Contains.cxwyYezhu.get(0).getYezhuLoudong());
-		parm.put("bx.baoxiuUnit", Contains.cxwyYezhu.get(0).getYezhuDanyuan());
+		parm.put("bx.baoxiuHouses", Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+		parm.put("bx.baoxiuFloor",  Contains.appYezhuFangwus.get(0).getFwLoudong());
+		parm.put("bx.baoxiuUnit", Contains.appYezhuFangwus.get(0).getFwDanyuan());
 		parm.put("bx.baoxiuProperty", Contains.repairQuyu);
-		parm.put("bx.baoxiuRoom", Contains.cxwyYezhu.get(0).getYezhuFanghao()+"");
+		parm.put("bx.baoxiuRoom", Contains.appYezhuFangwus.get(0).getFwFanghao()+"");
 		parm.put("bx.baoxiuName", Contains.cxwyMallUser.getUserUserName());
 		parm.put("bx.baoxiuPhone", Contains.cxwyMallUser.getUserTel());
 		if(Contains.repairAddressStr != null &&  !"".equals(Contains.repairAddressStr)){

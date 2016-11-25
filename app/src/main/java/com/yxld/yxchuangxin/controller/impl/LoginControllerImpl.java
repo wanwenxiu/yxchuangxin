@@ -86,6 +86,7 @@ public class LoginControllerImpl implements LoginController {
 
 					@Override
 					public void onResponse(LoginEntity response) {
+						Log.d("2222",23424342+"0");
 						if (listener != null) {
 							listener.onResponse(response);
 						}

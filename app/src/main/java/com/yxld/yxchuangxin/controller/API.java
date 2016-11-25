@@ -9,18 +9,18 @@ package com.yxld.yxchuangxin.controller;
  */
 public interface API {
 
-   //域名
-   String yuming =  "http://www.hnchxwl.com/wygl";
+    //域名
+    String yuming = "http://www.hnchxwl.com/wygl";
 
-   String menjinIP ="http://120.25.78.92/";
+    String menjinIP = "http://120.25.78.92/";
 
-// String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
-// String PIC = "http://192.168.0.166:8080";
-// String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
+    String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
+    String PIC = "http://192.168.0.166:8080";
+    String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
 
-   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-   String PIC="http://www.hnchxwl.com";
-   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
+//   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+//   String PIC="http://www.hnchxwl.com";
+//   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL
@@ -46,8 +46,8 @@ public interface API {
     String URL_GET_ALL_SHOPLIST_BY_KEY = IP_PRODUCT
             + "/mall/androidProduct_searchByKeys?";
 
-   String URL_GETPRODUCT_BYGOODID = IP_PRODUCT
-           + "/mall/androidProduct_findGoodsById?id=%1$s";
+    String URL_GETPRODUCT_BYGOODID = IP_PRODUCT
+            + "/mall/androidProduct_findGoodsById?id=%1$s";
 
     /**
      * 添加商品至购物车
@@ -123,7 +123,7 @@ public interface API {
      * 注册接口
      */
     String URL_GET_ALL_REGISTER = IP_PRODUCT
-            + "/mall/androidUser_addUser?user.userTel=%1$s&user.userPassWord=%2$s";
+            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s";
 
     /**
      * 用户评价商品
@@ -136,23 +136,17 @@ public interface API {
      */
     String URL_PRAISE_LIST_FROM_GOOD = IP_PRODUCT
             + "/mall/comment_findComment?rows=%1$s&page=%2$s&comment.pingjiaShangpNum=%3$s&comment.pingjiaLevel=%4$s&collection.collectionUserId=%5$s";
-//	/**
-//	 * 判断是否已注册
-//	 */
-//	String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
-//			+ "/mall/androidUser_findUser?user.userTel=%1$s";
-
 
     /**
      * 判断是否已注册
      */
     String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
-            + "/mall/androidUser_isExistYonghu?user.userTel=%1$s";
+            + "/mall/androidUser_isExistYonghu?shouji=%1$s";
     /**
      * 登录接口
      */
     String URL_GET_ALL_LOGIN = IP_PRODUCT
-            + "/mall/androidUser_findUser?user.userTel=%1$s&user.userPassWord=%2$s";
+            + "/mall/androidUser_findUser?shouji=%1$s&pwd=%2$s";
     /**
      * 修改密码
      */
@@ -389,22 +383,21 @@ public interface API {
             + "/mall/androidUser_findYonghuBalancereCord.action?";
 
 
-  /**
-   * 获取业主开门二维码   /业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元120.25.78.92
-   */
-  String URL_GET_YEZHUOPENCODE = menjinIP+"door/coed/getcode/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s";
+    /**
+     * 获取业主开门二维码   /业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元120.25.78.92
+     */
+    String URL_GET_YEZHUOPENCODE = menjinIP + "door/coed/getcode/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s";
 
 
- /**
-  * 获取业主访客二维码  coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
-  */
- String URL_GET_FangKeOPENCODE = menjinIP+"door/coed/getcodes/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s/%7$s/%8$s/%9$s";
+    /**
+     * 获取业主访客二维码  coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
+     */
+    String URL_GET_FangKeOPENCODE = menjinIP + "door/coed/getcodes/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s/%7$s/%8$s/%9$s";
 
 
- /**
-  * 获取首页通知活动标题
-  *
-  */
-   String URL_GET_NEWMAINTONGZHI = IP_PRODUCT
-         + "/tongzhi/tongzhi_findTitle.action?";
+    /**
+     * 获取首页通知活动标题
+     */
+    String URL_GET_NEWMAINTONGZHI = IP_PRODUCT
+            + "/tongzhi/tongzhi_findTitle.action?";
 }

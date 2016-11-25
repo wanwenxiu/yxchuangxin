@@ -2,8 +2,7 @@ package com.yxld.yxchuangxin.controller;
 
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
-import com.yxld.yxchuangxin.contain.Contains;
-import com.yxld.yxchuangxin.entity.Base1Entity;
+import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.entity.CxwyMallUseDaijinquan;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyMallUserBalance;
@@ -89,7 +88,7 @@ public interface YeZhuController extends API{
 	 * @Title: getAllPaymentRecords
 	 * @Description: 充值成功
 	 */
-	void getAllChongzhi(RequestQueue mRequestQueue, String url, Map<String, String> parm, final ResultListener<Base1Entity> listener);
+	void getAllChongzhi(RequestQueue mRequestQueue, String url, Map<String, String> parm, final ResultListener<BaseEntity2> listener);
 
 	void getAllYue(RequestQueue mRequestQueue, String url, Map<String, String> parm, final ResultListener<CxwyMallUser> listener);
 	/**

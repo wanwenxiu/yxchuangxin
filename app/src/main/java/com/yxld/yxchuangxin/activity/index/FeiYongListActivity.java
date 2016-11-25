@@ -114,10 +114,10 @@ public class FeiYongListActivity extends BaseActivity implements ResultListener<
 
 	@Override
 	protected void initDataFromLocal() {
-		if(Contains.cxwyYezhu != null && Contains.cxwyYezhu.size() != 0){
-			address.setText("房间:"+Contains.cxwyYezhu.get(0).getYezhuLoupan()+
-					Contains.cxwyYezhu.get(0).getYezhuLoudong()+"栋"+Contains.cxwyYezhu.get(0).getYezhuDanyuan()+
-					"单元"+Contains.cxwyYezhu.get(0).getYezhuFanghao());
+		if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() != 0){
+			address.setText("房间:"+Contains.appYezhuFangwus.get(0).getXiangmuLoupan()+
+					Contains.appYezhuFangwus.get(0).getFwLoudong()+"栋"+Contains.appYezhuFangwus.get(0).getFwDanyuan()+
+					"单元"+Contains.appYezhuFangwus.get(0).getFwFanghao());
 		}
 		type = getIntent().getStringExtra("curType");
 		if(!StringUitl.isNoEmpty(type)){
@@ -207,10 +207,10 @@ public class FeiYongListActivity extends BaseActivity implements ResultListener<
 		
 		Map<String, String> parm = new HashMap<String, String>();
 		parm.put("i", tag+"");
-		parm.put("loupan", Contains.cxwyYezhu.get(0).getYezhuLoupan());
-		parm.put("loudong", Contains.cxwyYezhu.get(0).getYezhuLoudong());
-		parm.put("danyuan", Contains.cxwyYezhu.get(0).getYezhuDanyuan());
-		parm.put("fanghao", Contains.cxwyYezhu.get(0).getYezhuFanghao()+ "");
+		parm.put("loupan", Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+		parm.put("loudong", Contains.appYezhuFangwus.get(0).getFwLoudong());
+		parm.put("danyuan", Contains.appYezhuFangwus.get(0).getFwDanyuan());
+		parm.put("fanghao", Contains.appYezhuFangwus.get(0).getFwFanghao()+ "");
 		
 		yezhuController.getYeZhuWuYeList(mRequestQueue,url,parm, this);
 	}

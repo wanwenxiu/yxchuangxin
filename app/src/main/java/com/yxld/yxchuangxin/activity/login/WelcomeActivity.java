@@ -23,6 +23,7 @@ import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.db.DBUtil;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
+import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.LoginEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.SPUtils;
@@ -128,10 +129,10 @@ public class WelcomeActivity extends BaseActivity implements
 				.get(this, LAST_LOGIN_USER_ID, ""));
 
 		if (!TextUtils.isEmpty(userId)) {
-			if (!isEmptyList(dbUtil.query(CxwyMallUser.class, userId))) {
-				curUser = (CxwyMallUser) (dbUtil.query(CxwyMallUser.class,
-						userId).get(0));
-				Log.d("geek", "数据库查询 curUser " + curUser.toString());
+			if (!isEmptyList(dbUtil.query(CxwyYezhu.class, userId))) {
+				curUser = (CxwyMallUser) (dbUtil.query(CxwyYezhu.class,
+						userId));
+//				Log.d("geek", "数据库查询 curUser " + curUser.toString());
 			}
 		}
 
@@ -179,21 +180,20 @@ public class WelcomeActivity extends BaseActivity implements
 
 			dbUtil.clearData(CxwyMallUser.class);
 			long result = dbUtil.insert(info.getUser(), info.getUser()
-					.getUserId() + "");
+					.getYezhuId() + "");
 
 			if (result == -1) {
 				ToastUtil.show(this, "登录失败,数据插入错误, 请重试!");
 				return;
 			}
 
-			Contains.cxwyYezhu = info.getYzList();
-			Contains.cxwyMallUser = info.getUser();
-			Contains.defuleAddress = info.getDefuleaddr();
-			Contains.curSelectXiaoQu = info.getUser().getUserSpare1();
+			Contains.user = info.getUser();
+//
+			Contains.curSelectXiaoQu = info.getHouse().get(0).getXiangmuLoupan();
 
 			// 保存用户ID至配置文件中
 			SPUtils.put(WelcomeActivity.this, LAST_LOGIN_USER_ID, info
-					.getUser().getUserId() + "");
+					.getUser().getYezhuId() + "");
 		} else {
 			Log.d("geek","自动登录失败");
 		}

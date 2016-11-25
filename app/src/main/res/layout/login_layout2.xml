@@ -38,6 +38,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="请输入手机号"
+                android:maxLength="11"
                 android:inputType="number"
                 android:textColorHint="@color/gray"
                 android:textSize="14sp" />
@@ -62,7 +63,9 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="6-16个字符,数字/大小字母"
+                android:hint="6-16个数字/大小字母"
+                android:maxLength="16"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"

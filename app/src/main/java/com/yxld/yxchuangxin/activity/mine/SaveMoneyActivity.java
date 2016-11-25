@@ -1,19 +1,16 @@
 package com.yxld.yxchuangxin.activity.mine;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,8 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,26 +26,20 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
-import com.yxld.yxchuangxin.activity.order.PayWaySelectActivity;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.controller.YeZhuController;
 import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
-import com.yxld.yxchuangxin.entity.Base1Entity;
+import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.PayResult;
 import com.yxld.yxchuangxin.util.SignUtils;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.wxapi.WechatPay;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -321,10 +310,10 @@ public class SaveMoneyActivity extends BaseActivity {
 		yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
 	}
 
-	private ResultListener<Base1Entity> listening = new ResultListener<Base1Entity>() {
+	private ResultListener<BaseEntity2> listening = new ResultListener<BaseEntity2>() {
 
 		@Override
-		public void onResponse(Base1Entity info) {
+		public void onResponse(BaseEntity2 info) {
 			// 获取请求码
 			Log.d("...", info.toString());
 			if (info.status != STATUS_CODE_OK) {

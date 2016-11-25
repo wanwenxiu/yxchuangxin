@@ -79,19 +79,19 @@ public class EmployerActivity extends BaseActivity {
 		yz_mj = (TextView) findViewById(R.id.yz_mj);
 		yz_card = (TextView) findViewById(R.id.yz_card);
 		yz_fdid = (TextView) findViewById(R.id.yz_fdid);
-		if (Contains.cxwyYezhu.size() == 1) {
+		if (Contains.user !=null) {
 			fwxx.setVisibility(View.GONE);
 			xixi(0);
 		} else {
 			String[] fc = {};
-			fc = new String[Contains.cxwyYezhu.size()];
-			for (int i = 0; i < Contains.cxwyYezhu.size(); i++) {
-				String fcxx = Contains.cxwyYezhu.get(i).getYezhuLoupan()
-						+ Contains.cxwyYezhu.get(i).getYezhuLoudong()
+			fc = new String[Contains.appYezhuFangwus.size()];
+			for (int i = 0; i < Contains.appYezhuFangwus.size(); i++) {
+				String fcxx = Contains.appYezhuFangwus.get(i).getXiangmuLoupan()
+						+ Contains.appYezhuFangwus.get(i).getFwLoudong()
 						+ "栋 "
-						+ Contains.cxwyYezhu.get(i).getYezhuDanyuan()
+						+ Contains.appYezhuFangwus.get(i).getFwDanyuan()
 						+ "单元 "
-						+ Contains.cxwyYezhu.get(i).getYezhuFanghao()
+						+ Contains.appYezhuFangwus.get(i).getFwFanghao()
 								.toString() + "号";
 				fc[i] = fcxx;
 			}
@@ -116,44 +116,44 @@ public class EmployerActivity extends BaseActivity {
 	}
 
 	public void xixi(int position) {
-		yz_name.setText(Contains.cxwyYezhu.get(position).getYezhuName());
-		yz_id.setText(Contains.cxwyYezhu.get(position).getYezhuId().toString());
-		yz_sex.setText(Contains.cxwyYezhu.get(position).getYezhuSex());
-		yz_lp.setText(Contains.cxwyYezhu.get(position).getYezhuLoupan());
-		yz_ld.setText(Contains.cxwyYezhu.get(position).getYezhuLoudong());
-		yz_dy.setText(Contains.cxwyYezhu.get(position).getYezhuDanyuan());
-		yz_fh.setText(Contains.cxwyYezhu.get(position).getYezhuFanghao()
+		yz_name.setText(Contains.user.getYezhuName());
+		yz_id.setText(Contains.user.getYezhuId().toString());
+		yz_sex.setText(Contains.user.getYezhuSex());
+		yz_lp.setText(Contains.appYezhuFangwus.get(position).getXiangmuLoupan());
+		yz_ld.setText(Contains.appYezhuFangwus.get(position).getFwLoudong());
+		yz_dy.setText(Contains.appYezhuFangwus.get(position).getFwDanyuan());
+		yz_fh.setText(Contains.appYezhuFangwus.get(position).getFwDanyuan()
 				.toString());
-		yz_jf.setText(Contains.cxwyYezhu.get(position).getYezhuJiaofangtime());
-		yz_rz.setText(Contains.cxwyYezhu.get(position).getYezhuRuzhutime());
-		yz_tel.setText(Contains.cxwyYezhu.get(position).getYezhuPhone());
-		yz_phone1.setText(Contains.cxwyYezhu.get(position).getYezhuShouji());
-		yz_phone2.setText(Contains.cxwyYezhu.get(position).getYezhuBianhao());
-		yz_fw.setText(Contains.cxwyYezhu.get(position).getYezhuStatus());
-		yz_sy.setText(Contains.cxwyYezhu.get(position).getYezhuStatus2());
-		yz_hx.setText(Contains.cxwyYezhu.get(position).getYezhuHuxing());
-		yz_mj.setText(Contains.cxwyYezhu.get(position).getYezhuMianji());
+//		yz_jf.setText(Contains.cxwyYezhu.get(position).getYezhuJiaofangtime());
+//		yz_rz.setText(Contains.cxwyYezhu.get(position).getYezhuRuzhutime());
+//		yz_tel.setText(Contains.cxwyYezhu.get(position).getYezhuPhone());
+//		yz_phone1.setText(Contains.cxwyYezhu.get(position).getYezhuShouji());
+//		yz_phone2.setText(Contains.cxwyYezhu.get(position).getYezhuBianhao());
+//		yz_fw.setText(Contains.cxwyYezhu.get(position).getYezhuStatus());
+//		yz_sy.setText(Contains.cxwyYezhu.get(position).getYezhuStatus2());
+//		yz_hx.setText(Contains.cxwyYezhu.get(position).getYezhuHuxing());
+//		yz_mj.setText(Contains.cxwyYezhu.get(position).getYezhuMianji());
 
-		//如果是房东展示完整身份证信息
-		if(Contains.cxwyYezhu.get(position).getYezhuParentId() == 0){
-			String shenfenzheng = Contains.cxwyYezhu.get(position).getYezhuCardNum();
-			if(!TextUtils.isEmpty(shenfenzheng) && shenfenzheng.length() >= 18 ){
-				StringBuilder sb  =new StringBuilder();
-				for (int i = 0; i < shenfenzheng.length(); i++) {
-					char c = shenfenzheng.charAt(i);
-					if (i >= 6 && i <= 18) {
-						sb.append('*');
-					} else {
-						sb.append(c);
-					}
-				}
-				yz_card.setText(sb.toString());
-			}
-		}else{
-			yz_card.setText("******************");
-		}
-		yz_fdid.setText(Contains.cxwyYezhu.get(position).getYezhuParentId()
-				.toString());
+//		//如果是房东展示完整身份证信息
+//		if(Contains.cxwyYezhu.get(position).getYezhuParentId() == 0){
+//			String shenfenzheng = Contains.cxwyYezhu.get(position).getYezhuCardNum();
+//			if(!TextUtils.isEmpty(shenfenzheng) && shenfenzheng.length() >= 18 ){
+//				StringBuilder sb  =new StringBuilder();
+//				for (int i = 0; i < shenfenzheng.length(); i++) {
+//					char c = shenfenzheng.charAt(i);
+//					if (i >= 6 && i <= 18) {
+//						sb.append('*');
+//					} else {
+//						sb.append(c);
+//					}
+//				}
+//				yz_card.setText(sb.toString());
+//			}
+//		}else{
+//			yz_card.setText("******************");
+//		}
+//		yz_fdid.setText(Contains.cxwyYezhu.get(position).getYezhuParentId()
+//				.toString());
 	}
 
 	@Override

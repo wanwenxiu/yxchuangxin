@@ -102,37 +102,37 @@ public class ChengyuanguanliActivity extends BaseActivity {
 
 	}
 
-	@Override
-	protected void initDataFromNet() {
-		super.initDataFromNet();
-		if(yezhuController == null){
-			yezhuController = new YeZhuControllerImpl();
-		}
-
-		yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.cxwyYezhu.get(0).getYezhuId()}, new ResultListener<CxwyYezhu>() {
-			@Override
-			public void onResponse(CxwyYezhu info) {
-				// 获取请求码
-				if (info.status != STATUS_CODE_OK) {
-					onError(info.MSG);
-					return;
-				}
-				if (isEmptyList(info.getRows())) {
-					ToastUtil.show(ChengyuanguanliActivity.this, "没有查询到记录");
-				} else {
-					listdata = info.getRows();
-					adapter.setListDatas(listdata);
-				}
-				progressDialog.hide();
-			}
-
-			@Override
-			public void onErrorResponse(String errMsg) {
-				onError(errMsg);
-			}
-		});
-
-	}
+	//@Override
+//	protected void initDataFromNet() {
+//		super.initDataFromNet();
+//		if(yezhuController == null){
+//			yezhuController = new YeZhuControllerImpl();
+//		}
+//
+//		yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.cxwyYezhu.get(0).getYezhuId()}, new ResultListener<CxwyYezhu>() {
+//			@Override
+//			public void onResponse(CxwyYezhu info) {
+//				// 获取请求码
+//				if (info.status != STATUS_CODE_OK) {
+//					onError(info.MSG);
+//					return;
+//				}
+//				if (isEmptyList(info.getRows())) {
+//					ToastUtil.show(ChengyuanguanliActivity.this, "没有查询到记录");
+//				} else {
+//					listdata = info.getRows();
+//					adapter.setListDatas(listdata);
+//				}
+//				progressDialog.hide();
+//			}
+//
+//			@Override
+//			public void onErrorResponse(String errMsg) {
+//				onError(errMsg);
+//			}
+//		});
+//
+//	}
 	private android.os.Handler handler = new android.os.Handler(){
 		@Override
 		public void handleMessage(Message msg) {

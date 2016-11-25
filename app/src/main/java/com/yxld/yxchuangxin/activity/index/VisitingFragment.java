@@ -24,6 +24,7 @@ import com.yxld.yxchuangxin.base.BaseFragment;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.DoorController;
 import com.yxld.yxchuangxin.controller.impl.DoorControllerImpl;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.Door;
 import com.yxld.yxchuangxin.entity.OpenDoorCode;
@@ -34,6 +35,9 @@ import com.yxld.yxchuangxin.util.ToastUtil;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.id.list;
+import static com.yxld.yxchuangxin.R.mipmap.fangwu;
 
 
 /**
@@ -64,7 +68,7 @@ public class VisitingFragment extends BaseFragment  {
 
     private List<String> doorNameList = new ArrayList<>();
     private List<Door> doorList = new ArrayList<>();
-    private CxwyYezhu yezhu = new CxwyYezhu();
+    private AppYezhuFangwu fangwu = new AppYezhuFangwu();
     String address = "";
 
     private ImageView tongxunlu;
@@ -74,9 +78,9 @@ public class VisitingFragment extends BaseFragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.visitor_invitation_activity_layout, container, false);
-        List<CxwyYezhu> list = Contains.cxwyYezhu;
-        yezhu = list.get(0);
-        Log.d("geek", "业主" + yezhu.toString());
+        List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
+        fangwu = list.get(0);
+        Log.d("geek", "业主" + fangwu.toString());
         initview(view);
         return view;
     }
@@ -89,7 +93,7 @@ public class VisitingFragment extends BaseFragment  {
         sure.setOnClickListener(this);
         addr = (TextView) view.findViewById(R.id.addr);
 
-        address = yezhu.getYezhuLoupan() + "" + yezhu.getYezhuLoudong() + "栋" + yezhu.getYezhuDanyuan() + "单元" + yezhu.getYezhuFanghao();
+        address = fangwu.getXiangmuLoupan() + "" + fangwu.getFwLoudong() + "栋" + fangwu.getFwDanyuan() + "单元" + fangwu.getFwFanghao();
         addr.setText(address);
         tongxunlu.setOnClickListener(this);
     }
@@ -109,43 +113,43 @@ public class VisitingFragment extends BaseFragment  {
                 if(DoorController == null ){
                     DoorController = new DoorControllerImpl();
                 }
-                if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
-                          && yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
-                          && yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
-                          && yezhu.getYezhuDanyuan() != null){
-                    //业主角色
-                    int Role = 0;
-                    if(yezhu.getYezhuParentId() == 0){
-                        Role = 0;
-                    }
-
-                    if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi())){
-                        if("家人".equals(yezhu.getYezhuGuanxi())){
-                            Role = 1;
-                        }else if("租客".equals(yezhu.getYezhuGuanxi())){
-                            Role = 2;
-                        }
-                    }
-
-                    //业主名称
-                    String yezhuname = "";
-                    //访客名称
-                    String fangkename = "";
-                    try {
-                        yezhuname =  URLEncoder.encode(yezhu.getYezhuName(),"UTF-8").toString();
-                        fangkename =  URLEncoder.encode(name.getText().toString(),"UTF-8").toString();
-                    }catch (Exception e){
-                        Log.d("geek","用户名编码失败");
-                    }
-
-                    //coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
-                    DoorController.GetFangKeDoorCODE(mRequestQueue,new Object[]{
-                            fangkename,phone.getText().toString(),3,yezhuname,yezhu.getYezhuShouji(),Role,
-                            yezhu.getYezhuBeizhu2()
-                            ,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},OpenDoorCode);
-                }else{
-                    ToastUtil.show(getActivity(),"业主信息不完善");
-                }
+//                if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
+//                          && yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
+//                          && yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
+//                          && yezhu.getYezhuDanyuan() != null){
+//                    //业主角色
+//                    int Role = 0;
+//                    if(yezhu.getYezhuParentId() == 0){
+//                        Role = 0;
+//                    }
+//
+//                    if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi())){
+//                        if("家人".equals(yezhu.getYezhuGuanxi())){
+//                            Role = 1;
+//                        }else if("租客".equals(yezhu.getYezhuGuanxi())){
+//                            Role = 2;
+//                        }
+//                    }
+//
+//                    //业主名称
+//                    String yezhuname = "";
+//                    //访客名称
+//                    String fangkename = "";
+//                    try {
+//                        yezhuname =  URLEncoder.encode(yezhu.getYezhuName(),"UTF-8").toString();
+//                        fangkename =  URLEncoder.encode(name.getText().toString(),"UTF-8").toString();
+//                    }catch (Exception e){
+//                        Log.d("geek","用户名编码失败");
+//                    }
+//
+//                    //coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
+//                    DoorController.GetFangKeDoorCODE(mRequestQueue,new Object[]{
+//                            fangkename,phone.getText().toString(),3,yezhuname,yezhu.getYezhuShouji(),Role,
+//                            yezhu.getYezhuBeizhu2()
+//                            ,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},OpenDoorCode);
+//                }else{
+//                    ToastUtil.show(getActivity(),"业主信息不完善");
+//                }
             }
                 break;
             case R.id.tongxunlu:

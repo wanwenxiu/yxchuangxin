@@ -1,6 +1,4 @@
-package com.yxld.yxchuangxin.base;
-
-import static com.yxld.yxchuangxin.contain.Contains.token;
+package com.yxld.yxchuangxin.entity;
 
 /**
  * @ClassName: BaseEntity 
@@ -9,7 +7,7 @@ import static com.yxld.yxchuangxin.contain.Contains.token;
  * @date 2015�?1�?6�?下午1:38:22 
  *
  */
-public class BaseEntity {
+public class BaseEntity1 {
 	/**
 	 * 状态码
 	 */
@@ -19,7 +17,7 @@ public class BaseEntity {
 	 */
 	public String MSG;
 
-//	public String token;
+	public String token;
 
 	public int getStatus() {
 		return status;
@@ -37,11 +35,11 @@ public class BaseEntity {
 		this.MSG = MSG;
 	}
 
-//	public String getToken() {
-//		return token;
-//	}
-//
-//	public void setToken(String token) {
-//		this.token = token;
-//	}
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

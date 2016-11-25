@@ -142,7 +142,7 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 
 /** 用于请求参数 */
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("yezhuId", Contains.cxwyYezhu.get(0).getYezhuId()+"");
+		map.put("yezhuId", Contains.user.getYezhuId()+"");
 		map.put("yezhuGuanxi", curGuanxi);
 		map.put("yezhuCardNum", idcard.getText().toString()+"");
 		map.put("yezhuName", name.getText().toString()+"");

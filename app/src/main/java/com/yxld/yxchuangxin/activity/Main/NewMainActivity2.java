@@ -120,7 +120,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 Contains.curSelectXiaoQu = Contains.locationCity;
             } else {
                 curPlace.setText("定位失败,请手动选择小区");
-                curPlace.setText(Contains.cxwyMallUser.getUserSpare1()+"");
+                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+                    curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+                }
             }
         }
     }
@@ -130,7 +132,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         super.onResume();
         if (Contains.curSelectXiaoQu == null || "".equals(Contains.curSelectXiaoQu)) {
             curPlace.setText("定位失败,请手动选择小区");
-            curPlace.setText(Contains.cxwyMallUser.getUserSpare1()+"");
+            if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+                curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+            }
         } else {
             curPlace.setText(Contains.curSelectXiaoQu);
         }
@@ -141,14 +145,14 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.new_main_activity_layouts);
         AppConfig.setMainActivity(this);
-        if (Contains.cxwyMallUser == null || Contains.cxwyMallUser.getUserTel() == null) {
+        if (Contains.user == null || Contains.user.getYezhuShouji() == null) {
             finish();
             AppConfig.getInstance().exit();
             startActivity(WelcomeActivity.class);
             return;
         }
-        String alias=Contains.cxwyMallUser.getUserTel().toString();
-        String account=Contains.cxwyMallUser.getUserTel().toString();
+        String alias=Contains.user.getYezhuShouji().toString();
+        String account=Contains.user.getYezhuShouji().toString();
         MiPushClient.setAlias(NewMainActivity2.this, account, null);
         MiPushClient.setUserAccount(NewMainActivity2.this,alias, null);
 
@@ -165,7 +169,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         mine = (ImageView) findViewById(R.id.mine);
         mine.setOnClickListener(this);
         curPlace = (TextView) findViewById(R.id.curPlace);
-        curPlace.setText(Contains.cxwyMallUser.getUserSpare1()+"");
+        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+            curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+        }
         curPlace.setOnClickListener(this);
 
         secondaryActions = (MarqueeView) findViewById(R.id.secondaryActions);
@@ -212,7 +218,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             @Override
             public void run() {
                 main.setRefreshing(false);
-                if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
+                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
                     ToastUtil.show(NewMainActivity2.this,"业主信息不完善");
                     return;
                 }
@@ -249,8 +255,8 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 }
             case R.id.mine: //右上角按钮
                 String xiaoqu = "";
-                if(Contains.cxwyMallUser != null){
-                    xiaoqu= Contains.cxwyMallUser.getUserSpare1();
+                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+                    xiaoqu= Contains.appYezhuFangwus.get(0).getXiangmuLoupan();
                 }
                 Intent tz = new Intent();
                 tz.setClass(NewMainActivity2.this, // context
@@ -303,8 +309,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         }
 
         Map<String, String> params = new HashMap<String, String>();
-        if(Contains.cxwyMallUser != null){
-            params.put("luopan", Contains.cxwyMallUser.getUserSpare1());
+
+        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.get(0) != null){
+            params.put("luopan", Contains.appYezhuFangwus.get(0).getFwLoupanId()+"");
         }else{
             params.put("luopan", "");
         }
@@ -429,13 +436,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                                 @Override
                                 public void onImageClick(int position, View imageView) {
                                     if (position == 0) {
-                                        if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
+                                        if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
                                             ToastUtil.show(NewMainActivity2.this,"业主信息不完善");
                                             return;
                                         }
                                         startActivity(YeZhuOpenDoorActivity.class);
                                     } else if (position == 1) {
-                                        if(Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() ==0){
+                                        if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
                                             ToastUtil.show(NewMainActivity2.this,"业主信息不完善");
                                             return;
                                         }

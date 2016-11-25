@@ -7,7 +7,7 @@ package com.yxld.yxchuangxin.entity;
  * @date 2015�?1�?6�?下午1:38:22 
  *
  */
-public class Base1Entity {
+public class BaseEntity2 {
 	/**
 	 * 状态码
 	 */

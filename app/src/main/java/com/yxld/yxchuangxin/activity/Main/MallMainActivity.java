@@ -99,7 +99,7 @@ public class MallMainActivity extends BaseActivity {
 
         //设置Tablayout
         //设置TabLayout模式 -该使用Tab数量比较多的情况
-      tab_layout.setTabMode(TabLayout.MODE_FIXED);
+          tab_layout.setTabMode(TabLayout.MODE_FIXED);
 //        tab_layout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 

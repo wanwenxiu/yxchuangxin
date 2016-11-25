@@ -21,6 +21,7 @@ import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.db.DBUtil;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
+import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.LoginEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.SPUtils;
@@ -28,6 +29,11 @@ import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static android.media.CamcorderProfile.get;
+import static com.yxld.yxchuangxin.R.id.login_pwd;
+import static com.yxld.yxchuangxin.R.id.register_button_phone;
+import static com.yxld.yxchuangxin.R.id.register_pwd;
 
 public class LoginActivity extends BaseActivity {
 	private final String LAST_LOGIN_USER_ID = "lastLoginUserId";
@@ -46,7 +52,7 @@ public class LoginActivity extends BaseActivity {
 	private CheckBox checkBox1;
 
 	/** 数据库保存的用户信息 */
-	private CxwyMallUser curUser = null;
+	private CxwyYezhu curUser = null;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -65,7 +71,7 @@ public class LoginActivity extends BaseActivity {
 		mExplosionField = ExplosionField.attach2Window(this);
 		addListener(findViewById(R.id.loginSubmit));
 
-		queryShipperInfo();
+		//queryShipperInfo();
 	}
 
 	/**
@@ -74,30 +80,30 @@ public class LoginActivity extends BaseActivity {
 	 * @return void
 	 * @throws
 	 */
-	private void queryShipperInfo() {
-
-		boolean savePsd = (boolean) SPUtils.get(this, CB_SAVE_PWD, false);
-		if (!savePsd) {
-			Log.d("geek", "GuideActivity getLogin()  curUser 没有保存密码");
-			return;
-		}
-		String userId = String.valueOf(SPUtils
-				.get(this, LAST_LOGIN_USER_ID, ""));
-
-		if (!TextUtils.isEmpty(userId)) {
-			if (dbUtil == null) {
-				dbUtil = new DBUtil(this);
-			}
-			if (!isEmptyList(dbUtil.query(CxwyMallUser.class, userId))) {
-				curUser = (CxwyMallUser) (dbUtil.query(CxwyMallUser.class,
-						userId).get(0));
-				if(curUser != null){
-					login_tel.setText(curUser.getUserTel());
-					login_pwd.setText(curUser.getUserPassWord());
-				}
-			}
-		}
-	}
+//	private void queryShipperInfo() {
+//
+//		boolean savePsd = (boolean) SPUtils.get(this, CB_SAVE_PWD, false);
+//		if (!savePsd) {
+//			Log.d("geek", "GuideActivity getLogin()  curUser 没有保存密码");
+//			return;
+//		}
+//		String userId = String.valueOf(SPUtils
+//				.get(this, LAST_LOGIN_USER_ID, ""));
+//
+//		if (!TextUtils.isEmpty(userId)) {
+//			if (dbUtil == null) {
+//				dbUtil = new DBUtil(this);
+//			}
+//			if (!isEmptyList(dbUtil.query(CxwyYezhu.class, userId))) {
+//				curUser = (CxwyYezhu) (dbUtil.query(CxwyYezhu.class,
+//						userId));
+//				if(curUser != null){
+//					login_tel.setText(curUser.getYezhuShouji());
+//					login_pwd.setText(curUser.getYezhuPwd());
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	protected void initDataFromNet() {
@@ -105,6 +111,7 @@ public class LoginActivity extends BaseActivity {
 		if (loginController == null) {
 			loginController = new LoginControllerImpl();
 		}
+
 		loginController.getLogin(mRequestQueue,
 				new Object[] { login_tel.getText().toString(),
 						login_pwd.getText().toString() }, listener);
@@ -120,29 +127,40 @@ public class LoginActivity extends BaseActivity {
 				onError(info.MSG);
 				return;
 			}
-			if (info.MSG.equals("已存在用户")) {
-
-				dbUtil.clearData(CxwyMallUser.class);
-				long result = dbUtil.insert(info.getUser(), info.getUser().getUserId()+"");
-
-				if (result == -1) {
-					ToastUtil.show(LoginActivity.this, "登录失败,数据插入错误, 请重试!");
-					return;
-				}
+			if (info.MSG.equals("登录成功")) {
+//				if (dbUtil == null) {
+//					dbUtil = new DBUtil(LoginActivity.this);
+//				}
+//				if (isEmptyList(dbUtil.query(CxwyYezhu.class, info.getUser().getYezhuId()+""))) {
+//					Log.d("...", "kkkkkk");
+//
+//				}else {
+//					Log.d("...", "nnnn");
+//					dbUtil.clearData(CxwyYezhu.class);
+//				}
+//				dbUtil.clearData(CxwyYezhu.class);
+//				long result = dbUtil.insert(info.getUser(), info.getUser().getYezhuId()+"");
+//
+//				if (result == -1) {
+//					ToastUtil.show(LoginActivity.this, "登录失败，请检查用户名密码是否正确!");
+//					return;
+//				}
 
 				mExplosionField.explode(loginSubmit);
 				loginSubmit.setOnClickListener(null);
-				Contains.cxwyYezhu = info.getYzList();
-				Contains.cxwyMallUser = info.getUser();
-				Log.d("denglu","登陆info.getDefuleaddr()  ="+info.getDefuleaddr().toString());
-				Contains.defuleAddress = info.getDefuleaddr();
-				Log.d("denglu","登陆 Contains.defuleAddress  ="+Contains.defuleAddress.toString());
+				Contains.token=info.getToken();
+				Contains.user = info.getUser();
+				Contains.appYezhuFangwus=info.getHouse();
+//				Contains.cxwyMallUser = info.getUser();
+//				Log.d("denglu","登陆info.getDefuleaddr()  ="+info.getDefuleaddr().toString());
+//				Contains.defuleAddress = info.getDefuleaddr();
+//				Log.d("denglu","登陆 Contains.defuleAddress  ="+Contains.defuleAddress.toString());
 				// 保存用户ID和账号至配置文件中
 				SPUtils.put(LoginActivity.this, CB_SAVE_PWD,
 						checkBox1.isChecked());
 				SPUtils.put(LoginActivity.this, LAST_LOGIN_USER_ID, info
-						.getUser().getUserId() + "");
-				Contains.curSelectXiaoQu = info.getUser().getUserSpare1();
+						.getUser().getYezhuId() + "");
+				Contains.curSelectXiaoQu = info.getHouse().get(0).getXiangmuLoupan();
 				new Thread() {
 					public void run() {
 						try {
@@ -183,6 +201,16 @@ public class LoginActivity extends BaseActivity {
 				public void onClick(View v) {
 					if(StringUitl.isNotEmpty(LoginActivity.this,login_tel,"请输入手机号码") && StringUitl.isNotEmpty(LoginActivity.this,login_pwd,"请输入密码")){
 						loginSubmit.setClickable(false);
+						int len = login_tel.getText().toString().length();
+						int len1=login_pwd.getText().toString().length();
+						initDataFromNet();
+//						if (len1 >= 6 &&  len==11 ) {
+//							initDataFromNet();
+//						} else {
+//							Toast.makeText(LoginActivity.this, "请确定账号密码格式是否正确", Toast.LENGTH_SHORT).show();
+//							loginSubmit.setClickable(true);
+//						}
+
 						initDataFromNet();
 					}
 				}

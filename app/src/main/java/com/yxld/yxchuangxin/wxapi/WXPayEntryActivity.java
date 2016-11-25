@@ -25,7 +25,7 @@ import com.yxld.yxchuangxin.controller.PayController;
 import com.yxld.yxchuangxin.controller.YeZhuController;
 import com.yxld.yxchuangxin.controller.impl.OrderControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
-import com.yxld.yxchuangxin.entity.Base1Entity;
+import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.listener.ResultListener;
 
 import org.json.JSONException;
@@ -127,10 +127,10 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         yeZhuController.getAllChongzhi(mRequestQueue, url, parms, listening);
     }
 
-    private ResultListener<Base1Entity> listening = new ResultListener<Base1Entity>() {
+    private ResultListener<BaseEntity2> listening = new ResultListener<BaseEntity2>() {
 
         @Override
-        public void onResponse(Base1Entity info) {
+        public void onResponse(BaseEntity2 info) {
             // 获取请求码
             Log.d("...", info.toString());
             if (info.status != STATUS_CODE_OK) {

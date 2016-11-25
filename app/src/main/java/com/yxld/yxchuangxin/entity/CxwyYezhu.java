@@ -1,86 +1,53 @@
 package com.yxld.yxchuangxin.entity;
 
-import com.yxld.yxchuangxin.base.BaseEntity;
-
-import java.util.List;
+import java.sql.Timestamp;
 
 /**
- * CxwyYezhu entity. @author MyEclipse Persistence Tools
+ * CxwyYezhu entity. @author Carrol
  */
 
-public class CxwyYezhu extends BaseEntity implements java.io.Serializable {
-
-	private List<CxwyYezhu> rows;
+public class CxwyYezhu implements java.io.Serializable{
 
 	// Fields
-	private Integer yezhuId;//id
-	private String yezhuCardNum;//省份证
-	private String yezhuName;//业主姓名
-	private String yezhuSex;//性别
-	private Integer yezhuFanghao;//房号
-	private String yezhuLoudong;//楼栋
-	private String yezhuLoupan;//楼盘
-	private String yezhuDanyuan;//单元
-	private String yezhuJiaofangtime;//交房时间
-	private String yezhuPhone;//座机
-	private String yezhuShouji;//手机
-	private String yezhuGuanxi;//关系
-	private Integer yezhuParentId;//业主ｉｄ
-	private String yezhuRuzhutime;//入住时间
-	private String yezhuLikaitime;//离开时间
-	private String yezhuSfzSrc1;//身份证照片
-	private String yezhuSfzSrc2;//身份证照片
-	private String yezhuStatus;//房屋状态
-	private String yezhuStatus2;//使用状态
-	private String yezhuBianhao;//手机2
-	private String yezhuHuxing;//户型
-	private String yezhuMianji;//面积
-	private String yezhuZuoji2;//座机２
-	private String yezhuBiezhu1;//备注１
-	private String yezhuBeizhu2;//楼盘ID
-
+	private Integer yezhuId; //业主id
+	private String yezhuCardNum="";//身份证
+	private String yezhuName="";//业主姓名
+	private String yezhuSex="";//性别
+	private String yezhuPhone="";//电话
+	private String yezhuShouji="";//手机
+	private String yezhuSfzSrc1="";//身份证照片
+	private String yezhuSfzSrc2="";//身份证照片
+	private String yezhuGzdw="";//工作单位
+	private String yezhuBeizhu="";//备注
+	private Integer yezhuIsUse;//是否使用
+	private String yezhuPwd="";//密码
+	private Integer yezhuType;//业主类型：0业主 1 游客
+	private String yezhuBiezhu1="";//添加时间
+	
 	// Constructors
 
 	/** default constructor */
 	public CxwyYezhu() {
 	}
 
-	/** full constructor */
-	public CxwyYezhu(String yezhuCardNum, String yezhuName, String yezhuSex,
-			Integer yezhuFanghao, String yezhuLoudong, String yezhuLoupan,
-			String yezhuDanyuan, String yezhuJiaofangtime, String yezhuPhone,
-			String yezhuShouji, String yezhuGuanxi, Integer yezhuParentId,
-			String yezhuRuzhutime, String yezhuLikaitime, String yezhuSfzSrc1,
-			String yezhuSfzSrc2, String yezhuStatus, String yezhuStatus2,
-			String yezhuBianhao, String yezhuHuxing, String yezhuMianji,
-			String yezhuZuoji2, String yezhuBiezhu1, String yezhuBeizhu2) {
+	public CxwyYezhu(Integer yezhuId, String yezhuCardNum, String yezhuName, String yezhuSex, String yezhuPhone, String yezhuShouji, String yezhuSfzSrc1, String yezhuSfzSrc2, String yezhuGzdw, String yezhuBeizhu, Integer yezhuIsUse, String yezhuPwd, Integer yezhuType, String yezhuBiezhu1) {
+		this.yezhuId = yezhuId;
 		this.yezhuCardNum = yezhuCardNum;
 		this.yezhuName = yezhuName;
 		this.yezhuSex = yezhuSex;
-		this.yezhuFanghao = yezhuFanghao;
-		this.yezhuLoudong = yezhuLoudong;
-		this.yezhuLoupan = yezhuLoupan;
-		this.yezhuDanyuan = yezhuDanyuan;
-		this.yezhuJiaofangtime = yezhuJiaofangtime;
 		this.yezhuPhone = yezhuPhone;
 		this.yezhuShouji = yezhuShouji;
-		this.yezhuGuanxi = yezhuGuanxi;
-		this.yezhuParentId = yezhuParentId;
-		this.yezhuRuzhutime = yezhuRuzhutime;
-		this.yezhuLikaitime = yezhuLikaitime;
 		this.yezhuSfzSrc1 = yezhuSfzSrc1;
 		this.yezhuSfzSrc2 = yezhuSfzSrc2;
-		this.yezhuStatus = yezhuStatus;
-		this.yezhuStatus2 = yezhuStatus2;
-		this.yezhuBianhao = yezhuBianhao;
-		this.yezhuHuxing = yezhuHuxing;
-		this.yezhuMianji = yezhuMianji;
-		this.yezhuZuoji2 = yezhuZuoji2;
+		this.yezhuGzdw = yezhuGzdw;
+		this.yezhuBeizhu = yezhuBeizhu;
+		this.yezhuIsUse = yezhuIsUse;
+		this.yezhuPwd = yezhuPwd;
+		this.yezhuType = yezhuType;
 		this.yezhuBiezhu1 = yezhuBiezhu1;
-		this.yezhuBeizhu2 = yezhuBeizhu2;
 	}
 
-	// Property accessors
+// Property accessors
 
 	public Integer getYezhuId() {
 		return this.yezhuId;
@@ -114,46 +81,6 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable {
 		this.yezhuSex = yezhuSex;
 	}
 
-	public Integer getYezhuFanghao() {
-		return this.yezhuFanghao;
-	}
-
-	public void setYezhuFanghao(Integer yezhuFanghao) {
-		this.yezhuFanghao = yezhuFanghao;
-	}
-
-	public String getYezhuLoudong() {
-		return this.yezhuLoudong;
-	}
-
-	public void setYezhuLoudong(String yezhuLoudong) {
-		this.yezhuLoudong = yezhuLoudong;
-	}
-
-	public String getYezhuLoupan() {
-		return this.yezhuLoupan;
-	}
-
-	public void setYezhuLoupan(String yezhuLoupan) {
-		this.yezhuLoupan = yezhuLoupan;
-	}
-
-	public String getYezhuDanyuan() {
-		return this.yezhuDanyuan;
-	}
-
-	public void setYezhuDanyuan(String yezhuDanyuan) {
-		this.yezhuDanyuan = yezhuDanyuan;
-	}
-
-	public String getYezhuJiaofangtime() {
-		return this.yezhuJiaofangtime;
-	}
-
-	public void setYezhuJiaofangtime(String yezhuJiaofangtime) {
-		this.yezhuJiaofangtime = yezhuJiaofangtime;
-	}
-
 	public String getYezhuPhone() {
 		return this.yezhuPhone;
 	}
@@ -168,38 +95,6 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable {
 
 	public void setYezhuShouji(String yezhuShouji) {
 		this.yezhuShouji = yezhuShouji;
-	}
-
-	public String getYezhuGuanxi() {
-		return this.yezhuGuanxi;
-	}
-
-	public void setYezhuGuanxi(String yezhuGuanxi) {
-		this.yezhuGuanxi = yezhuGuanxi;
-	}
-
-	public Integer getYezhuParentId() {
-		return this.yezhuParentId;
-	}
-
-	public void setYezhuParentId(Integer yezhuParentId) {
-		this.yezhuParentId = yezhuParentId;
-	}
-
-	public String getYezhuRuzhutime() {
-		return this.yezhuRuzhutime;
-	}
-
-	public void setYezhuRuzhutime(String yezhuRuzhutime) {
-		this.yezhuRuzhutime = yezhuRuzhutime;
-	}
-
-	public String getYezhuLikaitime() {
-		return this.yezhuLikaitime;
-	}
-
-	public void setYezhuLikaitime(String yezhuLikaitime) {
-		this.yezhuLikaitime = yezhuLikaitime;
 	}
 
 	public String getYezhuSfzSrc1() {
@@ -218,96 +113,72 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable {
 		this.yezhuSfzSrc2 = yezhuSfzSrc2;
 	}
 
-	public String getYezhuStatus() {
-		return this.yezhuStatus;
-	}
-
-	public void setYezhuStatus(String yezhuStatus) {
-		this.yezhuStatus = yezhuStatus;
-	}
-
-	public String getYezhuStatus2() {
-		return this.yezhuStatus2;
-	}
-
-	public void setYezhuStatus2(String yezhuStatus2) {
-		this.yezhuStatus2 = yezhuStatus2;
-	}
-
-	public String getYezhuBianhao() {
-		return this.yezhuBianhao;
-	}
-
-	public void setYezhuBianhao(String yezhuBianhao) {
-		this.yezhuBianhao = yezhuBianhao;
-	}
-
-	public String getYezhuHuxing() {
-		return this.yezhuHuxing;
-	}
-
-	public void setYezhuHuxing(String yezhuHuxing) {
-		this.yezhuHuxing = yezhuHuxing;
-	}
-
-	public String getYezhuMianji() {
-		return this.yezhuMianji;
-	}
-
-	public void setYezhuMianji(String yezhuMianji) {
-		this.yezhuMianji = yezhuMianji;
-	}
-
-	public String getYezhuZuoji2() {
-		return this.yezhuZuoji2;
-	}
-
-	public void setYezhuZuoji2(String yezhuZuoji2) {
-		this.yezhuZuoji2 = yezhuZuoji2;
-	}
-
 	public String getYezhuBiezhu1() {
-		return this.yezhuBiezhu1;
+		return yezhuBiezhu1;
 	}
 
 	public void setYezhuBiezhu1(String yezhuBiezhu1) {
 		this.yezhuBiezhu1 = yezhuBiezhu1;
 	}
 
-	public String getYezhuBeizhu2() {
-		return this.yezhuBeizhu2;
+	public String getYezhuGzdw() {
+		return this.yezhuGzdw;
 	}
 
-	public void setYezhuBeizhu2(String yezhuBeizhu2) {
-		this.yezhuBeizhu2 = yezhuBeizhu2;
+	public void setYezhuGzdw(String yezhuGzdw) {
+		this.yezhuGzdw = yezhuGzdw;
 	}
 
-	public List<CxwyYezhu> getRows() {
-		return rows;
+	public String getYezhuBeizhu() {
+		return this.yezhuBeizhu;
 	}
 
-	public void setRows(List<CxwyYezhu> rows) {
-		this.rows = rows;
+	public void setYezhuBeizhu(String yezhuBeizhu) {
+		this.yezhuBeizhu = yezhuBeizhu;
+	}
+
+	public Integer getYezhuIsUse() {
+		return yezhuIsUse;
+	}
+
+	public void setYezhuIsUse(Integer yezhuIsUse) {
+		this.yezhuIsUse = yezhuIsUse;
+	}
+
+
+	public String getYezhuPwd() {
+		return yezhuPwd;
+	}
+
+	public void setYezhuPwd(String yezhuPwd) {
+		this.yezhuPwd = yezhuPwd;
+	}
+
+	public Integer getYezhuType() {
+		return yezhuType;
+	}
+
+	public void setYezhuType(Integer yezhuType) {
+		this.yezhuType = yezhuType;
 	}
 
 	@Override
 	public String toString() {
-		return "CxwyYezhu [yezhuId=" + yezhuId + ", yezhuCardNum="
-				+ yezhuCardNum + ", yezhuName=" + yezhuName + ", yezhuSex="
-				+ yezhuSex + ", yezhuFanghao=" + yezhuFanghao
-				+ ", yezhuLoudong=" + yezhuLoudong + ", yezhuLoupan="
-				+ yezhuLoupan + ", yezhuDanyuan=" + yezhuDanyuan
-				+ ", yezhuJiaofangtime=" + yezhuJiaofangtime + ", yezhuPhone="
-				+ yezhuPhone + ", yezhuShouji=" + yezhuShouji
-				+ ", yezhuGuanxi=" + yezhuGuanxi + ", yezhuParentId="
-				+ yezhuParentId + ", yezhuRuzhutime=" + yezhuRuzhutime
-				+ ", yezhuLikaitime=" + yezhuLikaitime + ", yezhuSfzSrc1="
-				+ yezhuSfzSrc1 + ", yezhuSfzSrc2=" + yezhuSfzSrc2
-				+ ", yezhuStatus=" + yezhuStatus + ", yezhuStatus2="
-				+ yezhuStatus2 + ", yezhuBianhao=" + yezhuBianhao
-				+ ", yezhuHuxing=" + yezhuHuxing + ", yezhuMianji="
-				+ yezhuMianji + ", yezhuZuoji2=" + yezhuZuoji2
-				+ ", yezhuBiezhu1=" + yezhuBiezhu1 + ", yezhuBeizhu2="
-				+ yezhuBeizhu2 + "]";
+		return "CxwyYezhu{" +
+				"yezhuId=" + yezhuId +
+				", yezhuCardNum='" + yezhuCardNum + '\'' +
+				", yezhuName='" + yezhuName + '\'' +
+				", yezhuSex='" + yezhuSex + '\'' +
+				", yezhuPhone='" + yezhuPhone + '\'' +
+				", yezhuShouji='" + yezhuShouji + '\'' +
+				", yezhuSfzSrc1='" + yezhuSfzSrc1 + '\'' +
+				", yezhuSfzSrc2='" + yezhuSfzSrc2 + '\'' +
+				", yezhuGzdw='" + yezhuGzdw + '\'' +
+				", yezhuBeizhu='" + yezhuBeizhu + '\'' +
+				", yezhuIsUse=" + yezhuIsUse +
+				", yezhuPwd='" + yezhuPwd + '\'' +
+				", yezhuType=" + yezhuType +
+				", yezhuBiezhu1='" + yezhuBiezhu1 + '\'' +
+				'}';
 	}
 }

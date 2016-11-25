@@ -13,7 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.YeZhuController;
-import com.yxld.yxchuangxin.entity.Base1Entity;
+import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.entity.CxwyMallUseDaijinquan;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyMallUserBalance;
@@ -199,16 +199,16 @@ public class YeZhuControllerImpl implements YeZhuController{
 
 	@Override
 	public void getAllChongzhi(RequestQueue mRequestQueue, String url,
-							   final Map<String, String> params, final ResultListener<Base1Entity> listener) {
+							   final Map<String, String> params, final ResultListener<BaseEntity2> listener) {
 		StringRequest stringRequest =new StringRequest(
 				Method.POST,url,
 				new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						Base1Entity info = null;
+						BaseEntity2 info = null;
 						if(response != null){
-							info = gson.fromJson(response, Base1Entity.class);
+							info = gson.fromJson(response, BaseEntity2.class);
 						}
 						if (listener != null) {
 							listener.onResponse(info);

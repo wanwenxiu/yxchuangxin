@@ -59,10 +59,10 @@ public class MemberActivity extends BaseActivity {
 		account_card = (TextView) findViewById(R.id.account_card);
 		yz_zhenshiname = (TextView) findViewById(R.id.yz_zhenshiname);
 
-		if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+		if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
 			yz_zhenshiname.setText("业主信息未完善");
 		}else{
-			yz_zhenshiname.setText(Contains.cxwyYezhu.get(0).getYezhuName());
+			yz_zhenshiname.setText(Contains.user.getYezhuName());
 		}
 
 		securityAccountWrap=findViewById(R.id.securityAccountWrap);

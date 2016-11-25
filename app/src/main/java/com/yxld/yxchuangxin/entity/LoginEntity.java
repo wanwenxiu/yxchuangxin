@@ -5,42 +5,42 @@ import java.util.List;
 import com.yxld.yxchuangxin.base.BaseEntity;
 
 public class LoginEntity extends BaseEntity{
-	public List<CxwyYezhu> yzList;
+	public List<AppYezhuFangwu> house;
 	
-	public CxwyMallUser user;
+	public CxwyYezhu user;
 
-	public CxwyMallAdd defuleaddr;
+	public String token;
 
-	public CxwyMallAdd getDefuleaddr() {
-		return defuleaddr;
+	public List<AppYezhuFangwu> getHouse() {
+		return house;
 	}
 
-	public void setDefuleaddr(CxwyMallAdd defuleaddr) {
-		this.defuleaddr = defuleaddr;
+	public void setHouse(List<AppYezhuFangwu> house) {
+		this.house = house;
 	}
 
-	public List<CxwyYezhu> getYzList() {
-		return yzList;
-	}
-
-	public void setYzList(List<CxwyYezhu> yzList) {
-		this.yzList = yzList;
-	}
-
-	public CxwyMallUser getUser() {
+	public CxwyYezhu getUser() {
 		return user;
 	}
 
-	public void setUser(CxwyMallUser user) {
+	public void setUser(CxwyYezhu user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	@Override
 	public String toString() {
 		return "LoginEntity{" +
-				"yzList=" + yzList +
+				"house=" + house +
 				", user=" + user +
-				", defuleaddr=" + defuleaddr +
+				", token='" + token + '\'' +
 				'}';
 	}
 }

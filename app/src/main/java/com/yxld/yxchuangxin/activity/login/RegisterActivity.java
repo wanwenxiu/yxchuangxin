@@ -8,17 +8,21 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsMessage;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.ysf.explosionfield.ExplosionField;
+import com.yxld.yxchuangxin.MainActivity;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
@@ -44,6 +48,7 @@ public class RegisterActivity extends BaseActivity {
 	private Button regsubmit;
 	private TimeButton register_button_phone;
 	private ExplosionField mExplosionField;
+	private CheckBox checkBox_forcheck;
 
 	// 填写从短信SDK应用后台注册得到的APPKEY
 	private  String APPKEY = "14e1cc04efbc0";
@@ -64,6 +69,7 @@ public class RegisterActivity extends BaseActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		register_button_phone= (TimeButton) findViewById(R.id.register_button_phone);
 		register_yzm= (EditText) findViewById(R.id.register_yzm);
+		checkBox_forcheck= (CheckBox) findViewById(R.id.checkBox_forcheck);
 		register_button_phone.onCreate(savedInstanceState);
 		register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 		register_button_phone.setOnClickListener(this);
@@ -172,7 +178,7 @@ public class RegisterActivity extends BaseActivity {
 				onError(info.MSG);
 				return;
 			}
-			if (info.MSG.equals("已存在用户")) {
+			if (info.MSG.equals("该手机号码已经注册")) {
 				Toast.makeText(RegisterActivity.this,
 						"你输入的账号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
 			} else {
@@ -240,6 +246,10 @@ public class RegisterActivity extends BaseActivity {
 			regsubmit.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+                    if (checkBox_forcheck.isChecked()==false){
+						Toast.makeText(RegisterActivity.this, "请仔细阅读用户协议并勾选", Toast.LENGTH_SHORT).show();
+						return;
+					}
 					String code=register_yzm.getText().toString();
 					if (!TextUtils.isEmpty(code)) {
 						progressDialog.show();
@@ -267,7 +277,12 @@ public class RegisterActivity extends BaseActivity {
 				finish();
 				break;
 			case R.id.register_button_phone:
-				initDataFromNet();
+				int len = register_pwd.getText().toString().length();
+				if (len >= 6) {
+					initDataFromNet();
+				} else {
+					register_button_phone.setTextAfter("密码不对,需要等待5秒").setTextBefore("获取验证码").setLenght(5 * 1000);
+				}
 				break;
 		}
 	}

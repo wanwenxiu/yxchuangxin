@@ -14,6 +14,7 @@ import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.DoorController;
 import com.yxld.yxchuangxin.controller.impl.DoorControllerImpl;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BarcodedataAndroid;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.listener.ResultListener;
@@ -40,7 +41,7 @@ public class AuthorizedReleaseActivity extends BaseActivity implements ResultLis
 
 	private TextView addr;
 
-	private CxwyYezhu yezhu = new CxwyYezhu();
+	private AppYezhuFangwu fangwu = new AppYezhuFangwu();
 	private List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
 
 	@Override
@@ -49,8 +50,8 @@ public class AuthorizedReleaseActivity extends BaseActivity implements ResultLis
 		setContentView(R.layout.authorized_release_activity);
 		getSupportActionBar().setTitle("授权放行");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		List<CxwyYezhu> list = Contains.cxwyYezhu;
-		yezhu = list.get(0);
+		List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
+		fangwu = list.get(0);
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class AuthorizedReleaseActivity extends BaseActivity implements ResultLis
 	@Override
 	protected void initView() {
 		addr = (TextView) findViewById(R.id.addr);
-		addr.setText( yezhu.getYezhuLoupan()+""+yezhu.getYezhuLoudong()+"栋"+yezhu.getYezhuDanyuan()+"单元" +yezhu.getYezhuFanghao());
+		addr.setText( fangwu.getXiangmuLoupan()+""+fangwu.getFwLoudong()+"栋"+fangwu.getFwDanyuan()+"单元" +fangwu.getFwFanghao());
 		authorizedList = (ListView) findViewById(R.id.AuthorizedList);
 		authorizedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override

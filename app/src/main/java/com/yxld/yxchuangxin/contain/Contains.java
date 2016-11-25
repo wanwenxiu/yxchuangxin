@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyMallAdd;
 import com.yxld.yxchuangxin.entity.CxwyMallCart;
 import com.yxld.yxchuangxin.entity.CxwyMallComment;
@@ -44,7 +45,10 @@ public class Contains {
 	public static CxwyMallUser cxwyMallUser = new CxwyMallUser();
 
 	/** 业主信息 */
-	public static List<CxwyYezhu> cxwyYezhu = new ArrayList<CxwyYezhu>();
+	public static CxwyYezhu user = new CxwyYezhu();
+
+	/** 业主房屋中间表 */
+	public static List<AppYezhuFangwu> appYezhuFangwus = new ArrayList<AppYezhuFangwu>();
 
 	/** 订单中的商品评论集合 */
 	public static List<CxwyMallComment> curCommData = new ArrayList<CxwyMallComment>();
@@ -63,6 +67,10 @@ public class Contains {
 
 	/** 确认订单集合*/
 	public static List<SureOrderEntity> sureOrderList = new ArrayList<SureOrderEntity>();
+
+	/** token*/
+	public static String token="";
+
 
 	/** Pay Callback Server URL **/
 	public final static String URL_PAY_CALLBACK = "http://222.240.1.133/WechatPayServer";

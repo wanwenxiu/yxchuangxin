@@ -87,9 +87,9 @@ public class ChengyuanListAdapter extends BaseAdapter {
 
 		holder.tel.setText(yezhu.getYezhuShouji());
 		holder.name.setText(yezhu.getYezhuName());
-		if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi()) ){
-			holder.name.setText(yezhu.getYezhuName()+"("+yezhu.getYezhuGuanxi()+")");
-		}
+//		if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi()) ){
+//			holder.name.setText(yezhu.getYezhuName()+"("+yezhu.getYezhuGuanxi()+")");
+//		}
 		holder.type.setText("删除");
 
 		holder.type.setOnClickListener(new View.OnClickListener() {

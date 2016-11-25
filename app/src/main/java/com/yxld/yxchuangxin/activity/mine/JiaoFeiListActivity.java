@@ -82,10 +82,10 @@ public class JiaoFeiListActivity extends BaseActivity implements ResultListener<
 		}
 		Map<String, String> parm = new HashMap<String, String>();
 		parm.put("i", type);
-		parm.put("loupan", Contains.cxwyYezhu.get(0).getYezhuLoupan());
-		parm.put("loudong", Contains.cxwyYezhu.get(0).getYezhuLoudong());
-		parm.put("danyuan", Contains.cxwyYezhu.get(0).getYezhuDanyuan());
-		parm.put("fanghao", Contains.cxwyYezhu.get(0).getYezhuFanghao()+ "");
+		parm.put("loupan", Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+		parm.put("loudong", Contains.appYezhuFangwus.get(0).getFwLoudong());
+		parm.put("danyuan", Contains.appYezhuFangwus.get(0).getFwDanyuan());
+		parm.put("fanghao", Contains.appYezhuFangwus.get(0).getFwFanghao()+ "");
 		Log.d("geek", "parm "+parm.toString());
 		yezhuController.getAllPaymentRecords(mRequestQueue, url, parm, this);
 	}

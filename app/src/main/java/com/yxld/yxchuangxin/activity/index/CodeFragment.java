@@ -23,6 +23,7 @@ import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.controller.DoorController;
 import com.yxld.yxchuangxin.controller.impl.DoorControllerImpl;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.OpenDoorCode;
 import com.yxld.yxchuangxin.entity.ShareInfo;
@@ -58,7 +59,7 @@ public class CodeFragment extends BaseFragment {
 
 	private ShareInfo shareInfo = new ShareInfo();
 
-	private CxwyYezhu yezhu = new CxwyYezhu();
+	private AppYezhuFangwu fangwu = new AppYezhuFangwu();
 	private String shareUrl = "";
 
 	/** 更新二维码时间*/
@@ -75,10 +76,10 @@ public class CodeFragment extends BaseFragment {
 		shareInfo.setTitle("业主开门二维码");
 		shareInfo.setShareCon(address);
 
-		List<CxwyYezhu> list = Contains.cxwyYezhu;
-		yezhu = list.get(0);
-		address = yezhu.getYezhuLoupan()+""+yezhu.getYezhuLoudong()+"栋"+yezhu.getYezhuDanyuan()+"单元" +yezhu.getYezhuFanghao();
-		Log.d("geek","业主"+yezhu.toString());
+		List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
+		fangwu = list.get(0);
+		address = fangwu.getXiangmuLoupan()+""+fangwu.getFwLoudong()+"栋"+fangwu.getFwDanyuan()+"单元" +fangwu.getFwFanghao();
+		Log.d("geek","业主"+fangwu.toString());
 		handler.postDelayed(runnable, UPDATETIME); //每隔1s执行
 		initDataFromNet();
 		update = (TextView)view.findViewById(R.id.update);
@@ -167,36 +168,36 @@ public class CodeFragment extends BaseFragment {
 			doorController = new DoorControllerImpl();
 		}
 
-		if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
-				&& yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
-				&& yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
-				&& yezhu.getYezhuDanyuan() != null){
-
-			int Role = 0;
-			if(yezhu.getYezhuParentId() == 0){
-				Role = 0;
-			}
-
-			if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi())){
-				if("家人".equals(yezhu.getYezhuGuanxi())){
-					Role = 1;
-				}else if("租客".equals(yezhu.getYezhuGuanxi())){
-					Role = 2;
-				}
-			}
-
-			String name = "";
-			try {
-				name =  URLEncoder.encode(yezhu.getYezhuName(),"UTF-8").toString();
-			}catch (Exception e){
-				Log.d("geek","业主用户名编码失败");
-			}
-			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
-			doorController.GetYEZHUDoorCODE(mRequestQueue,new Object[]{name,yezhu.getYezhuShouji(),Role,yezhu.getYezhuBeizhu2()
-					,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},yezhuDoorCode);
-		}else{
-			ToastUtil.show(getActivity(),"业主信息不完善");
-		}
+//		if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
+//				&& yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
+//				&& yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
+//				&& yezhu.getYezhuDanyuan() != null){
+//
+//			int Role = 0;
+//			if(yezhu.getYezhuParentId() == 0){
+//				Role = 0;
+//			}
+//
+//			if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi())){
+//				if("家人".equals(yezhu.getYezhuGuanxi())){
+//					Role = 1;
+//				}else if("租客".equals(yezhu.getYezhuGuanxi())){
+//					Role = 2;
+//				}
+//			}
+//
+//			String name = "";
+//			try {
+//				name =  URLEncoder.encode(yezhu.getYezhuName(),"UTF-8").toString();
+//			}catch (Exception e){
+//				Log.d("geek","业主用户名编码失败");
+//			}
+//			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
+//			doorController.GetYEZHUDoorCODE(mRequestQueue,new Object[]{name,yezhu.getYezhuShouji(),Role,yezhu.getYezhuBeizhu2()
+//					,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},yezhuDoorCode);
+//		}else{
+//			ToastUtil.show(getActivity(),"业主信息不完善");
+//		}
 
 	}
 
