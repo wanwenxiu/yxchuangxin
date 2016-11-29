@@ -143,7 +143,7 @@ public class OrderListActivity extends BaseActivity {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("rows", "5");
 		map.put("page", pageCode + 1 + "");
-		map.put("ord.dingdanUserName", Contains.user.getYezhuId()+"");
+		map.put("ord.dingdanUserId", Contains.user.getYezhuId()+"");
 		map.put("ord.dingdanZhuangtai", state);
 		Log.d("geek", "查询map"+map.toString());
 		orderController.getOrderListOrder(mRequestQueue, map, listenerOrder);

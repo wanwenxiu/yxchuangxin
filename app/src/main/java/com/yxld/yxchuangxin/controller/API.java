@@ -14,13 +14,12 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 
-    String IP_PRODUCT = "http://192.168.0.166:8080/wygl";
-    String PIC = "http://192.168.0.166:8080";
-    String uploadImage = "http://192.168.0.166:8080/wygl/mall/upload_uploadFile";
-
-//   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//   String PIC="http://www.hnchxwl.com";
-//   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
+  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+  String PIC = "http://192.168.8.166:8080";
+  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadFile";
+//String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+//String PIC="http://www.hnchxwl.com";
+//String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL
@@ -78,7 +77,7 @@ public interface API {
     String URL_ADD_ORDER = IP_PRODUCT + "/mall/androidOrder_addOrder?";
 
     /**
-     * 根据用户名和订单状态获取订单列表
+     * 根据业主id和订单状态获取订单列表
      */
     // http://192.168.0.114:8080/wygl/mall/order_findOrderByUserName?ord.dingdanUserName=1&ord.dingdanZhuangtai=已提交
     String URL_GET_ORDER_LIST_FROM_USER = IP_PRODUCT
@@ -151,7 +150,7 @@ public interface API {
      * 修改密码
      */
     String URL_GET_ALL_UPDATE_PWD = IP_PRODUCT
-            + "/mall/androidUser_changePassWord?user.userTel=%1$s&user.userPassWord=%2$s&newPassWord=%3$s";
+            + "/mall/androidUser_changePassWord?yezhu.yezhuShouji=%1$s&yezhu.yezhuPwd=%2$s";
 
     /**
      * 修改昵称
@@ -314,12 +313,11 @@ public interface API {
     String URL_REPAIR_OTHER = IP_PRODUCT
             + "/daily/androidBaoxiu_findbaox.action?";
 
-
     /**
      * 根据业主id获取业主成员列表 http://localhost:8080/wygl/daily/androidHousehold_findrz?parentid=0
      */
     String URL_findall_chengyuan = IP_PRODUCT
-            + "/daily/androidHousehold_findrz?parentid=%1$s";
+            + "/daily/androidHousehold_findrz?fwyzFw=%1$s";
 
     /**
      * 根据删除业主成员
@@ -382,18 +380,20 @@ public interface API {
     String URL_GET_EXPENDITURE = IP_PRODUCT
             + "/mall/androidUser_findYonghuBalancereCord.action?";
 
+//    /**
+//     * 获取业主开门二维码   /业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元120.25.78.92
+//     */
+//    String URL_GET_YEZHUOPENCODE = menjinIP + "door/coeds/getcode";
 
     /**
      * 获取业主开门二维码   /业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元120.25.78.92
      */
-    String URL_GET_YEZHUOPENCODE = menjinIP + "door/coed/getcode/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s";
-
+    String URL_GET_YEZHUOPENCODE = menjinIP + "door/coeds/getcode?bName=%1$s&bPhone=%2$s&bRole=%3$s&building=%4$s&buildingHouse=%5$s&buildingUnit=%6$s";
 
     /**
      * 获取业主访客二维码  coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
      */
-    String URL_GET_FangKeOPENCODE = menjinIP + "door/coed/getcodes/%1$s/%2$s/%3$s/%4$s/%5$s/%6$s/%7$s/%8$s/%9$s";
-
+    String URL_GET_FangKeOPENCODE = menjinIP + "door/coeds/getcodes?bName=%1$s&bPhone=%2$s&bRole=%3$s&name=%4$s&phone=%5$s&role=%6$s&building=%7$s&buildingHouse=%8$s&buildingUnit=%9$s";
 
     /**
      * 获取首页通知活动标题

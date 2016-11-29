@@ -246,7 +246,6 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                 }catch (Exception e){
 
                 }
-
             }
             progressDialog.hide();
             swipe_container.setRefreshing(false);

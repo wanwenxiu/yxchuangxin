@@ -14,28 +14,22 @@ import java.util.Map;
  */
 public interface DoorController extends API{
 
-
-
-
 	/**
 	 * 获得业主开门二维码
 	 * GetYEZHUDoorCODE
 	 * @param mRequestQueue
-	 * @param parm
 	 * @param listener
 	 */
-	void GetYEZHUDoorCODE(RequestQueue mRequestQueue,Object[] parm,
-						  final ResultListener<OpenDoorCode> listener);
-
+	void GetYEZHUDoorCODE(RequestQueue mRequestQueue, Object[] parm,
+						  ResultListener<OpenDoorCode> listener);
 
 	/**
 	 * 获得访客开门二维码
 	 * GetFangKeDoorCODE
 	 * @param mRequestQueue
-	 * @param parm
 	 * @param listener
 	 */
 	void GetFangKeDoorCODE(RequestQueue mRequestQueue,Object[] parm,
-						  final ResultListener<OpenDoorCode> listener);
+						   ResultListener<OpenDoorCode> listener);
 
 }

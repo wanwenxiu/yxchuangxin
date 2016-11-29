@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 
 import java.util.List;
@@ -26,7 +27,8 @@ import java.util.List;
 @SuppressLint("InflateParams")
 public class ChengyuanListAdapter extends BaseAdapter {
 	private Context mContext;
-	private List<CxwyYezhu> listDatas;
+	//yz.yezhu_id,yz.yezhu_shouji, yz.yezhu_name,fwyz.fwyzType
+	private List<AppYezhuFangwu> listDatas;
 
 	/** 视图容器 */
 	private LayoutInflater listContainer;
@@ -36,7 +38,7 @@ public class ChengyuanListAdapter extends BaseAdapter {
 	/** handler*/
 	private Handler handler;
 
-	public ChengyuanListAdapter(List<CxwyYezhu> listData,
+	public ChengyuanListAdapter(List<AppYezhuFangwu> listData,
 								Context context,Handler mhandler) {
 		this.mContext = context;
 		this.listDatas = listData;
@@ -83,13 +85,25 @@ public class ChengyuanListAdapter extends BaseAdapter {
 		}
 
 		// 加载数据
-		final CxwyYezhu yezhu = listDatas.get(position);
-
-		holder.tel.setText(yezhu.getYezhuShouji());
-		holder.name.setText(yezhu.getYezhuName());
-//		if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi()) ){
-//			holder.name.setText(yezhu.getYezhuName()+"("+yezhu.getYezhuGuanxi()+")");
-//		}
+		final AppYezhuFangwu yezhu = listDatas.get(position);
+		//yz.yezhu_id,yz.yezhu_shouji, yz.yezhu_name,fwyz.fwyzType
+		//yzid ld dy fh
+		holder.tel.setText(yezhu.getFwLoudong());
+		holder.name.setText(yezhu.getFwDanyuan());
+		//0产权人1家属2租客3其他4.历史产权人
+		if(yezhu.getFwId() != null){
+			if(yezhu.getFwId() == 0){
+				holder.name.setText(yezhu.getFwDanyuan()+"(产权人)");
+			}else if(yezhu.getFwId() == 1){
+				holder.name.setText(yezhu.getFwDanyuan()+"(家属)");
+			}else if(yezhu.getFwId() == 2){
+				holder.name.setText(yezhu.getFwDanyuan()+"(租客)");
+			}else if(yezhu.getFwId() == 3){
+				holder.name.setText(yezhu.getFwDanyuan()+"(其他)");
+			}else{
+				holder.name.setText(yezhu.getFwDanyuan()+"(历史产权人)");
+			}
+		}
 		holder.type.setText("删除");
 
 		holder.type.setOnClickListener(new View.OnClickListener() {
@@ -104,11 +118,11 @@ public class ChengyuanListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	public List<CxwyYezhu> getListDatas() {
+	public List<AppYezhuFangwu> getListDatas() {
 		return listDatas;
 	}
 
-	public void setListDatas(List<CxwyYezhu> listDatas) {
+	public void setListDatas(List<AppYezhuFangwu> listDatas) {
 		this.listDatas = listDatas;
 		notifyDataSetChanged();
 	}

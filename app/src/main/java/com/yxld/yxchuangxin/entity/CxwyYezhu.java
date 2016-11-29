@@ -1,12 +1,17 @@
 package com.yxld.yxchuangxin.entity;
 
+import com.yxld.yxchuangxin.base.BaseEntity;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * CxwyYezhu entity. @author Carrol
  */
 
-public class CxwyYezhu implements java.io.Serializable{
+public class CxwyYezhu extends BaseEntity implements java.io.Serializable{
+
+	private List<CxwyYezhu> rows;
 
 	// Fields
 	private Integer yezhuId; //业主id
@@ -23,8 +28,6 @@ public class CxwyYezhu implements java.io.Serializable{
 	private String yezhuPwd="";//密码
 	private Integer yezhuType;//业主类型：0业主 1 游客
 	private String yezhuBiezhu1="";//添加时间
-	
-	// Constructors
 
 	/** default constructor */
 	public CxwyYezhu() {
@@ -46,7 +49,6 @@ public class CxwyYezhu implements java.io.Serializable{
 		this.yezhuType = yezhuType;
 		this.yezhuBiezhu1 = yezhuBiezhu1;
 	}
-
 // Property accessors
 
 	public Integer getYezhuId() {
@@ -160,6 +162,14 @@ public class CxwyYezhu implements java.io.Serializable{
 
 	public void setYezhuType(Integer yezhuType) {
 		this.yezhuType = yezhuType;
+	}
+
+	public List<CxwyYezhu> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<CxwyYezhu> rows) {
+		this.rows = rows;
 	}
 
 	@Override

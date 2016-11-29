@@ -8,6 +8,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="2.3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="当前小区:"
+            android:textSize="@dimen/size_14" />
+
+        <!--<Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="7"
+            android:background="@drawable/whrite_balack_corners_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>-->
+        <TextView
+            android:id="@+id/xiaoqu"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="7"
+            android:paddingLeft="10dp" >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -69,7 +103,8 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:weightSum="10" 
-         android:layout_marginRight="5dp">
+         android:layout_marginRight="5dp"
+         android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -91,32 +126,6 @@
             android:paddingLeft="10dp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:weightSum="10" 
-         android:layout_marginRight="5dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="2.3"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:text="选择小区:"
-            android:textSize="@dimen/size_14" />
-
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="7"
-            android:background="@drawable/whrite_balack_corners_bg" 
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"/>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

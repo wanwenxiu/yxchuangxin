@@ -127,12 +127,11 @@ public class EmployerActivity extends BaseActivity {
 //		yz_jf.setText(Contains.cxwyYezhu.get(position).getYezhuJiaofangtime());
 //		yz_rz.setText(Contains.cxwyYezhu.get(position).getYezhuRuzhutime());
 //		yz_tel.setText(Contains.cxwyYezhu.get(position).getYezhuPhone());
-//		yz_phone1.setText(Contains.cxwyYezhu.get(position).getYezhuShouji());
+		yz_phone1.setText(Contains.user.getYezhuShouji());
 //		yz_phone2.setText(Contains.cxwyYezhu.get(position).getYezhuBianhao());
 //		yz_fw.setText(Contains.cxwyYezhu.get(position).getYezhuStatus());
 //		yz_sy.setText(Contains.cxwyYezhu.get(position).getYezhuStatus2());
 //		yz_hx.setText(Contains.cxwyYezhu.get(position).getYezhuHuxing());
-//		yz_mj.setText(Contains.cxwyYezhu.get(position).getYezhuMianji());
 
 //		//如果是房东展示完整身份证信息
 //		if(Contains.cxwyYezhu.get(position).getYezhuParentId() == 0){

@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity {
 
 		loginController.getLogin(mRequestQueue,
 				new Object[] { login_tel.getText().toString(),
-						login_pwd.getText().toString() }, listener);
+						StringUitl.getMD5(login_pwd.getText().toString()) }, listener);
 	}
 
 	private ResultListener<LoginEntity> listener = new ResultListener<LoginEntity>() {
@@ -229,7 +229,6 @@ public class LoginActivity extends BaseActivity {
 				addListener(parent.getChildAt(i));
 			}
 		} else {
-
 			loginSubmit.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -244,9 +243,8 @@ public class LoginActivity extends BaseActivity {
 						} else {
 							Toast.makeText(LoginActivity.this, "请确定账号密码格式是否正确", Toast.LENGTH_SHORT).show();
 							loginSubmit.setClickable(true);
+							initDataFromNet();
 						}
-
-						initDataFromNet();
 					}
 				}
 			});

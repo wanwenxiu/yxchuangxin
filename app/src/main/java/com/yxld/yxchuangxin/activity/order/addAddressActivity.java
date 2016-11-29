@@ -36,20 +36,20 @@ import com.yxld.yxchuangxin.util.ToastUtil;
  * Created by yishangfei on 2016/3/4.
  */
 public class addAddressActivity extends BaseActivity {
-	String[] city = { };
-	private Spinner spinner1;
+//	String[] city = { };
+//	private Spinner spinner1;
 	
 	/** 姓名*/
 	private EditText editName;
 	/** 电话*/
 	private EditText editPhone;
-	/** 选择省市*/
-	private TextView selectAddress;
+//	/** 选择省市*/
+//	private TextView selectAddress;
 	/** 详细地址*/
 	private EditText editDestail;
 
 	/** 保存地址*/
-	private TextView addAddress;
+	private TextView addAddress,xiaoqu;
 	
 	private RepairController repairController;
 	
@@ -57,7 +57,7 @@ public class addAddressActivity extends BaseActivity {
 	
 	private AddressController addressController ;
 	
-	private String xiangmuName;
+//	private String xiangmuName;
 	
 
 	/** 添加地址 为 true 。修改地址为false*/
@@ -65,7 +65,6 @@ public class addAddressActivity extends BaseActivity {
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
-
 		setContentView(R.layout.new_address);
 		getSupportActionBar().setTitle("新增收获地址");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,32 +82,33 @@ public class addAddressActivity extends BaseActivity {
 	protected void initView() {
 		editName =(EditText) findViewById(R.id.editName);
 		editPhone =(EditText) findViewById(R.id.editPhone);
-		selectAddress = (TextView) findViewById(R.id.selectAddress);
-		
-		selectAddress.setOnClickListener(this);
+//		selectAddress = (TextView) findViewById(R.id.selectAddress);
+		xiaoqu = (TextView) findViewById(R.id.xiaoqu);
+//		selectAddress.setOnClickListener(this);
 		editDestail = (EditText) findViewById(R.id.editDestail);
 		
-		spinner1 = (Spinner)findViewById(R.id.spinner1);
-		
+//		spinner1 = (Spinner)findViewById(R.id.spinner1);
+//		spinner1.setTextAlignment();
 		addAddress = (TextView) findViewById(R.id.addAddress);
 		addAddress.setOnClickListener(this);
+		xiaoqu.setText(Contains.curSelectXiaoQuName);
 		
-		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0,
-					View arg1, int arg2, long arg3) {
-				if(city != null && city.length!=0){
-					xiangmuName = city[arg2];
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				
-			}
-			
-		});
+//		spinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//			@Override
+//			public void onItemSelected(AdapterView<?> arg0,
+//					View arg1, int arg2, long arg3) {
+//				if(city != null && city.length!=0){
+//					xiangmuName = city[arg2];
+//				}
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> arg0) {
+//
+//			}
+//
+//		});
 		initDataFromNet();
 	}
 	
@@ -120,8 +120,9 @@ public class addAddressActivity extends BaseActivity {
 			setTitle("修改收货地址");
 			editName.setText(address.getAddName());
 			editPhone.setText(address.getAddTel());
-			selectAddress.setText(address.getAddSpare1());
+//			selectAddress.setText(address.getAddSpare1());
 			editDestail.setText(address.getAddAdd());
+			xiaoqu.setText(address.getAddVillage());
 		}else{
 			isADD = true;
 			setTitle("新增收获地址");
@@ -135,8 +136,8 @@ public class addAddressActivity extends BaseActivity {
 			addAddress();
 			break;
 		case R.id.selectAddress:
-			AddressPicker addressPicker = new AddressPicker();
-			addressPicker.selectAddressDialog(this,selectAddress);
+//			AddressPicker addressPicker = new AddressPicker();
+//			addressPicker.selectAddressDialog(this,selectAddress);
 			break;
 		default:
 			break;
@@ -145,45 +146,45 @@ public class addAddressActivity extends BaseActivity {
 	
 	@Override
 	protected void initDataFromNet() {
-		super.initDataFromNet();
-		if (repairController == null) {
-			repairController = new ReparirControllerImpl();
-		}
-		repairController.getProject(mRequestQueue, listener);
+//		super.initDataFromNet();
+//		if (repairController == null) {
+//			repairController = new ReparirControllerImpl();
+//		}
+//		repairController.getProject(mRequestQueue, listener);
 	}
 	
-	private ResultListener<RepairList> listener = new ResultListener<RepairList>() {
-
-		@Override
-		public void onResponse(RepairList info) {
-			progressDialog.hide();
-			// 获取请求码
-			if (info.status != STATUS_CODE_OK) {
-				onError(info.MSG);
-				return;
-			}
-			if (isEmptyList(info.getRows())) {
-				onError("获取失败");
-			} else {
-				listData = info.getRows();
-				city = new String[info.getRows().size()];
-				for (int i = 0; i < info.getRows().size(); i++) {
-
-					String xq = info.getRows().get(i).getXiangmuLoupan();
-					city[i] = xq;
-					ArrayAdapter aa = new ArrayAdapter(addAddressActivity.this,
-							android.R.layout.simple_dropdown_item_1line, city);
-					spinner1.setAdapter(aa);
-				}
-			}
-			
-		}
-
-		@Override
-		public void onErrorResponse(String errMsg) {
-			onError("请求失败");
-		}
-	};
+//	private ResultListener<RepairList> listener = new ResultListener<RepairList>() {
+//
+//		@Override
+//		public void onResponse(RepairList info) {
+//			progressDialog.hide();
+//			// 获取请求码
+//			if (info.status != STATUS_CODE_OK) {
+//				onError(info.MSG);
+//				return;
+//			}
+//			if (isEmptyList(info.getRows())) {
+//				onError("获取失败");
+//			} else {
+//				listData = info.getRows();
+//				city = new String[info.getRows().size()];
+//				for (int i = 0; i < info.getRows().size(); i++) {
+//
+//					String xq = info.getRows().get(i).getXiangmuLoupan();
+//					city[i] = xq;
+//					ArrayAdapter aa = new ArrayAdapter(addAddressActivity.this,
+//							android.R.layout.simple_dropdown_item_1line, city);
+//					spinner1.setAdapter(aa);
+//				}
+//			}
+//
+//		}
+//
+//		@Override
+//		public void onErrorResponse(String errMsg) {
+//			onError("请求失败");
+//		}
+//	};
 
 	
 	/**
@@ -196,11 +197,11 @@ public class addAddressActivity extends BaseActivity {
 		if(StringUitl.isNotEmpty(this, editName, "请填写收货人")){
 			if(StringUitl.isNotEmpty(this, editPhone, "请填写联系电话")){
 				if(StringUitl.isNotEmpty(this, editDestail, "请填写详细地址")){
-					if(selectAddress.getText().equals("请选择省市区") || selectAddress.getText().equals("")){
-						ToastUtil.show(this, "请选择省市区");
-					}else{
+//					if(selectAddress.getText().equals("请选择省市区") || selectAddress.getText().equals("")){
+//						ToastUtil.show(this, "请选择省市区");
+//					}else{
 						requestAddUpdateAdd();
-					}
+//					}
 				}
 			}
 		}
@@ -222,9 +223,9 @@ public class addAddressActivity extends BaseActivity {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("add.addName", editName.getText().toString());
-		map.put("add.addVillage", xiangmuName);
+		map.put("add.addVillage", xiaoqu.getText().toString());
 		map.put("add.addTel", editPhone.getText().toString());
-		map.put("add.addSpare1", selectAddress.getText().toString());
+//		map.put("add.addSpare1", selectAddress.getText().toString());
 		map.put("add.addAdd", editDestail.getText().toString());
 		map.put("add.addUserName", Contains.user.getYezhuName()+"");
 		map.put("add.addStatus", "1");

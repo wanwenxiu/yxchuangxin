@@ -1,5 +1,7 @@
 package com.yxld.yxchuangxin.activity.mine;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.StringUitl;
 
 /**
  * @ClassName: UpdatePwd 
@@ -32,10 +35,12 @@ public class UpdatePwd extends BaseActivity {
 	private TextView next_step;
 	private LoginController loginController;
 	private ExplosionField mExplosionField;
+	private SharedPreferences sp;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_updatepwd);
+		sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 		getSupportActionBar().setTitle("修改密码");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -75,8 +80,7 @@ public class UpdatePwd extends BaseActivity {
 		String repeat_pwd = repeat_password.getText().toString();
 		String id = Contains.user.getYezhuShouji();
 		if (new_pwd.equals(repeat_pwd)) {
-			loginController.getUpdatePwd(mRequestQueue, new Object[] { id,
-					old_pwd, new_pwd }, listener);
+			loginController.getUpdatePwd(mRequestQueue, new Object[] {id, StringUitl.getMD5(new_pwd)}, listener);
 		} else {
 			Toast.makeText(UpdatePwd.this, "两次输入的新密码不一致",
 					Toast.LENGTH_SHORT).show();
@@ -101,6 +105,10 @@ public class UpdatePwd extends BaseActivity {
 			mExplosionField.explode(next_step);
 			next_step.setOnClickListener(null);
 			Contains.user.setYezhuPwd(new_password.getText().toString());
+			SharedPreferences.Editor editor = sp.edit();
+			editor.putString("NAME", Contains.user.getYezhuShouji());
+			editor.putString("PASSWORD", new_password.getText().toString());
+			editor.commit();
 //			dbUtil.clearData(CxwyMallUser.class);
 //			dbUtil.insert(Contains.cxwyMallUser, Contains.cxwyMallUser.getUserId() + "");
 			finish();

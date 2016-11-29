@@ -108,8 +108,12 @@ public class GoodsPraiseActivity extends BaseActivity implements
 			count++;
 			map.put("commentList[" + count + "].pingjiaShangpNum", mData.get(i)
 					.getPingjiaShangpNum() + "");
-			map.put("commentList[" + count + "].pingjiaLevel", mData.get(i)
-					.getPingjiaLevel() + "");
+
+			int star = mData.get(i).getPingjiaLevel();
+			if(star==2 || star==4){
+				star =3;
+			}
+			map.put("commentList[" + count + "].pingjiaLevel",star + "");
 			map.put("commentList[" + count + "].pingjiaBody", mData.get(i)
 					.getPingjiaBody() + "");
 			map.put("commentList[" + count + "].pingjiaBeiyong1", mData.get(i)

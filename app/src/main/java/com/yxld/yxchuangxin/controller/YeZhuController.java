@@ -2,6 +2,7 @@ package com.yxld.yxchuangxin.controller;
 
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.entity.CxwyMallUseDaijinquan;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
@@ -52,7 +53,7 @@ public interface YeZhuController extends API{
 	 * @return void
 	 * @throws
 	 */
-	void getAllChengyuanList(RequestQueue mRequestQueue, Object[] parm, ResultListener<CxwyYezhu> listener);
+	void getAllChengyuanList(RequestQueue mRequestQueue, Object[] parm, ResultListener<AppYezhuFangwu> listener);
 
 
 
@@ -76,7 +77,7 @@ public interface YeZhuController extends API{
 	 * @return void
 	 * @throws
 	 */
-	void addChengyuan(RequestQueue mRequestQueue, String url, Map<String, String> parm,
+	void addChengyuan(RequestQueue mRequestQueue, Map<String, String> parm,
 							  final ResultListener<BaseEntity> listener);
 
 	/**

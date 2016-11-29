@@ -104,8 +104,7 @@ public class Wuyeadapter extends BaseAdapter {
                                // startActivity(CameraActivity.class);
                                 break;
                             case 3:
-                                if (Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0
-                                        || Contains.user.getYezhuCardNum() == null
+                                if (Contains.user == null || Contains.user.getYezhuCardNum() == null
                                         || Contains.user.getYezhuShouji() == null) {
                                     ToastUtil.show(context, "请至物业完善业主身份证和手机号码信息再进行查询");
                                     return;
@@ -119,6 +118,7 @@ public class Wuyeadapter extends BaseAdapter {
                                     cz.putExtras(cz1);
                                     context.startActivity(cz);
                                 }
+
                                 break;
                         }
                     }
@@ -183,16 +183,15 @@ public class Wuyeadapter extends BaseAdapter {
                                 String xiaoqu = "";
                                 if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() == 0){
                                     xiaoqu= Contains.appYezhuFangwus.get(0).getFwLoupanId()+"";
+                                    Intent tz = new Intent();
+                                    tz.setClass(context, // context
+                                            WebViewActivity.class);// 跳转的activity
+                                    Bundle tz1 = new Bundle();
+                                    tz1.putString("name", "通知活动");
+                                    tz1.putString("address",API.IP_PRODUCT+"/MyJsp.jsp?luopan="+xiaoqu);
+                                    tz.putExtras(tz1);
+                                    context.startActivity(tz,tz1);
                                 }
-                                Intent tz = new Intent();
-                                tz.setClass(context, // context
-                                        WebViewActivity.class);// 跳转的activity
-                                Bundle tz1 = new Bundle();
-                                tz1.putString("name", "通知活动");
-                                tz1.putString("address",API.IP_PRODUCT+"/MyJsp.jsp?luopan="+xiaoqu);
-//                              tz1.putString("address", "http://192.168.0.114:8080/wygl/tongzhi.jsp");
-                                tz.putExtras(tz1);
-                                context.startActivity(tz,tz1);
                                 break;
                             case 1://维修服务
 //                                ToastUtil.show(context, "敬请期待");
@@ -209,18 +208,19 @@ public class Wuyeadapter extends BaseAdapter {
                                 startActivity(ExpressActivity.class);
                                 break;
                             case 4://投诉建议
-                                if (Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
-                                Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Intent ts = new Intent();
-                                ts.setClass(context, // context
-                                        WebViewActivity.class);// 跳转的activity
-                                Bundle ts1 = new Bundle();
-                                ts1.putString("name", "投诉建议");
-                                ts1.putString("address", API.IP_PRODUCT+"/tousujianyi.jsp?yezhuid="+Contains.appYezhuFangwus.get(0).getYezhuId());
-                                ts.putExtras(ts1);
-                                context.startActivity(ts);
-                            }
+                                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0 || Contains.appYezhuFangwus.get(0) == null || Contains.appYezhuFangwus.get(0).getFwLoupanId() == null
+                                        || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())){
+                                    Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Intent ts = new Intent();
+                                    ts.setClass(context, // context
+                                            WebViewActivity.class);// 跳转的activity
+                                    Bundle ts1 = new Bundle();
+                                    ts1.putString("name", "投诉建议");
+                                    ts1.putString("address", API.IP_PRODUCT+"/tousujianyi.jsp?yezhuid="+Contains.user.getYezhuId()+"tousuXiangmuId="+Contains.appYezhuFangwus.get(0).getFwLoupanId());
+                                    ts.putExtras(ts1);
+                                    context.startActivity(ts);
+                                }
                                 break;
                             case 5://满意度调查
                                 ToastUtil.show(context, "敬请期待");

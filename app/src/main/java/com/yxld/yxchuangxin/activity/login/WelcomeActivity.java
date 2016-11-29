@@ -30,6 +30,7 @@ import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.LoginEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.SPUtils;
+import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.Utils;
 
@@ -138,7 +139,7 @@ public class WelcomeActivity extends BaseActivity implements
 			loginController.getLogin(
 					mRequestQueue,
 					new Object[] {name,
-							pwd}, this);
+							StringUitl.getMD5(pwd)}, this);
 		}
 
 //		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 500);

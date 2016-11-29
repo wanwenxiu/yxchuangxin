@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.YeZhuController;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.entity.CxwyMallUseDaijinquan;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
@@ -21,6 +22,9 @@ import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.WuyeRecordAndroid;
 import com.yxld.yxchuangxin.http.GsonRequest;
 import com.yxld.yxchuangxin.listener.ResultListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -112,11 +116,11 @@ public class YeZhuControllerImpl implements YeZhuController{
 	}
 
 	@Override
-	public void getAllChengyuanList(RequestQueue mRequestQueue, Object[] parm,final ResultListener<CxwyYezhu> listener) {
-		GsonRequest<CxwyYezhu> gsonRequest = new GsonRequest<CxwyYezhu>(String.format(URL_findall_chengyuan, parm), CxwyYezhu.class, new Response.Listener<CxwyYezhu>() {
+	public void getAllChengyuanList(RequestQueue mRequestQueue, Object[] parm,final ResultListener<AppYezhuFangwu> listener) {
+		GsonRequest<AppYezhuFangwu> gsonRequest = new GsonRequest<AppYezhuFangwu>(String.format(URL_findall_chengyuan, parm), AppYezhuFangwu.class, new Response.Listener<AppYezhuFangwu>() {
 
 			@Override
-			public void onResponse(CxwyYezhu response) {
+			public void onResponse(AppYezhuFangwu response) {
 				if (listener != null) {
 					listener.onResponse(response);
 				}
@@ -162,23 +166,32 @@ public class YeZhuControllerImpl implements YeZhuController{
 	}
 
 	@Override
-	public void addChengyuan(RequestQueue mRequestQueue, String url,final Map<String, String> params,final ResultListener<BaseEntity> listener) {
-		StringRequest stringRequest =new StringRequest(
-				Method.POST,url,
-				new Response.Listener<String>() {
-
-					@Override
-					public void onResponse(String response) {
-						Log.d("geek","获取用户缴费欠费列表"+response );
-						BaseEntity info = null;
-						if(response != null){
-							info = gson.fromJson(response, BaseEntity.class);
-						}
-						if (listener != null) {
-							listener.onResponse(info);
-						}
+	public void addChengyuan(RequestQueue mRequestQueue, final Map<String, String> params,final ResultListener<BaseEntity> listener) {
+		StringRequest stringRequest = new StringRequest(Method.POST,
+				URL_add_chengyuan, new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				Log.d("geek", "添加成员测试response" + response);
+				BaseEntity info = new BaseEntity();
+				if (response != null) {
+					JSONObject jsonObject;
+					try {
+						jsonObject = new JSONObject(response);
+						Log.d("geek",
+								"测试jsonObject" + jsonObject.toString());
+						// 获取状态码
+						info.status = jsonObject.getInt("status");
+						// 获取详细信息
+						info.MSG = jsonObject.getString("MSG");
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
-				}, new Response.ErrorListener() {
+				}
+				if (listener != null) {
+					listener.onResponse(info);
+				}
+			}
+		}, new Response.ErrorListener() {
 
 			@Override
 			public void onErrorResponse(VolleyError error) {
@@ -188,12 +201,11 @@ public class YeZhuControllerImpl implements YeZhuController{
 			}
 		}) {
 			@Override
-			protected Map<String, String> getParams()
-					throws AuthFailureError {
+			protected Map<String, String> getParams() throws AuthFailureError {
 				return params;
 			}
 		};
-		stringRequest.setTag(url);
+		stringRequest.setTag(URL_add_chengyuan);
 		mRequestQueue.add(stringRequest);
 	}
 

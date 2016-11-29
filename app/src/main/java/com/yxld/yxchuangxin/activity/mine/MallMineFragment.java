@@ -103,7 +103,7 @@ public class MallMineFragment extends BaseFragment {
         llth = (TextView) view.findViewById(R.id.llth);
         llth.setOnClickListener(this);
         touxiang = (TextView) view.findViewById(R.id.touxiang);
-        touxiang.setText(Contains.user.getYezhuName()); // animate
+        touxiang.setText(Contains.user.getYezhuShouji()); // animate
         touxiang.setOnClickListener(this);
         coupon=view.findViewById(R.id.coupon);
         coupon.setOnClickListener(this);
@@ -183,14 +183,20 @@ public class MallMineFragment extends BaseFragment {
                 startActivity(record);
                 break;
             case R.id.jianyi:
-                Intent jy = new Intent();
-                jy.setClass(getActivity(), // context
-                        WebViewActivity.class);// 跳转的activity
-                Bundle jy1 = new Bundle();
-                jy1.putString("name", "商城建议");
-                jy1.putString("address", "http://222.240.1.133/wygl/malljianyi.jsp?malluserid="+Contains.user.getYezhuId());
-                jy.putExtras(jy1);
-                startActivity(jy);
+                if (Contains.curSelectXiaoQuName != null && Contains.curSelectXiaoQuId != 0) {
+                    int  id  = Contains.appYezhuFangwus.get(0).getFwLoupanId();
+                    Intent jy = new Intent();
+                    jy.setClass(getActivity(), // context
+                            WebViewActivity.class);// 跳转的activity
+                    Bundle jy1 = new Bundle();
+                    jy1.putString("name", "商城建议");
+                    jy1.putString("address", API.IP_PRODUCT + "/malljianyi.jsp?malluserid="+Contains.user.getYezhuId()+"&tousuXiangmuId="+id);
+                    jy.putExtras(jy1);
+                    startActivity(jy);
+                }else {
+                    Toast.makeText(getActivity(), "您没有选择小区", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             default:

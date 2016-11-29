@@ -54,7 +54,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
-                    android:text="碳烤猪肉铺（选用原生态绿色健康食品，经现代科学加工工艺精制而成)"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/size_15" />
 
@@ -70,7 +70,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
-                        android:text="￥ 16.5"
+                        android:text=""
                         android:textColor="@color/color_main_color"
                         android:textSize="@dimen/size_15" />
 
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:text="送至: 华菱蓝调国际 1201"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_15" />
 
@@ -146,7 +146,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
-                        android:text="剩余26件"
+                        android:text="剩余0件"
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_15" />
                 </RelativeLayout>
@@ -213,7 +213,7 @@
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
-                    android:text="宝贝评价（66）"
+                    android:text="宝贝评价（0）"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size_13" />
 
@@ -237,7 +237,7 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="5dp"
                         android:gravity="center_vertical"
-                        android:text="轩轩"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_13"
                         android:visibility="gone" />
@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
-                    android:text="口味：香辣味"
+                    android:text=""
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/size_13"
                     android:visibility="gone" />

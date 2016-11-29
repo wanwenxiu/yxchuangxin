@@ -73,7 +73,6 @@ public class Contains {
 	/** token*/
 	public static String token="";
 
-
 	/** Pay Callback Server URL **/
 	public final static String URL_PAY_CALLBACK = "http://222.240.1.133/WechatPayServer";
 	// 微信开放平台审核通过的应用APPID

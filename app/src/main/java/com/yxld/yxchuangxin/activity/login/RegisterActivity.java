@@ -30,11 +30,15 @@ import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.view.TimeButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -246,7 +250,7 @@ public class RegisterActivity extends BaseActivity {
 			regsubmit.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-                    if (checkBox_forcheck.isChecked()==false){
+					if (checkBox_forcheck.isChecked()==false){
 						Toast.makeText(RegisterActivity.this, "请仔细阅读用户协议并勾选", Toast.LENGTH_SHORT).show();
 						return;
 					}
@@ -318,7 +322,7 @@ public class RegisterActivity extends BaseActivity {
 						Toast.makeText(getApplicationContext(), "短信验证成功", Toast.LENGTH_SHORT).show();
 						loginController.getRegister(mRequestQueue, new Object[] {
 								register_tel.getText().toString(),
-								register_pwd.getText().toString() }, listener);
+								StringUitl.getMD5(register_pwd.getText().toString()) }, listener);
 					}
 				} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
 					Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
@@ -339,7 +343,6 @@ public class RegisterActivity extends BaseActivity {
 		}
 
 	};
-
 
 	@Override
 	protected void onDestroy() {

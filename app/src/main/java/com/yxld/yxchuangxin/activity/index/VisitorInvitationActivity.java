@@ -24,15 +24,14 @@ import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.DoorController;
 import com.yxld.yxchuangxin.controller.impl.DoorControllerImpl;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
-import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.OpenDoorCode;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
-import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 /**
@@ -64,7 +63,7 @@ public class VisitorInvitationActivity extends BaseActivity  {
     private TextView sure;
 
 
-    private AppYezhuFangwu fangwu = new AppYezhuFangwu();
+    private AppYezhuFangwu house = new AppYezhuFangwu();
     String address = "";
 
     private ImageView tongxunlu;
@@ -76,8 +75,8 @@ public class VisitorInvitationActivity extends BaseActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
         if(list != null){
-            fangwu = list.get(0);
-            Log.d("geek", "业主" + fangwu.toString());
+            house = list.get(0);
+            Log.d("geek", "业主" + house.toString());
         }
     }
 
@@ -97,10 +96,9 @@ public class VisitorInvitationActivity extends BaseActivity  {
         phone = (EditText) findViewById(R.id.phone);
         sure.setOnClickListener(this);
         addr = (TextView) findViewById(R.id.addr);
-
-        address = fangwu.getXiangmuLoupan() + "" + fangwu.getFwLoudong() + "栋" + fangwu.getFwDanyuan() + "单元" + fangwu.getFwFanghao();
-        addr.setText(address);
         tongxunlu.setOnClickListener(this);
+        address = house.getXiangmuLoupan() + "" + house.getFwLoudong() + "栋" + house.getFwDanyuan() + "单元" + house.getFwFanghao();
+        addr.setText(address);
     }
 
     @Override
@@ -118,46 +116,26 @@ public class VisitorInvitationActivity extends BaseActivity  {
                         if(DoorController == null ){
                             DoorController = new DoorControllerImpl();
                         }
-//                        if(yezhu != null && yezhu.getYezhuName() != null && yezhu.getYezhuParentId() != null
-//                                && yezhu.getYezhuGuanxi() != null && yezhu.getYezhuShouji() != null
-//                                && yezhu.getYezhuBeizhu2() != null && yezhu.getYezhuLoudong() != null
-//                                && yezhu.getYezhuDanyuan() != null){
-//
-//                            //业主角色
-//                            int Role = 0;
-//                            if(yezhu.getYezhuParentId() == 0){
-//                                Role = 0;
-//                            }
-//
-//                            if(yezhu.getYezhuGuanxi() != null && !"".equals(yezhu.getYezhuGuanxi())){
-//                                if("家人".equals(yezhu.getYezhuGuanxi())){
-//                                    Role = 1;
-//                                }else if("租客".equals(yezhu.getYezhuGuanxi())){
-//                                    Role = 2;
-//                                }
-//                            }
-//
-//                            //业主名称
-//                            String yezhuname = "";
-//                            //访客名称
-//                            String fangkename = "";
-//                            try {
-//                                yezhuname =  URLEncoder.encode(yezhu.getYezhuName(),"UTF-8").toString();
-//                                fangkename =  URLEncoder.encode(name.getText().toString(),"UTF-8").toString();
-//                            }catch (Exception e){
-//                                Log.d("geek","用户名编码失败");
-//                            }
-//
-//
-//                            Log.d("geek","yezhuname="+yezhuname+",fangkename="+fangkename);
-//                            //coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
-//                            DoorController.GetFangKeDoorCODE(mRequestQueue,new Object[]{
-//                                    fangkename,phone.getText().toString(),3,yezhuname,yezhu.getYezhuShouji(),Role,
-//                                    yezhu.getYezhuBeizhu2()
-//                                    ,yezhu.getYezhuLoudong(),yezhu.getYezhuDanyuan()},OpenDoorCode);
-//                        }else{
-//                            ToastUtil.show(this,"业主信息不完善");
-//                        }
+                        //http://120.25.78.92/coed/getcodes?bName=##&bPhone=##&bRole=##&name=##&phone=##&role=##building=##&buildingHouse=##&buildingUnit=##
+                        if(house != null && house.getFwyzType() != null && Contains.user.getYezhuShouji() != null
+                                && house.getFwLoupanId() != null && house.getFwLoudong() != null
+                                && house.getFwDanyuan() != null){
+
+                            String nameyz = "";
+                            if(Contains.user.getYezhuName() == null || "".equals(Contains.user.getYezhuName())){
+                                nameyz= Contains.user.getYezhuShouji();
+                            }else{
+                                nameyz = Contains.user.getYezhuName();
+                            }
+
+                            //coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
+                            DoorController.GetFangKeDoorCODE(mRequestQueue,new Object[]{name.getText().toString(),
+                                    phone.getText().toString(),"3",
+                                    nameyz,Contains.user.getYezhuShouji(),String.valueOf(house.getFwyzType()),
+                                    String.valueOf(house.getFwLoupanId()),house.getFwLoudong(),house.getFwDanyuan()},OpenDoorCode);
+                        }else{
+                            ToastUtil.show(this,"业主信息不完善");
+                        }
                 }
                 break;
             case R.id.tongxunlu:

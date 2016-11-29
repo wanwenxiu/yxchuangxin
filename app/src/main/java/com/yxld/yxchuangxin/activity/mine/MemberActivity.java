@@ -63,7 +63,7 @@ public class MemberActivity extends BaseActivity {
 		account_card = (TextView) findViewById(R.id.account_card);
 		yz_zhenshiname = (TextView) findViewById(R.id.yz_zhenshiname);
 
-		if(Contains.user == null || Contains.appYezhuFangwus.size() ==0){
+		if(Contains.user == null || Contains.appYezhuFangwus == null ||Contains.appYezhuFangwus.size() ==0){
 			yz_zhenshiname.setText("业主信息未完善");
 		}else{
 			yz_zhenshiname.setText(Contains.user.getYezhuName());
@@ -147,6 +147,9 @@ public class MemberActivity extends BaseActivity {
 //			//保存用户ID和账号至配置文件中
 //			SPUtils.put(this, CB_SAVE_PWD, false);
 //			SPUtils.put(this, LAST_LOGIN_USER_ID, "");
+			//退出登录清除楼盘信息及用户信息
+			Contains.curSelectXiaoQuName = "";
+			Contains.curSelectXiaoQuId = 0;
 			Contains.user = null;
 			SharedPreferences.Editor editor = sp.edit();
 			editor.putString("NAME", "");

@@ -222,7 +222,9 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			}else{
 				goodNum.setText("剩余"+curGood.getShangpinNum()+"件");
 			}
-			address.setText(curGood.getShangpinProject()+"");
+			if(Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)){
+				address.setText(Contains.curSelectXiaoQuName);
+			}
 		}
 	}
 

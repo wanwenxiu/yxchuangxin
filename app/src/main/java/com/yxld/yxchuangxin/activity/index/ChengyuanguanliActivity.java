@@ -17,6 +17,7 @@ import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.YeZhuController;
 import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
@@ -44,7 +45,7 @@ public class ChengyuanguanliActivity extends BaseActivity {
 	private ChengyuanListAdapter adapter;
 
 	/** 成员数据*/
-	private List<CxwyYezhu> listdata = new ArrayList<CxwyYezhu>();
+	private List<AppYezhuFangwu> listdata = new ArrayList<AppYezhuFangwu>();
 
 	/** 业主接口实现类*/
 	private YeZhuController yezhuController;
@@ -82,7 +83,12 @@ public class ChengyuanguanliActivity extends BaseActivity {
 		submit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(ChengyuanguanliAddActivity.class);
+				if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() != 0 &&
+						Contains.appYezhuFangwus.get(0) != null && Contains.appYezhuFangwus.get(0).getFwId() != null){
+					startActivity(ChengyuanguanliAddActivity.class);
+				}else{
+					ToastUtil.show(ChengyuanguanliActivity.this,"房屋信息不完善");
+				}
 			}
 		});
 	}
@@ -102,37 +108,40 @@ public class ChengyuanguanliActivity extends BaseActivity {
 
 	}
 
-	//@Override
-//	protected void initDataFromNet() {
-//		super.initDataFromNet();
-//		if(yezhuController == null){
-//			yezhuController = new YeZhuControllerImpl();
-//		}
-//
-//		yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.cxwyYezhu.get(0).getYezhuId()}, new ResultListener<CxwyYezhu>() {
-//			@Override
-//			public void onResponse(CxwyYezhu info) {
-//				// 获取请求码
-//				if (info.status != STATUS_CODE_OK) {
-//					onError(info.MSG);
-//					return;
-//				}
-//				if (isEmptyList(info.getRows())) {
-//					ToastUtil.show(ChengyuanguanliActivity.this, "没有查询到记录");
-//				} else {
-//					listdata = info.getRows();
-//					adapter.setListDatas(listdata);
-//				}
-//				progressDialog.hide();
-//			}
-//
-//			@Override
-//			public void onErrorResponse(String errMsg) {
-//				onError(errMsg);
-//			}
-//		});
-//
-//	}
+	@Override
+	protected void initDataFromNet() {
+		super.initDataFromNet();
+		if(yezhuController == null){
+			yezhuController = new YeZhuControllerImpl();
+		}
+		if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() >0 && Contains.appYezhuFangwus.get(0) != null
+				&& Contains.appYezhuFangwus.get(0).getFwId() != null
+				&& !"".equals(Contains.appYezhuFangwus.get(0).getFwId())){
+				yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.appYezhuFangwus.get(0).getFwId()}, new ResultListener<AppYezhuFangwu>() {
+					@Override
+					public void onResponse(AppYezhuFangwu info) {
+						if (isEmptyList(info.getRows())) {
+							ToastUtil.show(ChengyuanguanliActivity.this, "没有查询到记录");
+						} else {
+							//yz.yezhu_id,yz.yezhu_shouji, yz.yezhu_name,fwyz.fwyzType
+							listdata = info.getRows();
+							adapter.setListDatas(listdata);
+						}
+						progressDialog.hide();
+					}
+
+					@Override
+					public void onErrorResponse(String errMsg) {
+						onError(errMsg);
+					}
+				});
+
+		}else{
+			ToastUtil.show(this,"业主房屋信息不完善");
+		}
+
+
+	}
 	private android.os.Handler handler = new android.os.Handler(){
 		@Override
 		public void handleMessage(Message msg) {

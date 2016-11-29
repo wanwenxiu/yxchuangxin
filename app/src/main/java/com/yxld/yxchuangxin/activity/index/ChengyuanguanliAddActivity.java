@@ -73,9 +73,9 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(checkedId == R.id.man){
-					curSex = "男";
+					curSex = "0";
 				}else{
-					curSex = "女";
+					curSex = "1";
 				}
 			}
 		});
@@ -84,9 +84,9 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(checkedId == R.id.family){
-					curGuanxi = "家人";
+					curGuanxi = "1";
 				}else{
-					curGuanxi = "租客";
+					curGuanxi = "2";
 				}
 			}
 		});
@@ -143,14 +143,16 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 /** 用于请求参数 */
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("yezhuId", Contains.user.getYezhuId()+"");
-		map.put("yezhuGuanxi", curGuanxi);
+		map.put("fwyzType", curGuanxi);
 		map.put("yezhuCardNum", idcard.getText().toString()+"");
 		map.put("yezhuName", name.getText().toString()+"");
 		map.put("yezhuSex", curSex);
-		map.put("yezhuPhone", tel.getText().toString()+"");
+		map.put("yezhuShouji", tel.getText().toString()+"");
+		map.put("fwyzFw",Contains.appYezhuFangwus.get(0).getFwId()+"");
+		map.put("yezhuGzdw", "");
 		Log.d("geek","map="+map.toString());
 
-		yezhuController.addChengyuan(mRequestQueue, API.URL_add_chengyuan,map, new ResultListener<BaseEntity>() {
+		yezhuController.addChengyuan(mRequestQueue, map, new ResultListener<BaseEntity>() {
 			@Override
 			public void onResponse(BaseEntity info) {
 				// 获取请求码
