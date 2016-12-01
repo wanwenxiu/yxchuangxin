@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
@@ -32,6 +33,8 @@ import com.yxld.yxchuangxin.view.NoScrollListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.yxld.yxchuangxin.controller.API.IP_PRODUCT;
 
 /**
  * @author wwx
@@ -69,6 +72,8 @@ public class OrderListItemAdapter extends BaseAdapter {
     private String totalPrice;
 
     private Handler mHandler;
+
+    private  int orderId;
 
     class ListItemView { // 自定义控件集合
         /**
@@ -166,7 +171,7 @@ public class OrderListItemAdapter extends BaseAdapter {
             listItemView.orderDestailPrice.setText("¥" + totalPrice);
         }
 
-        int orderId = order.getDingdanId();
+        orderId = order.getDingdanId();
         curSaleData.clear();
         for (int i = 0; i < listSaleData.size(); i++) {
             CxwyMallSale mallSale = listSaleData.get(i);
@@ -325,7 +330,8 @@ public class OrderListItemAdapter extends BaseAdapter {
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setText("申请退货");
             orderType2.setVisibility(View.VISIBLE);
-//            orderType3.setText("订单投诉");
+//           orderType3.setText("订单投诉");
+//            orderType3.setVisibility(View.VISIBLE);
             orderType3.setVisibility(View.GONE);
         } else if (state.equals("退货") || state.equals("退货中") || state.equals("退款中")) {
             llOperate.setVisibility(View.VISIBLE);
@@ -369,17 +375,21 @@ public class OrderListItemAdapter extends BaseAdapter {
                 //跳转至评价界面
                 Intent intent = new Intent(mContext, GoodsPraiseActivity.class);
                 mContext.startActivity(intent);
-            }
+           }
 //            else if(tv.getText().toString().equals("订单投诉")){
-//                Intent ts = new Intent();
-//                ts.setClass(mContext, // context
-//                        WebViewActivity.class);// 跳转的activity
-//                Bundle ts1 = new Bundle();
-//                ts1.putString("name", "订单投诉");
-//                Log.d("...", orderids+"");
-//                ts1.putString("address", "http://222.240.1.133/wygl/malltousu.jsp?malluserid="+Contains.cxwyMallUser.getUserId()+"&orderid="+orderids);
-//                ts.putExtras(ts1);
-//                mContext.startActivity(ts);
+//                if(Contains.user == null){
+//                    Toast.makeText(mContext, "您的信息错误,请重试。", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    Intent ts = new Intent();
+//                    ts.setClass(mContext, // context
+//                            WebViewActivity.class);// 跳转的activity
+//                    Bundle ts1 = new Bundle();
+//                    ts1.putString("name", "订单投诉");
+//                    Log.d("...", orderId + "");
+//                    ts1.putString("address", API.IP_PRODUCT + "/malltousu.jsp?malluserid=" + Contains.user.getYezhuId() + "&tousuXiangmuId="+Contains.curSelectXiaoQuId   +"&orderid=" + orderId);
+//                    ts.putExtras(ts1);
+//                    mContext.startActivity(ts);
+//                }
 //            }
             else {
                 Message msg = new Message();

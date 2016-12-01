@@ -42,8 +42,8 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 	private RadioGroup guanxi;
 	private  TextView submit;
 
-	private String curSex = "男";
-	private String curGuanxi = "租客";
+	private String curSex = "0";
+	private String curGuanxi = "1";
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -149,7 +149,7 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 		map.put("yezhuSex", curSex);
 		map.put("yezhuShouji", tel.getText().toString()+"");
 		map.put("fwyzFw",Contains.appYezhuFangwus.get(0).getFwId()+"");
-		map.put("yezhuGzdw", "");
+		map.put("yezhuGzdw", Contains.user.getYezhuGzdw());
 		Log.d("geek","map="+map.toString());
 
 		yezhuController.addChengyuan(mRequestQueue, map, new ResultListener<BaseEntity>() {

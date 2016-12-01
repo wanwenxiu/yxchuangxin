@@ -17,9 +17,9 @@ public interface API {
   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
   String PIC = "http://192.168.8.166:8080";
   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadFile";
-//String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//String PIC="http://www.hnchxwl.com";
-//String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
+//    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+//    String PIC="http://www.hnchxwl.com";
+//    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL

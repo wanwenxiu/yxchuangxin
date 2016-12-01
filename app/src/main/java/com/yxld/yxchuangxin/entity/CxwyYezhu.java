@@ -2,7 +2,6 @@ package com.yxld.yxchuangxin.entity;
 
 import com.yxld.yxchuangxin.base.BaseEntity;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**

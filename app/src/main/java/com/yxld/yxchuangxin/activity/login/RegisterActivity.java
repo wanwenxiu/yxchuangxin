@@ -285,7 +285,7 @@ public class RegisterActivity extends BaseActivity {
 				if (len >= 6) {
 					initDataFromNet();
 				} else {
-					register_button_phone.setTextAfter("密码不对,需要等待5秒").setTextBefore("获取验证码").setLenght(5 * 1000);
+					register_button_phone.setTextAfter("请输入6—16位数字或字母").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
 				break;
 		}

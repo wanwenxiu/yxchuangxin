@@ -87,13 +87,13 @@ public class AppConfig extends Application {
 
 
 	// user your appid the key.
-	private static final String APP_ID = "2882303761517496984";
+	private static final String APP_ID = "2882303761517529181";
 	// user your appid the key.
-	private static final String APP_KEY = "5871749656984";
+	private static final String APP_KEY = "5791752929181";
 
 	// 此TAG在adb logcat中检索自己所需要的信息， 只需在命令行终端输入 adb logcat | grep
 	// com.xiaomi.mipushdemo
-	public static final String TAG = "com.yxld.ysf";
+	public static final String TAG = "com.yxld.yxchuangxin";
 
 	private static DemoHandler sHandler = null;
 	private static BaseActivity sMainActivity = null;

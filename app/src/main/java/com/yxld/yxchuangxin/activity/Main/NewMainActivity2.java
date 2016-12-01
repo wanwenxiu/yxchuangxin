@@ -531,6 +531,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             }else {
                 double latitude1;
                 double longitude1;
+
                 for(int i=0;i<info.getRows().size();i++){
                     //纬度  latitude
                     String latitude =info.getRows().get(i).getXiangmuLatitude();
@@ -538,17 +539,20 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                     String longitude=info.getRows().get(i).getXiangmuLongitude();
                     Log.d("...", latitude);
                     Log.d("...", longitude);
+
                     try {
                         latitude1 = Double.valueOf(latitude);
                         longitude1 = Double.valueOf(longitude);
+
                     } catch (NumberFormatException e) {
                         latitude1 = 0;
-
                         longitude1=0;
+
                     }
                    double d =  getDistance(Contains.longitude,Contains.Latitude,longitude1,latitude1);
                     Log.d("geek",i+"楼盘距离"+d);
                 }
+
 //                //纬度  longitude
 //                double longitude=Double.parseDouble(info.getRows().get(i).getXiangmuLongitude());
 //                getDistance(Contains.longitude,Contains.Latitude,longitude,latitude);
