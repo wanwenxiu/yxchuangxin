@@ -82,18 +82,18 @@ public class SelectPlaceActivity extends BaseActivity {
 
 	@Override
 	protected void initDataFromLocal() {
-		if(StringUitl.isNoEmpty(Contains.AoiName)){
-			placeTipTv.setText("当前定位的小区");
-			placeTv.setText(Contains.AoiName);
-		}else{
-			if(StringUitl.isNoEmpty(Contains.locationCity)){
-				placeTipTv.setText("当前定位的小区");
-				placeTv.setText(Contains.locationCity);
-			}else{
-				placeTipTv.setText("未定位到城市");
-				placeTv.setText("正在定位");
-			}
-		}
+//		if(StringUitl.isNoEmpty(Contains.AoiName)){
+//			placeTipTv.setText("当前定位的小区");
+//			placeTv.setText(Contains.AoiName);
+//		}else{
+//			if(StringUitl.isNoEmpty(Contains.locationCity)){
+//				placeTipTv.setText("当前定位的小区");
+//				placeTv.setText(Contains.locationCity);
+//			}else{
+//				placeTipTv.setText("未定位到城市");
+//				placeTv.setText("正在定位");
+//			}
+//		}
 		initDataFromNet();
 	}
 

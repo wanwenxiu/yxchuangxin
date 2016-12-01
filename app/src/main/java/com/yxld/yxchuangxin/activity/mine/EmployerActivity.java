@@ -30,13 +30,13 @@ public class EmployerActivity extends BaseActivity {
 	private TextView yz_ld;
 	private TextView yz_dy;
 	private TextView yz_fh;
-	private TextView yz_jf;
+//	private TextView yz_jf;
 	private TextView yz_rz;
 	private TextView yz_tel;
 	private TextView yz_phone1;
-	private TextView yz_phone2;
-	private TextView yz_fw;
-	private TextView yz_sy;
+//	private TextView yz_phone2;
+//	private TextView yz_fw;
+//	private TextView yz_sy;
 	private TextView yz_hx;
 	private TextView yz_mj;
 	private TextView yz_card;
@@ -68,13 +68,13 @@ public class EmployerActivity extends BaseActivity {
 		yz_ld = (TextView) findViewById(R.id.yz_ld);
 		yz_dy = (TextView) findViewById(R.id.yz_dy);
 		yz_fh = (TextView) findViewById(R.id.yz_fh);
-		yz_jf = (TextView) findViewById(R.id.yz_jf);
+//		yz_jf = (TextView) findViewById(R.id.yz_jf);
 		yz_rz = (TextView) findViewById(R.id.yz_rz);
 		yz_tel = (TextView) findViewById(R.id.yz_tel);
 		yz_phone1 = (TextView) findViewById(R.id.yz_phone1);
-		yz_phone2 = (TextView) findViewById(R.id.yz_phone2);
-		yz_fw = (TextView) findViewById(R.id.yz_fw);
-		yz_sy = (TextView) findViewById(R.id.yz_sy);
+//		yz_phone2 = (TextView) findViewById(R.id.yz_phone2);
+//		yz_fw = (TextView) findViewById(R.id.yz_fw);
+//		yz_sy = (TextView) findViewById(R.id.yz_sy);
 		yz_hx = (TextView) findViewById(R.id.yz_hx);
 		yz_mj = (TextView) findViewById(R.id.yz_mj);
 		yz_card = (TextView) findViewById(R.id.yz_card);
@@ -118,7 +118,14 @@ public class EmployerActivity extends BaseActivity {
 	public void xixi(int position) {
 		yz_name.setText(Contains.user.getYezhuName());
 		yz_id.setText(Contains.user.getYezhuId().toString());
-		yz_sex.setText(Contains.user.getYezhuSex());
+		if(Contains.user.getYezhuSex() != null && !"".equals(Contains.user.getYezhuSex())){
+			if(Contains.user.getYezhuSex().equals("0")){
+				//男
+				yz_sex.setText("男");
+			}else{
+				yz_sex.setText("女");
+			}
+		}
 		yz_lp.setText(Contains.appYezhuFangwus.get(position).getXiangmuLoupan());
 		yz_ld.setText(Contains.appYezhuFangwus.get(position).getFwLoudong());
 		yz_dy.setText(Contains.appYezhuFangwus.get(position).getFwDanyuan());
@@ -126,38 +133,37 @@ public class EmployerActivity extends BaseActivity {
 				.toString());
 //		yz_jf.setText(Contains.cxwyYezhu.get(position).getYezhuJiaofangtime());
 //		yz_rz.setText(Contains.cxwyYezhu.get(position).getYezhuRuzhutime());
-//		yz_tel.setText(Contains.cxwyYezhu.get(position).getYezhuPhone());
+		yz_tel.setText(Contains.user.getYezhuPhone());
 		yz_phone1.setText(Contains.user.getYezhuShouji());
 //		yz_phone2.setText(Contains.cxwyYezhu.get(position).getYezhuBianhao());
 //		yz_fw.setText(Contains.cxwyYezhu.get(position).getYezhuStatus());
 //		yz_sy.setText(Contains.cxwyYezhu.get(position).getYezhuStatus2());
-//		yz_hx.setText(Contains.cxwyYezhu.get(position).getYezhuHuxing());
-
-//		//如果是房东展示完整身份证信息
-//		if(Contains.cxwyYezhu.get(position).getYezhuParentId() == 0){
-//			String shenfenzheng = Contains.cxwyYezhu.get(position).getYezhuCardNum();
-//			if(!TextUtils.isEmpty(shenfenzheng) && shenfenzheng.length() >= 18 ){
-//				StringBuilder sb  =new StringBuilder();
-//				for (int i = 0; i < shenfenzheng.length(); i++) {
-//					char c = shenfenzheng.charAt(i);
-//					if (i >= 6 && i <= 18) {
-//						sb.append('*');
-//					} else {
-//						sb.append(c);
-//					}
-//				}
-//				yz_card.setText(sb.toString());
-//			}
-//		}else{
-//			yz_card.setText("******************");
-//		}
+		yz_hx.setText(Contains.appYezhuFangwus.get(position).getFwHuxing());
+		yz_mj.setText(Contains.appYezhuFangwus.get(position).getFwMainji());
+		//如果是房东(产权人)展示完整身份证信息
+		if(Contains.appYezhuFangwus.get(position).getFwyzType() == 0){
+			String shenfenzheng = Contains.user.getYezhuCardNum();
+			if(!TextUtils.isEmpty(shenfenzheng) && shenfenzheng.length() >= 18 ){
+				StringBuilder sb  =new StringBuilder();
+				for (int i = 0; i < shenfenzheng.length(); i++) {
+					char c = shenfenzheng.charAt(i);
+					if (i >= 6 && i <= 18) {
+						sb.append('*');
+					} else {
+						sb.append(c);
+					}
+				}
+				yz_card.setText(sb.toString());
+			}
+		}else{
+			yz_card.setText("******************");
+		}
 //		yz_fdid.setText(Contains.cxwyYezhu.get(position).getYezhuParentId()
 //				.toString());
 	}
 
 	@Override
 	protected void initDataFromLocal() {
-		// TODO Auto-generated method stub
 
 	}
 

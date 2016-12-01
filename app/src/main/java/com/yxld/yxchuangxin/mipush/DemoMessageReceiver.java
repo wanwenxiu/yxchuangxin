@@ -19,6 +19,7 @@ import com.yxld.yxchuangxin.base.AppConfig;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 1、PushMessageReceiver 是个抽象类，该类继承了 BroadcastReceiver。<br/>
@@ -89,7 +90,9 @@ public class DemoMessageReceiver extends PushMessageReceiver {
         } else if (!TextUtils.isEmpty(message.getAlias())) {
             mAlias = message.getAlias();
         }
-
+        Map<String,String> map =  message.getExtra();
+        String customs = map.get("custom");
+        Log.d("geek","onNotificationMessageClicked 点击消息 customs ="+customs);
         Message msg = Message.obtain();
         if (message.isNotified()) {
             msg.obj = log;
@@ -109,9 +112,16 @@ public class DemoMessageReceiver extends PushMessageReceiver {
         } else if (!TextUtils.isEmpty(message.getAlias())) {
             mAlias = message.getAlias();
         }
+        Map<String,String> map =  message.getExtra();
+        String customs = map.get("custom");
+        if(customs != null && "tongzhi".equals(customs)){
+            //收到新通知推送
 
+        }
         Message msg = Message.obtain();
         msg.obj = log;
+        msg.what = 1;
+        msg.arg1 = 2;
         AppConfig.getHandler().sendMessage(msg);
     }
 

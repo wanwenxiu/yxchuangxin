@@ -240,6 +240,7 @@ public class LoginActivity extends BaseActivity {
 						int len1=login_pwd.getText().toString().length();
 						if (len1 >= 6 &&  len==11 ) {
 							initDataFromNet();
+							loginSubmit.setClickable(true);
 						} else {
 							Toast.makeText(LoginActivity.this, "请确定账号密码格式是否正确", Toast.LENGTH_SHORT).show();
 							loginSubmit.setClickable(true);
@@ -250,8 +251,6 @@ public class LoginActivity extends BaseActivity {
 			});
 		}
 	}
-
-
 
 
 	@Override

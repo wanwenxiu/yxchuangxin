@@ -52,6 +52,7 @@ import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.UpdateManager;
+import com.yxld.yxchuangxin.view.BadgeImageView;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 import com.yxld.yxchuangxin.view.Utils;
 
@@ -64,9 +65,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-import static android.R.id.list;
-import static com.yxld.yxchuangxin.contain.Contains.longitude;
-import static u.aly.df.i;
+
 /**
  * @author wwx
  * @ClassName: NewMainActivity
@@ -79,7 +78,8 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     private LinearLayout buttomwarp;
 
-    private ImageView img3, img1, img2, mine;
+    private ImageView img3, img1, img2;
+    private BadgeImageView mine;
 
     private LinearLayout wuyeWarp, serviceWarp, goMall;
 
@@ -87,7 +87,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     private TextView curPlace, marqueeTv;
 
-    private MarqueeView secondaryActions, secondaryActionsDestail;
+    private MarqueeView secondaryActions;
 
     private AppVersionController versionController;
     private PeiZhiController PeiZhiController;
@@ -146,18 +146,18 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         //初始化定位
         initLocation();
         startLocation();
-
         initView();
         setToorBar(false);
         getlunbotubiao();
         initDataFromNet();
+        initTongzhi();
     }
 
     @Override
     protected void initView() {
         buttomwarp = (LinearLayout) findViewById(R.id.buttomwarp);
         main = (SwipeRefreshLayout) findViewById(R.id.main);
-        mine = (ImageView) findViewById(R.id.mine);
+        mine = (BadgeImageView) findViewById(R.id.mine);
         mine.setOnClickListener(this);
         dingwei();
         curPlace = (TextView) findViewById(R.id.curPlace);
@@ -168,21 +168,18 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
         secondaryActions = (MarqueeView) findViewById(R.id.secondaryActions);
         List<String> info = new ArrayList<>();
-        info.add("我的物业 >>");
-        info.add("专享服务>>");
-        info.add("邮包查寄 >>");
-        info.add("个人中心 >>");
-        info.add("投诉建议 >>");
+        info.add("我的物业 >>\n" +
+                "\n\n包含车辆识别、居家安防、放心出入、授权放行栏目");
+        info.add("专享服务>>\n" +
+                "\n\n您的专属维修专家，解决日常报修烦恼。处理过程实时跟踪，报修结果及时反馈");
+        info.add("邮包查寄 >>\n" +
+                "\n\n邮包信息我来查，精确及时到您家。快递寄件请找我，各大物流随您挑");
+        info.add("个人中心 >>\n" +
+                "\n\n包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目");
+        info.add("投诉建议 >>\n" +
+                "\n\n您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升");
         secondaryActions.startWithList(info);
 
-        secondaryActionsDestail = (MarqueeView) findViewById(R.id.secondaryActionsDestail);
-        List<String> info1 = new ArrayList<>();
-        info1.add("包含车辆识别、居家安防、放心出入、授权放行栏目");
-        info1.add("您的专属维修专家，解决日常报修烦恼。处理过程实时跟踪，报修结果及时反馈");
-        info1.add("邮包信息我来查，精确及时到您家。快递寄件请找我，各大物流随您挑");
-        info1.add("包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目");
-        info1.add("您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升");
-        secondaryActionsDestail.startWithList(info1);
         marqueeTv = (TextView) findViewById(R.id.marqueeTv);
         marqueeTv.setOnClickListener(this);
 
@@ -263,11 +260,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             case R.id.mine: //右上角按钮
                 if (Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)
                         && Contains.curSelectXiaoQuId != 0) {
+                    Contains.badgeImageView=0;
                     int  xiaoqu =Contains.curSelectXiaoQuId;
                     Intent tz = new Intent();
                     tz.setClass(NewMainActivity2.this, // context
                             WebViewActivity.class);// 跳转的activity
                     Bundle tz1 = new Bundle();
+
                     tz1.putString("name", "通知活动");
                     tz1.putString("address", API.IP_PRODUCT + "/MyJsp.jsp?luopan=" + xiaoqu);
                     tz.putExtras(tz1);
@@ -317,7 +316,10 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             versionController = new AppVersionControllerImpl();
         }
         versionController.getAppVersionInfo(mRequestQueue, new Object[]{}, versionListener);
+    }
 
+
+    private void initTongzhi() {
         if (tongzhiController == null) {
             tongzhiController = new TongzhiControllerImpl();
         }
@@ -361,6 +363,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         }
 
     };
+
+
+
 
     private ResultListener<BaseEntity> tongzhiLinstener = new ResultListener<BaseEntity>() {
         @Override
@@ -531,31 +536,40 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             }else {
                 double latitude1;
                 double longitude1;
-
+                double sum;
+                double[] str = new double[info.getRows().size()];
                 for(int i=0;i<info.getRows().size();i++){
                     //纬度  latitude
                     String latitude =info.getRows().get(i).getXiangmuLatitude();
                     //纬度  longitude
                     String longitude=info.getRows().get(i).getXiangmuLongitude();
-                    Log.d("...", latitude);
-                    Log.d("...", longitude);
-
                     try {
                         latitude1 = Double.valueOf(latitude);
                         longitude1 = Double.valueOf(longitude);
-
                     } catch (NumberFormatException e) {
                         latitude1 = 0;
-                        longitude1=0;
 
+                        longitude1=0;
                     }
-                   double d =  getDistance(Contains.longitude,Contains.Latitude,longitude1,latitude1);
-                    Log.d("geek",i+"楼盘距离"+d);
+                    sum=  getDistance(Contains.longitude,Contains.Latitude,longitude1,latitude1);
+                    Log.d("geek","sum ="+sum);
+                    str[i]=sum;
                 }
 
-//                //纬度  longitude
-//                double longitude=Double.parseDouble(info.getRows().get(i).getXiangmuLongitude());
-//                getDistance(Contains.longitude,Contains.Latitude,longitude,latitude);
+                double min=str[0];
+                int n =0 ;
+                for (int i=0;i<str.length;i++)
+                {
+                    if(str[i]<min)   // 判断最小值
+                    { min=str[i];
+                        n =i;
+                    }
+                }
+                Log.d("geek", "数组的最小值是："+min+".数组的位置是："+(n));
+                Contains.curSelectXiaoQuName=info.getRows().get(n+1).getXiangmuLoupan();
+                Contains.curSelectXiaoQuId=info.getRows().get(n+1).getXiangmuId();
+                stopLocation();
+                curPlace.setText(Contains.curSelectXiaoQuName);
             }
         }
 
@@ -586,20 +600,24 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initDataFromLocal() {
-        if (StringUitl.isNoEmpty(Contains.AoiName)) {
-            curPlace.setText(Contains.AoiName);
-            Contains.curSelectXiaoQuName = Contains.AoiName;
-        } else {
-            if (StringUitl.isNoEmpty(Contains.locationCity)) {
-                curPlace.setText(Contains.locationCity);
-                Contains.curSelectXiaoQuName = Contains.locationCity;
-            } else {
-                curPlace.setText("定位失败,请手动选择小区");
-                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
-                    curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
-                }
-            }
-        }
+//        if (StringUitl.isNoEmpty(Contains.AoiName)) {
+//            curPlace.setText(Contains.AoiName);
+//            Contains.curSelectXiaoQuName = Contains.AoiName;
+//        } else {
+//            if (StringUitl.isNoEmpty(Contains.locationCity)) {
+//                curPlace.setText(Contains.locationCity);
+//                Contains.curSelectXiaoQuName = Contains.locationCity;
+//            } else {
+//                curPlace.setText("定位失败,请手动选择小区");
+//                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
+//                    curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+//                }
+//            }
+//        }
+//        curPlace.setText("定位失败,请手动选择小区");
+//        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
+//            curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+//        }
     }
 
     @Override
@@ -695,4 +713,15 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         }
     }
 
+    @Override
+    public void refreshLogInfo() {
+        super.refreshLogInfo();
+        if (Contains.badgeImageView==1){
+            mine.setBadgeCount(0);
+            mine.setBadgeShown(true);
+        }else {
+            mine.setBadgeShown(false);
+        }
+        Log.d("...", Contains.badgeImageView+"...................");
+    }
 }

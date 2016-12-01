@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.activity.index.AccessActivity;
 import com.yxld.yxchuangxin.activity.index.ChengyuanguanliActivity;
@@ -180,17 +181,20 @@ public class Wuyeadapter extends BaseAdapter {
                         Log.d("...", "综合服务" + position);
                         switch (position) {
                             case 0://通知公告
-                                String xiaoqu = "";
-                                if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() == 0){
-                                    xiaoqu= Contains.appYezhuFangwus.get(0).getFwLoupanId()+"";
+                                if (Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)
+                                        && Contains.curSelectXiaoQuId != 0) {
+                                    int  xiaoqu =Contains.curSelectXiaoQuId;
                                     Intent tz = new Intent();
                                     tz.setClass(context, // context
                                             WebViewActivity.class);// 跳转的activity
                                     Bundle tz1 = new Bundle();
+
                                     tz1.putString("name", "通知活动");
-                                    tz1.putString("address",API.IP_PRODUCT+"/MyJsp.jsp?luopan="+xiaoqu);
+                                    tz1.putString("address", API.IP_PRODUCT + "/MyJsp.jsp?luopan=" + xiaoqu);
                                     tz.putExtras(tz1);
-                                    context.startActivity(tz,tz1);
+                                    context.startActivity(tz, tz1);
+                                }else {
+                                    Toast.makeText(context, "您没有选择小区", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
                             case 1://维修服务

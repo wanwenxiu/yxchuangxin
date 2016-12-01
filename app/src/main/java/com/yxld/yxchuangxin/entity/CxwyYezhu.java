@@ -16,7 +16,7 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable{
 	private Integer yezhuId; //业主id
 	private String yezhuCardNum="";//身份证
 	private String yezhuName="";//业主姓名
-	private String yezhuSex="";//性别
+	private String yezhuSex="";//性别 业主性别：0男1女
 	private String yezhuPhone="";//电话
 	private String yezhuShouji="";//手机
 	private String yezhuSfzSrc1="";//身份证照片

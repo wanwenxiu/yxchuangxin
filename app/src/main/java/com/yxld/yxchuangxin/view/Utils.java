@@ -49,8 +49,8 @@ public class Utils {
 		if (location.getErrorCode() == 0) {
 			Contains.longitude = location.getLongitude();
 			Contains.Latitude = location.getLatitude();
-			Contains.locationCity = location.getCity();
-			Contains.AoiName = location.getAoiName();
+//			Contains.locationCity = location.getCity();
+//			Contains.AoiName = location.getAoiName();
 			if (location.getProvider().equalsIgnoreCase(
 					android.location.LocationManager.GPS_PROVIDER)) {
 			} else {

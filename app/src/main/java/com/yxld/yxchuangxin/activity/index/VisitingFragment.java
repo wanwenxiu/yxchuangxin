@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.R.id.list;
 import static com.yxld.yxchuangxin.R.mipmap.fangwu;
@@ -199,7 +201,11 @@ public class VisitingFragment extends BaseFragment  {
                 Uri uri = data.getData();
                 String[] contacts = getPhoneContacts(uri);
                 name.setText(contacts[0]);
-                phone.setText(contacts[1]);
+                String tel=contacts[1];
+                Pattern p = Pattern.compile("[^0-9]");
+                Matcher m = p.matcher(tel);
+                tel = m.replaceAll("");
+                phone.setText(tel);
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

@@ -15,4 +15,13 @@
         <attr name="AutoLinkStyleTextView_default_color" format="color|reference"/>
         <attr name="AutoLinkStyleTextView_has_under_line" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="BadgeView">
+        <attr name="badge_padding_top" format="dimension" />
+        <attr name="badge_padding_right" format="dimension" />
+        <attr name="badge_count" format="integer" />
+        <attr name="badge_none_show" format="boolean" />
+        <attr name="badge_color" format="color" />
+    </declare-styleable>
+
 </resources>
