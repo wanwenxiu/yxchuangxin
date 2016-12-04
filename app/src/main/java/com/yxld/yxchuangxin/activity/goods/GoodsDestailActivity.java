@@ -57,7 +57,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	private SlideShowView indexAdvs;
 
 	/** 商品名*/
-	private TextView goods_name;
+	private TextView goods_name,goods_wuliu;
 
 	/** 商品价格*/
 	private TextView goods_price;
@@ -143,6 +143,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		goods_price = (TextView) findViewById(R.id.goods_price);
 		address = (TextView) findViewById(R.id.address);
 		goodNum = (TextView) findViewById(R.id.goodNum);
+		goods_wuliu = (TextView) findViewById(R.id.goods_wuliu);
 
 		praiseTotal = (TextView) findViewById(R.id.praiseTotal);
 		praiseName = (TextView) findViewById(R.id.praiseName);
@@ -224,6 +225,12 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			}
 			if(Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)){
 				address.setText(Contains.curSelectXiaoQuName);
+			}
+
+			if(curGood.getShangpinBeiyong5() != null && "1".equals(curGood.getShangpinBeiyong5())){
+				goods_wuliu.setText("配送：￥3.00配送费");
+			}else{
+				goods_wuliu.setText("配送：免配送费");
 			}
 		}
 	}
@@ -311,7 +318,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				}
 				//拼接确认订单集合
 				Contains.sureOrderList.clear();
-				SureOrderEntity entity = new SureOrderEntity(curGood.getShangpinId()+"",cartGoodsNum.getText().toString(),  "", curGood.getShangpinImgSrc1(), curGood.getShangpinRmb() + "",curGood.getShangpinShangpName(), curGood.getShangpinGuige());
+				SureOrderEntity entity = new SureOrderEntity(curGood.getShangpinId()+"",cartGoodsNum.getText().toString(),  "", curGood.getShangpinImgSrc1(), curGood.getShangpinRmb() + "",curGood.getShangpinShangpName(), curGood.getShangpinGuige(),curGood.getShangpinBeiyong5());
 				Contains.sureOrderList.add(entity);
 				Log.d("geek", "立即购买 Contains.sureOrderList"+Contains.sureOrderList.toString());
 				startActivity(SureOrderActivity.class);
@@ -423,6 +430,8 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		params.put("cart.cartImgSrc", curGood.getShangpinImgSrc1());
 		params.put("cart.cartNum", cartGoodsNum.getText().toString());
 		params.put("cart.cartSpare1", Contains.user.getYezhuId()+"");
+		params.put("cart.cartSpare2", curGood.getShangpinBeiyong5());
+		Log.d("geek","加入购物车 params="+params.toString());
 		cartController.addInfoToCart(mRequestQueue, params, addCartListener);
 	}
 

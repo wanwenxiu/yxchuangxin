@@ -151,6 +151,11 @@ public class MemberActivity extends BaseActivity {
 			Contains.curSelectXiaoQuName = "";
 			Contains.curSelectXiaoQuId = 0;
 			Contains.user = null;
+			Contains.appYezhuFangwus.clear();
+			Contains.CartList.clear();
+			Contains.defuleAddress = null;
+			Contains.curCommData.clear();
+			Contains.sureOrderList.clear();
 			SharedPreferences.Editor editor = sp.edit();
 			editor.putString("NAME", "");
 			editor.putString("PASSWORD", "");

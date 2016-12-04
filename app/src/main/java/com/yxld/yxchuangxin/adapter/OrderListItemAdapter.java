@@ -165,11 +165,17 @@ public class OrderListItemAdapter extends BaseAdapter {
         //listItemView.orderBianhao.setText("订单编号:"+ order.getDingdanBianhao());
         listItemView.orderState.setText(order.getDingdanZhuangtai());
         totalPrice = order.getDingdanTotalRmb() + "";
+        //默认总价
+
         if (order.getDingdanYouhuijia() != null && !"".equals(order.getDingdanYouhuijia())) {
-            listItemView.orderDestailPrice.setText("¥" + totalPrice + "(优惠券-¥" + order.getDingdanYouhuijia() + ")");
-        } else {
-            listItemView.orderDestailPrice.setText("¥" + totalPrice);
+            totalPrice +="(优惠券-¥" + order.getDingdanYouhuijia() + ")";
         }
+
+        if(order.getDingdanPeisongfei() != null && !"".equals(order.getDingdanPeisongfei())){
+            totalPrice+= "(配送费+¥" + order.getDingdanPeisongfei()+ ")";
+        }
+
+        listItemView.orderDestailPrice.setText("¥" + totalPrice);
 
         orderId = order.getDingdanId();
         curSaleData.clear();

@@ -168,7 +168,8 @@ public class shopListAdapter extends BaseAdapter {
 				params.put("cart.cartSpec", mlist.get(num).getShangpinGuige());
 				params.put("cart.cartNum", "1");
 				params.put("cart.cartSpare1",Contains.user.getYezhuId()+"");
-				Log.d("geek", "添加购物车 params"+params.toString());
+				params.put("cart.cartSpare2", mlist.get(num).getShangpinBeiyong5());
+				Log.d("geek", "商品列表添加购物车 params"+params.toString());
 				cartController.addInfoToCart(mRequestQueues, params, addCartListener);
 			}
 

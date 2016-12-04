@@ -23,7 +23,7 @@ public class CxwyMallCart  extends BaseEntity implements java.io.Serializable {
      private String cartImgSrc;//图片路径
      private String cartNum;//购物车数量
      private String cartSpare1;//用户电话号码
-     private String cartSpare2;
+     private String cartSpare2;//是否是大件商品 0  不是大件商品 1大件商品
      private String cartSpare3;
      
  	private boolean isChecked;

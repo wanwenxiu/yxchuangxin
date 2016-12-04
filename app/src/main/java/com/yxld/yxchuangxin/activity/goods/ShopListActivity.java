@@ -75,11 +75,12 @@ public class ShopListActivity extends BaseActivity implements
 	/** 总条数 */
 	private int totals;
 
-	/** 筛选条件 销量: shangpinClassicTwo 价格:shangpinRmb 人气: */
-	private String goodsSort = "shangpinClassicTwo";
+	/** 筛选条件 销量: shangpinXiaoliang 价格:shangpinRmb 人气:shangpinRenqi */
+	private String goodsSort = "shangpinXiaoliang";
 	/** 筛选条件 升序asc 倒序desc */
 	private boolean goodsOrder = true;
 
+	//DESC 从大到小排序 ACS 从小到大排序
 	private String goodsOrderSelect = "asc";
 
 	/** 记录上一次选中筛选条件标识 */
@@ -247,7 +248,7 @@ public class ShopListActivity extends BaseActivity implements
 			break;
 		case R.id.tvNum:
 			// 修改筛选条件为销量
-			goodsSort = "shangpinClassicTwo";
+			goodsSort = "shangpinXiaoliang";
 			pageCode = 0;
 			changeTvBg(0);
 			break;
@@ -259,7 +260,7 @@ public class ShopListActivity extends BaseActivity implements
 			break;
 		case R.id.tvPopularity:
 			// 修改筛选条件为人气
-			goodsSort = "shangpinClassicTwo";
+			goodsSort = "shangpinRenqi";
 			pageCode = 0;
 			changeTvBg(2);
 			break;

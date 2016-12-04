@@ -98,7 +98,18 @@ public class Wuyeadapter extends BaseAdapter {
                                 startActivity(AccessActivity.class);
                                 break;
                             case 1://车辆管理
-                                ToastUtil.show(context, "敬请期待");
+                                if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() > 0) {
+                                    Intent cl = new Intent();
+                                    cl.setClass(context, // context
+                                            WebViewActivity.class);// 跳转的activity
+                                    Bundle cl1 = new Bundle();
+                                    cl1.putString("name", "车辆管理");
+                                    cl1.putString("address", API.PICcl+"/cxwy_daozha/daozha/mobile?url=unlockList&lpId="+Contains.appYezhuFangwus.get(0).getXiangmuLoupan()+"&userId="+Contains.appYezhuFangwus.get(0).getYezhuId());
+                                    cl.putExtras(cl1);
+                                    context.startActivity(cl, cl1);
+                                }else {
+                                    Toast.makeText(context, "请至物业完善业主身份证和手机号码信息再进行查询", Toast.LENGTH_SHORT).show();
+                                }
                                 break;
                             case 2:
                                 ToastUtil.show(context, "敬请期待");

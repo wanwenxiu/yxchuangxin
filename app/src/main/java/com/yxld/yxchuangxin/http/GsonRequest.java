@@ -52,7 +52,6 @@ public class GsonRequest<T> extends Request<T> {
 	 */
 	public GsonRequest(String url, Class<T> clazz, Listener<T> listener,
 			ErrorListener errorListener) {
-		
 		super(Method.GET, url, errorListener);
 		Log.d("reqUrl", url);
 		this.clazz = clazz;

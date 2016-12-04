@@ -34,6 +34,8 @@ public class ShareInfo {
 		this.bitmap = bitmap;
 	}
 
+
+
 	public String getTitle() {
 		return Title;
 	}

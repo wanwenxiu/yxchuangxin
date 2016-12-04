@@ -55,6 +55,7 @@ import com.yxld.yxchuangxin.util.UpdateManager;
 import com.yxld.yxchuangxin.view.BadgeImageView;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 import com.yxld.yxchuangxin.view.Utils;
+import com.yxld.yxchuangxin.view.VerticalSwipeRefreshLayout;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -64,6 +65,8 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.xiaomi.push.thrift.a.P;
 
 
 /**
@@ -83,7 +86,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     private LinearLayout wuyeWarp, serviceWarp, goMall;
 
-    private SwipeRefreshLayout main;
+    private VerticalSwipeRefreshLayout main;
 
     private TextView curPlace, marqueeTv;
 
@@ -143,9 +146,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         String account = Contains.user.getYezhuShouji().toString();
         MiPushClient.setAlias(NewMainActivity2.this, account, null);
         MiPushClient.setUserAccount(NewMainActivity2.this, alias, null);
-        //初始化定位
-        initLocation();
-        startLocation();
         initView();
         setToorBar(false);
         getlunbotubiao();
@@ -156,13 +156,17 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     @Override
     protected void initView() {
         buttomwarp = (LinearLayout) findViewById(R.id.buttomwarp);
-        main = (SwipeRefreshLayout) findViewById(R.id.main);
+        main = (VerticalSwipeRefreshLayout) findViewById(R.id.main);
         mine = (BadgeImageView) findViewById(R.id.mine);
         mine.setOnClickListener(this);
-        dingwei();
+
         curPlace = (TextView) findViewById(R.id.curPlace);
         if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() > 0) {
             curPlace.setText(Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
+        }else {
+            //初始化定位
+            initLocation();
+            startLocation();
         }
         curPlace.setOnClickListener(this);
 
@@ -198,7 +202,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         main.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
+        main.setProgressViewOffset(false,0,100);
         imageCycleView = (ImageCycleView) findViewById(R.id.indexAdvs);
     }
 
@@ -226,6 +230,10 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
+//               if(mengShareUtil == null){
+//                   mengShareUtil = new YouMengShareUtil(this);
+//               }
+//               mengShareUtil.addCustomPlatforms(new ShareInfo("App下载地址", "这是一个神奇的地址", "http://192.168.8.10:8020/xin/download.html", "http://192.168.8.10:8020/xin/download.html", BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg)));
                 Log.d("...", Contains.user.getYezhuType() + "");
                 if (Contains.user != null && Contains.user.getYezhuType() == 0) {
                     startActivity(WuyeActivity.class);
@@ -566,10 +574,10 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                     }
                 }
                 Log.d("geek", "数组的最小值是："+min+".数组的位置是："+(n));
-                Contains.curSelectXiaoQuName=info.getRows().get(n+1).getXiangmuLoupan();
-                Contains.curSelectXiaoQuId=info.getRows().get(n+1).getXiangmuId();
-                stopLocation();
+                Contains.curSelectXiaoQuName=info.getRows().get(n).getXiangmuLoupan();
+                Contains.curSelectXiaoQuId=info.getRows().get(n).getXiangmuId();
                 curPlace.setText(Contains.curSelectXiaoQuName);
+                stopLocation();
             }
         }
 
@@ -673,6 +681,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             if (null != loc) {
                 //解析定位结果
                 String result = Utils.getLocationStr(loc);
+                Log.d("...", result);
             } else {
                 Log.d("...", "定位失败");
             }
@@ -687,6 +696,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         locationClient.setLocationOption(locationOption);
         // 启动定位
         locationClient.startLocation();
+        dingwei();
     }
 
     /**

@@ -11,6 +11,8 @@ public class LoginEntity extends BaseEntity{
 
 	public String token;
 
+	public String logintimeout;
+
 	public List<AppYezhuFangwu> getHouse() {
 		return house;
 	}

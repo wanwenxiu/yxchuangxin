@@ -181,20 +181,8 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 				&& house.getFwLoupanId() != null && house.getFwLoudong() != null
 				&& house.getFwDanyuan() != null){
 
-//			Map<String, String> params = new HashMap<String, String>();
-//			if(Contains.user.getYezhuName() == null || "".equals(Contains.user.getYezhuName())){
-//				params.put("bName",Contains.user.getYezhuShouji());
-//			}else{
-//				params.put("bName",Contains.user.getYezhuName());
-//			}
-//			params.put("bPhone",Contains.user.getYezhuShouji());
-//			params.put("bRole",String.valueOf(house.getFwyzType()));
-//			params.put("building",String.valueOf(house.getFwLoupanId()));
-//			params.put("buildingHouse",house.getFwLoudong());
-//			params.put("buildingUnit",house.getFwDanyuan());
-//			Log.d("geek","获取业主二维码 params ="+params.toString());
-
 			String bname = "";
+			//如果业主姓名为空时，设置为业主手机
 			if(Contains.user.getYezhuName() == null || "".equals(Contains.user.getYezhuName())){
 				bname = Contains.user.getYezhuShouji();
 			}else{

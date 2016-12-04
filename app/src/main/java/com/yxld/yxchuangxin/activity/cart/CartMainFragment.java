@@ -271,7 +271,7 @@ public class CartMainFragment extends BaseFragment {
                         .get(i).getCartImgSrc(), Contains.CartList
                         .get(i).getCartOneRmb() + "",Contains.CartList
                         .get(i).getCartShangpName(), Contains.CartList
-                        .get(i).getCartSpec());
+                        .get(i).getCartSpec(),Contains.CartList.get(i).getCartSpare2());
                 Contains.sureOrderList.add(entity);
 
             }

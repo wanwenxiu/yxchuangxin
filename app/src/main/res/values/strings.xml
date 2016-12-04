@@ -77,6 +77,8 @@
     <string name="orderTime">下单时间：</string>
     <string name="orderTotalNum">商品总数：</string>
     <string name="orderPeisong">配送人：</string>
+    <string name="orderPeisongPraise">配送费：</string>
+    <string name="youhuijia">优惠价：</string>
     <string name="orderConPrice">总价格：￥</string>
     <string name="store_name">卖家店铺：</string>
     <string name="store_phone">联系方式：</string>

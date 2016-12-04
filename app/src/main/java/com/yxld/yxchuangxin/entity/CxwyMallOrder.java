@@ -18,40 +18,68 @@ public class CxwyMallOrder extends BaseEntity implements java.io.Serializable {
 
 	// Fields
 	private Integer dingdanId;//订单id
+
 	private String dingdanName;//姓名
+
 	private String dingdanDizhi;//地址
+
 	private String dingdanTel;//电话
+
 	private String dingdanXiadanTime;//下单时间
+
 	private String dingdanArrivedTime;//到达时间
+
 	private String dingdanOverTime;//使用时间
+
 	private Float dingdanTotalRmb;//总金额
+
 	private String dingdanUserName;//用户名
+
 	private String dingdanZhuangtai;//订单状态
+
 	private String dingdanImgSrc;//订单图片
 	private Integer dingdanUserId;//用户id
+
 	private String dingdanBeiyong1;//付款方式
+
 	private String dingdanBeiyong2;//前台删除标记,0是未删除，1为删除
+
 	private String dingdanBeiyong3;//订单备注
+
 	private String dingdanBeiyong4;//取消原因
 
 	private String dingdanVillage;  //订单小区
 
 	private String dingdanBianhao; //订单编号
+
 	private Integer dingdanGoodsnum; //订单中商品数量
+
 	private String dingdanShouliren; //订单受理人
+
 	private Integer dingdanPeisongrenid; //订单配送人id
+
 	private String dingdanBeiyong5; //订单配送人名
 
 	private String dingdanPaisongtime; //派单时间
-	private String dingdanBeiyong6;
 
 	/** 订单中使用优惠券id*/
 	private Integer dingdanYouhuiquanId;
+
 	/** 订单中使用优惠价格*/
 	private String dingdanYouhuijia;
 
-	private String dingdanPayOrderhao; //第三方支付商户订单号
+	private String dingdanPayOrderhao; //订单退款批次号
 	private String dingdanPayJiaoyihao; //第三方支付交易号
+
+	private String dingdanBeiyong6;  //是否需要退款: 无需退款  需要退款  已退款至xx
+
+	private String dingdanPayTime; //支付时间
+
+	private String xnName;  //订单小区
+
+	private Float dingdanPeisongfei;//订单配送费用
+
+	private Integer dingdanDajianpeisong;//订单是否有大件配送商品，0为正常配送订单，1为大件配送订单
 
 	// Constructors
 
@@ -361,13 +389,42 @@ public class CxwyMallOrder extends BaseEntity implements java.io.Serializable {
 		this.dingdanPayJiaoyihao = dingdanPayJiaoyihao;
 	}
 
+	public String getDingdanPayTime() {
+		return dingdanPayTime;
+	}
+
+	public void setDingdanPayTime(String dingdanPayTime) {
+		this.dingdanPayTime = dingdanPayTime;
+	}
+
+	public String getXnName() {
+		return xnName;
+	}
+
+	public void setXnName(String xnName) {
+		this.xnName = xnName;
+	}
+
+	public Float getDingdanPeisongfei() {
+		return dingdanPeisongfei;
+	}
+
+	public void setDingdanPeisongfei(Float dingdanPeisongfei) {
+		this.dingdanPeisongfei = dingdanPeisongfei;
+	}
+
+	public Integer getDingdanDajianpeisong() {
+		return dingdanDajianpeisong;
+	}
+
+	public void setDingdanDajianpeisong(Integer dingdanDajianpeisong) {
+		this.dingdanDajianpeisong = dingdanDajianpeisong;
+	}
+
 	@Override
 	public String toString() {
 		return "CxwyMallOrder{" +
-				"orderList=" + orderList +
-				", saleList=" + saleList +
-				", total=" + total +
-				", dingdanId=" + dingdanId +
+				"dingdanId=" + dingdanId +
 				", dingdanName='" + dingdanName + '\'' +
 				", dingdanDizhi='" + dingdanDizhi + '\'' +
 				", dingdanTel='" + dingdanTel + '\'' +
@@ -390,11 +447,15 @@ public class CxwyMallOrder extends BaseEntity implements java.io.Serializable {
 				", dingdanPeisongrenid=" + dingdanPeisongrenid +
 				", dingdanBeiyong5='" + dingdanBeiyong5 + '\'' +
 				", dingdanPaisongtime='" + dingdanPaisongtime + '\'' +
-				", dingdanBeiyong6='" + dingdanBeiyong6 + '\'' +
 				", dingdanYouhuiquanId=" + dingdanYouhuiquanId +
 				", dingdanYouhuijia='" + dingdanYouhuijia + '\'' +
 				", dingdanPayOrderhao='" + dingdanPayOrderhao + '\'' +
 				", dingdanPayJiaoyihao='" + dingdanPayJiaoyihao + '\'' +
+				", dingdanBeiyong6='" + dingdanBeiyong6 + '\'' +
+				", dingdanPayTime='" + dingdanPayTime + '\'' +
+				", xnName='" + xnName + '\'' +
+				", dingdanPeisongfei=" + dingdanPeisongfei +
+				", dingdanDajianpeisong=" + dingdanDajianpeisong +
 				'}';
 	}
 }

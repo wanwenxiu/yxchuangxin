@@ -75,7 +75,6 @@ public class RegisterActivity extends BaseActivity {
 		register_yzm= (EditText) findViewById(R.id.register_yzm);
 		checkBox_forcheck= (CheckBox) findViewById(R.id.checkBox_forcheck);
 		register_button_phone.onCreate(savedInstanceState);
-		register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 		register_button_phone.setOnClickListener(this);
 		//获取短信sdk
 		SMSSDK.initSDK(this, APPKEY, APPSECRET);
@@ -284,6 +283,7 @@ public class RegisterActivity extends BaseActivity {
 				int len = register_pwd.getText().toString().length();
 				if (len >= 6) {
 					initDataFromNet();
+					register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 				} else {
 					register_button_phone.setTextAfter("请输入6—16位数字或字母").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
@@ -331,6 +331,7 @@ public class RegisterActivity extends BaseActivity {
 					Toast.makeText(getApplicationContext(), "------", Toast.LENGTH_SHORT).show();
 				}
 			} else {
+				progressDialog.hide();
 				((Throwable) data).printStackTrace();
 				try {
 					JSONObject josn=new JSONObject(((Throwable) data).getMessage().toString());

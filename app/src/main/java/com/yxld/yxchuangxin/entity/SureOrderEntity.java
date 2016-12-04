@@ -22,6 +22,8 @@ public class SureOrderEntity {
 
 	private String goodsDetails;
 
+	private String isDajianGoods; //0 不是大件商品 1大件商品
+
 
 	public String getGoodsShop() {
 		return goodsShop;
@@ -83,7 +85,15 @@ public class SureOrderEntity {
 		this.goodsSrc = goodsSrc;
 	}
 
-	public SureOrderEntity(String goodsId, String goodsNum, String cartId, String goodsSrc, String goodsRmb, String goodsShop, String goodsDetails) {
+	public String getIsDajianGoods() {
+		return isDajianGoods;
+	}
+
+	public void setIsDajianGoods(String isDajianGoods) {
+		this.isDajianGoods = isDajianGoods;
+	}
+
+	public SureOrderEntity(String goodsId, String goodsNum, String cartId, String goodsSrc, String goodsRmb, String goodsShop, String goodsDetails,String isDajianGoods) {
 		this.goodsId = goodsId;
 		this.goodsNum = goodsNum;
 		this.cartId = cartId;
@@ -91,6 +101,7 @@ public class SureOrderEntity {
 		this.goodsRmb = goodsRmb;
 		this.goodsShop = goodsShop;
 		this.goodsDetails = goodsDetails;
+		this.isDajianGoods = isDajianGoods;
 	}
 
 	@Override
@@ -103,6 +114,7 @@ public class SureOrderEntity {
 				", goodsSrc='" + goodsSrc + '\'' +
 				", goodsShop='" + goodsShop + '\'' +
 				", goodsDetails='" + goodsDetails + '\'' +
+				", isDajianGoods=" + isDajianGoods +
 				'}';
 	}
 }

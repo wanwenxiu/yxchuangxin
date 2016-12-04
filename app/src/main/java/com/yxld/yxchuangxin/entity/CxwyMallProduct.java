@@ -37,14 +37,18 @@ public class CxwyMallProduct extends BaseEntity implements Serializable{
     private String shangpinUploadTime; //商品上传时间
     private String shangpinBianhao; //商品编号
     private String shangpinJinhuojia; //进货价
-    private String shangpinBeiyong5;
-
-//	private String shangpinBeiyong1;//所属项目
-//	private String shangpinBeiyong2;//备用
-//	private String shangpinBeiyong3;
-//	private String shangpinBeiyong4;
-
-    // Constructors
+    private String shangpinBeiyong5; //0 不是大件商品 1大件商品
+    //生产日期
+    private String shangpinShenchanriqi;
+    //有效期
+    private String shangpinYouxiaoqi;
+    //过期日期
+    private String shangpinGuoqiriqi;
+    private String xnName;//项目名称
+    //是否销量商品
+    private Integer shangpinXiaoliang;
+    //是否人气商品
+    private Integer shangpinRenqi;
 
     /**
      * default constructor
@@ -231,6 +235,54 @@ public class CxwyMallProduct extends BaseEntity implements Serializable{
         this.product = product;
     }
 
+    public String getShangpinShenchanriqi() {
+        return shangpinShenchanriqi;
+    }
+
+    public void setShangpinShenchanriqi(String shangpinShenchanriqi) {
+        this.shangpinShenchanriqi = shangpinShenchanriqi;
+    }
+
+    public String getShangpinYouxiaoqi() {
+        return shangpinYouxiaoqi;
+    }
+
+    public void setShangpinYouxiaoqi(String shangpinYouxiaoqi) {
+        this.shangpinYouxiaoqi = shangpinYouxiaoqi;
+    }
+
+    public String getShangpinGuoqiriqi() {
+        return shangpinGuoqiriqi;
+    }
+
+    public void setShangpinGuoqiriqi(String shangpinGuoqiriqi) {
+        this.shangpinGuoqiriqi = shangpinGuoqiriqi;
+    }
+
+    public String getXnName() {
+        return xnName;
+    }
+
+    public void setXnName(String xnName) {
+        this.xnName = xnName;
+    }
+
+    public Integer getShangpinXiaoliang() {
+        return shangpinXiaoliang;
+    }
+
+    public void setShangpinXiaoliang(Integer shangpinXiaoliang) {
+        this.shangpinXiaoliang = shangpinXiaoliang;
+    }
+
+    public Integer getShangpinRenqi() {
+        return shangpinRenqi;
+    }
+
+    public void setShangpinRenqi(Integer shangpinRenqi) {
+        this.shangpinRenqi = shangpinRenqi;
+    }
+
     @Override
     public String toString() {
         return "CxwyMallProduct{" +
@@ -252,6 +304,12 @@ public class CxwyMallProduct extends BaseEntity implements Serializable{
                 ", shangpinBianhao='" + shangpinBianhao + '\'' +
                 ", shangpinJinhuojia='" + shangpinJinhuojia + '\'' +
                 ", shangpinBeiyong5='" + shangpinBeiyong5 + '\'' +
+                ", shangpinShenchanriqi='" + shangpinShenchanriqi + '\'' +
+                ", shangpinYouxiaoqi='" + shangpinYouxiaoqi + '\'' +
+                ", shangpinGuoqiriqi='" + shangpinGuoqiriqi + '\'' +
+                ", xnName='" + xnName + '\'' +
+                ", shangpinXiaoliang=" + shangpinXiaoliang +
+                ", shangpinRenqi=" + shangpinRenqi +
                 '}';
     }
 }

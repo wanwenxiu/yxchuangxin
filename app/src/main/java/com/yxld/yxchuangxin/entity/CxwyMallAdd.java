@@ -13,7 +13,6 @@ public class CxwyMallAdd extends BaseEntity implements java.io.Serializable {
 	private List<CxwyMallAdd> addList;
 
 	// Fields
-
 	private Integer addId;
 	private String addName;//联系人
 	private String addVillage="";//小区

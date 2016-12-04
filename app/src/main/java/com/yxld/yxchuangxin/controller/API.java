@@ -14,9 +14,11 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 
-   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-   String PIC = "http://192.168.8.166:8080";
-   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadFile";
+    String PICcl = "http://192.168.8.10:8080";
+
+    String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+    String PIC = "http://192.168.8.166:8080";
+    String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadFile";
 //    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
 //    String PIC="http://www.hnchxwl.com";
 //    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
@@ -32,19 +34,22 @@ public interface API {
             + "/mall/androidClassify_findByclassifyOne?classify.classifyId=%1$s";
 
     /**
-     * 获取商品列表信息通过商品分类Id
+     * 获取商品列表信息通过商品分类Id  未用上
      * rows=10&page=1&classify.classifyId=&sort=shangpinClassicTwo&order=asc&appxiaoqu=
      */
     String URL_GET_ALL_SHOPLIST_BY_ID = IP_PRODUCT
             + "/mall/androidProduct_findByProduct?";
 
     /**
-     * 获取商品列表信息通过关键字
+     * 获取商品列表信息通过关键字 1202
      * rows=5&page=1&keys=%E7%8C%AA&sort=shangpinClassicTwo&order=asc&appxiaoqu=
      */
     String URL_GET_ALL_SHOPLIST_BY_KEY = IP_PRODUCT
             + "/mall/androidProduct_searchByKeys?";
 
+  /***
+   * 获取商品详情根据商品ID 1202
+   */
     String URL_GETPRODUCT_BYGOODID = IP_PRODUCT
             + "/mall/androidProduct_findGoodsById?id=%1$s";
 
@@ -119,7 +124,7 @@ public interface API {
             + "/mall/androidOrder_findOrderKucunByordid?ord.dingdanId=%1$s";
 
     /**
-     * 注册接口
+     * 注册接口  1202
      */
     String URL_GET_ALL_REGISTER = IP_PRODUCT
             + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s";
@@ -137,17 +142,17 @@ public interface API {
             + "/mall/comment_findComment?rows=%1$s&page=%2$s&comment.pingjiaShangpNum=%3$s&comment.pingjiaLevel=%4$s&comment.pingjiaBeiyong4=%5$s";
 
     /**
-     * 判断是否已注册
+     * 判断是否已注册  1202
      */
     String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
             + "/mall/androidUser_isExistYonghu?shouji=%1$s";
     /**
-     * 登录接口
+     * 登录接口  1202
      */
     String URL_GET_ALL_LOGIN = IP_PRODUCT
             + "/mall/androidUser_findUser?shouji=%1$s&pwd=%2$s";
     /**
-     * 修改密码
+     * 修改密码 1202
      */
     String URL_GET_ALL_UPDATE_PWD = IP_PRODUCT
             + "/mall/androidUser_changePassWord?yezhu.yezhuShouji=%1$s&yezhu.yezhuPwd=%2$s";
@@ -177,6 +182,7 @@ public interface API {
 
     /**
      * 获取首页推荐商品集合rows=%1$s&page=%2$s&product.shangpinClassicShow=%3$s
+     * 1202
      */
     String URL_INDEX_GOODS_LIST = IP_PRODUCT
             + "/mall/androidProduct_findHomeProduct?";
@@ -223,7 +229,7 @@ public interface API {
             + "/mall/androidUser_yonghuRecharge.action";
 
     /**
-     * 查询所有余额
+     * 查询所有余额 （1202 存在）
      */
     String URL_YUE = IP_PRODUCT
             + "/mall/androidUser_findUserInfoByid?";
@@ -260,7 +266,7 @@ public interface API {
             + "/mall/androidApp_findNewVersion";
 
     /*
-     * 获取所有报修项目列表
+     * 获取所有报修项目列表 1202
      */
     String URL_GET_ALL_COMPLAINT = IP_PRODUCT
             + "/daily/androidComm_findAllXm.action";
@@ -320,13 +326,13 @@ public interface API {
             + "/daily/androidHousehold_findrz?fwyzFw=%1$s";
 
     /**
-     * 根据删除业主成员
+     * 根据删除业主成员  1202
      */
     String URL_delete_chengyuan = IP_PRODUCT
             + "/daily/androidHousehold_deletecy?yezhuId=%1$s";
 
     /**
-     * 根据保存业主成员
+     * 根据保存业主成员  1202
      */
     String URL_add_chengyuan = IP_PRODUCT
             + "/daily/androidHousehold_saveyezhu?";

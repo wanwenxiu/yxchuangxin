@@ -83,7 +83,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
-                        android:text="快递：免邮费"
+                        android:text="配送：免配送费"
                         android:textColor="@color/black"
                         android:textSize="@dimen/size_13" />
 

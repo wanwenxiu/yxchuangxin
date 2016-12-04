@@ -34,7 +34,7 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 	private TextView orderDetailsOrderNum, orderDetailsOrderCate,
 			sureOrderUserName, sureOrderUserTell, sureOrderAdressInfo,
 			orderTimeText, cartPriceConnt, robOrder_buyerText,
-			orderTradingStyle,order_totalnum,orderpaytype,ordercancelinfo;
+			orderTradingStyle,order_totalnum,orderpaytype,ordercancelinfo,orderPeisongPraise,orderyouhuiqjia;
 
 	private ListView orderGoodList = null;
 	
@@ -85,6 +85,8 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 		cartPriceConnt = (TextView) findViewById(R.id.cartPriceConnt);
 		robOrder_buyerText = (TextView) findViewById(R.id.robOrder_buyerText);
 		orderTradingStyle = (TextView) findViewById(R.id.orderTradingStyle);
+		orderPeisongPraise = (TextView) findViewById(R.id.orderPeisongPraise);
+		orderyouhuiqjia = (TextView) findViewById(R.id.orderyouhuiqjia);
 		order_totalnum = (TextView)findViewById(R.id.order_totalnum);
 		orderpaytype = (TextView) findViewById(R.id.orderpaytype);
 		ordercancelinfo = (TextView)findViewById(R.id.ordercancelinfo);
@@ -176,11 +178,14 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 			// 交易时间
 			orderTimeText.setText(order.getDingdanXiadanTime() + "");
 
+			cartPriceConnt.setText(order.getDingdanTotalRmb() + "元");
+
 			// 订单价格
 			if(order.getDingdanYouhuijia() != null && !"".equals(order.getDingdanYouhuijia())){
-				cartPriceConnt.setText(order.getDingdanTotalRmb() + "元  (-"+order.getDingdanYouhuijia()+")");
-			}else{
-				cartPriceConnt.setText(order.getDingdanTotalRmb() + "元");
+				orderyouhuiqjia.setText("-"+order.getDingdanYouhuijia()+"元");
+			}
+			if(order.getDingdanPeisongfei() != null && !"".equals(order.getDingdanPeisongfei())){
+				orderPeisongPraise.setText("+"+order.getDingdanPeisongfei()+"元");
 			}
 			// 买家留言
 			robOrder_buyerText.setText(order.getDingdanBeiyong3()+"");
@@ -189,7 +194,7 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 			orderpaytype.setText(order.getDingdanBeiyong1()+"");
 
 			//配送人
-			orderTradingStyle.setText(order.getDingdanBeiyong5()+"");
+			orderTradingStyle.setText(order.getDingdanBeiyong5());
 
 			//订单状态
 			orderDetailsOrderCate.setText(order.getDingdanZhuangtai()+"");

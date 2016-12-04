@@ -282,6 +282,64 @@
                     android:textSize="13dp"
                     tools:ignore="RtlHardcoded,SpUsage" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/deliverPraise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/orderPeisongPraise"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/orderPeisongPraise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/deliverPraise"
+                    android:gravity="center|left"
+                    android:text="/"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/banner_border_bottom"
+                android:padding="10dp"
+                tools:ignore="UselessParent" >
+
+                <TextView
+                    android:id="@+id/youhuiqjia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center|left"
+                    android:text="@string/youhuijia"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/orderyouhuiqjia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/youhuiqjia"
+                    android:gravity="center|left"
+                    android:text="/"
+                    android:textColor="#3f3f3f"
+                    android:textSize="13dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"

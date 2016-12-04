@@ -99,6 +99,12 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 
 	private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
+	/** 是否为大件商品 为0*/
+	private int isDaJianGoods = 0;
+
+	/** 配送费 为0*/
+	private int  peisongfei = 0;
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -125,10 +131,12 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("geek",Contains.defuleAddress.toString());
-		updateAddress(Contains.defuleAddress.getAddName(),
-				Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
-						Contains.defuleAddress.getAddAdd());
+		if(Contains.defuleAddress != null){
+			Log.d("geek",Contains.defuleAddress.toString());
+			updateAddress(Contains.defuleAddress.getAddName(),
+					Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
+							Contains.defuleAddress.getAddAdd());
+		}
 	}
 
 	@Override
@@ -195,8 +203,14 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 					totalPrice += (Double.parseDouble(Contains.sureOrderList.get(i)
 							.getGoodsRmb()) * Integer.parseInt(Contains.sureOrderList.get(i).getGoodsNum()) );
 
-				    lasttotalPrice = totalPrice;
+					if(isDaJianGoods != 1){
+						//判断是否是大件商品
+						if(Contains.sureOrderList.get(i).getIsDajianGoods() != null && "1".equals(Contains.sureOrderList.get(i).getIsDajianGoods())){
+							isDaJianGoods = 1;
+						}
+					}
 
+				    lasttotalPrice = totalPrice;
 
 					shop+=Contains.sureOrderList.get(i).getGoodsShop();
 					details+=Contains.sureOrderList.get(i).getGoodsDetails();
@@ -218,7 +232,7 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		
+		Log.d("geek","onRestart()");
 		updateAddress(Contains.defuleAddress.getAddName(),
 				Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
 						Contains.defuleAddress.getAddAdd());
@@ -233,10 +247,24 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 	 * @throws
 	 */
 	private void refushView() {
+		Log.d("geek","refushView()");
+
+		//为大件商品
+		if(isDaJianGoods == 1){
+			peisongfei = 3;
+		}else{
+			if(lasttotalPrice >20){
+				peisongfei = 1;
+			}else{
+				peisongfei = 0;
+			}
+		}
+
+		//修改运费价格
+		order_other_price.setText("+¥" + peisongfei+".00");
 		order_good_sum.setText("共" + goodNum + "件");
 		goods_price.setText("¥" + decimalFormat.format(totalPrice));
-		order_total_price.setText("实付款:¥" + decimalFormat.format(totalPrice));
-		order_other_price.setText("+¥" + "0.00");
+		order_total_price.setText("实付款:¥" + decimalFormat.format(totalPrice+peisongfei));
 
 		if(imgUrl.size() != 0){
 			for (int i = 0; i < imgUrl.size(); i++) {
@@ -255,14 +283,31 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 
 
 	public void refushPrice(float yhjg){
+		Log.d("geek","refushPrice lasttotalPrice"+lasttotalPrice);
 		if((totalPrice - yhjg)<=0){
 			lasttotalPrice = 0;
 		}else{
 			lasttotalPrice = totalPrice - yhjg;
 		}
-		goods_price.setText("¥" + decimalFormat.format(lasttotalPrice));
-		order_total_price.setText("实付款:¥" + decimalFormat.format(lasttotalPrice));
+
+		//为大件商品
+		if(isDaJianGoods == 1){
+			peisongfei = 3;
+		}else{
+			if(lasttotalPrice >20){
+				peisongfei = 1;
+			}else{
+				peisongfei = 0;
+			}
+		}
+
+		//修改运费价格
+		order_other_price.setText("+¥" + peisongfei+".00");
+
+		goods_price.setText("¥" + decimalFormat.format(totalPrice));
+		order_total_price.setText("实付款:¥" + decimalFormat.format(lasttotalPrice+peisongfei));
 		yhje.setText("- ¥"+yhjg);
+
 	}
 
 	/***
@@ -306,12 +351,14 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 				map.put("ord.dingdanName", user_name.getText().toString());
 				map.put("ord.dingdanDizhi", user_addr.getText().toString());
 				map.put("ord.dingdanTel", user_phone.getText().toString());
-				map.put("ord.dingdanTotalRmb", decimalFormat.format(lasttotalPrice));
+				map.put("ord.dingdanTotalRmb", decimalFormat.format(lasttotalPrice+peisongfei));
 				map.put("ord.dingdanUserName", Contains.user.getYezhuShouji());
 				map.put("ord.dingdanBeiyong1", "未支付");
 				map.put("ord.dingdanImgSrc", Contains.sureOrderList.get(0).getGoodsSrc());
 				map.put("ord.dingdanVillage", Contains.curSelectXiaoQuId+"");
 				map.put("ord.dingdanUserId",Contains.user.getYezhuId()+"");
+				map.put("ord.dingdanPeisongfei",peisongfei+"");
+				map.put("ord.dingdanDajianpeisong",isDaJianGoods+"");
 
 				//备注
 				map.put("ord.dingdanBeiyong3", order_mark.getText().toString()+"");
