@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 
 @SuppressLint({ "InflateParams", "HandlerLeak", "SdCardPath" })
 public class UpdateManager {
@@ -57,6 +58,7 @@ public class UpdateManager {
 	private Thread downLoadThread;
 
 	private boolean interceptFlag = false;
+	private  Handler mhander;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -77,6 +79,12 @@ public class UpdateManager {
 	public UpdateManager(Context context, String apkUrl) {
 		this.mContext = context;
 		this.apkUrl = apkUrl;
+	}
+
+	public UpdateManager(Context context, String apkUrl,Handler handler) {
+		this.mContext = context;
+		this.apkUrl = apkUrl;
+		this.mhander = handler;
 	}
 
 	// 外部接口让主Activity调用
@@ -110,6 +118,9 @@ public class UpdateManager {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
+					if(mhander != null){
+						mhander.sendEmptyMessage(WelcomeActivity.LOCATION_FINISH);
+					}
 				}
 			});
 		}
@@ -131,6 +142,9 @@ public class UpdateManager {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 				interceptFlag = true;
+				if(mhander != null){
+					mhander.sendEmptyMessage(WelcomeActivity.LOCATION_FINISH);
+				}
 			}
 		});
 		downloadDialog = builder.create();

@@ -1,6 +1,7 @@
 package com.yxld.yxchuangxin.base;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
+import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.util.Network;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
@@ -87,6 +90,13 @@ OnCancelListener, IXListViewListener {
 	/**
 	 */
 	protected XListView xlistView;
+
+	/** 保存当前选择小区*/
+	private String SAVEXIAOQUID = "SAVEXIAOQUID";
+	/** 保存当前登录用户信息*/
+	private String SAVEYONGHU = "SAVEYONGHU";
+	/** 保存当前登录业主信息*/
+	private String SAVEYEZHU = "SAVEYEZHU";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -426,7 +436,7 @@ OnCancelListener, IXListViewListener {
 					.show();
 		}else{
 			new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-					.setTitleText("连接失败")
+					.setTitleText("提示")
 					.setContentText(errMsg)
 					.show();
 		}
@@ -448,10 +458,28 @@ OnCancelListener, IXListViewListener {
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
+		//保存至outState中
+		System.out.println("BaseFragment onSaveInstanceState()");
+		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
+		outState.putSerializable(SAVEYONGHU,Contains.user);
+		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
 		super.onSaveInstanceState(outState);
 	}
 
-
+	@Override
+	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+		try {
+			//取出保存在savedInstanceState的值
+			if (savedInstanceState != null) {
+				System.out.println("BaseFragment onViewStateRestored()");
+				Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
+				Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
+				Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+			}
+			super.onViewStateRestored(savedInstanceState);
+		} catch (Exception e) {
+		}
+	}
 
 	/**
 	 * 

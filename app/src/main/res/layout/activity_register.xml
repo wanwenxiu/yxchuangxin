@@ -34,6 +34,34 @@
             android:textSize="14sp" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/banner_border_bottom"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="创欣号:"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/register_cxh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="6-16个数字,小写字母和下划线 "
+            android:maxLength="16"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyz_"
+            android:textColorHint="@color/gray"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"

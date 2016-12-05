@@ -92,11 +92,11 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     private MarqueeView secondaryActions;
 
-    private AppVersionController versionController;
     private PeiZhiController PeiZhiController;
     private TongzhiController tongzhiController;
-
     private ArrayList<String> urls = new ArrayList<>();
+
+    private AppVersionController versionController;
 
     private CxwyAppVersion entity;
 
@@ -230,10 +230,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
-//               if(mengShareUtil == null){
-//                   mengShareUtil = new YouMengShareUtil(this);
-//               }
-//               mengShareUtil.addCustomPlatforms(new ShareInfo("App下载地址", "这是一个神奇的地址", "http://192.168.8.10:8020/xin/download.html", "http://192.168.8.10:8020/xin/download.html", BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg)));
                 Log.d("...", Contains.user.getYezhuType() + "");
                 if (Contains.user != null && Contains.user.getYezhuType() == 0) {
                     startActivity(WuyeActivity.class);
@@ -323,7 +319,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         if (versionController == null) {
             versionController = new AppVersionControllerImpl();
         }
-        versionController.getAppVersionInfo(mRequestQueue, new Object[]{}, versionListener);
+//        versionController.getAppVersionInfo(mRequestQueue, new Object[]{}, versionListener);
     }
 
 
@@ -608,24 +604,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initDataFromLocal() {
-//        if (StringUitl.isNoEmpty(Contains.AoiName)) {
-//            curPlace.setText(Contains.AoiName);
-//            Contains.curSelectXiaoQuName = Contains.AoiName;
-//        } else {
-//            if (StringUitl.isNoEmpty(Contains.locationCity)) {
-//                curPlace.setText(Contains.locationCity);
-//                Contains.curSelectXiaoQuName = Contains.locationCity;
-//            } else {
-//                curPlace.setText("定位失败,请手动选择小区");
-//                if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
-//                    curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
-//                }
-//            }
-//        }
-//        curPlace.setText("定位失败,请手动选择小区");
-//        if(Contains.appYezhuFangwus !=null && Contains.appYezhuFangwus.size() > 0){
-//            curPlace.setText( Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
-//        }
     }
 
     @Override

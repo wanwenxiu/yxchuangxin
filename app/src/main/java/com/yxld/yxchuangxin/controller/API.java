@@ -14,14 +14,12 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 
-    String PICcl = "http://192.168.8.10:8080";
-
     String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
     String PIC = "http://192.168.8.166:8080";
     String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadFile";
-//    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//    String PIC="http://www.hnchxwl.com";
-//    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
+//     String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+//     String PIC="http://www.hnchxwl.com";
+//     String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
 
     /**
      * 获取商品一级分类URL
@@ -123,11 +121,23 @@ public interface API {
     String URL_GET_ORDER_KUNCUN_FROM_ID = IP_PRODUCT
             + "/mall/androidOrder_findOrderKucunByordid?ord.dingdanId=%1$s";
 
-    /**
-     * 注册接口  1202
-     */
-    String URL_GET_ALL_REGISTER = IP_PRODUCT
-            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s";
+//    /**
+//     * 注册接口  1202
+//     */
+//    String URL_GET_ALL_REGISTER = IP_PRODUCT
+//            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s";
+
+  /**
+   * 注册接口
+   */
+  String URL_GET_ALL_REGISTER = IP_PRODUCT
+          + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s&chuangxinhao=%3$s";
+
+  /**
+   * 判断是否已注册
+   */
+  String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
+          + "/mall/androidUser_isExistYonghu?shouji=%1$s&chuangxinhao=%2$s";
 
     /**
      * 用户评价商品
@@ -141,11 +151,11 @@ public interface API {
     String URL_PRAISE_LIST_FROM_GOOD = IP_PRODUCT
             + "/mall/comment_findComment?rows=%1$s&page=%2$s&comment.pingjiaShangpNum=%3$s&comment.pingjiaLevel=%4$s&comment.pingjiaBeiyong4=%5$s";
 
-    /**
-     * 判断是否已注册  1202
-     */
-    String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
-            + "/mall/androidUser_isExistYonghu?shouji=%1$s";
+//    /**
+//     * 判断是否已注册  1202
+//     */
+//    String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
+//            + "/mall/androidUser_isExistYonghu?shouji=%1$s";
     /**
      * 登录接口  1202
      */

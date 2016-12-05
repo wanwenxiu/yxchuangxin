@@ -48,7 +48,7 @@ import cn.smssdk.SMSSDK;
 public class RegisterActivity extends BaseActivity {
 
 	private LoginController loginController;
-	private EditText register_tel,register_pwd,register_yzm;
+	private EditText register_tel,register_pwd,register_yzm,register_cxh;
 	private Button regsubmit;
 	private TimeButton register_button_phone;
 	private ExplosionField mExplosionField;
@@ -76,6 +76,18 @@ public class RegisterActivity extends BaseActivity {
 		checkBox_forcheck= (CheckBox) findViewById(R.id.checkBox_forcheck);
 		register_button_phone.onCreate(savedInstanceState);
 		register_button_phone.setOnClickListener(this);
+
+	}
+
+
+	@Override
+	protected void initView() {
+		register_tel = (EditText) findViewById(R.id.register_tel);
+		register_cxh= (EditText) findViewById(R.id.register_cxh);
+		register_pwd = (EditText) findViewById(R.id.register_pwd);
+		regsubmit = (Button) findViewById(R.id.regsubmit);
+		mExplosionField = ExplosionField.attach2Window(this);
+		addListener(findViewById(R.id.regsubmit));
 		//获取短信sdk
 		SMSSDK.initSDK(this, APPKEY, APPSECRET);
 		EventHandler eh = new EventHandler() {
@@ -131,24 +143,6 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId() == android.R.id.home){
-			onBackPressed();
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	protected void initView() {
-		setTitle("注册");
-		register_tel = (EditText) findViewById(R.id.register_tel);
-		register_pwd = (EditText) findViewById(R.id.register_pwd);
-		regsubmit = (Button) findViewById(R.id.regsubmit);
-		mExplosionField = ExplosionField.attach2Window(this);
-		addListener(findViewById(R.id.regsubmit));
-	}
-
-	@Override
 	protected void initDataFromNet() {
 		if (loginController == null) {
 			loginController = new LoginControllerImpl();
@@ -161,7 +155,7 @@ public class RegisterActivity extends BaseActivity {
 		MiPushClient.setUserAccount(RegisterActivity.this,alias, null);
 
 		loginController.getRegisterAlready(mRequestQueue,
-				new Object[] { register_tel.getText().toString() },
+				new Object[] { register_tel.getText().toString(),register_cxh.getText().toString() },
 				Alreadylistener);
 
 	}
@@ -181,10 +175,16 @@ public class RegisterActivity extends BaseActivity {
 				onError(info.MSG);
 				return;
 			}
-			if (info.MSG.equals("该手机号码已经注册")) {
+			if (info.MSG.equals("该手机号已经注册")) {
+				register_button_phone.setTextAfter("该手机号已经注册").setTextBefore("获取验证码").setLenght(5 * 1000);
 				Toast.makeText(RegisterActivity.this,
-						"你输入的账号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
-			} else {
+						"你输入的手机号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
+			} else if (info.MSG.equals("该创欣号已经注册")){
+				register_button_phone.setTextAfter("该创欣号已经注册").setTextBefore("获取验证码").setLenght(5 * 1000);
+				Toast.makeText(RegisterActivity.this,
+						"你输入的创欣号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
+			}else {
+				register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 				String str = register_tel.getText().toString();
 				String str1 = str.replaceAll(" ", "");
 				Toast.makeText(RegisterActivity.this, str1, Toast.LENGTH_SHORT).show();
@@ -281,11 +281,11 @@ public class RegisterActivity extends BaseActivity {
 				break;
 			case R.id.register_button_phone:
 				int len = register_pwd.getText().toString().length();
-				if (len >= 6) {
+				int len1= register_cxh.getText().toString().length();
+				if (len >= 6 && len1>=6 ) {
 					initDataFromNet();
-					register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 				} else {
-					register_button_phone.setTextAfter("请输入6—16位数字或字母").setTextBefore("获取验证码").setLenght(5 * 1000);
+					register_button_phone.setTextAfter("密码或创欣号错误").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
 				break;
 		}
@@ -322,7 +322,7 @@ public class RegisterActivity extends BaseActivity {
 						Toast.makeText(getApplicationContext(), "短信验证成功", Toast.LENGTH_SHORT).show();
 						loginController.getRegister(mRequestQueue, new Object[] {
 								register_tel.getText().toString(),
-								StringUitl.getMD5(register_pwd.getText().toString()) }, listener);
+								StringUitl.getMD5(register_pwd.getText().toString()),register_cxh.getText().toString() }, listener);
 					}
 				} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
 					Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
@@ -346,8 +346,15 @@ public class RegisterActivity extends BaseActivity {
 	};
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == android.R.id.home){
+			onBackPressed();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		register_button_phone.onDestroy();
 		super.onDestroy();
 		SMSSDK.unregisterAllEventHandler();

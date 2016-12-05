@@ -64,7 +64,6 @@ public class OrderListItemAdapter extends BaseAdapter {
      * 自定义视图
      */
     private ListItemView listItemView = null;
-//    private int orderids;
 
     /**
      * 总价
@@ -160,9 +159,7 @@ public class OrderListItemAdapter extends BaseAdapter {
         }
 
         CxwyMallOrder order = listOrderDatas.get(position);
-//        orderids=listOrderDatas.get(position).getDingdanId();
         listItemView.orderTime.setText("下单时间:" + order.getDingdanXiadanTime());
-        //listItemView.orderBianhao.setText("订单编号:"+ order.getDingdanBianhao());
         listItemView.orderState.setText(order.getDingdanZhuangtai());
         totalPrice = order.getDingdanTotalRmb() + "";
         //默认总价
@@ -171,7 +168,7 @@ public class OrderListItemAdapter extends BaseAdapter {
             totalPrice +="(优惠券-¥" + order.getDingdanYouhuijia() + ")";
         }
 
-        if(order.getDingdanPeisongfei() != null && !"".equals(order.getDingdanPeisongfei())){
+        if(order.getDingdanPeisongfei() != null && !"".equals(order.getDingdanPeisongfei()) && !"0".equals(order.getDingdanPeisongfei())){
             totalPrice+= "(配送费+¥" + order.getDingdanPeisongfei()+ ")";
         }
 
@@ -336,9 +333,8 @@ public class OrderListItemAdapter extends BaseAdapter {
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setText("申请退货");
             orderType2.setVisibility(View.VISIBLE);
-//           orderType3.setText("订单投诉");
-//            orderType3.setVisibility(View.VISIBLE);
-            orderType3.setVisibility(View.GONE);
+            orderType3.setText("订单投诉");
+            orderType3.setVisibility(View.VISIBLE);
         } else if (state.equals("退货") || state.equals("退货中") || state.equals("退款中")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("删除订单");
@@ -350,7 +346,8 @@ public class OrderListItemAdapter extends BaseAdapter {
             orderType1.setText("删除订单");
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setVisibility(View.GONE);
-            orderType3.setVisibility(View.GONE);
+            orderType3.setText("订单投诉");
+            orderType3.setVisibility(View.VISIBLE);
         }
 
     }
@@ -382,21 +379,22 @@ public class OrderListItemAdapter extends BaseAdapter {
                 Intent intent = new Intent(mContext, GoodsPraiseActivity.class);
                 mContext.startActivity(intent);
            }
-//            else if(tv.getText().toString().equals("订单投诉")){
-//                if(Contains.user == null){
-//                    Toast.makeText(mContext, "您的信息错误,请重试。", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Intent ts = new Intent();
-//                    ts.setClass(mContext, // context
-//                            WebViewActivity.class);// 跳转的activity
-//                    Bundle ts1 = new Bundle();
-//                    ts1.putString("name", "订单投诉");
-//                    Log.d("...", orderId + "");
-//                    ts1.putString("address", API.IP_PRODUCT + "/malltousu.jsp?malluserid=" + Contains.user.getYezhuId() + "&tousuXiangmuId="+Contains.curSelectXiaoQuId   +"&orderid=" + orderId);
-//                    ts.putExtras(ts1);
-//                    mContext.startActivity(ts);
-//                }
-//            }
+            else if(tv.getText().toString().equals("订单投诉")){
+                int id = Integer.parseInt(v.getTag() + "");
+                if(Contains.user == null || Contains.curSelectXiaoQuId == 0 || id == 0){
+                    Toast.makeText(mContext, "您的信息错误,请重试。", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent ts = new Intent();
+                    ts.setClass(mContext, // context
+                            WebViewActivity.class);// 跳转的activity
+                    Bundle ts1 = new Bundle();
+                    ts1.putString("name", "订单投诉");
+                    Log.d("...", orderId + "");
+                    ts1.putString("address", API.IP_PRODUCT + "/malltousu.jsp?malluserid=" + Contains.user.getYezhuId() + "&tousuXiangmuId="+Contains.curSelectXiaoQuId   +"&orderid=" + id);
+                    ts.putExtras(ts1);
+                    mContext.startActivity(ts);
+                }
+            }
             else {
                 Message msg = new Message();
                 msg.arg1 = Integer.parseInt(v.getTag() + "");

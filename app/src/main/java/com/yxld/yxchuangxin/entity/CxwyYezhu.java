@@ -27,6 +27,7 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable{
 	private String yezhuPwd="";//密码
 	private Integer yezhuType;//业主类型：0业主 1 游客
 	private String yezhuBiezhu1="";//添加时间
+	private String yezhuChuangxinhao; //业主创新号
 
 	/** default constructor */
 	public CxwyYezhu() {
@@ -48,7 +49,25 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable{
 		this.yezhuType = yezhuType;
 		this.yezhuBiezhu1 = yezhuBiezhu1;
 	}
-// Property accessors
+
+	public CxwyYezhu(Integer yezhuId, String yezhuCardNum, String yezhuName, String yezhuSex, String yezhuPhone, String yezhuShouji, String yezhuSfzSrc1, String yezhuSfzSrc2, String yezhuGzdw, String yezhuBeizhu, Integer yezhuIsUse, String yezhuPwd, Integer yezhuType, String yezhuBiezhu1, String yezhuChuangxinhao) {
+		this.yezhuId = yezhuId;
+		this.yezhuCardNum = yezhuCardNum;
+		this.yezhuName = yezhuName;
+		this.yezhuSex = yezhuSex;
+		this.yezhuPhone = yezhuPhone;
+		this.yezhuShouji = yezhuShouji;
+		this.yezhuSfzSrc1 = yezhuSfzSrc1;
+		this.yezhuSfzSrc2 = yezhuSfzSrc2;
+		this.yezhuGzdw = yezhuGzdw;
+		this.yezhuBeizhu = yezhuBeizhu;
+		this.yezhuIsUse = yezhuIsUse;
+		this.yezhuPwd = yezhuPwd;
+		this.yezhuType = yezhuType;
+		this.yezhuBiezhu1 = yezhuBiezhu1;
+		this.yezhuChuangxinhao = yezhuChuangxinhao;
+	}
+	// Property accessors
 
 	public Integer getYezhuId() {
 		return this.yezhuId;
@@ -171,6 +190,14 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable{
 		this.rows = rows;
 	}
 
+	public String getYezhuChuangxinhao() {
+		return yezhuChuangxinhao;
+	}
+
+	public void setYezhuChuangxinhao(String yezhuChuangxinhao) {
+		this.yezhuChuangxinhao = yezhuChuangxinhao;
+	}
+
 	@Override
 	public String toString() {
 		return "CxwyYezhu{" +
@@ -188,6 +215,7 @@ public class CxwyYezhu extends BaseEntity implements java.io.Serializable{
 				", yezhuPwd='" + yezhuPwd + '\'' +
 				", yezhuType=" + yezhuType +
 				", yezhuBiezhu1='" + yezhuBiezhu1 + '\'' +
+				", yezhuChuangxinhao='" + yezhuChuangxinhao + '\'' +
 				'}';
 	}
 }

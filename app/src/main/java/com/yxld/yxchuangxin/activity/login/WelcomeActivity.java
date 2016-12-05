@@ -22,16 +22,22 @@ import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
+import com.yxld.yxchuangxin.controller.API;
+import com.yxld.yxchuangxin.controller.AppVersionController;
 import com.yxld.yxchuangxin.controller.LoginController;
+import com.yxld.yxchuangxin.controller.impl.AppVersionControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.db.DBUtil;
+import com.yxld.yxchuangxin.entity.CxwyAppVersion;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.LoginEntity;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.CxUtil;
 import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
+import com.yxld.yxchuangxin.util.UpdateManager;
 import com.yxld.yxchuangxin.view.Utils;
 
 /**
@@ -42,16 +48,16 @@ import com.yxld.yxchuangxin.view.Utils;
  */
 @SuppressLint("HandlerLeak")
 public class WelcomeActivity extends BaseActivity implements
-		ResultListener<LoginEntity>, OnItemClickListener, AMapLocationListener {
+		ResultListener<LoginEntity>, OnItemClickListener{
 	private final String LAST_LOGIN_USER_ID = "lastLoginUserId";
 	private final String CB_SAVE_PWD = "cb_save_pwd";
 	/** 跳转界面*/
 	private final int JUMP_ACTIVITY = 66;
 	/** 定位结束*/
-	private final int LOCATION_FINISH= 65;
+	public static final int LOCATION_FINISH= 65;
 	
-	/** 动态获取定位权限*/
-	 public final  int REQUEST_CODE_ASK_LOCATION = 123;
+//	/** 动态获取定位权限*/
+//	 public final  int REQUEST_CODE_ASK_LOCATION = 123;
 
 	/** 数据库保存的用户信息 */
 	private CxwyMallUser curUser = null;
@@ -59,6 +65,17 @@ public class WelcomeActivity extends BaseActivity implements
 	private LoginController loginController;
 	private SharedPreferences sp;
 	private String name,pwd;
+
+
+	private AppVersionController versionController;
+
+	/** 更新实体*/
+	private CxwyAppVersion entity;
+
+	/**
+	 * 动态获取定位权限
+	 */
+	public final static int REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE = 124;
 
 	@Override
 	protected void onDestroy() {
@@ -87,8 +104,46 @@ public class WelcomeActivity extends BaseActivity implements
 		sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 		setToorBar(false);
 		//permission.READ_PHONE_STATE
-		checkPermission(REQUEST_CODE_ASK_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+//		checkPermission(REQUEST_CODE_ASK_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+		//获取版本信息
+		if (versionController == null) {
+			versionController = new AppVersionControllerImpl();
+		}
+		versionController.getAppVersionInfo(mRequestQueue, new Object[]{}, versionListener);
 }
+
+	private ResultListener<CxwyAppVersion> versionListener = new ResultListener<CxwyAppVersion>() {
+
+		@Override
+		public void onResponse(CxwyAppVersion info) {
+			progressDialog.hide();
+			if (info.status != STATUS_CODE_OK) {
+				onError(info.MSG);
+				return;
+			}
+			if (info.getVer() != null) {
+				entity = info.getVer();
+				Log.d("geek", " 版本entity=" + entity.toString());
+				String curVersion = CxUtil.getVersion(WelcomeActivity.this);
+				String newVersion = entity.getVersionUId();
+				Log.d("geek", "curVersion=" + curVersion + ",newVersion=" + newVersion);
+				if (Float.valueOf(newVersion) > Float.valueOf(curVersion)) {
+					checkPermission(REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+				}else{
+					handler.sendEmptyMessage(LOCATION_FINISH);
+				}
+			}else{
+				handler.sendEmptyMessage(LOCATION_FINISH);
+			}
+		}
+
+		@Override
+		public void onErrorResponse(String errMsg) {
+			onError(errMsg);
+			handler.sendEmptyMessage(LOCATION_FINISH);
+		}
+
+	};
 
 	Handler handler = new Handler() {
 		@SuppressWarnings("static-access")
@@ -102,11 +157,6 @@ public class WelcomeActivity extends BaseActivity implements
 				finish();
 				break;
 			case LOCATION_FINISH:
-//				if(!locationClient.isStarted()){
-//					// 启动定位
-//					locationClient.setLocationListener(WelcomeActivity.this);
-//					locationClient.startLocation();
-//				}
 				queryShipperInfo();
 				break;
 			default:
@@ -141,9 +191,6 @@ public class WelcomeActivity extends BaseActivity implements
 					new Object[] {name,
 							StringUitl.getMD5(pwd)}, this);
 		}
-
-//		handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 500);
-//		handler.sendEmptyMessage(JUMP_ACTIVITY);
 	}
 
 	@Override
@@ -181,22 +228,6 @@ public class WelcomeActivity extends BaseActivity implements
 			editor.putString("PASSWORD", pwd);
 			editor.commit();
 			sp.edit().putBoolean("ISCHECK", true).commit();
-//			dbUtil.clearData(CxwyMallUser.class);
-//			long result = dbUtil.insert(info.getUser(), info.getUser()
-//					.getYezhuId() + "");
-//
-//			if (result == -1) {
-//				ToastUtil.show(this, "登录失败,数据插入错误, 请重试!");
-//				return;
-//			}
-//
-//			Contains.user = info.getUser();
-////
-//			Contains.curSelectXiaoQu = info.getHouse().get(0).getXiangmuLoupan();
-//
-//			// 保存用户ID至配置文件中
-//			SPUtils.put(WelcomeActivity.this, LAST_LOGIN_USER_ID, info
-//					.getUser().getYezhuId() + "");
 		} else {
 			Log.d("geek","自动登录失败");
 		}
@@ -204,25 +235,14 @@ public class WelcomeActivity extends BaseActivity implements
 
 	@Override
 	public void onErrorResponse(String errMsg) {
-		//handler.sendEmptyMessageDelayed(JUMP_ACTIVITY, 500);
 		handler.sendEmptyMessage(JUMP_ACTIVITY);
 	}
 
-	@Override
-	public void onLocationChanged(AMapLocation arg0) {
-		if (null != arg0) {
-			Log.d("geek", "arg0"+arg0);
-			Utils.getLocationStr(arg0);
-		}
-	}
-	
 	/**
 	 * 请求权限
 	 *
-	 * @param id
-	 *            请求授权的id 唯一标识即可
-	 * @param permission
-	 *            请求的权限
+	 * @param id         请求授权的id 唯一标识即可
+	 * @param permission 请求的权限
 	 */
 	protected void checkPermission(int id, String permission) {
 		// 版本判断
@@ -232,33 +252,78 @@ public class WelcomeActivity extends BaseActivity implements
 					permission);
 			if (checkPermissionResult != PackageManager.PERMISSION_GRANTED) {
 				// 弹出对话框接收权限
-				requestPermissions(new String[] { permission }, id);
+				requestPermissions(new String[]{permission}, id);
 				return;
 			} else {
 				// 获取到权限
-				handler.sendEmptyMessage(LOCATION_FINISH);
+				alertUpdate();
 			}
 		} else {
 			// 获取到权限
-			handler.sendEmptyMessage(LOCATION_FINISH);
+			alertUpdate();
 		}
 	}
 
-	@Override
-	public void onRequestPermissionsResult(int requestCode,
-			String[] permissions, int[] grantResults) {
-		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		if (requestCode ==REQUEST_CODE_ASK_LOCATION) {
-			if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				// 获取到权限
-				handler.sendEmptyMessage(LOCATION_FINISH);
-			} else {
-				// 没有获取到权限
-				Toast.makeText(WelcomeActivity.this, "没有定位权限", Toast.LENGTH_SHORT).show();
-				handler.sendEmptyMessage(LOCATION_FINISH);
-			}
-		}
+	/**
+	 * 调用版本更新方法
+	 */
+	private void alertUpdate() {
+		// 这里来检测版本是否需要更新
+		UpdateManager mUpdateManager = new UpdateManager(this, API.PIC + entity.getVersionDownloadUrl(),handler);
+		mUpdateManager.checkUpdateInfo(entity.getVersionUId(), entity.getVersionExplain(), entity.getVersionIsCompulsory());
 	}
+
+//	@Override
+//	public void onLocationChanged(AMapLocation arg0) {
+//		if (null != arg0) {
+//			Log.d("geek", "arg0"+arg0);
+//			Utils.getLocationStr(arg0);
+//		}
+//	}
+	
+//	/**
+//	 * 请求权限
+//	 *
+//	 * @param id
+//	 *            请求授权的id 唯一标识即可
+//	 * @param permission
+//	 *            请求的权限
+//	 */
+//	protected void checkPermission(int id, String permission) {
+//		// 版本判断
+//		if (Build.VERSION.SDK_INT >= 23) {
+//			// 减少是否拥有权限
+//			int checkPermissionResult = getApplication().checkSelfPermission(
+//					permission);
+//			if (checkPermissionResult != PackageManager.PERMISSION_GRANTED) {
+//				// 弹出对话框接收权限
+//				requestPermissions(new String[] { permission }, id);
+//				return;
+//			} else {
+//				// 获取到权限
+//				handler.sendEmptyMessage(LOCATION_FINISH);
+//			}
+//		} else {
+//			// 获取到权限
+//			handler.sendEmptyMessage(LOCATION_FINISH);
+//		}
+//	}
+
+//	@Override
+//	public void onRequestPermissionsResult(int requestCode,
+//			String[] permissions, int[] grantResults) {
+//		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//		if (requestCode ==REQUEST_CODE_ASK_LOCATION) {
+//			if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//				// 获取到权限
+//				handler.sendEmptyMessage(LOCATION_FINISH);
+//			} else {
+//				// 没有获取到权限
+//				Toast.makeText(WelcomeActivity.this, "没有定位权限", Toast.LENGTH_SHORT).show();
+//				handler.sendEmptyMessage(LOCATION_FINISH);
+//			}
+//		}
+//	}
 
 
 }

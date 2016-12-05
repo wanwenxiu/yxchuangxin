@@ -97,39 +97,8 @@ public class LoginActivity extends BaseActivity {
 				}
 			}
 		});
-		//queryShipperInfo();
 	}
 
-	/**
-	 * @Title: queryUserInfo
-	 * @Description: 查询用户信息
-	 * @return void
-	 * @throws
-	 */
-//	private void queryShipperInfo() {
-//
-//		boolean savePsd = (boolean) SPUtils.get(this, CB_SAVE_PWD, false);
-//		if (!savePsd) {
-//			Log.d("geek", "GuideActivity getLogin()  curUser 没有保存密码");
-//			return;
-//		}
-//		String userId = String.valueOf(SPUtils
-//				.get(this, LAST_LOGIN_USER_ID, ""));
-//
-//		if (!TextUtils.isEmpty(userId)) {
-//			if (dbUtil == null) {
-//				dbUtil = new DBUtil(this);
-//			}
-//			if (!isEmptyList(dbUtil.query(CxwyYezhu.class, userId))) {
-//				curUser = (CxwyYezhu) (dbUtil.query(CxwyYezhu.class,
-//						userId));
-//				if(curUser != null){
-//					login_tel.setText(curUser.getYezhuShouji());
-//					login_pwd.setText(curUser.getYezhuPwd());
-//				}
-//			}
-//		}
-//	}
 
 	@Override
 	protected void initDataFromNet() {
@@ -154,23 +123,6 @@ public class LoginActivity extends BaseActivity {
 				return;
 			}
 			if (info.MSG.equals("登录成功")) {
-//				if (dbUtil == null) {
-//					dbUtil = new DBUtil(LoginActivity.this);
-//				}
-//				if (isEmptyList(dbUtil.query(CxwyYezhu.class, info.getUser().getYezhuId()+""))) {
-//					Log.d("...", "kkkkkk");
-//
-//				}else {
-//					Log.d("...", "nnnn");
-//					dbUtil.clearData(CxwyYezhu.class);
-//				}
-//				dbUtil.clearData(CxwyYezhu.class);
-//				long result = dbUtil.insert(info.getUser(), info.getUser().getYezhuId()+"");
-//
-//				if (result == -1) {
-//					ToastUtil.show(LoginActivity.this, "登录失败，请检查用户名密码是否正确!");
-//					return;
-//				}
 
 				mExplosionField.explode(loginSubmit);
 				loginSubmit.setOnClickListener(null);
@@ -186,15 +138,6 @@ public class LoginActivity extends BaseActivity {
 				editor.putString("PASSWORD", passwordValue);
 				editor.commit();
 				sp.edit().putBoolean("ISCHECK", true).commit();
-//				Contains.cxwyMallUser = info.getUser();
-//				Log.d("denglu","登陆info.getDefuleaddr()  ="+info.getDefuleaddr().toString());
-//				Contains.defuleAddress = info.getDefuleaddr();
-//				Log.d("denglu","登陆 Contains.defuleAddress  ="+Contains.defuleAddress.toString());
-				// 保存用户ID和账号至配置文件中
-//				SPUtils.put(LoginActivity.this, CB_SAVE_PWD,
-//						checkBox1.isChecked());
-//				SPUtils.put(LoginActivity.this, LAST_LOGIN_USER_ID, info
-//						.getUser().getYezhuId() + "");
 				new Thread() {
 					public void run() {
 						try {

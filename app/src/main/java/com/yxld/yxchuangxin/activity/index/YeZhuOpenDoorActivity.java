@@ -64,7 +64,6 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 	/** 更新二维码时间*/
 	private int UPDATETIME = 1000*30;
 
-
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.phone_open_door_activity_layout);
@@ -78,6 +77,8 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 			house = list.get(0);
 			address = house.getXiangmuLoupan()+""+house.getFwLoudong()+"栋"+house.getFwDanyuan()+"单元" +house.getFwFanghao();
 			Log.d("geek","房屋"+house.toString());
+			//第一次进入弹出加载
+			progressDialog.show();
 			initDataFromNet();
 			handler.postDelayed(runnable, UPDATETIME); //每隔1s执行
 		}
@@ -188,7 +189,6 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 			}else{
 				bname = Contains.user.getYezhuName();
 			}
-
 			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
 			doorController.GetYEZHUDoorCODE(mRequestQueue,new Object[]{bname,
 					Contains.user.getYezhuShouji(),
@@ -225,6 +225,7 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 			if(youxiaoqi != null){
 				youxiaoqi.setText("网络连接失败！");
 			}
+			progressDialog.hide();
 		}
 	};
 

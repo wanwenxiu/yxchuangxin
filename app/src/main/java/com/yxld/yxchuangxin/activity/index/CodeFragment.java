@@ -81,6 +81,8 @@ public class CodeFragment extends BaseFragment {
 			house = list.get(0);
 			address = house.getXiangmuLoupan()+""+house.getFwLoudong()+"栋"+house.getFwDanyuan()+"单元" +house.getFwFanghao();
 			Log.d("geek","房屋"+house.toString());
+			//第一次进入弹出加载
+			progressDialog.show();
 			initDataFromNet();
 			handler.postDelayed(runnable, UPDATETIME); //每隔1s执行
 		}

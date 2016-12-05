@@ -13,6 +13,9 @@ public class LoginEntity extends BaseEntity{
 
 	public String logintimeout;
 
+	/** 版本实体 -- 判断是否存在新版本*/
+	private CxwyAppVersion ver;
+
 	public List<AppYezhuFangwu> getHouse() {
 		return house;
 	}
@@ -37,12 +40,30 @@ public class LoginEntity extends BaseEntity{
 		this.token = token;
 	}
 
+	public CxwyAppVersion getVer() {
+		return ver;
+	}
+
+	public void setVer(CxwyAppVersion ver) {
+		this.ver = ver;
+	}
+
+	public String getLogintimeout() {
+		return logintimeout;
+	}
+
+	public void setLogintimeout(String logintimeout) {
+		this.logintimeout = logintimeout;
+	}
+
 	@Override
 	public String toString() {
 		return "LoginEntity{" +
 				"house=" + house +
 				", user=" + user +
 				", token='" + token + '\'' +
+				", logintimeout='" + logintimeout + '\'' +
+				", ver=" + ver +
 				'}';
 	}
 }

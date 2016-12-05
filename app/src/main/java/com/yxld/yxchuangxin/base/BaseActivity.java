@@ -400,7 +400,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 						.show();
 			}else{
 				new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-						.setTitleText("连接失败")
+						.setTitleText("提示")
 						.setContentText(errMsg)
 						.show();
 			}
@@ -465,7 +465,8 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		System.out.println("Baseactivity onSaveInstanceState()");
+		//保存至outState中
+		System.out.println("BaseActivity onSaveInstanceState()");
 		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
 		outState.putSerializable(SAVEYONGHU,Contains.user);
 		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
@@ -476,6 +477,8 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		try {
 			if (savedInstanceState != null) {
+				//取出保存在savedInstanceState中
+				System.out.println("BaseActivity onRestoreInstanceState()");
 			Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
 			Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
 			Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
