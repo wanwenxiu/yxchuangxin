@@ -123,10 +123,24 @@ public class VisitingFragment extends BaseFragment  {
                           nameyz= Contains.user.getYezhuShouji();
                       }else{
                           nameyz = Contains.user.getYezhuName();
+                          try {
+                              //编码授权人业主名字
+                              nameyz =  URLEncoder.encode(nameyz,"UTF-8").toString();
+                          }catch (Exception e){
+                              Log.d("geek","业主姓名编码失败");
+                          }
+                      }
+
+                      //编码被授权人名字
+                      String bName = name.getText().toString();
+                      try {
+                          bName =  URLEncoder.encode(bName,"UTF-8").toString();
+                      }catch (Exception e){
+                          Log.d("geek","业主姓名编码失败");
                       }
 
                       //coed/getcodes/{bName}/{bPhone}/{bRole}/{name}/{phone}/{role}/{building}/{buildingHouse}/{buildingUnit}
-                      DoorController.GetFangKeDoorCODE(mRequestQueue,new Object[]{name.getText().toString(),
+                      DoorController.GetFangKeDoorCODE(mRequestQueue,new Object[]{bName,
                               phone.getText().toString(),"3",
                               nameyz,Contains.user.getYezhuShouji(),String.valueOf(house.getFwyzType()),
                               String.valueOf(house.getFwLoupanId()),house.getFwLoudong(),house.getFwDanyuan()},OpenDoorCode);

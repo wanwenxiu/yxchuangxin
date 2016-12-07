@@ -163,7 +163,8 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         curPlace = (TextView) findViewById(R.id.curPlace);
         if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() > 0) {
             curPlace.setText(Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
-        }else {
+        }
+        if (Contains.user != null && Contains.user.getYezhuType() == 1 && "".equals(Contains.curSelectXiaoQuName)) {
             //初始化定位
             initLocation();
             startLocation();
@@ -230,7 +231,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
-                Log.d("...", Contains.user.getYezhuType() + "");
                 if (Contains.user != null && Contains.user.getYezhuType() == 0) {
                     startActivity(WuyeActivity.class);
                 } else {
@@ -368,20 +368,19 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     };
 
-
-
-
     private ResultListener<BaseEntity> tongzhiLinstener = new ResultListener<BaseEntity>() {
         @Override
         public void onResponse(BaseEntity info) {
             Log.d("geek", "门禁 info=" + info.toString());
             String tongzhi = info.MSG;
             marqueeTv.setText(tongzhi);
+            progressDialog.hide();
         }
 
         @Override
         public void onErrorResponse(String errMsg) {
             onError(errMsg);
+            progressDialog.hide();
         }
     };
 

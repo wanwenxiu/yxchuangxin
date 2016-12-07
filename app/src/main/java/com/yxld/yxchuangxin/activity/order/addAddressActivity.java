@@ -200,7 +200,11 @@ public class addAddressActivity extends BaseActivity {
 //					if(selectAddress.getText().equals("请选择省市区") || selectAddress.getText().equals("")){
 //						ToastUtil.show(this, "请选择省市区");
 //					}else{
-						requestAddUpdateAdd();
+					if(!StringUitl.isMobileNum(editPhone.getText().toString())){
+						ToastUtil.show(this,"请输入正确手机号码");
+						return;
+					}
+					requestAddUpdateAdd();
 //					}
 				}
 			}

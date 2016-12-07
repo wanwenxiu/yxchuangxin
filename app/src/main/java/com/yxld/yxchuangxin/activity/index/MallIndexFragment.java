@@ -1,5 +1,7 @@
 package com.yxld.yxchuangxin.activity.index;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity;
@@ -34,11 +37,14 @@ import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by yishangfei on 2016/3/4.
@@ -67,6 +73,10 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
     /**首页推荐商品*/
     private List<CxwyMallProduct> indexListData = new ArrayList<CxwyMallProduct>();
+
+    private final String save_mall_imgurl = "save_mall_imgurl";
+    private SharedPreferences sp;
+    private  Gson gson = new Gson();
 
     @Override
     public void onDestroy() {
@@ -111,7 +121,10 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("geek","MallIndexFragment onCreateView");
         View view = inflater.inflate(R.layout.home_fragment, container, false);
+        /** */
+        sp = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         swipe_container = (SwipeRefreshLayout)view.findViewById(R.id.swipe_container);
         swipe_container.setOnRefreshListener(this);
         swipe_container.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -172,7 +185,17 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
         scrollView = (ScrollView) view.findViewById(R.id.scrollView2);
         scrollView.scrollTo(0, 0);
-        getlunbotubiao();
+        if(sp.getString(save_mall_imgurl, "") != null && !"".equals(sp.getString(save_mall_imgurl, "")))
+        {
+            //默认本地存在图片
+            Log.d("geek","默认本地存在图片 ");
+            String tupian = sp.getString(save_mall_imgurl, "");
+            CxwyMallPezhi peuzhi = gson.fromJson(tupian, CxwyMallPezhi.class);
+            setPeizhiImg(peuzhi,true);
+        }else{
+            Log.d("geek","默认本地不不不存在图片 ");
+            getlunbotubiao();
+        }
         return view;
     }
 
@@ -248,17 +271,22 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                 }
             }
             progressDialog.hide();
-            swipe_container.setRefreshing(false);
+            if(swipe_container != null){
+                swipe_container.setRefreshing(false);
+            }
         }
 
         @Override
         public void onErrorResponse(String errMsg) {
-            swipe_container.setRefreshing(false);
+            if(swipe_container != null){
+                swipe_container.setRefreshing(false);
+            }
             onError("数据获取失败");
         }
     };
 
     private void getlunbotubiao(){
+        Log.d("geek","getlunbotubiao()");
         progressDialog.show();
         if(PeiZhiController == null){
             PeiZhiController = new PeiZhiControllerImpl();
@@ -270,26 +298,7 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                     onError(info.MSG);
                     return;
                 }
-
-                if(!isEmptyList(info.getLblist())) {
-                        for (int i = 0; i < info.getLblist().size(); i++) {
-                            if(urls != null && info.getLblist().get(i) != null && info.getLblist().get(i).getMallPeizhiValue() != null && !"".equals(info.getLblist().get(i).getMallPeizhiValue())){
-                                urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
-                            }
-                        }
-                    mall_lunbo.setImageResources(urls,
-                            new ImageCycleView.ImageCycleViewListener() {
-                                @Override
-                                public void onImageClick(int position, View imageView) {
-                                }
-                            }, 0);
-                }
-
-                if(!isEmptyList(info.getTblist())) {
-                    msctbList = info.getTblist();
-                    adapter.setmList(msctbList);
-                }
-                initDataFromNet();
+                setPeizhiImg(info,false);
             }
 
             @Override
@@ -297,6 +306,38 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
                 initDataFromNet();
             }
         });
+    }
+
+    private void setPeizhiImg(CxwyMallPezhi info,boolean isRequest) {
+        if(!isEmptyList(info.getLblist())) {
+                for (int i = 0; i < info.getLblist().size(); i++) {
+                    if(urls != null && info.getLblist().get(i) != null && info.getLblist().get(i).getMallPeizhiValue() != null && !"".equals(info.getLblist().get(i).getMallPeizhiValue())){
+                        urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
+                    }
+                }
+                mall_lunbo.setImageResources(urls,
+                    new ImageCycleView.ImageCycleViewListener() {
+                        @Override
+                        public void onImageClick(int position, View imageView) {
+                        }
+                    }, 0);
+        }
+
+        if(!isEmptyList(info.getTblist())) {
+            msctbList = info.getTblist();
+            adapter.setmList(msctbList);
+        }
+        String imgToStr = gson.toJson(info);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(save_mall_imgurl, imgToStr);
+        editor.commit();
+        Log.d("geek","商城首页 setPeizhiImg");
+        initDataFromNet();
+        if(isRequest){
+            Log.d("geek","商城首页 setPeizhiImg "+isRequest);
+//            getlunbotubiao();
+        }
+
     }
 
     @Override

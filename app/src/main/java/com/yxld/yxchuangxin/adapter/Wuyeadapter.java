@@ -104,7 +104,7 @@ public class Wuyeadapter extends BaseAdapter {
                                             WebViewActivity.class);// 跳转的activity
                                     Bundle cl1 = new Bundle();
                                     cl1.putString("name", "车辆管理");
-                                    cl1.putString("address", API.menjinIP+"cxwy_daozha/daozha/mobile?url=unlockList&lpId="+Contains.appYezhuFangwus.get(0).getXiangmuLoupan()+"&userId="+Contains.appYezhuFangwus.get(0).getYezhuId());
+                                    cl1.putString("address", API.menjinIP+"cxwy_daozha/daozha/mobile?url=unlockList&lpId="+Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&userId="+Contains.appYezhuFangwus.get(0).getYezhuId());
                                     cl.putExtras(cl1);
                                     context.startActivity(cl, cl1);
                                 }else {

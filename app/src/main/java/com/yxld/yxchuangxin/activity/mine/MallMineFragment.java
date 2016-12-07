@@ -184,7 +184,7 @@ public class MallMineFragment extends BaseFragment {
                 break;
             case R.id.jianyi:
                 if (Contains.curSelectXiaoQuName != null && Contains.curSelectXiaoQuId != 0) {
-                    int  id  = Contains.appYezhuFangwus.get(0).getFwLoupanId();
+                    int  id  = Contains.curSelectXiaoQuId;
                     Intent jy = new Intent();
                     jy.setClass(getActivity(), // context
                             WebViewActivity.class);// 跳转的activity

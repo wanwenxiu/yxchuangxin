@@ -23,6 +23,7 @@ import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.db.DBUtil;
+import com.yxld.yxchuangxin.entity.CxwyMallAdd;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.LoginEntity;
@@ -132,6 +133,19 @@ public class LoginActivity extends BaseActivity {
 					Contains.appYezhuFangwus=info.getHouse();
 					Contains.curSelectXiaoQuName = info.getHouse().get(0).getXiangmuLoupan();
 					Contains.curSelectXiaoQuId = info.getHouse().get(0).getFwLoupanId();
+
+					Contains.defuleAddress = new CxwyMallAdd();
+					//设置默认地址项目
+					if(Contains.user.getYezhuName() != null && !"".equals(Contains.user.getYezhuName() )){
+						Contains.defuleAddress.setAddName(Contains.user.getYezhuName());
+					}else{
+						Contains.defuleAddress.setAddName(Contains.user.getYezhuShouji());
+					}
+					Contains.defuleAddress.setAddTel(Contains.user.getYezhuShouji());
+					Contains.defuleAddress.setAddAdd(info.getHouse().get(0).getXiangmuLoupan()+
+							info.getHouse().get(0).getFwLoudong()+"栋"+
+							info.getHouse().get(0).getFwDanyuan()+"单元"+
+							info.getHouse().get(0).getFwFanghao());
 				}
 				SharedPreferences.Editor editor = sp.edit();
 				editor.putString("NAME", userNameValue);

@@ -175,28 +175,16 @@ public class CodeFragment extends BaseFragment {
 				&& house.getFwLoupanId() != null && house.getFwLoudong() != null
 				&& house.getFwDanyuan() != null){
 
-//			Map<String, String> params = new HashMap<String, String>();
-//			if(Contains.user.getYezhuName() == null || "".equals(Contains.user.getYezhuName())){
-//				params.put("bName",Contains.user.getYezhuShouji());
-//			}else{
-//				params.put("bName",Contains.user.getYezhuName());
-//			}
-//			params.put("bPhone",Contains.user.getYezhuShouji());
-//			params.put("bRole",String.valueOf(house.getFwyzType()));
-//			params.put("building",String.valueOf(house.getFwLoupanId()));
-//			params.put("buildingHouse",house.getFwLoudong());
-//			params.put("buildingUnit",house.getFwDanyuan());
-//
-//			Log.d("geek","获取业主二维码 params ="+params.toString());
-//
-//			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
-////			doorController.GetYEZHUDoorCODE(mRequestQueue,params,yezhuDoorCode);
-
 			String bname = "";
 			if(Contains.user.getYezhuName() == null || "".equals(Contains.user.getYezhuName())){
 				bname = Contains.user.getYezhuShouji();
 			}else{
 				bname = Contains.user.getYezhuName();
+				try {
+					bname =  URLEncoder.encode(bname,"UTF-8").toString();
+				}catch (Exception e){
+					Log.d("geek","业主姓名编码失败");
+				}
 			}
 
 			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元

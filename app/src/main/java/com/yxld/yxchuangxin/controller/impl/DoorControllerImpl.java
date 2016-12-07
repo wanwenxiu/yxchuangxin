@@ -23,6 +23,7 @@ public class DoorControllerImpl implements DoorController{
 
 	@Override
 	public void GetYEZHUDoorCODE(RequestQueue mRequestQueue,final Object[] parm,final  ResultListener<OpenDoorCode> listener) {
+		Log.d("geek","GetYEZHUDoorCODE姓名编码后为"+parm[0]);
 		GsonRequest<OpenDoorCode> gsonRequest = new GsonRequest<OpenDoorCode>(String.format(URL_GET_YEZHUOPENCODE, parm), OpenDoorCode.class, new Response.Listener<OpenDoorCode>() {
 
 			@Override
@@ -47,38 +48,7 @@ public class DoorControllerImpl implements DoorController{
 
 	@Override
 	public void GetFangKeDoorCODE(RequestQueue mRequestQueue, final Object[] parm,final ResultListener<OpenDoorCode> listener) {
-//		StringRequest stringRequest =new StringRequest(
-//				Method.GET,URL_GET_FangKeOPENCODE,
-//				new Response.Listener<String>() {
-//
-//					@Override
-//					public void onResponse(String response) {
-//						OpenDoorCode info = null;
-//						Log.d("geek","GetFangKeDoorCODE response"+response.toString());
-//						if(response != null){
-//							info = gson.fromJson(response, OpenDoorCode.class);
-//						}
-//						if (listener != null) {
-//							listener.onResponse(info);
-//						}
-//					}
-//				}, new Response.ErrorListener() {
-//
-//			@Override
-//			public void onErrorResponse(VolleyError error) {
-//				if (listener != null) {
-//					listener.onErrorResponse(error.getMessage());
-//				}
-//			}
-//		}) {
-//			@Override
-//			protected Map<String, String> getParams()
-//					throws AuthFailureError {
-//				return params;
-//			}
-//		};
-//		stringRequest.setTag(URL_GET_FangKeOPENCODE);
-//		mRequestQueue.add(stringRequest);
+		Log.d("geek","GetFangKeDoorCODE姓名编码后为"+parm[0]);
 		GsonRequest<OpenDoorCode> gsonRequest = new GsonRequest<OpenDoorCode>(String.format(URL_GET_FangKeOPENCODE, parm), OpenDoorCode.class, new Response.Listener<OpenDoorCode>() {
 
 			@Override

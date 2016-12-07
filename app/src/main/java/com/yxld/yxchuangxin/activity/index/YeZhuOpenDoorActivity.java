@@ -27,6 +27,7 @@ import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.util.YouMengShareUtil;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,6 +189,11 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 				bname = Contains.user.getYezhuShouji();
 			}else{
 				bname = Contains.user.getYezhuName();
+				try {
+					bname =  URLEncoder.encode(bname,"UTF-8").toString();
+				}catch (Exception e){
+					Log.d("geek","业主姓名编码失败");
+				}
 			}
 			///业主姓名/业主电话/业主角色/楼盘ID/楼栋/单元
 			doorController.GetYEZHUDoorCODE(mRequestQueue,new Object[]{bname,

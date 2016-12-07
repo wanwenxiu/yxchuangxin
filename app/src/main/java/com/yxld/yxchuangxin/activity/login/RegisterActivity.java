@@ -24,13 +24,17 @@ import com.xiaomi.mipush.sdk.MiPushClient;
 import com.ysf.explosionfield.ExplosionField;
 import com.yxld.yxchuangxin.MainActivity;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
+import com.yxld.yxchuangxin.contain.Contains;
+import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.StringUitl;
+import com.yxld.yxchuangxin.view.AutoLinkStyleTextView;
 import com.yxld.yxchuangxin.view.TimeButton;
 
 import org.json.JSONException;
@@ -53,6 +57,7 @@ public class RegisterActivity extends BaseActivity {
 	private TimeButton register_button_phone;
 	private ExplosionField mExplosionField;
 	private CheckBox checkBox_forcheck;
+	private AutoLinkStyleTextView ptxi;
 
 	// 填写从短信SDK应用后台注册得到的APPKEY
 	private  String APPKEY = "14e1cc04efbc0";
@@ -72,21 +77,37 @@ public class RegisterActivity extends BaseActivity {
 		getSupportActionBar().setTitle("注册");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		register_button_phone= (TimeButton) findViewById(R.id.register_button_phone);
-		register_yzm= (EditText) findViewById(R.id.register_yzm);
-		checkBox_forcheck= (CheckBox) findViewById(R.id.checkBox_forcheck);
 		register_button_phone.onCreate(savedInstanceState);
 		register_button_phone.setOnClickListener(this);
-
+		register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 	}
 
 
 	@Override
 	protected void initView() {
+		ptxi= (AutoLinkStyleTextView) findViewById(R.id.ptxi);
 		register_tel = (EditText) findViewById(R.id.register_tel);
 		register_cxh= (EditText) findViewById(R.id.register_cxh);
 		register_pwd = (EditText) findViewById(R.id.register_pwd);
 		regsubmit = (Button) findViewById(R.id.regsubmit);
+		register_yzm= (EditText) findViewById(R.id.register_yzm);
+		checkBox_forcheck= (CheckBox) findViewById(R.id.checkBox_forcheck);
 		mExplosionField = ExplosionField.attach2Window(this);
+		ptxi.setOnClickCallBack(new AutoLinkStyleTextView.ClickCallBack() {
+			@Override
+			public void onClick(int position) {
+				if (position == 0) {
+					Intent cz = new Intent();
+					cz.setClass(RegisterActivity.this, // context
+							WebViewActivity.class);// 跳转的activity
+					Bundle cz1 = new Bundle();
+					cz1.putString("name", "平台协议");
+					cz1.putString("address", API.IP_PRODUCT+"/userxieyi.jsp");
+					cz.putExtras(cz1);
+					startActivity(cz);
+				}
+			}
+		});
 		addListener(findViewById(R.id.regsubmit));
 		//获取短信sdk
 		SMSSDK.initSDK(this, APPKEY, APPSECRET);
@@ -184,7 +205,6 @@ public class RegisterActivity extends BaseActivity {
 				Toast.makeText(RegisterActivity.this,
 						"你输入的创欣号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
 			}else {
-				register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 				String str = register_tel.getText().toString();
 				String str1 = str.replaceAll(" ", "");
 				Toast.makeText(RegisterActivity.this, str1, Toast.LENGTH_SHORT).show();
@@ -216,6 +236,7 @@ public class RegisterActivity extends BaseActivity {
 			}
 			if (info.MSG !=null && !"".equals(info.MSG) ) {
 				Toast.makeText(RegisterActivity.this,info.MSG,Toast.LENGTH_SHORT).show();
+				register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(1 * 1000);
 				mExplosionField.explode(regsubmit);
 				regsubmit.setOnClickListener(null);
 				new Thread() {
@@ -320,6 +341,7 @@ public class RegisterActivity extends BaseActivity {
 				if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
 					if (result == SMSSDK.RESULT_COMPLETE) {
 						Toast.makeText(getApplicationContext(), "短信验证成功", Toast.LENGTH_SHORT).show();
+						register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
 						loginController.getRegister(mRequestQueue, new Object[] {
 								register_tel.getText().toString(),
 								StringUitl.getMD5(register_pwd.getText().toString()),register_cxh.getText().toString() }, listener);

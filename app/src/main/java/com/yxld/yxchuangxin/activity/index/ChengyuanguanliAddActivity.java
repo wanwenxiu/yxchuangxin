@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
@@ -23,6 +24,8 @@ import com.yxld.yxchuangxin.util.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.xiaomi.push.thrift.a.P;
 
 /**
  * @ClassName: ChengyuanguanliAddActivity
@@ -159,6 +162,9 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 				if (info.status != STATUS_CODE_OK) {
 					onError(info.MSG);
 					return;
+				}
+				if(info.getMSG().equals("保存成功")){
+					Toast.makeText(ChengyuanguanliAddActivity.this, "成员信息添加成功", Toast.LENGTH_SHORT).show();
 				}
 				progressDialog.hide();
 				finish();

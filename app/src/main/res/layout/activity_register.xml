@@ -145,7 +145,7 @@
             android:checked="true" />
 
         <com.yxld.yxchuangxin.view.AutoLinkStyleTextView
-            android:id="@+id/tv"
+            android:id="@+id/ptxi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/checkBox_forcheck"
@@ -155,7 +155,7 @@
             android:textColor="@color/gray"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            app:AutoLinkStyleTextView_text_value="“用户协议”" />
+            app:AutoLinkStyleTextView_text_value="“用户协议”," />
     </RelativeLayout>
 
     <View

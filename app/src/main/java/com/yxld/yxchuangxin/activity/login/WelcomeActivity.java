@@ -221,6 +221,18 @@ public class WelcomeActivity extends BaseActivity implements
 				Contains.appYezhuFangwus=info.getHouse();
 				Contains.curSelectXiaoQuName = info.getHouse().get(0).getXiangmuLoupan();
 				Contains.curSelectXiaoQuId = info.getHouse().get(0).getFwLoupanId();
+
+				//设置默认地址项目
+				if(Contains.user.getYezhuName() != null && !"".equals(Contains.user.getYezhuName() )){
+					Contains.defuleAddress.setAddName(Contains.user.getYezhuName());
+				}else{
+					Contains.defuleAddress.setAddName(Contains.user.getYezhuShouji());
+				}
+				Contains.defuleAddress.setAddTel(Contains.user.getYezhuShouji());
+				Contains.defuleAddress.setAddAdd(info.getHouse().get(0).getXiangmuLoupan()+
+						info.getHouse().get(0).getFwLoudong()+"栋"+
+						info.getHouse().get(0).getFwDanyuan()+"单元"+
+						info.getHouse().get(0).getFwFanghao());
 			}
 
 			SharedPreferences.Editor editor = sp.edit();
@@ -272,58 +284,5 @@ public class WelcomeActivity extends BaseActivity implements
 		UpdateManager mUpdateManager = new UpdateManager(this, API.PIC + entity.getVersionDownloadUrl(),handler);
 		mUpdateManager.checkUpdateInfo(entity.getVersionUId(), entity.getVersionExplain(), entity.getVersionIsCompulsory());
 	}
-
-//	@Override
-//	public void onLocationChanged(AMapLocation arg0) {
-//		if (null != arg0) {
-//			Log.d("geek", "arg0"+arg0);
-//			Utils.getLocationStr(arg0);
-//		}
-//	}
-	
-//	/**
-//	 * 请求权限
-//	 *
-//	 * @param id
-//	 *            请求授权的id 唯一标识即可
-//	 * @param permission
-//	 *            请求的权限
-//	 */
-//	protected void checkPermission(int id, String permission) {
-//		// 版本判断
-//		if (Build.VERSION.SDK_INT >= 23) {
-//			// 减少是否拥有权限
-//			int checkPermissionResult = getApplication().checkSelfPermission(
-//					permission);
-//			if (checkPermissionResult != PackageManager.PERMISSION_GRANTED) {
-//				// 弹出对话框接收权限
-//				requestPermissions(new String[] { permission }, id);
-//				return;
-//			} else {
-//				// 获取到权限
-//				handler.sendEmptyMessage(LOCATION_FINISH);
-//			}
-//		} else {
-//			// 获取到权限
-//			handler.sendEmptyMessage(LOCATION_FINISH);
-//		}
-//	}
-
-//	@Override
-//	public void onRequestPermissionsResult(int requestCode,
-//			String[] permissions, int[] grantResults) {
-//		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//		if (requestCode ==REQUEST_CODE_ASK_LOCATION) {
-//			if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//				// 获取到权限
-//				handler.sendEmptyMessage(LOCATION_FINISH);
-//			} else {
-//				// 没有获取到权限
-//				Toast.makeText(WelcomeActivity.this, "没有定位权限", Toast.LENGTH_SHORT).show();
-//				handler.sendEmptyMessage(LOCATION_FINISH);
-//			}
-//		}
-//	}
-
 
 }
