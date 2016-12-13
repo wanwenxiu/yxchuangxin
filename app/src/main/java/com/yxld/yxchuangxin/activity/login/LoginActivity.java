@@ -41,8 +41,6 @@ import static com.yxld.yxchuangxin.R.id.register_button_phone;
 import static com.yxld.yxchuangxin.R.id.register_pwd;
 
 public class LoginActivity extends BaseActivity {
-	private final String LAST_LOGIN_USER_ID = "lastLoginUserId";
-	private final String CB_SAVE_PWD = "cb_save_pwd";
 
 	private TextView txt_register;
 	private EditText login_tel;

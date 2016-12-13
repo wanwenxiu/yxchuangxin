@@ -19,8 +19,6 @@ public class BaseEntity {
 	 */
 	public String MSG;
 
-//	public String token;
-
 	public int getStatus() {
 		return status;
 	}
@@ -37,11 +35,4 @@ public class BaseEntity {
 		this.MSG = MSG;
 	}
 
-//	public String getToken() {
-//		return token;
-//	}
-//
-//	public void setToken(String token) {
-//		this.token = token;
-//	}
 }

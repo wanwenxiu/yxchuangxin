@@ -34,8 +34,10 @@ import com.yxld.yxchuangxin.activity.login.LoginActivity;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
+import com.yxld.yxchuangxin.util.CxUtil;
 import com.yxld.yxchuangxin.util.Network;
 import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.StringUitl;
@@ -65,13 +67,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	protected static final int STATUS_CODE_OK = 0;
 	/** 服务器请求失败 */
 	protected static final int STATUS_CODE_FAILED = 1;
-
-	/** 保存当前选择小区*/
-	private String SAVEXIAOQUID = "SAVEXIAOQUID";
-	/** 保存当前登录用户信息*/
-	private String SAVEYONGHU = "SAVEYONGHU";
-	/** 保存当前登录业主信息*/
-	private String SAVEYEZHU = "SAVEYEZHU";
 
 	/**
 	 * 数据库操作类
@@ -125,16 +120,20 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// 这句很关键，注意是调用父类的方法
-		super.setContentView(R.layout.activity_base);
-         Logger.d("BaseActivity onCreate savedInstanceState");
+		if(Contains.isKill == null || "".equals(Contains.isKill)){
+			Logger.d("BaseActivity onCreate isKill为空");
+			CxUtil.clearData(AppConfig.app.getSp());
+			startActivity(WelcomeActivity.class);
+			return;
+		}
+		Logger.d("Contains.isKill ="+Contains.isKill);
 		if (savedInstanceState != null) {
 			//取出保存在savedInstanceState中
 			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
-			Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
-			Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
-			Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+			CxUtil.getLogindata(savedInstanceState);
 		}
+		// 这句很关键，注意是调用父类的方法
+		super.setContentView(R.layout.activity_base);
 		// 经测试在代码里直接声明透明状态栏更有效
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
@@ -172,7 +171,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		initView();
 		initDataFromLocal();
 	}
-
 
 
 	/**
@@ -353,10 +351,16 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		return mRequestQueue;
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Logger.d("BaseActivity onPause()");
+	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
+		Logger.d("BaseActivity onStop()");
 	}
 
 	@Override
@@ -478,12 +482,10 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		//将用户信息房屋信息及选择楼盘信息 保存至outState中
 		if(Contains.user != null && (ArrayList)Contains.appYezhuFangwus != null){
 			Logger.d("BaseActivity onSaveInstanceState user="+Contains.user+",house="+(ArrayList)Contains.appYezhuFangwus);
+			CxUtil.setLoginData(outState);
 		}else{
 			Logger.d("BaseActivity onSaveInstanceState ");
 		}
-		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
-		outState.putSerializable(SAVEYONGHU,Contains.user);
-		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -493,20 +495,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
 			Logger.d("BaseActivity onRestoreInstanceState()");
 			if (savedInstanceState != null) {
 				//取出保存在savedInstanceState中数据
-			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
-			Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
-			Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
-			Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+			   Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
+				CxUtil.getLogindata(savedInstanceState);
 		}
 			super.onRestoreInstanceState(savedInstanceState);
 		} catch (Exception e) {
 		}
 	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-	}
 
 	/**
 	 * 检查list是否为空

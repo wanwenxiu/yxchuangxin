@@ -41,9 +41,6 @@ public class Contains {
 	/** 收货地址 */
 	public static CxwyMallAdd defuleAddress = new CxwyMallAdd();
 
-//	/** 用户信息 */
-//	public static CxwyMallUser cxwyMallUser = new CxwyMallUser();
-
 	/** 业主信息 */
 	public static CxwyYezhu user = new CxwyYezhu();
 
@@ -57,11 +54,7 @@ public class Contains {
 	public static double longitude = 0.0;
 	/** 纬度 */
 	public static double Latitude = 0.0;
-//	/** 定位小区*/
-//	public static String AoiName =null;
-//	/** 定位城市*/
-//	public static String locationCity = null;
-	
+
 	/** 选择小区名字*/
 	public static String  curSelectXiaoQuName = "";
 	/** 选择小区ID*/

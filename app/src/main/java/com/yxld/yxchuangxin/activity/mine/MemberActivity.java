@@ -17,6 +17,7 @@ import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
+import com.yxld.yxchuangxin.util.CxUtil;
 import com.yxld.yxchuangxin.util.SPUtils;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
@@ -139,29 +140,8 @@ public class MemberActivity extends BaseActivity {
 			startActivity(AccountWrap);
 			break;
 		case R.id.loginOut:
-//			if(dbUtil == null){
-//				dbUtil = new DBUtil(this);
-//			}
-//			dbUtil.clearData(CxwyMallUser.class);
-//			Contains.cxwyMallUser = null;
-//			//保存用户ID和账号至配置文件中
-//			SPUtils.put(this, CB_SAVE_PWD, false);
-//			SPUtils.put(this, LAST_LOGIN_USER_ID, "");
-			//退出登录清除楼盘信息及用户信息
-			Contains.curSelectXiaoQuName = "";
-			Contains.curSelectXiaoQuId = 0;
-			Contains.user = null;
-			Contains.appYezhuFangwus.clear();
-			Contains.CartList.clear();
-			Contains.defuleAddress = null;
-			Contains.curCommData.clear();
-			Contains.sureOrderList.clear();
-			SharedPreferences.Editor editor = sp.edit();
-			editor.putString("NAME", "");
-			editor.putString("PASSWORD", "");
-			editor.putBoolean("ISCHECK", false);
-			editor.commit();
-
+			//退出登录信息
+			CxUtil.clearData(sp);
 			finish();
 			AppConfig.getInstance().exit();
 			startActivity(LoginActivity.class);

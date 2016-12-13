@@ -34,7 +34,9 @@ import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
+import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
+import com.yxld.yxchuangxin.util.CxUtil;
 import com.yxld.yxchuangxin.util.Network;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
@@ -92,25 +94,22 @@ OnCancelListener, IXListViewListener {
 	 */
 	protected XListView xlistView;
 
-	/** 保存当前选择小区*/
-	private String SAVEXIAOQUID = "SAVEXIAOQUID";
-	/** 保存当前登录用户信息*/
-	private String SAVEYONGHU = "SAVEYONGHU";
-	/** 保存当前登录业主信息*/
-	private String SAVEYEZHU = "SAVEYEZHU";
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (Contains.isKill == null) {
-			AppConfig.getInstance().exitApplication();
+		if (Contains.isKill == null|| "".equals(Contains.isKill)) {
+			Logger.d("BaseFragment onCreate isKill为空");
 			return;
 		}
 
 //		//在自己的应用初始Activity中加入如下两行代码
 //		RefWatcher refWatcher = AppConfig.getRefWatcher(getActivity());
 //		refWatcher.watch(this);
-
+		if (savedInstanceState != null) {
+			//取出保存在savedInstanceState中
+			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
+			CxUtil.getLogindata(savedInstanceState);
+		}
 		if(!netWorkIsAvailable()){
 //			Toast.makeText(getActivity(), "网络不可用", Toast.LENGTH_SHORT).show();
 		}
@@ -464,12 +463,10 @@ OnCancelListener, IXListViewListener {
 		//保存至outState中
 		if(Contains.user != null && (ArrayList)Contains.appYezhuFangwus != null){
 			Logger.d("BaseFragment onSaveInstanceState user="+Contains.user+",house="+(ArrayList)Contains.appYezhuFangwus);
+			CxUtil.setLoginData(outState);
 		}else{
 			Logger.d("BaseFragment onSaveInstanceState ");
 		}
-		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
-		outState.putSerializable(SAVEYONGHU,Contains.user);
-		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -479,9 +476,7 @@ OnCancelListener, IXListViewListener {
 			//取出保存在savedInstanceState的值
 			if (savedInstanceState != null) {
 				Logger.d("BaseFragment onRestoreInstanceState()");
-				Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
-				Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
-				Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+				CxUtil.getLogindata(savedInstanceState);
 			}
 			super.onViewStateRestored(savedInstanceState);
 		} catch (Exception e) {

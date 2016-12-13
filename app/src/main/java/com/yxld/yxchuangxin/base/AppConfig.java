@@ -59,9 +59,6 @@ public class AppConfig extends Application {
 
 	private RequestQueue mRequestQueue;
 	public static ImageLoader mImageLoader;
-	
-//	public static AMapLocationClient locationClient = null;
-//	private AMapLocationClientOption locationOption = null;
 
 	public RequestQueue getRequestQueue() {
 		return mRequestQueue;
@@ -159,14 +156,6 @@ public class AppConfig extends Application {
 			sHandler = new DemoHandler(getApplicationContext());
 		}
 
-//		locationClient = new AMapLocationClient(this);
-//		locationOption = new AMapLocationClientOption();
-//		// 设置定位模式为高精度模式
-//		locationOption
-//				.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-//		locationOption.setOnceLocation(false);
-//		initOption();
-
 		//在自己的Application中添加如下代码
 //		refWatcher = LeakCanary.install(this);
 
@@ -263,19 +252,6 @@ public class AppConfig extends Application {
 	@Override
 	public void onLowMemory() {
 		super.onLowMemory();
-//		// 停止定位
-//		if(locationClient.isStarted()){
-//			locationClient.stopLocation();
-//		}
-//		if (null != locationClient) {
-//			/**
-//			 * 如果AMapLocationClient是在当前Activity实例化的，
-//			 * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
-//			 */
-//			locationClient.onDestroy();
-//			locationClient = null;
-//			locationOption = null;
-//		}
 		System.gc();
 	}
 
@@ -285,22 +261,6 @@ public class AppConfig extends Application {
 
 	public void setSp(SharedPreferences sp) {
 		this.sp = sp;
-	}
-
-	
-	// 根据控件的选择，重新设置定位参数
-	private void initOption() {
-//		// 设置是否需要显示地址信息
-//		locationOption.setNeedAddress(true);
-//		String strInterval = "10000";
-//		if (!TextUtils.isEmpty(strInterval)) {
-//			// 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
-//			locationOption.setInterval(Long.valueOf(strInterval));
-//		}
-//
-//		// 设置定位参数
-//		locationClient.setLocationOption(locationOption);
-//
 	}
 
 

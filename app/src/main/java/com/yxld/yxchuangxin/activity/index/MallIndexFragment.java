@@ -219,7 +219,6 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onResume() {
     	super.onResume();
-//        Log.d("geek","商城首页 onResume()");
     }
 
     @Override

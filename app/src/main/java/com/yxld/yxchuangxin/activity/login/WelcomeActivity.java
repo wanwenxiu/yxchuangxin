@@ -49,15 +49,10 @@ import com.yxld.yxchuangxin.view.Utils;
 @SuppressLint("HandlerLeak")
 public class WelcomeActivity extends BaseActivity implements
 		ResultListener<LoginEntity>, OnItemClickListener{
-	private final String LAST_LOGIN_USER_ID = "lastLoginUserId";
-	private final String CB_SAVE_PWD = "cb_save_pwd";
 	/** 跳转界面*/
 	private final int JUMP_ACTIVITY = 66;
 	/** 定位结束*/
 	public static final int LOCATION_FINISH= 65;
-	
-//	/** 动态获取定位权限*/
-//	 public final  int REQUEST_CODE_ASK_LOCATION = 123;
 
 	/** 数据库保存的用户信息 */
 	private CxwyMallUser curUser = null;
@@ -103,8 +98,6 @@ public class WelcomeActivity extends BaseActivity implements
 		setContentView(R.layout.welcom_activity_layout);
 		sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 		setToorBar(false);
-		//permission.READ_PHONE_STATE
-//		checkPermission(REQUEST_CODE_ASK_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
 		//获取版本信息
 		if (versionController == null) {
 			versionController = new AppVersionControllerImpl();
@@ -123,7 +116,6 @@ public class WelcomeActivity extends BaseActivity implements
 			}
 			if (info.getVer() != null) {
 				entity = info.getVer();
-				Log.d("geek", " 版本entity=" + entity.toString());
 				String curVersion = CxUtil.getVersion(WelcomeActivity.this);
 				String newVersion = entity.getVersionUId();
 				Log.d("geek", "curVersion=" + curVersion + ",newVersion=" + newVersion);
@@ -174,14 +166,11 @@ public class WelcomeActivity extends BaseActivity implements
 		boolean savePsd = sp.getBoolean("ISCHECK", false);
 
 		if (!savePsd) {
-			Log.d("geek", "GuideActivity getLogin()  curUser 没有保存密码");
 			handler.sendEmptyMessage(JUMP_ACTIVITY);
 			return;
 		}else {
 			 name=sp.getString("NAME", "");
 			 pwd=sp.getString("PASSWORD", "");
-			Log.d("...",name);
-			Log.d("...",pwd);
 			if (loginController == null) {
 				loginController = new LoginControllerImpl();
 			}

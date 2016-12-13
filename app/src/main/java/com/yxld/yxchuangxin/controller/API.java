@@ -14,12 +14,12 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 
-//  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-//  String PIC = "http://192.168.8.166:8080";
-//  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
-   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-   String PIC="http://www.hnchxwl.com";
-   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
+    String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+    String PIC = "http://192.168.8.166:8080";
+    String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+//  String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+//  String PIC="http://www.hnchxwl.com";
+//  String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
 
     /**
      * 获取商品一级分类URL
@@ -27,8 +27,8 @@ public interface API {
     String URL_GET_ALL_ATTENDANCE = IP_PRODUCT
             + "/mall/androidClassify_findClassifyOne";
 
-    String URL_GET_ALL_SECONDCLASS = IP_PRODUCT
-            /** 根据一级分类获取二级分类 */
+  /** 根据一级分类获取二级分类 */
+  String URL_GET_ALL_SECONDCLASS = IP_PRODUCT
             + "/mall/androidClassify_findByclassifyOne?classify.classifyId=%1$s";
 
     /**

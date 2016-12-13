@@ -221,6 +221,15 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.serviceWarp:
+                Logger.d("即将杀死进程--前"+System.currentTimeMillis());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Logger.d("即将杀死进程"+System.currentTimeMillis());
+//                        Contains.isKill = null;
+//                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                },1000*20);
                 bundle.putInt("tag", 0);
                 startActivity(ServiceMainActivity.class, bundle);
                 break;
@@ -558,7 +567,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             if (null != loc) {
                 //解析定位结果
                 String result = Utils.getLocationStr(loc);
-                Logger.d(result);
+//                Logger.d(result);
             } else {
                 Log.d("...", "定位失败");
             }
