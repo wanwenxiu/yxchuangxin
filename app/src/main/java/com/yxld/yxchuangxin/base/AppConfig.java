@@ -177,8 +177,10 @@ public class AppConfig extends Application {
 //		intent.setClass(this,WelcomeActivity.class);
 //		restartIntent = PendingIntent.getActivity(getApplicationContext(), 0,
 //				intent,0);
-////		Intent.FLAG_ACTIVITY_NEW_TASK
 //		Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程
+
+//		CrashHandler crashHandler = CrashHandler.getInstance();
+//		crashHandler.init(getApplicationContext());
 	}
 
 //	public Thread.UncaughtExceptionHandler restartHandler = new Thread.UncaughtExceptionHandler() {
@@ -186,12 +188,13 @@ public class AppConfig extends Application {
 //		public void uncaughtException(Thread thread, Throwable ex) {
 //			Log.d("geek","异常异常异常");
 //			AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//			mgr.set(AlarmManager.RTC, System.currentTimeMillis(),
+//			mgr.set(AlarmManager.RTC, System.currentTimeMillis()+5000,
 //					restartIntent); //重启应用
 //			AppConfig.getInstance().exit();
 //			android.os.Process.killProcess(android.os.Process.myPid());
 //		}
 //	};
+
 
 	/***
 	 * @Title: addActivity

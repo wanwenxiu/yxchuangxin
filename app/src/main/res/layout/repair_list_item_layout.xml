@@ -22,7 +22,19 @@
             android:gravity="center"
             android:text="报修单号:"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
+
+       <!-- <TextView
+            android:id="@+id/repairTime"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:text="报修时间"
+            android:gravity="center"
+            />-->
 
         <TextView
             android:id="@+id/repairState"
@@ -34,30 +46,17 @@
             android:textColor="@color/color_main_color"
             android:textSize="15sp" />
     </RelativeLayout>
-    
-    <TextView
-        android:id="@+id/repairTime"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/ll_top"
-        android:layout_gravity="center_vertical"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        android:layout_marginLeft="5dp"
-        android:text="报修时间" 
-        android:gravity="center_vertical"
-        />
 
     <TextView
         android:id="@+id/repairDestail"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/repairTime"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp"
         android:textColor="@android:color/black"
         android:textSize="15sp"
-        android:text="报修内容" 
+        android:text="报修内容"
+        android:layout_below="@id/ll_top"
         android:gravity="center_vertical"
         />
 

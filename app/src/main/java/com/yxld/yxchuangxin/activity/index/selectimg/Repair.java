@@ -126,7 +126,7 @@ public class Repair extends BaseActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if(item.getItemId() == android.R.id.home){
-			exitThis();
+			exitThis(false);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -159,24 +159,24 @@ public class Repair extends BaseActivity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(publics.getId() == checkedId){
 					groupPublic.setVisibility(View.VISIBLE);
-					Contains.repairQuyu = "小修";
+					Contains.repairQuyu = "1";
 					findViewById(R.id.addwarp).setVisibility(View.VISIBLE);
 				}else if(privates.getId() == checkedId){
 					groupPublic.setVisibility(View.GONE);
-					Contains.repairQuyu = "专有部位";
+					Contains.repairQuyu = "3";
 					findViewById(R.id.addwarp).setVisibility(View.GONE);
 				}
 			}
 		});
-		
+		//小修 1 中大修 2 专有部位3
 		groupPublic.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				if(publicBig.getId() == checkedId){
-					Contains.repairQuyu = "大修";
+					Contains.repairQuyu = "2";
 				}else if(publicSmall.getId() == checkedId){
-					Contains.repairQuyu = "小修";
+					Contains.repairQuyu = "1";
 				}
 			}
 		});
@@ -211,10 +211,10 @@ public class Repair extends BaseActivity {
 			address.setSelection(Contains.repairAddressStr.length());
 		}
 		
-		if(Contains.repairQuyu.equals("专有部位")){
+		if(Contains.repairQuyu.equals("3")){
 			privates.setChecked(true);
 			groupPublic.setVisibility(View.GONE);
-		}else if(Contains.repairQuyu.equals("大修")){
+		}else if(Contains.repairQuyu.equals("2")){
 			publics.setChecked(true);
 			publicBig.setChecked(true);
 			groupPublic.setVisibility(View.VISIBLE);
@@ -299,9 +299,6 @@ public class Repair extends BaseActivity {
 					int position, long id) {
 				Log.d("geek","position ="+position);
 				Log.d("geek","Bimp.tempSelectBitmap.size() ="+Bimp.tempSelectBitmap.size());
-
-
-
 				if (position == Bimp.tempSelectBitmap.size()) {
 					if(Bimp.tempSelectBitmap.size() >=PublicWay.num){
 						Toast.makeText(Repair.this,"最多只能上传3张图片",Toast.LENGTH_SHORT).show();
@@ -353,6 +350,19 @@ public class Repair extends BaseActivity {
 							saveOrUpdateTalk();
 							return;
 						}
+
+						if ("".equals(edContext.getText().toString())) {
+							Toast.makeText(getApplication(), "请输入发布内容", Toast.LENGTH_SHORT)
+									.show();
+							return;
+						}
+						if(!Contains.repairQuyu.equals("3")){
+							if(StringUitl.isNotEmpty(Repair.this, address, "请输入地点")){
+								Contains.repairAddressStr = address.getText().toString();
+							}
+							return;
+						}
+
 						final FileUpload fileUpload = new FileUpload(API.uploadImage,mHandler);
 						for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
 							String path = Bimp.tempSelectBitmap.get(i).toString();
@@ -375,9 +385,6 @@ public class Repair extends BaseActivity {
 									}
 								}
 							}).start();
-
-
-
 
 //							Map<String, File> fileParas = new HashMap<String, File>();
 //							for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
@@ -435,7 +442,7 @@ public class Repair extends BaseActivity {
 					.show();
 			return;
 		}
-		if(!Contains.repairQuyu.equals("专有部位")){
+		if(!Contains.repairQuyu.equals("3")){
 			if(StringUitl.isNotEmpty(this, address, "请输入地点")){
 				Contains.repairAddressStr = address.getText().toString();
 			}
@@ -468,7 +475,7 @@ public class Repair extends BaseActivity {
 				return;
 			}
 			ToastUtil.show(Repair.this, "报修成功");
-			exitThis();
+			exitThis(true);
 		}
 
 		@Override
@@ -630,18 +637,21 @@ public class Repair extends BaseActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			exitThis();
+			exitThis(false);
 		}
 		return true;
 	}
 
-	private void exitThis() {
+	private void exitThis(boolean jump) {
 		for (int i = 0; i < PublicWay.activityList.size(); i++) {
 			if (null != PublicWay.activityList.get(i)) {
 				PublicWay.activityList.get(i).finish();
 			}
 		}
 		finish();
+		if(jump){
+			startActivity(RepairListActivity.class);
+		}
 		Contains.repairContextStr = "";
 		Contains.repairAddressStr = "";
 		Contains.repairQuyu = "专有部位";

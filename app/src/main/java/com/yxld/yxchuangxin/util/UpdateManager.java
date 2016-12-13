@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -19,9 +20,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
@@ -49,6 +52,8 @@ public class UpdateManager {
 	/* 进度条与通知ui刷新的handler和msg常量 */
 	private ProgressBar mProgress;
 
+	private TextView curProgress ,totalProgress,cancel;
+
 	private static final int DOWN_UPDATE = 1;
 
 	private static final int DOWN_OVER = 2;
@@ -65,6 +70,9 @@ public class UpdateManager {
 			switch (msg.what) {
 			case DOWN_UPDATE:
 				mProgress.setProgress(progress);
+				Log.d("geek","progress"+progress);
+				curProgress.setText(progress+"%");
+				totalProgress.setText(progress+"/100");
 				break;
 			case DOWN_OVER:
 
@@ -130,23 +138,40 @@ public class UpdateManager {
 
 	private void showDownloadDialog() {
 		Builder builder = new Builder(mContext);
-		builder.setTitle("软件版本更新");
+//		AlertDialog.Builder builder = new Builder(mContext) ;
+//		builder.setIcon(R.mipmap.updateicon);
+//		builder.setTitle("正在下载,请稍后");
 
 		final LayoutInflater inflater = LayoutInflater.from(mContext);
 		View v = inflater.inflate(R.layout.progress, null);
 		mProgress = (ProgressBar) v.findViewById(R.id.progress);
-
+		curProgress = (TextView)v.findViewById(R.id.curProgress);
+		totalProgress = (TextView)v.findViewById(R.id.totalProgress);
+		cancel = (TextView) v.findViewById(R.id.cancel);
 		builder.setView(v);
-		builder.setNegativeButton("取消", new OnClickListener() {
+
+		cancel.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
+			public void onClick(View view) {
+				if(downloadDialog != null){
+					downloadDialog.dismiss();
+				}
 				interceptFlag = true;
 				if(mhander != null){
 					mhander.sendEmptyMessage(WelcomeActivity.LOCATION_FINISH);
 				}
 			}
 		});
+//		builder.setNegativeButton("取消", new OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				dialog.dismiss();
+//				interceptFlag = true;
+//				if(mhander != null){
+//					mhander.sendEmptyMessage(WelcomeActivity.LOCATION_FINISH);
+//				}
+//			}
+//		});
 		downloadDialog = builder.create();
 		downloadDialog.show();
 

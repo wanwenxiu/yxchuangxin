@@ -91,7 +91,7 @@
             <RadioButton
                 android:id="@+id/privatesBig"
                 android:layout_marginLeft="10dp"
-                android:text="大修"
+                android:text="中、大修"
                  />
         </RadioGroup>
     </LinearLayout>

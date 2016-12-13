@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.adapter.RepairListItemAdapter;
 import com.yxld.yxchuangxin.base.BaseActivity;
@@ -21,14 +22,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName: RepairListActivity 
- * @Description: 报修列表 
+ * @ClassName: RepairListActivity
+ * @Description: 报修列表
  * @author wwx
- * @date 2016年4月15日 上午11:18:34 
+ * @date 2016年4月15日 上午11:18:34
  *
  */
 public class RepairListActivity extends BaseActivity implements ResultListener<CxwyBaoxiu>{
-	
+
 	/** 全部 */
 	private TextView tvAllRepair = null;
 	/** 已处理 */
@@ -37,18 +38,18 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 	private TextView tvWclRepair = null;
 	/** 装载选项卡中文字（处理状态） */
 	private List<TextView> listTextView = new ArrayList<TextView>();
-	
+
 	/** 评价接口实现类*/
 	private RepairController repairController;
-	
-	/** 记录查询的状态 1.全部 ，2，已处理 3，未处理*/
+
+	/** 记录查询的状态 1."" ，2，回执 3，填单*/
 	private String repairId = "";
-	
+
 	/** 总条数 */
 	private int totals;
-	
+
 	private List<CxwyBaoxiu> listData = new ArrayList<CxwyBaoxiu>();
-	
+
 	private RepairListItemAdapter adapter;
 
 	@Override
@@ -78,11 +79,11 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 		tvAllRepair = (TextView) findViewById(R.id.tvGoods);
 		tvYclRepair = (TextView) findViewById(R.id.tvComment);
 		tvWclRepair = (TextView) findViewById(R.id.tvbad);
-		
+
 		tvAllRepair.setText("全部报修");
 		tvYclRepair.setText("已报修");
 		tvWclRepair.setText("未处理");
-		
+
 		listTextView.add(tvAllRepair);
 		listTextView.add(tvYclRepair);
 		listTextView.add(tvWclRepair);
@@ -90,12 +91,12 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 		tvAllRepair.setOnClickListener(this);
 		tvYclRepair.setOnClickListener(this);
 		tvWclRepair.setOnClickListener(this);
-		
+
 		if (adapter == null) {
 			adapter = new RepairListItemAdapter(this,listData);
 			xlistView.setAdapter(adapter);
 		}
-		
+
 		initDataFromNet();
 	}
 
@@ -114,26 +115,26 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.returnWrap:
-			finish();
-			break;
-		case R.id.tvGoods:
-			// 修改筛选条件为全部报修
-			repairId = "";
-			changeTvBg(0);
-			break;
-		case R.id.tvComment:
-			repairId = "回执";
-			// 修改筛选条件为已处理
-			changeTvBg(1);
-			break;
-		case R.id.tvbad:
-			repairId = "填单";
-			// 修改筛选条件为未处理
-			changeTvBg(2);
-			break;
-		default:
-			break;
+			case R.id.returnWrap:
+				finish();
+				break;
+			case R.id.tvGoods:
+				// 修改筛选条件为全部报修
+				repairId = "";
+				changeTvBg(0);
+				break;
+			case R.id.tvComment:
+				repairId = "回执";
+				// 修改筛选条件为已处理
+				changeTvBg(1);
+				break;
+			case R.id.tvbad:
+				repairId = "填单";
+				// 修改筛选条件为未处理
+				changeTvBg(2);
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -160,20 +161,23 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 		pageCode = 0;
 		initDataFromNet();
 	}
-	
+
 	@Override
 	protected void initDataFromNet() {
 		super.initDataFromNet();
 		if(repairController == null){
-			repairController = new ReparirControllerImpl(); 
+			repairController = new ReparirControllerImpl();
 		}
 		Map<String, String> parm = new HashMap<String, String>();
 		parm.put("loupan", Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
 		parm.put("loudong", Contains.appYezhuFangwus.get(0).getFwLoudong());
 		parm.put("danyuan", Contains.appYezhuFangwus.get(0).getFwDanyuan());
 		parm.put("fanghao", Contains.appYezhuFangwus.get(0).getFwFanghao()+"");
+		if(repairId == null){
+			repairId = "";
+		}
 		parm.put("status", repairId);
-		
+
 		Log.d("geek", "parm"+parm.toString());
 		if(repairId == null || repairId.equals("")){
 			repairController.getRepairAllList(mRequestQueue, parm, this);
@@ -185,13 +189,15 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 	@Override
 	public void onResponse(CxwyBaoxiu info) {
 		onMyResponse(info);
+		totals = info.getTotal();
 		listData = info.getRows();
 		showView();
 	}
 
 	@Override
 	public void onErrorResponse(String errMsg) {
-		onError(errMsg);
+		Logger.d(errMsg);
+		onError("");
 	}
 
 	/**

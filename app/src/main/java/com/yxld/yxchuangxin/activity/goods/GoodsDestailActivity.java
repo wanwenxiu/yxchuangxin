@@ -203,17 +203,6 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		}
 
 		indexAdvs.setImageUris(urls, getApplication(),true);
-		//LoadingImg.LoadingImgs(this).displayImage(urls.get(0),indexAdvs,LoadingImg.option1);
-		Log.d("geek", "GoodsDestailActivity initdata（）urls"+urls.toString());
-		/*indexindexAdvsAdvs.setImageResources(urls,
-				new ImageCycleView.ImageCycleViewListener() {
-					@Override
-					public void onImageClick(int position, View imageView) {
-						Toast.makeText(GoodsDestailActivity.this,
-								"首页轮播图第" + position + "张", Toast.LENGTH_LONG)
-								.show();
-					}
-			}, 0);*/
 
 		if(curGood != null){
 			goods_name.setText(curGood.getShangpinShangpName()+"("+curGood.getShangpinGuige()+")");

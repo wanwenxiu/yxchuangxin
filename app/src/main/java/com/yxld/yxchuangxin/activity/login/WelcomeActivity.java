@@ -139,7 +139,6 @@ public class WelcomeActivity extends BaseActivity implements
 
 		@Override
 		public void onErrorResponse(String errMsg) {
-			onError(errMsg);
 			handler.sendEmptyMessage(LOCATION_FINISH);
 		}
 

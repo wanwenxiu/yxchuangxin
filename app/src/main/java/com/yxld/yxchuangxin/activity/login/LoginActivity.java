@@ -174,7 +174,7 @@ public class LoginActivity extends BaseActivity {
 
 		@Override
 		public void onErrorResponse(String errMsg) {
-			onError(errMsg);
+			onError("登录失败");
 			loginSubmit.setClickable(true);
 		}
 	};

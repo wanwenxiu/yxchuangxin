@@ -234,7 +234,7 @@ public class XListView extends ListView implements OnScrollListener {
 	private boolean setSelection = true;
 	/**
 	 * �ڽ��������headerView�ᵽlistView�ĵڶ���ͷ�������ʱ����Ҫ��setSelection(0)ȥ�������������listView����ʱͻȻ����������
-	 * @see #DesignOrderCommunicateActivity.java
+	 * @see #
 	 * @param setSelection
 	 */
 	public void setSelection(boolean setSelection){

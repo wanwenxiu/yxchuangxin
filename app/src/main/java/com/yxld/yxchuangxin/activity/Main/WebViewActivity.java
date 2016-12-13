@@ -128,7 +128,6 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Log.d("geek","返回键");
             if (webView != null && webView.canGoBack()) {
                 webView.goBack();// 返回上一页面
                 return true;

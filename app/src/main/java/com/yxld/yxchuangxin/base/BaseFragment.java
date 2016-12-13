@@ -30,6 +30,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ClearCacheRequest;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.Volley;
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.db.DBUtil;
@@ -435,10 +436,12 @@ OnCancelListener, IXListViewListener {
 					.setContentText("网络连接失败，请检查您的网络状态")
 					.show();
 		}else{
-			new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-					.setTitleText("提示")
-					.setContentText(errMsg)
-					.show();
+			if(StringUitl.isNoEmpty(errMsg)){
+				new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+						.setTitleText("提示")
+						.setContentText(errMsg)
+						.show();
+			}
 		}
 		resetView();
 		showErrorPage(true);
@@ -459,7 +462,11 @@ OnCancelListener, IXListViewListener {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		//保存至outState中
-		System.out.println("BaseFragment onSaveInstanceState()");
+		if(Contains.user != null && (ArrayList)Contains.appYezhuFangwus != null){
+			Logger.d("BaseFragment onSaveInstanceState user="+Contains.user+",house="+(ArrayList)Contains.appYezhuFangwus);
+		}else{
+			Logger.d("BaseFragment onSaveInstanceState ");
+		}
 		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
 		outState.putSerializable(SAVEYONGHU,Contains.user);
 		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
@@ -471,7 +478,7 @@ OnCancelListener, IXListViewListener {
 		try {
 			//取出保存在savedInstanceState的值
 			if (savedInstanceState != null) {
-				System.out.println("BaseFragment onViewStateRestored()");
+				Logger.d("BaseFragment onRestoreInstanceState()");
 				Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
 				Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
 				Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);

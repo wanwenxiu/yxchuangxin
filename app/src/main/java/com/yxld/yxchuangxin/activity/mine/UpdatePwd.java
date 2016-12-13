@@ -21,6 +21,7 @@ import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.StringUitl;
+import com.yxld.yxchuangxin.util.ToastUtil;
 
 /**
  * @ClassName: UpdatePwd 
@@ -78,14 +79,17 @@ public class UpdatePwd extends BaseActivity {
 		String old_pwd = old_password.getText().toString();
 		String new_pwd = new_password.getText().toString();
 		String repeat_pwd = repeat_password.getText().toString();
-		String id = Contains.user.getYezhuShouji();
-		if (new_pwd.equals(repeat_pwd)) {
-			loginController.getUpdatePwd(mRequestQueue, new Object[] {id, StringUitl.getMD5(new_pwd)}, listener);
+		String shouji = Contains.user.getYezhuShouji();
+		if(Contains.user == null || "".equals(Contains.user.getYezhuPwd()) || !Contains.user.getYezhuPwd().equals(StringUitl.getMD5(old_pwd))){
+			ToastUtil.show(this,"原密码输入有误");
+			return;
+		}
+		if (new_pwd != null && !"".equals(new_pwd) && new_pwd.equals(repeat_pwd)) {
+			loginController.getUpdatePwd(mRequestQueue, new Object[] {shouji, Contains.user.getYezhuPwd(),StringUitl.getMD5(new_pwd)}, listener);
 		} else {
 			Toast.makeText(UpdatePwd.this, "两次输入的新密码不一致",
 					Toast.LENGTH_SHORT).show();
 		}
-
 	}
 
 	private ResultListener<BaseEntity> listener = new ResultListener<BaseEntity>() {

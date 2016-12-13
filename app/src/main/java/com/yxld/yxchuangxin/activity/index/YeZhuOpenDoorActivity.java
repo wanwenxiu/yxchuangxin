@@ -222,7 +222,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 					youxiaoqi.setText("更新二维码失败！");
 				}
 			}
-			progressDialog.hide();
+			if(progressDialog != null && progressDialog.isShowing()){
+				progressDialog.hide();
+			}
 		}
 
 		@Override
@@ -231,7 +233,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 			if(youxiaoqi != null){
 				youxiaoqi.setText("网络连接失败！");
 			}
-			progressDialog.hide();
+			if(progressDialog != null && progressDialog.isShowing()){
+				progressDialog.hide();
+			}
 		}
 	};
 

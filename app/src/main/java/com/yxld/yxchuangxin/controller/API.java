@@ -14,13 +14,12 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 
-//  String menjinIPdk = "http://192.168.8.13:8080/";
-  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-  String PIC = "http://192.168.8.166:8080";
-  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadFile";
-//    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//    String PIC="http://www.hnchxwl.com";
-//    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadFile";
+//  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+//  String PIC = "http://192.168.8.166:8080";
+//  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+   String PIC="http://www.hnchxwl.com";
+   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
 
     /**
      * 获取商品一级分类URL
@@ -166,7 +165,7 @@ public interface API {
      * 修改密码 1202
      */
     String URL_GET_ALL_UPDATE_PWD = IP_PRODUCT
-            + "/mall/androidUser_changePassWord?yezhu.yezhuShouji=%1$s&yezhu.yezhuPwd=%2$s";
+            + "/mall/androidUser_changePassWord?yezhu.yezhuShouji=%1$s&yezhu.yezhuPwd=%2$s&newPassWord=%3$s";
 
     /**
      * 修改昵称

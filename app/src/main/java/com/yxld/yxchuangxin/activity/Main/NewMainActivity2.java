@@ -1,10 +1,7 @@
 package com.yxld.yxchuangxin.activity.Main;
 
-import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,44 +17,34 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.orhanobut.logger.Logger;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
 import com.yxld.yxchuangxin.activity.index.VisitorInvitationActivity;
 import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
-import com.yxld.yxchuangxin.activity.login.LoginActivity;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
-import com.yxld.yxchuangxin.controller.AppVersionController;
 import com.yxld.yxchuangxin.controller.PeiZhiController;
 import com.yxld.yxchuangxin.controller.RepairController;
 import com.yxld.yxchuangxin.controller.TongzhiController;
-import com.yxld.yxchuangxin.controller.impl.AppVersionControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.PeiZhiControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.ReparirControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.TongzhiControllerImpl;
-import com.yxld.yxchuangxin.db.DBUtil;
-import com.yxld.yxchuangxin.entity.CxwyAppVersion;
 import com.yxld.yxchuangxin.entity.CxwyMallPezhi;
-import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.RepairList;
 import com.yxld.yxchuangxin.listener.ResultListener;
-import com.yxld.yxchuangxin.util.CxUtil;
-import com.yxld.yxchuangxin.util.SPUtils;
-import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
-import com.yxld.yxchuangxin.util.UpdateManager;
 import com.yxld.yxchuangxin.view.BadgeImageView;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 import com.yxld.yxchuangxin.view.Utils;
 import com.yxld.yxchuangxin.view.VerticalSwipeRefreshLayout;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,8 +52,6 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static com.xiaomi.push.thrift.a.P;
 
 
 /**
@@ -95,10 +80,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     private PeiZhiController PeiZhiController;
     private TongzhiController tongzhiController;
     private ArrayList<String> urls = new ArrayList<>();
-
-    private AppVersionController versionController;
-
-    private CxwyAppVersion entity;
 
     private RepairController repairController;
     private static final double EARTH_RADIUS = 6378137.0;
@@ -164,7 +145,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() > 0) {
             curPlace.setText(Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
         }
-        if (Contains.user != null && Contains.user.getYezhuType() == 1 && "".equals(Contains.curSelectXiaoQuName)) {
+        if (Contains.user != null && Contains.user.getYezhuType() != null && Contains.user.getYezhuType() == 1 && "".equals(Contains.curSelectXiaoQuName)) {
             //初始化定位
             initLocation();
             startLocation();
@@ -183,7 +164,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 "\n\n包含房屋信息、入住成员管理、房屋出租、版本更新、关于我们栏目");
         info.add("投诉建议 >>\n" +
                 "\n\n您的困惑，督促我们日常工作的完善。您的建议，引导我们服务品质的提升");
-        secondaryActions.startWithList(info);
+        if(secondaryActions != null && info != null){
+            secondaryActions.startWithList(info);
+        }
 
         marqueeTv = (TextView) findViewById(R.id.marqueeTv);
         marqueeTv.setOnClickListener(this);
@@ -315,11 +298,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initDataFromNet() {
-        //获取版本信息
-        if (versionController == null) {
-            versionController = new AppVersionControllerImpl();
-        }
-//        versionController.getAppVersionInfo(mRequestQueue, new Object[]{}, versionListener);
     }
 
 
@@ -340,34 +318,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         tongzhiController.getAppTongzhiInfo(mRequestQueue, params, tongzhiLinstener);
     }
 
-    private ResultListener<CxwyAppVersion> versionListener = new ResultListener<CxwyAppVersion>() {
-
-        @Override
-        public void onResponse(CxwyAppVersion info) {
-            progressDialog.hide();
-            if (info.status != STATUS_CODE_OK) {
-                onError(info.MSG);
-                return;
-            }
-            if (info.getVer() != null) {
-                entity = info.getVer();
-                Log.d("geek", " 版本entity=" + entity.toString());
-                String curVersion = CxUtil.getVersion(NewMainActivity2.this);
-                String newVersion = entity.getVersionUId();
-                Log.d("geek", "curVersion=" + curVersion + ",newVersion=" + newVersion);
-                if (Float.valueOf(newVersion) > Float.valueOf(curVersion)) {
-                    checkPermission(REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                }
-            }
-        }
-
-        @Override
-        public void onErrorResponse(String errMsg) {
-            onError(errMsg);
-        }
-
-    };
-
     private ResultListener<BaseEntity> tongzhiLinstener = new ResultListener<BaseEntity>() {
         @Override
         public void onResponse(BaseEntity info) {
@@ -383,56 +333,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             progressDialog.hide();
         }
     };
-
-    /**
-     * 调用版本更新方法
-     */
-    private void alertUpdate() {
-        // 这里来检测版本是否需要更新
-        UpdateManager mUpdateManager = new UpdateManager(NewMainActivity2.this, API.PIC + entity.getVersionDownloadUrl());
-        mUpdateManager.checkUpdateInfo(entity.getVersionUId(), entity.getVersionExplain(), entity.getVersionIsCompulsory());
-    }
-
-    /**
-     * 请求权限
-     *
-     * @param id         请求授权的id 唯一标识即可
-     * @param permission 请求的权限
-     */
-    protected void checkPermission(int id, String permission) {
-        // 版本判断
-        if (Build.VERSION.SDK_INT >= 23) {
-            // 减少是否拥有权限
-            int checkPermissionResult = getApplication().checkSelfPermission(
-                    permission);
-            if (checkPermissionResult != PackageManager.PERMISSION_GRANTED) {
-                // 弹出对话框接收权限
-                requestPermissions(new String[]{permission}, id);
-                return;
-            } else {
-                // 获取到权限
-                alertUpdate();
-            }
-        } else {
-            // 获取到权限
-            alertUpdate();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // 获取到权限
-                alertUpdate();
-            } else {
-                // 没有获取到权限
-                Toast.makeText(NewMainActivity2.this, "没有获取到自动更新权限", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     private void getlunbotubiao() {
         if (PeiZhiController == null) {
@@ -573,6 +473,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                 Contains.curSelectXiaoQuId=info.getRows().get(n).getXiangmuId();
                 curPlace.setText(Contains.curSelectXiaoQuName);
                 stopLocation();
+                destroyLocation();
             }
         }
 
@@ -631,7 +532,6 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         locationClient.setLocationListener(locationListener);
     }
 
-
     /**
      * 默认的定位参数
      */
@@ -658,7 +558,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             if (null != loc) {
                 //解析定位结果
                 String result = Utils.getLocationStr(loc);
-                Log.d("...", result);
+                Logger.d(result);
             } else {
                 Log.d("...", "定位失败");
             }
@@ -681,7 +581,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
      */
     private void stopLocation(){
         // 停止定位
-        locationClient.stopLocation();
+        if (null != locationClient) {
+           locationClient.stopLocation();
+        }
     }
 
 
@@ -694,11 +596,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
              * 如果AMapLocationClient是在当前Activity实例化的，
              * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
              */
+            locationClient.stopLocation();
             locationClient.onDestroy();
             locationClient = null;
             locationOption = null;
         }
     }
+
 
     @Override
     public void refreshLogInfo() {

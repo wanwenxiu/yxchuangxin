@@ -69,7 +69,6 @@ public class FileUpload {
 
     /**
      * 提交的方法，该方法为每个文件创建一个请求连接进行提交。
-     *
      * @throws Exception
      */
     public void upload() throws Exception {
@@ -79,7 +78,7 @@ public class FileUpload {
                 FileEntity entity = new FileEntity(files.get(i),
                         "binary/octet-stream");
                 StringBuilder curUrl = new StringBuilder(url);
-                curUrl.append("?fileName=" + files.get(i).getName());
+                curUrl.append("?androidFileName=" + files.get(i).getName());
                 HttpPost httppost = new HttpPost(curUrl.toString());
                 httppost.setEntity(entity);
 

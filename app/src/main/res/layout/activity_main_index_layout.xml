@@ -145,6 +145,6 @@
                 android:verticalSpacing="5dp" />
         </LinearLayout>
     </ScrollView>
-     </android.support.v4.widget.SwipeRefreshLayout> 
+     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

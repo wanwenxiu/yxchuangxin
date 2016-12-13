@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.entity.CxwyBaoxiu;
@@ -45,7 +46,7 @@ public class RepairListItemAdapter extends BaseAdapter {
 		/** 报修单号*/
 		private TextView repairId;
 		/** 维修时间*/
-		private TextView repairTime;
+		//private TextView repairTime;
 		/** 维修状态 */
 		public TextView repairState;
 		public TextView repairDestail;
@@ -61,8 +62,8 @@ public class RepairListItemAdapter extends BaseAdapter {
 			listItemView = new ListItemView();
 			listItemView.repairId  = (TextView) convertView
 					.findViewById(R.id.repairId);
-			listItemView.repairTime  = (TextView) convertView
-					.findViewById(R.id.repairTime);
+//			listItemView.repairTime  = (TextView) convertView
+//					.findViewById(R.id.repairTime);
 			listItemView.repairState = (TextView) convertView
 					.findViewById(R.id.repairState);
 			listItemView.repairDestail = (TextView) convertView
@@ -76,18 +77,18 @@ public class RepairListItemAdapter extends BaseAdapter {
 		}
 		
 		CxwyBaoxiu order = listOrderDatas.get(position);
-		listItemView.repairId.setText("报修单号:  "+order.getBaoxiuDanhao());
-		listItemView.repairTime .setText("报修时间  :"+order.getBaoxiuLrdate());
+		listItemView.repairId.setText(order.getBaoxiuDanhao()+"		"+order.getBaoxiuLrdate());
+//		listItemView.repairTime .setText(order.getBaoxiuLrdate());
 		listItemView.repairState.setText(order.getBaoxiuStatus());
-		listItemView.repairDestail .setText("报修内容  :"+order.getBaoxiuProject());
+		listItemView.repairDestail.setText(order.getBaoxiuProject());
 		
 		String src = order.getBaoxiuPicture();
 		if(src==null ||"".equals(src)){
 			listItemView.gvOrderInfo.setVisibility(View.GONE);
 		}else{
 			String[] srcArray;
-			if(src.contains(",")){
-				srcArray = src.split(",");
+			if(src.contains(";")){
+				srcArray = src.split(";");
 			}else{
 				srcArray = new String[1];
 				srcArray[0] = src;
@@ -123,6 +124,7 @@ public class RepairListItemAdapter extends BaseAdapter {
 		for (int x = 0; x < srcs.length; x++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsImg", API.PIC+srcs[x]);
+			Logger.d("图片"+API.PIC+srcs[x]);
 			lstImageItem.add(map);
 		}
 		BaseMapListApater sm = new BaseMapListApater(mContext, lstImageItem,

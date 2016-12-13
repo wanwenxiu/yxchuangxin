@@ -14,11 +14,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.R;
-import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity;
 import com.yxld.yxchuangxin.activity.goods.SearchActivity;
 import com.yxld.yxchuangxin.activity.goods.ShopListActivity;
@@ -36,15 +34,12 @@ import com.yxld.yxchuangxin.entity.CxwyMallProduct;
 import com.yxld.yxchuangxin.entity.ShopList;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.view.ImageCycleView;
-
-import org.json.JSONObject;
+import com.yxld.yxchuangxin.view.SlideShowView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by yishangfei on 2016/3/4.
@@ -58,7 +53,7 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     public  TextView title;
     private ScrollView scrollView;
 
-    private ImageCycleView mall_lunbo;
+    private SlideShowView mall_lunbo;
     /** 搜素框*/
     private ImageView search;
     
@@ -181,7 +176,7 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
             urls = new ArrayList<>();
         }
 
-        mall_lunbo = (ImageCycleView) view.findViewById(R.id.mall_lunbo);
+        mall_lunbo = (SlideShowView) view.findViewById(R.id.mall_lunbo);
 
         scrollView = (ScrollView) view.findViewById(R.id.scrollView2);
         scrollView.scrollTo(0, 0);
@@ -194,14 +189,16 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
             setPeizhiImg(peuzhi,true);
         }else{
             Log.d("geek","默认本地不不不存在图片 ");
+            progressDialog.show();
             getlunbotubiao();
         }
+        initDataFromNet();
         return view;
     }
 
-
     public void onRefresh() {
         initDataFromNet();
+        getlunbotubiao();
     }
 
     @Override
@@ -260,7 +257,7 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
             }
 
             if(isEmptyList(info.getProductList())) {
-                onError("没有推荐商品");
+                onError("");
             }else {
                 indexListData.clear();
                 try{
@@ -278,23 +275,24 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
         @Override
         public void onErrorResponse(String errMsg) {
-            if(swipe_container != null){
+            if(swipe_container != null ){
                 swipe_container.setRefreshing(false);
             }
-            onError("数据获取失败");
+            onError("");
         }
     };
 
     private void getlunbotubiao(){
-        Log.d("geek","getlunbotubiao()");
-        progressDialog.show();
         if(PeiZhiController == null){
             PeiZhiController = new PeiZhiControllerImpl();
         }
         PeiZhiController.getAllScLbTbList(mRequestQueue, new Object[]{}, new ResultListener<CxwyMallPezhi>() {
             @Override
             public void onResponse(CxwyMallPezhi info) {
-                if (info.status != STATUS_CODE_OK) {
+                if(swipe_container != null){
+                    swipe_container.setRefreshing(false);
+                }
+                if(info.status != STATUS_CODE_OK) {
                     onError(info.MSG);
                     return;
                 }
@@ -303,24 +301,28 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onErrorResponse(String errMsg) {
-                initDataFromNet();
+                if(swipe_container != null){
+                    swipe_container.setRefreshing(false);
+                }
             }
         });
     }
 
     private void setPeizhiImg(CxwyMallPezhi info,boolean isRequest) {
         if(!isEmptyList(info.getLblist())) {
+            urls.clear();
                 for (int i = 0; i < info.getLblist().size(); i++) {
                     if(urls != null && info.getLblist().get(i) != null && info.getLblist().get(i).getMallPeizhiValue() != null && !"".equals(info.getLblist().get(i).getMallPeizhiValue())){
                         urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
                     }
                 }
-                mall_lunbo.setImageResources(urls,
-                    new ImageCycleView.ImageCycleViewListener() {
-                        @Override
-                        public void onImageClick(int position, View imageView) {
-                        }
-                    }, 0);
+            mall_lunbo.setImageUris(urls,getActivity(),false);
+//                mall_lunbo.setImageResources(urls,
+//                    new ImageCycleView.ImageCycleViewListener() {
+//                        @Override
+//                        public void onImageClick(int position, View imageView) {
+//                        }
+//                    }, 0);
         }
 
         if(!isEmptyList(info.getTblist())) {
@@ -332,12 +334,9 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
         editor.putString(save_mall_imgurl, imgToStr);
         editor.commit();
         Log.d("geek","商城首页 setPeizhiImg");
-        initDataFromNet();
         if(isRequest){
             Log.d("geek","商城首页 setPeizhiImg "+isRequest);
-//            getlunbotubiao();
         }
-
     }
 
     @Override

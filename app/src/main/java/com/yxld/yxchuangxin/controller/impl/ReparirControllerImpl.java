@@ -16,6 +16,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.RepairController;
 import com.yxld.yxchuangxin.entity.CxwyBaoxiu;
@@ -242,9 +243,10 @@ public class ReparirControllerImpl implements RepairController {
 
 					@Override
 					public void onResponse(String response) {
-						Log.d("geek","所有报修信息"+response );
+						Logger.d("getRepairAllList ");
 						CxwyBaoxiu info = null;
 						if(response != null){
+							Log.d("geek","所有报修信息"+response );
 							info = gson.fromJson(response, CxwyBaoxiu.class);
 						}
 						if (listener != null) { 

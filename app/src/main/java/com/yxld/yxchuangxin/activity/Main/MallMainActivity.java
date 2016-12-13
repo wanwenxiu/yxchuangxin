@@ -37,7 +37,7 @@ public class MallMainActivity extends BaseActivity {
     private MyMallIndexJumpBroad myReceiver = null;
 
     private static MallIndexFragment mallIndexFragment =  new MallIndexFragment();
-//    private static ClazzMainFragment clazzMainFragment =  new ClazzMainFragment();
+//  private static ClazzMainFragment clazzMainFragment =  new ClazzMainFragment();
     private static CartMainFragment cartMainFragment =  new CartMainFragment();
     private static MallMineFragment mallMineFragment =  new MallMineFragment();
 

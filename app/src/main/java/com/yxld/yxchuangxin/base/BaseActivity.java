@@ -28,6 +28,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ClearCacheRequest;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.Volley;
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.login.LoginActivity;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
@@ -37,6 +38,7 @@ import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.util.Network;
 import com.yxld.yxchuangxin.util.SPUtils;
+import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.ProgressDialog;
 import com.yxld.yxchuangxin.view.XListView;
@@ -59,8 +61,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public abstract class BaseActivity extends AppCompatActivity implements
 		OnClickListener, OnCancelListener, IXListViewListener,
 		OnItemClickListener {
-	public final String LAST_LOGIN_USER_ID = "lastLoginUserId";
-	public final String CB_SAVE_PWD = "cb_save_pwd";
 	/** 服务器请求成功 */
 	protected static final int STATUS_CODE_OK = 0;
 	/** 服务器请求失败 */
@@ -127,7 +127,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		super.onCreate(savedInstanceState);
 		// 这句很关键，注意是调用父类的方法
 		super.setContentView(R.layout.activity_base);
-
+         Logger.d("BaseActivity onCreate savedInstanceState");
+		if (savedInstanceState != null) {
+			//取出保存在savedInstanceState中
+			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
+			Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
+			Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
+			Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
+		}
 		// 经测试在代码里直接声明透明状态栏更有效
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
@@ -355,7 +362,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		Logger.d("BaseActivity onResume ");
 	}
 
 	@Override
@@ -399,11 +406,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
 						.setContentText("网络连接失败，请检查您的网络状态")
 						.show();
 			}else{
-				new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-						.setTitleText("提示")
-						.setContentText(errMsg)
-						.show();
+				if(StringUitl.isNoEmpty(errMsg)){
+					new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+							.setTitleText("提示")
+							.setContentText(errMsg)
+							.show();
+				}
 			}
+			Logger.d(errMsg);
 			resetView();
 			showErrorPage(true);
 		}
@@ -465,8 +475,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		//保存至outState中
-		System.out.println("BaseActivity onSaveInstanceState()");
+		//将用户信息房屋信息及选择楼盘信息 保存至outState中
+		if(Contains.user != null && (ArrayList)Contains.appYezhuFangwus != null){
+			Logger.d("BaseActivity onSaveInstanceState user="+Contains.user+",house="+(ArrayList)Contains.appYezhuFangwus);
+		}else{
+			Logger.d("BaseActivity onSaveInstanceState ");
+		}
 		outState.putInt(SAVEXIAOQUID, Contains.curSelectXiaoQuId);
 		outState.putSerializable(SAVEYONGHU,Contains.user);
 		outState.putSerializable(SAVEYEZHU,(ArrayList)Contains.appYezhuFangwus);
@@ -476,9 +490,10 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		try {
+			Logger.d("BaseActivity onRestoreInstanceState()");
 			if (savedInstanceState != null) {
-				//取出保存在savedInstanceState中
-				System.out.println("BaseActivity onRestoreInstanceState()");
+				//取出保存在savedInstanceState中数据
+			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
 			Contains.curSelectXiaoQuId = savedInstanceState.getInt(SAVEXIAOQUID);
 			Contains.user = (CxwyYezhu) savedInstanceState.getSerializable(SAVEYONGHU);
 			Contains.appYezhuFangwus = (ArrayList) savedInstanceState.getSerializable(SAVEYONGHU);
@@ -487,7 +502,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		} catch (Exception e) {
 		}
 	}
-	
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
 	/**
 	 * 检查list是否为空
 	 * 

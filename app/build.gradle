@@ -20,8 +20,8 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 8
-        versionName "1.8"
+        versionCode 22
+        versionName "2.2"
         ndk {
             abiFilters "armeabi"
         }
@@ -34,6 +34,8 @@ android {
 //    }
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
             //混淆所用的文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -98,6 +100,8 @@ dependencies {
     compile 'com.mylhyl:acp:1.1.7'
     //定位
     compile files('libs/AMap_Location_V3.1.0_20161027.jar')
+    //log日志
+    compile 'com.orhanobut:logger:1.15'
 }
 
 

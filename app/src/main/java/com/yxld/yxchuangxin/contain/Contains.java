@@ -32,8 +32,8 @@ public class Contains {
 	public static String repairAddressStr = "";
 	/** 报修时项目名*/
 	public static String repairXiangmu ="";
-	/** 报修时区域*/
-	public static String repairQuyu ="专有区域";
+	/** 报修时区域  小修 1 中大修 2 专有部位3 */
+	public static String repairQuyu ="3";
 	
 //	/** 购物车集合 */
 	public static List<CxwyMallCart> CartList = new ArrayList<CxwyMallCart>();

@@ -21,7 +21,7 @@ import com.yxld.yxchuangxin.R;
 public class AutoLinkStyleTextView extends TextView {
 
     private static String DEFAULT_TEXT_VALUE = null;
-    private static int DEFAULT_COLOR = Color.parseColor("#f23218");
+    private static int DEFAULT_COLOR = Color.parseColor("#00A3E8");
     private static boolean HAS_UNDER_LINE = true;
 
     private ClickCallBack mClickCallBack;

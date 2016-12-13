@@ -14,6 +14,7 @@ public class CxwyBaoxiu extends BaseEntity implements java.io.Serializable {
 
 	  // Fields    
 	private List<CxwyBaoxiu> rows;
+    private int total;
 	
 	private String baoxiuPicture ;          //图片
 
@@ -136,45 +137,33 @@ public class CxwyBaoxiu extends BaseEntity implements java.io.Serializable {
 		this.baoxiuBiezhu3 = baoxiuBiezhu3;
 	}
 
-
-
-
-
 	// Property accessors
 
     public List<CxwyBaoxiu> getRows() {
 		return rows;
 	}
 
-
-
-
-
 	public void setRows(List<CxwyBaoxiu> rows) {
 		this.rows = rows;
 	}
-
-
-
-
 
 	public String getBaoxiuPicture() {
 		return baoxiuPicture;
 	}
 
-
-
-
-
 	public void setBaoxiuPicture(String baoxiuPicture) {
 		this.baoxiuPicture = baoxiuPicture;
 	}
 
+    public int getTotal() {
+        return total;
+    }
 
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
-
-
-	public Integer getBaoxiuId() {
+    public Integer getBaoxiuId() {
         return this.baoxiuId;
     }
     

@@ -233,10 +233,11 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 	protected void onRestart() {
 		super.onRestart();
 		Log.d("geek","onRestart()");
-		updateAddress(Contains.defuleAddress.getAddName(),
-				Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
-						Contains.defuleAddress.getAddAdd());
-
+		if(Contains.defuleAddress != null){
+			updateAddress(Contains.defuleAddress.getAddName(),
+					Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
+							Contains.defuleAddress.getAddAdd());
+		}
 		refushPrice(MyCouponActivity.yhqjine);
 	}
 
