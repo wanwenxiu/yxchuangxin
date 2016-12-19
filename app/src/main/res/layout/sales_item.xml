@@ -24,15 +24,6 @@
         fresco:placeholderImage="@mipmap/plugin_camera_no_pictures"
         android:paddingRight="@dimen/size_15"/>
 
-   <!-- <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/goodsImg"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:contentDescription="@null"
-        android:scaleType="fitXY"
-        android:background="@mipmap/empty_photo"
-        />-->
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

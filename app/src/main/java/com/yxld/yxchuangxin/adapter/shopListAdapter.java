@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
@@ -131,9 +132,6 @@ public class shopListAdapter extends BaseAdapter {
 					&& !"".equals(curProduct.getShangpinImgSrc1())) {
 				Uri uri = Uri.parse(API.PIC + curProduct.getShangpinImgSrc1().split(";")[0]);
 				holder.iv.setImageURI(uri);
-//				LoadingImg.LoadingImgs(mContext).displayImage(
-//						API.PIC + curProduct.getShangpinImgSrc1().split(";")[0], holder.iv,
-//						LoadingImg.option1);
 			}else{
 				holder.iv.setImageURI(API.PIC+"/wygl/files/img/201605/empty_photo.png");
 			}
@@ -141,6 +139,9 @@ public class shopListAdapter extends BaseAdapter {
 			holder.tv_name.setText(curProduct.getShangpinShangpName()+"	"+curProduct.getShangpinGuige());
 			holder.tv_money.setText("￥"+curProduct.getShangpinRmb() + " ");
 			holder.recommendCunt.setText("库存:"+curProduct.getShangpinNum()+"");
+			if(curProduct.getShangpinHave() != null && curProduct.getShangpinHave() == 0){
+				holder.recommendCunt.setText("已下架");
+			}
 
 			if (holder.bt_button != null) {
 				holder.bt_button.setTag(position);
@@ -157,6 +158,14 @@ public class shopListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				num = Integer.parseInt(v.getTag().toString());
+				if( mlist.get(num).getShangpinNum() == 0){
+					ToastUtil.show(mContext,"商品缺货哦");
+					return;
+				}
+				if(mlist.get(num).getShangpinHave() != null &&mlist.get(num).getShangpinHave() == 0 ){
+					ToastUtil.show(mContext,"商品已经下架哦");
+					return;
+				}
 				start_locations = new int[2];
 				v.getLocationInWindow(start_locations);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
 				//请求后台进行添加商品至购物车请求

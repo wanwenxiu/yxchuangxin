@@ -145,6 +145,10 @@ public class LoginActivity extends BaseActivity {
 							info.getHouse().get(0).getFwDanyuan()+"单元"+
 							info.getHouse().get(0).getFwFanghao());
 				}
+
+				if(info.getAddr() != null){
+					Contains.defuleAddress = info.getAddr();
+				}
 				SharedPreferences.Editor editor = sp.edit();
 				editor.putString("NAME", userNameValue);
 				editor.putString("PASSWORD", passwordValue);

@@ -219,6 +219,8 @@ public class ShopListActivity extends BaseActivity implements
 		searchFlg = getIntent().getStringExtra("searchFlg");
 		if (searchFlg == null) {
 			searchFlg = "";
+		}else{
+			searchTv.setText(searchFlg);
 		}
 
 		Log.d("geek","type="+type+"calssId="+calssId+"searchFlg="+searchFlg);
@@ -241,6 +243,7 @@ public class ShopListActivity extends BaseActivity implements
 			break;
 		case R.id.searchTv:
 			startActivity(SearchActivity.class);
+			finish();
 			break;
 		case R.id.return_top:
 			// // 返回顶部的按钮的点击事件
@@ -328,14 +331,14 @@ public class ShopListActivity extends BaseActivity implements
 			params.put("order", goodsOrderSelect);
 			Log.d("geek", "根据商品id查询 ="+params.toString());
 			goodsController.getShopListById(mRequestQueue,params, this);
-		}else if(type == byIndex){
-			//rows=%1$s&page=%2$s&product.shangpinClassicShow=%3$s
-			//goodsController.getIndexGoodsList(mRequestQueue, new Object[]{page,pageCode + 1,"0"}, this);
+		}else if(type == byIndex){  //根据首页推荐进入app
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("rows", page+"");
 			params.put("page", pageCode + 1 + "");
 			params.put("product.shangpinClassicShow", "0");
 			params.put("appxiaoqu",Contains.curSelectXiaoQuId+"");
+			params.put("sort", goodsSort);
+			params.put("order", goodsOrderSelect);
 			Log.d("geek", "根据首页推荐查询 ="+params.toString());
 			goodsController.getIndexGoodsList(mRequestQueue, params, this);
 		}

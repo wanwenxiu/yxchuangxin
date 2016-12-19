@@ -88,7 +88,7 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 	private int totlaNum;
 
 	/** 商品名称 */
-	private String shop;
+	private String shop = "";
 
 	/** 商品规格 */
 	private String details;
@@ -212,7 +212,9 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 
 				    lasttotalPrice = totalPrice;
 
-					shop+=Contains.sureOrderList.get(i).getGoodsShop();
+					if(Contains.sureOrderList.get(i).getGoodsShop() != null && !"".equals(Contains.sureOrderList.get(i).getGoodsShop())){
+						shop+=Contains.sureOrderList.get(i).getGoodsShop();
+					}
 					details+=Contains.sureOrderList.get(i).getGoodsDetails();
 				// 拼接商品信息
 					map.put("saleList[" + count + "].saleNum",
@@ -232,12 +234,13 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		Log.d("geek","onRestart()");
-		if(Contains.defuleAddress != null){
+		if(Contains.defuleAddress != null && Contains.defuleAddress.getAddName() != null
+			&& Contains.defuleAddress.getAddTel() != null  && Contains.defuleAddress.getAddAdd() != null ){
 			updateAddress(Contains.defuleAddress.getAddName(),
 					Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
 							Contains.defuleAddress.getAddAdd());
 		}
+
 		refushPrice(MyCouponActivity.yhqjine);
 	}
 
@@ -254,7 +257,7 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 		if(isDaJianGoods == 1){
 			peisongfei = 3;
 		}else{
-			if(lasttotalPrice >20){
+			if(lasttotalPrice <20){
 				peisongfei = 1;
 			}else{
 				peisongfei = 0;
@@ -295,7 +298,7 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 		if(isDaJianGoods == 1){
 			peisongfei = 3;
 		}else{
-			if(lasttotalPrice >20){
+			if(lasttotalPrice <20){
 				peisongfei = 1;
 			}else{
 				peisongfei = 0;
@@ -412,11 +415,11 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 			//请求成功跳转界面
 			Intent intent = new Intent(SureOrderActivity.this, PayWaySelectActivity.class);
 			intent.putExtra("orderId", orderid[0]);
-			intent.putExtra("orderMoney",decimalFormat.format(lasttotalPrice));
+			intent.putExtra("orderMoney",decimalFormat.format(lasttotalPrice+peisongfei));
 			intent.putExtra("orderShop",shop);
 			intent.putExtra("orderDetails",details);
 			intent.putExtra("orderBianhao",orderid[1]);
-
+			intent.putExtra("paystatus","商城支付");
 			startActivity(intent);
 			finish();
 		}

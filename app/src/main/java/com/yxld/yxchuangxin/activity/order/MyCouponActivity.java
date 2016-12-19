@@ -78,7 +78,7 @@ public class MyCouponActivity extends BaseActivity implements ResultListener<Cxw
             yeZhuController = new YeZhuControllerImpl();
         }
         Map<String, String> parm = new HashMap<String, String>();
-        parm.put("useDaijinquan.daijinquanUseYonghuid", Contains.user.getYezhuId().toString());
+        parm.put("useDaijinquan.daijinquanUseYezhuid", Contains.user.getYezhuId().toString());
         parm.put("useDaijinquan.daijinquanUseState", "0");
         yeZhuController.getAllYHQ(mRequestQueue, url, parm, this);
     }

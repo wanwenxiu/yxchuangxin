@@ -16,6 +16,9 @@ public class LoginEntity extends BaseEntity{
 	/** 版本实体 -- 判断是否存在新版本*/
 	private CxwyAppVersion ver;
 
+	/** 默认地址*/
+	private CxwyMallAdd addr;
+
 	public List<AppYezhuFangwu> getHouse() {
 		return house;
 	}
@@ -56,6 +59,14 @@ public class LoginEntity extends BaseEntity{
 		this.logintimeout = logintimeout;
 	}
 
+	public CxwyMallAdd getAddr() {
+		return addr;
+	}
+
+	public void setAddr(CxwyMallAdd addr) {
+		this.addr = addr;
+	}
+
 	@Override
 	public String toString() {
 		return "LoginEntity{" +
@@ -64,6 +75,7 @@ public class LoginEntity extends BaseEntity{
 				", token='" + token + '\'' +
 				", logintimeout='" + logintimeout + '\'' +
 				", ver=" + ver +
+				", addr=" + addr +
 				'}';
 	}
 }

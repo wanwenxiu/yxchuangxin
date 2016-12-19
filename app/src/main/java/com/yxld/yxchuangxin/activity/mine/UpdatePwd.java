@@ -37,7 +37,7 @@ public class UpdatePwd extends BaseActivity {
 	private LoginController loginController;
 	private ExplosionField mExplosionField;
 	private SharedPreferences sp;
-
+	String new_pwd;
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_updatepwd);
@@ -77,15 +77,23 @@ public class UpdatePwd extends BaseActivity {
 			loginController = new LoginControllerImpl();
 		}
 		String old_pwd = old_password.getText().toString();
-		String new_pwd = new_password.getText().toString();
+		new_pwd = new_password.getText().toString();
 		String repeat_pwd = repeat_password.getText().toString();
 		String shouji = Contains.user.getYezhuShouji();
 		if(Contains.user == null || "".equals(Contains.user.getYezhuPwd()) || !Contains.user.getYezhuPwd().equals(StringUitl.getMD5(old_pwd))){
 			ToastUtil.show(this,"原密码输入有误");
 			return;
 		}
+		if(new_pwd == null || new_pwd.length() <6 || new_pwd.length() > 16){
+			ToastUtil.show(this,"密码必须为6-16个数字/大小字母");
+			return;
+		}
 		if (new_pwd != null && !"".equals(new_pwd) && new_pwd.equals(repeat_pwd)) {
-			loginController.getUpdatePwd(mRequestQueue, new Object[] {shouji, Contains.user.getYezhuPwd(),StringUitl.getMD5(new_pwd)}, listener);
+			if(StringUitl.getMD5(old_pwd).equals(StringUitl.getMD5(new_pwd))){
+				ToastUtil.show(this,"原密码不能与新密码一致");
+				return;
+			}
+			loginController.getUpdatePwd(mRequestQueue, new Object[] {shouji,StringUitl.getMD5(old_pwd),StringUitl.getMD5(new_pwd)}, listener);
 		} else {
 			Toast.makeText(UpdatePwd.this, "两次输入的新密码不一致",
 					Toast.LENGTH_SHORT).show();
@@ -108,13 +116,12 @@ public class UpdatePwd extends BaseActivity {
 			}
 			mExplosionField.explode(next_step);
 			next_step.setOnClickListener(null);
-			Contains.user.setYezhuPwd(new_password.getText().toString());
+			Contains.user.setYezhuPwd(StringUitl.getMD5(new_pwd));
 			SharedPreferences.Editor editor = sp.edit();
 			editor.putString("NAME", Contains.user.getYezhuShouji());
 			editor.putString("PASSWORD", new_password.getText().toString());
 			editor.commit();
-//			dbUtil.clearData(CxwyMallUser.class);
-//			dbUtil.insert(Contains.cxwyMallUser, Contains.cxwyMallUser.getUserId() + "");
+			ToastUtil.show(UpdatePwd.this,"密码修改成功");
 			finish();
 		}
 

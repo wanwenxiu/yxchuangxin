@@ -95,6 +95,8 @@
             android:textColor="@color/color_333"
             android:textSize="12sp"
             android:inputType="number"
+            android:enabled="false"
+            android:focusable="false"
             />
 
         <!-- android:focusable="true"

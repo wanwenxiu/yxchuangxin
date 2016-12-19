@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -51,16 +52,16 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     private String url = API.URL_CHONGZHI;
     @Override
     protected void initContentView(Bundle savedInstanceState) {
-        setContentView(R.layout.pay_result);
-        mTextView = (TextView) this.findViewById(R.id.textView_WXPay_Result);
-        Button btnClose = (Button) this.findViewById(R.id.btn_WXPay_Close);
-        btnClose.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        setContentView(R.layout.pay_result);
+//        mTextView = (TextView) this.findViewById(R.id.textView_WXPay_Result);
+//        Button btnClose = (Button) this.findViewById(R.id.btn_WXPay_Close);
+//        btnClose.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         // should place after UI initialize
         api = WXAPIFactory.createWXAPI(this, Contains.WX_APP_ID);
@@ -106,6 +107,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             bundle.putInt("ORDERTYPE", 2);
             startActivity(OrderListActivity.class, bundle);
             finish();
+            Contains.weixinPayresult = -1;
         }
 
         @Override
@@ -225,66 +227,29 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         Log.d("geek", "onPayFinish, transaction = " + baseResp.transaction);
         Log.d("geek", "onPayFinish, openId = " + baseResp.openId);
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            Log.d("geek", "支付结果 = " + baseResp.errCode + ", 原因=" + baseResp.errStr);
-            String errStr = null;
-            switch (baseResp.errCode) {
-                case 0:
-                    errStr = "已支付成功";
-                    try {
-                        JSONObject message = new JSONObject();
-                        message.put("payresult", true);
-                        // WXPayPlugin.mCallbackContext.sendPluginResult(new
-                        // PluginResult(PluginResult.Status.OK, message));
-                        //判断是什么付钱的
-                        if (Contains.pay==1){
-                           initSuccessPay();//下单支付
-                        }else if (Contains.pay==2){
-                            initDataFromNet();//充值支付
-                        }else if(Contains.pay == 3){//物业缴费
-                            Intent intentCart = new Intent(getResources().getString(
-                                    R.string.wuyeweixinpay_broad));
-                            sendBroadcast(intentCart);
-                            finish();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case -1:
-                    errStr = "支付失败，请检查";
-                    try {
-                        JSONObject message = new JSONObject();
-                        message.put("payresult", false);
-                        // WXPayPlugin.mCallbackContext.sendPluginResult(new
-                        // PluginResult(PluginResult.Status.OK, message));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case -2:
-                    errStr = "支付已取消";
-                    try {
-                        JSONObject message = new JSONObject();
-                        message.put("payresult", false);
-                        // WXPayPlugin.mCallbackContext.sendPluginResult(new
-                        // PluginResult(PluginResult.Status.OK, message));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                default:
-                    try {
-                        JSONObject message = new JSONObject();
-                        message.put("payresult", false);
-                        // WXPayPlugin.mCallbackContext.sendPluginResult(new
-                        // PluginResult(PluginResult.Status.OK, message));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-			Toast.makeText(WXPayEntryActivity.this,errStr,Toast.LENGTH_SHORT).show();
-            mTextView.setText(errStr);
+                 if(baseResp.errCode==0){
+                     Contains.weixinPayresult= 0;
+                     Toast.makeText(this, "支付成功", Toast.LENGTH_SHORT).show();
+                     //判断是什么付钱的
+                     if (Contains.pay==1){
+                         initSuccessPay();//下单支付
+                     }else if (Contains.pay==2){
+                         initDataFromNet();//充值支付
+                     }else if(Contains.pay == 3){//物业缴费
+                         Intent intentCart = new Intent(getResources().getString(
+                                 R.string.wuyeweixinpay_broad));
+                         sendBroadcast(intentCart);
+                         finish();
+                         Contains.weixinPayresult = -1;
+                     }else if (Contains.pay==4){ //车位费付款
+                         finish();
+                     }
+                 }else {
+                     Toast.makeText(this, "支付失败,请重试", Toast.LENGTH_SHORT).show();
+                     Contains.weixinPayresult= 1;
+                 }
+            finish();
+            Logger.d("onResp  Contains.pay="+ Contains.pay);
         }
     }
 }

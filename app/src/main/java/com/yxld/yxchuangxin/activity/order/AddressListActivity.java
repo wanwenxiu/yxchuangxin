@@ -49,7 +49,7 @@ public class AddressListActivity extends BaseActivity {
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.delivery_address_fragment);
-		getSupportActionBar().setTitle("我的收获地址");
+		getSupportActionBar().setTitle("我的收货地址");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
@@ -132,6 +132,7 @@ public class AddressListActivity extends BaseActivity {
 			if(isEmptyList(info.getAddList())){
 				shopAddressTest.setVisibility(View.VISIBLE);
 				address_list.setVisibility(View.GONE);
+				Contains.defuleAddress = null;
 			}else{
 				shopAddressTest.setVisibility(View.GONE);
 				address_list.setVisibility(View.VISIBLE);
@@ -144,6 +145,9 @@ public class AddressListActivity extends BaseActivity {
 					}
 				});
 				adapter.setmList(mList);
+				if(mList.size() == 0){
+					Contains.defuleAddress = null;
+				}
 			}
 			
 			progressDialog.hide();

@@ -160,7 +160,7 @@ public class VisitorInvitationActivity extends BaseActivity  {
                         new AcpListener() {
                             @Override
                             public void onGranted() {
-                       Uri uri = ContactsContract.Contacts.CONTENT_URI;
+                                Uri uri = ContactsContract.Contacts.CONTENT_URI;
                                 Intent intent = new Intent(Intent.ACTION_PICK,
                                         uri);
                                 startActivityForResult(intent, 0);

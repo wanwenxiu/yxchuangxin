@@ -223,6 +223,10 @@ public class WelcomeActivity extends BaseActivity implements
 						info.getHouse().get(0).getFwFanghao());
 			}
 
+			if(info.getAddr() != null){
+				Contains.defuleAddress = info.getAddr();
+			}
+
 			SharedPreferences.Editor editor = sp.edit();
 			editor.putString("NAME", name);
 			editor.putString("PASSWORD", pwd);

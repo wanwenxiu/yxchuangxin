@@ -48,15 +48,13 @@ public class NoCouponActivity extends BaseActivity implements ResultListener<Cxw
 
     }
 
-
-
     @Override
     protected void initDataFromNet() {
         if (yeZhuController == null) {
             yeZhuController = new YeZhuControllerImpl();
         }
         Map<String, String> parm = new HashMap<String, String>();
-        parm.put("useDaijinquan.daijinquanUseYonghuid", Contains.user.getYezhuId().toString());
+        parm.put("useDaijinquan.daijinquanUseYezhuid", Contains.user.getYezhuId().toString());
         Log.d("geek", "可以用优惠券parm+"+parm.toString());
         yeZhuController.getAllNOYHQ(mRequestQueue, url, parm, this);
     }

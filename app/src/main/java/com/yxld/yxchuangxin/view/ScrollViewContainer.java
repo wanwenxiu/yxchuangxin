@@ -195,7 +195,10 @@ public class ScrollViewContainer extends RelativeLayout {
             }
             mTimer.schedule(2);
             try {
-                vt.recycle();
+                if (vt != null) {
+                    vt.recycle();
+                    vt = null;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

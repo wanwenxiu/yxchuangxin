@@ -75,7 +75,6 @@ public class UpdateManager {
 				totalProgress.setText(progress+"/100");
 				break;
 			case DOWN_OVER:
-
 				installApk();
 				break;
 			default:
@@ -138,10 +137,6 @@ public class UpdateManager {
 
 	private void showDownloadDialog() {
 		Builder builder = new Builder(mContext);
-//		AlertDialog.Builder builder = new Builder(mContext) ;
-//		builder.setIcon(R.mipmap.updateicon);
-//		builder.setTitle("正在下载,请稍后");
-
 		final LayoutInflater inflater = LayoutInflater.from(mContext);
 		View v = inflater.inflate(R.layout.progress, null);
 		mProgress = (ProgressBar) v.findViewById(R.id.progress);
@@ -149,7 +144,7 @@ public class UpdateManager {
 		totalProgress = (TextView)v.findViewById(R.id.totalProgress);
 		cancel = (TextView) v.findViewById(R.id.cancel);
 		builder.setView(v);
-
+		builder.setCancelable(false);
 		cancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -162,17 +157,8 @@ public class UpdateManager {
 				}
 			}
 		});
-//		builder.setNegativeButton("取消", new OnClickListener() {
-//			@Override
-//			public void onClick(DialogInterface dialog, int which) {
-//				dialog.dismiss();
-//				interceptFlag = true;
-//				if(mhander != null){
-//					mhander.sendEmptyMessage(WelcomeActivity.LOCATION_FINISH);
-//				}
-//			}
-//		});
 		downloadDialog = builder.create();
+		downloadDialog.setCancelable(false);
 		downloadDialog.show();
 
 		downloadApk();
@@ -244,6 +230,7 @@ public class UpdateManager {
 			return;
 		}
 		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
 				"application/vnd.android.package-archive");
 		mContext.startActivity(i);

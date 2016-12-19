@@ -1,48 +1,31 @@
-package com.yxld.yxchuangxin.activity.Main;
+package com.yxld.yxchuangxin.activity.order;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
-import com.yxld.yxchuangxin.MainActivity;
 import com.yxld.yxchuangxin.R;
-import com.yxld.yxchuangxin.activity.order.PayWaySelectActivity;
-import com.yxld.yxchuangxin.activity.order.SureOrderActivity;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.contain.Contains;
-import com.yxld.yxchuangxin.view.ProgressDialog;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static android.R.attr.data;
-import static com.yxld.yxchuangxin.R.id.webview;
-import static com.yxld.yxchuangxin.base.AppConfig.map;
 
 /**
  * Created by yishangfei on 2016/9/9 0009.
  */
 
-public class WebViewActivity extends BaseActivity {
+public class YinlLianWebViewActivity extends BaseActivity {
     private WebView webView;
     private ProgressBar bar;
 
@@ -151,8 +134,7 @@ public class WebViewActivity extends BaseActivity {
         if (item.getItemId() == android.R.id.home) {
             Log.d("geek","返回键");
             if (webView != null && webView.canGoBack()) {
-                webView.goBack();// 返回上一页面
-                return true;
+                finish();
             } else {
                 finish();// 退出程序
             }
@@ -165,7 +147,7 @@ public class WebViewActivity extends BaseActivity {
         @JavascriptInterface
         public void jumpActivity(double param) {
             Contains.pay=4;
-            Intent intent = new Intent(WebViewActivity.this, PayWaySelectActivity.class);
+            Intent intent = new Intent(YinlLianWebViewActivity.this, PayWaySelectActivity.class);
             intent.putExtra("orderMoney", String.valueOf(param));
             intent.putExtra("orderShop","车位使用费");
             intent.putExtra("orderDetails","车位使用费");

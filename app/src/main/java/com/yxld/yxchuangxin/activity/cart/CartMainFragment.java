@@ -170,11 +170,6 @@ public class CartMainFragment extends BaseFragment {
                     public void onResponse(CxwyMallCart info) {
                         Log.d("geek","购物车 initDataFromNet（） onResponse");
                         progressDialog.hide();
-//                        if(!queryCartInfo.equals(info.toString())){
-//                            queryCartInfo = info.toString();
-//                        }else{
-//                            return;
-//                        }
 
                         Log.d("geek","queryCartInfo"+queryCartInfo);
 
@@ -193,7 +188,6 @@ public class CartMainFragment extends BaseFragment {
                             resetView();
                             getGoodList();
                         }
-
                     }
 
                     @Override

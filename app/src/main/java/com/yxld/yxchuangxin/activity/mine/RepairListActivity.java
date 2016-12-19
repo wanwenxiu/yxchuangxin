@@ -124,13 +124,13 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 				changeTvBg(0);
 				break;
 			case R.id.tvComment:
-				repairId = "回执";
+				repairId = "2";
 				// 修改筛选条件为已处理
 				changeTvBg(1);
 				break;
 			case R.id.tvbad:
-				repairId = "填单";
-				// 修改筛选条件为未处理
+				repairId = "1";
+				// 修改筛选条件为待指派 （未完成）
 				changeTvBg(2);
 				break;
 			default:

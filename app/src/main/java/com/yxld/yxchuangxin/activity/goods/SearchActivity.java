@@ -125,7 +125,7 @@ public class SearchActivity extends BaseActivity {
 			searchList.setVisibility(View.GONE);
 			break;
 		case R.id.searchSubmit: // 搜索按钮
-			if (StringUitl.isNotEmpty(SearchActivity.this, searchText, null)) {
+			if (StringUitl.isNotEmpty(SearchActivity.this, searchText, "请输入搜索内容")) {
 				GoSearch(searchText.getText().toString());
 			}
 
@@ -148,19 +148,14 @@ public class SearchActivity extends BaseActivity {
 		bundle.putInt("type", byKey);
 		bundle.putString("searchFlg", str);
 		startActivity(ShopListActivity.class, bundle);
-		
 		SearchHistoryEntity entity = new SearchHistoryEntity("1", str);
-		
 		long result = dbUtil.insert(entity, entity.getU_id());
 		Log.d("geek", "==null插入搜索历史result = " + result);
-		
 		finish();
 	}
 
 	/**
 	 * 查询搜索历史
-	 * 
-	 * @param string
 	 */
 	@SuppressWarnings("unchecked")
 	public void getSearchHistory(String uId) {

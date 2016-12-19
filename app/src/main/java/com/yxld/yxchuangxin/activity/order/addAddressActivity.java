@@ -66,7 +66,7 @@ public class addAddressActivity extends BaseActivity {
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.new_address);
-		getSupportActionBar().setTitle("新增收获地址");
+		getSupportActionBar().setTitle("新增收货地址");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 

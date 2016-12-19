@@ -34,7 +34,7 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="20dp"
             android:text="请输入搜索关键字"
-            android:textColor="@color/cccccc" />
+            android:textColor="@color/black" />
 
         <ImageView
             android:layout_width="0dp"

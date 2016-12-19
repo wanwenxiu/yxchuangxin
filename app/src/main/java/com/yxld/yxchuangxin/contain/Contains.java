@@ -79,6 +79,8 @@ public class Contains {
 	public static int pay=0;
 	public static String orderBianhao="";
 
+	/** 支付结果*/
+	public static int weixinPayresult = -1;
 	//通知活动
 	public static int badgeImageView=0;
 }

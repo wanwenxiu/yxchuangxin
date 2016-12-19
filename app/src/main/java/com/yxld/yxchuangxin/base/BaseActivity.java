@@ -108,7 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	protected int pageCode = 0;
 
 	/**
-	 * 
+	 * 下拉列表
 	 */
 	protected XListView xlistView;
 
@@ -120,6 +120,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//当该变量为空，说明内存被回收 ，清空业主房屋等信息，重新进入欢迎界面
 		if(Contains.isKill == null || "".equals(Contains.isKill)){
 			Logger.d("BaseActivity onCreate isKill为空");
 			CxUtil.clearData(AppConfig.app.getSp());
@@ -127,11 +128,13 @@ public abstract class BaseActivity extends AppCompatActivity implements
 			return;
 		}
 		Logger.d("Contains.isKill ="+Contains.isKill);
+
 		if (savedInstanceState != null) {
 			//取出保存在savedInstanceState中
 			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
 			CxUtil.getLogindata(savedInstanceState);
 		}
+
 		// 这句很关键，注意是调用父类的方法
 		super.setContentView(R.layout.activity_base);
 		// 经测试在代码里直接声明透明状态栏更有效
@@ -140,12 +143,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
 			localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
 		}
 		initToolbar();
+
 //		//在自己的应用初始Activity中加入如下两行代码
 //		RefWatcher refWatcher = AppConfig.getRefWatcher(this);
 //		refWatcher.watch(this);
-		if(!netWorkIsAvailable()){
-//			Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
-		}
+
+		//将该Activity加入集合
 		AppConfig.getInstance().addActivity(this);
 
 		// 请不要更改以下方法的调用顺序
@@ -405,19 +408,21 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	public void onError(String errMsg) {
 		if(!this.isFinishing()){
 			if(!netWorkIsAvailable()){
-				new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-						.setTitleText("连接失败")
-						.setContentText("网络连接失败，请检查您的网络状态")
-						.show();
+				ToastUtil.show(this,"网络连接失败，请检查您的网络状态");
+//				new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+//						.setTitleText("连接失败")
+//						.setContentText("网络连接失败，请检查您的网络状态")
+//						.show();
 			}else{
 				if(StringUitl.isNoEmpty(errMsg)){
-					new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-							.setTitleText("提示")
-							.setContentText(errMsg)
-							.show();
+					ToastUtil.show(this,errMsg);
+//					new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+//							.setTitleText("提示")
+//							.setContentText(errMsg)
+//							.show();
+//					Logger.d(errMsg);
 				}
 			}
-			Logger.d(errMsg);
 			resetView();
 			showErrorPage(true);
 		}

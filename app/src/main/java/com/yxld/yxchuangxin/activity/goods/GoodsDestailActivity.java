@@ -207,11 +207,16 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		if(curGood != null){
 			goods_name.setText(curGood.getShangpinShangpName()+"("+curGood.getShangpinGuige()+")");
 			goods_price.setText("￥ "+curGood.getShangpinRmb()+"");
-			if(curGood.getShangpinHave() == 0){
+			if( curGood.getShangpinNum() == 0){
 				goodNum.setText("缺货");
 			}else{
 				goodNum.setText("剩余"+curGood.getShangpinNum()+"件");
 			}
+
+			if(curGood.getShangpinHave() == 0 ){
+				goodNum.setText("已下架");
+			}
+
 			if(Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)){
 				address.setText(Contains.curSelectXiaoQuName);
 			}
@@ -252,6 +257,14 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				finish();
 				break;
 			case R.id.addCart:
+				if( curGood.getShangpinNum() == 0){
+					ToastUtil.show(GoodsDestailActivity.this,"商品缺货哦");
+					return;
+				}
+				if(curGood.getShangpinHave() != null && curGood.getShangpinHave() == 0 ){
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					return;
+				}
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
 					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
 					return;
@@ -287,6 +300,15 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				}
 				break;
 			case R.id.cartOut:
+				if( curGood.getShangpinNum() == 0){
+					ToastUtil.show(GoodsDestailActivity.this,"商品缺货哦");
+					return;
+				}
+				if(curGood.getShangpinHave() == 0 ){
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					return;
+				}
+
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
 					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
 					return;
@@ -294,6 +316,14 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				setCount(false);
 				break;
 			case R.id.cart_Add:
+				if( curGood.getShangpinNum() == 0){
+					ToastUtil.show(GoodsDestailActivity.this,"商品缺货哦");
+					return;
+				}
+				if(curGood.getShangpinHave() == 0 ){
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					return;
+				}
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
 					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
 					return;
@@ -301,6 +331,14 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				setCount(true);
 				break;
 			case R.id.goBuy:
+				if( curGood.getShangpinNum() == 0){
+					ToastUtil.show(GoodsDestailActivity.this,"商品缺货哦");
+					return;
+				}
+				if(curGood.getShangpinHave() == 0 ){
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					return;
+				}
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
 					ToastUtil.show(GoodsDestailActivity.this,"请输入正确数量");
 					return;

@@ -117,6 +117,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.new_main_activity_layouts);
         AppConfig.setMainActivity(this);
+        //当业主信息为空时或者业主手机号码为空，结束当前页进入欢迎页面
         if (Contains.user == null || Contains.user.getYezhuShouji() == null) {
             finish();
             AppConfig.getInstance().exit();
@@ -129,8 +130,10 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         MiPushClient.setUserAccount(NewMainActivity2.this, alias, null);
         initView();
         setToorBar(false);
+
+        //请求轮播图接口
         getlunbotubiao();
-        initDataFromNet();
+        //请求通知接口
         initTongzhi();
     }
 
@@ -214,22 +217,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
-                if (Contains.user != null && Contains.user.getYezhuType() == 0) {
+                if (Contains.user != null && Contains.user.getYezhuType() != null && Contains.user.getYezhuType() == 0) {
                     startActivity(WuyeActivity.class);
                 } else {
                     Toast.makeText(this, "您暂时没有业主权限", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.serviceWarp:
-                Logger.d("即将杀死进程--前"+System.currentTimeMillis());
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Logger.d("即将杀死进程"+System.currentTimeMillis());
-//                        Contains.isKill = null;
-//                        android.os.Process.killProcess(android.os.Process.myPid());
-                    }
-                },1000*20);
                 bundle.putInt("tag", 0);
                 startActivity(ServiceMainActivity.class, bundle);
                 break;
@@ -309,7 +303,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void initDataFromNet() {
     }
 
-
+    /**
+     * 请求通知接口
+     */
     private void initTongzhi() {
         if (tongzhiController == null) {
             tongzhiController = new TongzhiControllerImpl();
@@ -343,6 +339,9 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         }
     };
 
+    /**
+     * 请求轮播图接口
+     */
     private void getlunbotubiao() {
         if (PeiZhiController == null) {
             PeiZhiController = new PeiZhiControllerImpl();

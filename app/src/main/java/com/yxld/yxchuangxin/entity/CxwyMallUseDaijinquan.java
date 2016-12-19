@@ -28,8 +28,8 @@ public class CxwyMallUseDaijinquan extends BaseEntity implements java.io.Seriali
      private Integer daijinquanUseId;
      /** 代金券id*/   
      private Integer daijinquanUseDjqid;
-     /** 代金券用户id*/   
-     private Integer daijinquanUseYonghuid;
+    /** 代金券用户id*/
+    private Integer daijinquanUseYezhuid;
      /** 代金券用户手机号码*/   
      private String daijinquanUseShoujihao;
      /** 代金券类型：注册红包，充值红包,活动红包,其他红包等*/   
@@ -62,9 +62,9 @@ public class CxwyMallUseDaijinquan extends BaseEntity implements java.io.Seriali
 
     
     /** full constructor */
-    public CxwyMallUseDaijinquan(Integer daijinquanUseDjqid, Integer daijinquanUseYonghuid, String daijinquanUseShoujihao, String daijinquanUseType, String daijinquanUseJine, String daijinquanUseShiyongjia, String daijinquanUseStarttime, String daijinquanUseEndtime, Integer daijinquanUseState, String daijinquanUseFaxingtime, String daijinquanUseFaxingloupan, String daijinquanUseBeiyong1, String daijinquanUseBeiyong2) {
+    public CxwyMallUseDaijinquan(Integer daijinquanUseDjqid, Integer daijinquanUseYezhuid, String daijinquanUseShoujihao, String daijinquanUseType, String daijinquanUseJine, String daijinquanUseShiyongjia, String daijinquanUseStarttime, String daijinquanUseEndtime, Integer daijinquanUseState, String daijinquanUseFaxingtime, String daijinquanUseFaxingloupan, String daijinquanUseBeiyong1, String daijinquanUseBeiyong2) {
         this.daijinquanUseDjqid = daijinquanUseDjqid;
-        this.daijinquanUseYonghuid = daijinquanUseYonghuid;
+        this.daijinquanUseYezhuid = daijinquanUseYezhuid;
         this.daijinquanUseShoujihao = daijinquanUseShoujihao;
         this.daijinquanUseType = daijinquanUseType;
         this.daijinquanUseJine = daijinquanUseJine;
@@ -97,12 +97,12 @@ public class CxwyMallUseDaijinquan extends BaseEntity implements java.io.Seriali
         this.daijinquanUseDjqid = daijinquanUseDjqid;
     }
 
-    public Integer getDaijinquanUseYonghuid() {
-        return this.daijinquanUseYonghuid;
+    public Integer getDaijinquanUseYezhuid() {
+        return daijinquanUseYezhuid;
     }
-    
-    public void setDaijinquanUseYonghuid(Integer daijinquanUseYonghuid) {
-        this.daijinquanUseYonghuid = daijinquanUseYonghuid;
+
+    public void setDaijinquanUseYezhuid(Integer daijinquanUseYezhuid) {
+        this.daijinquanUseYezhuid = daijinquanUseYezhuid;
     }
 
     public String getDaijinquanUseShoujihao() {
@@ -193,23 +193,23 @@ public class CxwyMallUseDaijinquan extends BaseEntity implements java.io.Seriali
         this.daijinquanUseBeiyong2 = daijinquanUseBeiyong2;
     }
 
-
-	@Override
-	public String toString() {
-		return "CxwyMallUseDaijinquan [daijinquanUseBeiyong1="
-				+ daijinquanUseBeiyong1 + ", daijinquanUseBeiyong2="
-				+ daijinquanUseBeiyong2 + ", daijinquanUseDjqid="
-				+ daijinquanUseDjqid + ", daijinquanUseEndtime="
-				+ daijinquanUseEndtime + ", daijinquanUseFaxingloupan="
-				+ daijinquanUseFaxingloupan + ", daijinquanUseFaxingtime="
-				+ daijinquanUseFaxingtime + ", daijinquanUseId="
-				+ daijinquanUseId + ", daijinquanUseJine=" + daijinquanUseJine
-				+ ", daijinquanUseShiyongjia=" + daijinquanUseShiyongjia
-				+ ", daijinquanUseShoujihao=" + daijinquanUseShoujihao
-				+ ", daijinquanUseStarttime=" + daijinquanUseStarttime
-				+ ", daijinquanUseState=" + daijinquanUseState
-				+ ", daijinquanUseType=" + daijinquanUseType
-				+ ", daijinquanUseYonghuid=" + daijinquanUseYonghuid + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "CxwyMallUseDaijinquan{" +
+                "daijinquanUseId=" + daijinquanUseId +
+                ", daijinquanUseDjqid=" + daijinquanUseDjqid +
+                ", daijinquanUseYezhuid=" + daijinquanUseYezhuid +
+                ", daijinquanUseShoujihao='" + daijinquanUseShoujihao + '\'' +
+                ", daijinquanUseType='" + daijinquanUseType + '\'' +
+                ", daijinquanUseJine='" + daijinquanUseJine + '\'' +
+                ", daijinquanUseShiyongjia='" + daijinquanUseShiyongjia + '\'' +
+                ", daijinquanUseStarttime='" + daijinquanUseStarttime + '\'' +
+                ", daijinquanUseEndtime='" + daijinquanUseEndtime + '\'' +
+                ", daijinquanUseState=" + daijinquanUseState +
+                ", daijinquanUseFaxingtime='" + daijinquanUseFaxingtime + '\'' +
+                ", daijinquanUseFaxingloupan='" + daijinquanUseFaxingloupan + '\'' +
+                ", daijinquanUseBeiyong1='" + daijinquanUseBeiyong1 + '\'' +
+                ", daijinquanUseBeiyong2='" + daijinquanUseBeiyong2 + '\'' +
+                '}';
+    }
 }

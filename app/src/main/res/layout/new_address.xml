@@ -93,8 +93,9 @@
             android:layout_weight="7"
             android:background="@drawable/whrite_balack_corners_bg"
             android:hint="请输入联系电话"
-            android:inputType="number"
-            android:paddingLeft="10dp" />
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:maxLength="11"/>
     </LinearLayout>
     
     <LinearLayout

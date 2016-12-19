@@ -78,8 +78,7 @@ public class RepairListItemAdapter extends BaseAdapter {
 		
 		CxwyBaoxiu order = listOrderDatas.get(position);
 		listItemView.repairId.setText(order.getBaoxiuDanhao()+"		"+order.getBaoxiuLrdate());
-//		listItemView.repairTime .setText(order.getBaoxiuLrdate());
-		listItemView.repairState.setText(order.getBaoxiuStatus());
+		setState(order.getBaoxiuStatus());
 		listItemView.repairDestail.setText(order.getBaoxiuProject());
 		
 		String src = order.getBaoxiuPicture();
@@ -124,7 +123,6 @@ public class RepairListItemAdapter extends BaseAdapter {
 		for (int x = 0; x < srcs.length; x++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("goodsImg", API.PIC+srcs[x]);
-			Logger.d("图片"+API.PIC+srcs[x]);
 			lstImageItem.add(map);
 		}
 		BaseMapListApater sm = new BaseMapListApater(mContext, lstImageItem,
@@ -139,6 +137,35 @@ public class RepairListItemAdapter extends BaseAdapter {
 
 	public void setListOrderDatas(List<CxwyBaoxiu> listOrderDatas) {
 		this.listOrderDatas = listOrderDatas;
+	}
+
+	private void  setState(String states){
+	//	状态，1：待指派，2：已指派，3：查看现场中，4：申请材料，5：物业中心审批中，6：公司总部审批中，7：维修中，8：物业中心查验中，9：公司总部查验中，10：回访中，11：关闭
+		if("1".equals(states)){
+			listItemView.repairState.setText("待指派");
+		}else if("2".equals(states)){
+			listItemView.repairState.setText("已指派");
+		}else if("3".equals(states)){
+			listItemView.repairState.setText("查看现场中");
+		}else if("4".equals(states)){
+			listItemView.repairState.setText("申请材料");
+		}else if("5".equals(states)){
+			listItemView.repairState.setText("物业中心审批中");
+		}else if("6".equals(states)){
+			listItemView.repairState.setText("公司总部审批中");
+		}else if("7".equals(states)){
+			listItemView.repairState.setText("维修中");
+		}else if("8".equals(states)){
+			listItemView.repairState.setText("物业中心查验中");
+		}else if("9".equals(states)){
+			listItemView.repairState.setText("公司总部查验中");
+		}else if("10".equals(states)){
+			listItemView.repairState.setText("回访中");
+		}else if("11".equals(states)){
+			listItemView.repairState.setText("关闭");
+		}else{
+			listItemView.repairState.setText(states);
+		}
 	}
 	
 	/**

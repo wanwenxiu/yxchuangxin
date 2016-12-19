@@ -309,24 +309,24 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
     private void setPeizhiImg(CxwyMallPezhi info,boolean isRequest) {
         if(!isEmptyList(info.getLblist())) {
-            urls.clear();
+            if(urls != null && urls.size() >0){
+                urls.clear();
+            }
                 for (int i = 0; i < info.getLblist().size(); i++) {
                     if(urls != null && info.getLblist().get(i) != null && info.getLblist().get(i).getMallPeizhiValue() != null && !"".equals(info.getLblist().get(i).getMallPeizhiValue())){
                         urls.add(API.PIC+info.getLblist().get(i).getMallPeizhiValue());
                     }
                 }
-            mall_lunbo.setImageUris(urls,getActivity(),false);
-//                mall_lunbo.setImageResources(urls,
-//                    new ImageCycleView.ImageCycleViewListener() {
-//                        @Override
-//                        public void onImageClick(int position, View imageView) {
-//                        }
-//                    }, 0);
+            if(urls != null && urls.size() >0){
+                mall_lunbo.setImageUris(urls,getActivity(),false);
+            }
         }
 
         if(!isEmptyList(info.getTblist())) {
             msctbList = info.getTblist();
-            adapter.setmList(msctbList);
+            if(msctbList != null){
+                adapter.setmList(msctbList);
+            }
         }
         String imgToStr = gson.toJson(info);
         SharedPreferences.Editor editor = sp.edit();

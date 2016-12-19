@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.cart.CartMainFragment;
+import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
@@ -134,7 +135,11 @@ public class CartAdapter extends BaseAdapter {
         this.mContext = context;
         this.listData = list;
         this.handler = handler;
-        this.listContainer = LayoutInflater.from(mContext); // 创建视图容器并设置上下文
+        if(mContext != null){
+            this.listContainer = LayoutInflater.from(mContext); // 创建视图容器并设置上下文
+        }else{
+            this.listContainer = LayoutInflater.from(AppConfig.app);
+        }
         if (cartController == null) {
             cartController = new CartControllerImpl();
         }

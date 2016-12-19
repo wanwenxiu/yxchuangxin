@@ -21,6 +21,7 @@ import com.yxld.yxchuangxin.controller.impl.OrderControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallOrder;
 import com.yxld.yxchuangxin.entity.CxwyMallSale;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -331,31 +332,37 @@ public class OrderListActivity extends BaseActivity {
 				   String money = "";
 					String shop = "";
 					String details = "";
-				String dingdanbianhao = "";
-					for (int i = 0; i < listSaleData.size(); i++) {
-						CxwyMallSale mallSale = listSaleData.get(i);
-						if(mallSale.getSaleDingdanId() == orderId){
-							money = mallSale.getSaleTotalRmb()+"";
-							shop += mallSale.getSaleShangpName();
-							details += mallSale.getSaleGuige();
+				    String dingdanbianhao = "";
+					if(listSaleData != null && listSaleData.size()>0){
+						for (int i = 0; i < listSaleData.size(); i++) {
+							CxwyMallSale mallSale = listSaleData.get(i);
+							if(mallSale.getSaleDingdanId() == orderId){
+								money = mallSale.getSaleTotalRmb()+"";
+								shop += mallSale.getSaleShangpName();
+								details += mallSale.getSaleGuige();
+							}
 						}
+
+						for (int i= 0; i<listOrderData.size();i++){
+							if(orderId == listOrderData.get(i).getDingdanId()){
+								dingdanbianhao = listOrderData.get(i).getDingdanBianhao();
+								Log.d("...",dingdanbianhao);
+							}
+						}
+
+						Intent intent = new Intent(OrderListActivity.this, PayWaySelectActivity.class);
+						intent.putExtra("orderId", orderId+"");
+						intent.putExtra("orderMoney",money);
+						intent.putExtra("orderShop",shop );
+						intent.putExtra("orderDetails",details );
+						intent.putExtra("orderBianhao",dingdanbianhao);
+						intent.putExtra("paystatus","商城支付");
+						startActivity(intent);
+						finish();
+					}else{
+						ToastUtil.show(OrderListActivity.this,"订单信息有误");
 					}
 
-					for (int i= 0; i<listOrderData.size();i++){
-						if(orderId == listOrderData.get(i).getDingdanId()){
-							dingdanbianhao = listOrderData.get(i).getDingdanBianhao();
-							Log.d("...",dingdanbianhao);
-						}
-					}
-
-					Intent intent = new Intent(OrderListActivity.this, PayWaySelectActivity.class);
-					intent.putExtra("orderId", orderId+"");
-					intent.putExtra("orderMoney",money);
-					intent.putExtra("orderShop",shop );
-					intent.putExtra("orderDetails",details );
-				    intent.putExtra("orderBianhao",dingdanbianhao);
-					startActivity(intent);
-					finish();
 			}
 
 

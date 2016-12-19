@@ -97,6 +97,7 @@ OnCancelListener, IXListViewListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//当该变量为空，说明内存被回收 ，清空业主房屋等信息，重新进入欢迎界面
 		if (Contains.isKill == null|| "".equals(Contains.isKill)) {
 			Logger.d("BaseFragment onCreate isKill为空");
 			return;
@@ -110,10 +111,6 @@ OnCancelListener, IXListViewListener {
 			Logger.d("BaseActivity onRestoreInstanceState() savedInstanceState != null");
 			CxUtil.getLogindata(savedInstanceState);
 		}
-		if(!netWorkIsAvailable()){
-//			Toast.makeText(getActivity(), "网络不可用", Toast.LENGTH_SHORT).show();
-		}
-
 		AppConfig.getInstance().addFragment(this);
 		
 		if (dbUtil == null) {
@@ -430,16 +427,18 @@ OnCancelListener, IXListViewListener {
 
 	public void onError(String errMsg) {
 		if(!netWorkIsAvailable()){
-			new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-					.setTitleText("连接失败")
-					.setContentText("网络连接失败，请检查您的网络状态")
-					.show();
+			ToastUtil.show(getActivity(),"网络连接失败，请检查您的网络状态");
+//			new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+//					.setTitleText("连接失败")
+//					.setContentText("网络连接失败，请检查您的网络状态")
+//					.show();
 		}else{
 			if(StringUitl.isNoEmpty(errMsg)){
-				new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-						.setTitleText("提示")
-						.setContentText(errMsg)
-						.show();
+				ToastUtil.show(getActivity(),"errMsg");
+//				new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+//						.setTitleText("提示")
+//						.setContentText(errMsg)
+//						.show();
 			}
 		}
 		resetView();
@@ -511,10 +510,12 @@ OnCancelListener, IXListViewListener {
 
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
-		super.setUserVisibleHint(isVisibleToUser);
-		if (isVisibleToUser) {
-			if(!isLoaded){
-				firstLoading();
+		if(this != null){
+			super.setUserVisibleHint(isVisibleToUser);
+			if (isVisibleToUser) {
+				if(!isLoaded){
+					firstLoading();
+				}
 			}
 		}
 	}

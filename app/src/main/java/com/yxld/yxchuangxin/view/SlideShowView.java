@@ -148,6 +148,9 @@ public class SlideShowView extends FrameLayout {
      * @throws
      */
     public void setImageUris(List<String> imageuris,Context context,boolean isShowBig){
+        if(imageuris == null || imageuris.size() ==0){
+            return;
+        }
         isShowBigImg = false;
 		isShowBigImg = isShowBig;
     	Log.d("geek", "setImageUris ="+imageuris.size()+"---"+imageuris.toString());

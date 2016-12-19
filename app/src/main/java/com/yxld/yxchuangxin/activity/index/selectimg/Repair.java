@@ -344,22 +344,25 @@ public class Repair extends BaseActivity {
 
 					@Override
 					public void onClick(View v) {
+						if(!Contains.repairQuyu.equals("3")){
+							if ("".equals(address.getText().toString())) {
+								Toast.makeText(getApplication(), "请输入保修地点", Toast.LENGTH_SHORT)
+										.show();
+								return;
+							}
+						}
+
+						if ("".equals(edContext.getText().toString())) {
+							Toast.makeText(getApplication(), "请输入保修详情", Toast.LENGTH_SHORT)
+									.show();
+							return;
+						}
+
+						progressDialog.show();
 
 						//没有上传图片
 						if (Bimp.tempSelectBitmap.size() == 0) {
 							saveOrUpdateTalk();
-							return;
-						}
-
-						if ("".equals(edContext.getText().toString())) {
-							Toast.makeText(getApplication(), "请输入发布内容", Toast.LENGTH_SHORT)
-									.show();
-							return;
-						}
-						if(!Contains.repairQuyu.equals("3")){
-							if(StringUitl.isNotEmpty(Repair.this, address, "请输入地点")){
-								Contains.repairAddressStr = address.getText().toString();
-							}
 							return;
 						}
 
@@ -382,30 +385,14 @@ public class Repair extends BaseActivity {
 									fileUpload.upload();
 									}catch (Exception e){
 										Log.d("geek", e.getMessage()+"eee");
+										if (progressDialog != null) {
+											progressDialog.hide();
+										}
+										Toast.makeText(Repair.this, "上传失败,请稍后再试!",
+												Toast.LENGTH_LONG).show();
 									}
 								}
 							}).start();
-
-//							Map<String, File> fileParas = new HashMap<String, File>();
-//							for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
-//								String path = Bimp.tempSelectBitmap.get(i)
-//										.toString();
-//								Log.d("geek", "相机path =" + path);
-//								File file = new File(Bimp.tempSelectBitmap.get(
-//										i).getImagePath());
-//								if (!file.exists()) {
-//									continue;
-//								}
-//								fileParas.put(file.toString(), file);
-//								Log.d("geek", "context = "
-//										+ edContext.getText().toString()
-//										+ ",path = " + path);
-//							}
-//
-//							new HttpworkTask(API.uploadImage, null, fileParas,
-//									mHandler).start();
-						   //saveOrUpdateTalk("s");
-
 
 					}
 				});
@@ -413,14 +400,14 @@ public class Repair extends BaseActivity {
 
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
-			if (progressDialog != null) {
-				progressDialog.hide();
-			}
 			switch (msg.what) {
 			case uploadSuccess:
 				saveOrUpdateTalk();
 				break;
 			case uploadFaild:
+				if (progressDialog != null) {
+					progressDialog.hide();
+				}
 				Toast.makeText(Repair.this, "上传失败,请稍后再试!",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -437,17 +424,6 @@ public class Repair extends BaseActivity {
 	 * @throws
 	 */
 	private void saveOrUpdateTalk() {
-		if ("".equals(edContext.getText().toString())) {
-			Toast.makeText(getApplication(), "请输入发布内容", Toast.LENGTH_SHORT)
-					.show();
-			return;
-		}
-		if(!Contains.repairQuyu.equals("3")){
-			if(StringUitl.isNotEmpty(this, address, "请输入地点")){
-				Contains.repairAddressStr = address.getText().toString();
-			}
-		}
-		progressDialog.show();
 		Map<String, String> parm = new HashMap<String, String>();
 		parm.put("bx.baoxiuHouses", Contains.appYezhuFangwus.get(0).getXiangmuLoupan());
 		parm.put("bx.baoxiuFloor",  Contains.appYezhuFangwus.get(0).getFwLoudong());
@@ -654,7 +630,7 @@ public class Repair extends BaseActivity {
 		}
 		Contains.repairContextStr = "";
 		Contains.repairAddressStr = "";
-		Contains.repairQuyu = "专有部位";
+		Contains.repairQuyu = "3";
 		Contains.repairXiangmu = "";
 		Bimp.tempSelectBitmap.clear();
 		Bimp.max = 0;
