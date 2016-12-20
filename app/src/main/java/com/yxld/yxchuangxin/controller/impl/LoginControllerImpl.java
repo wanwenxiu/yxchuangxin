@@ -205,4 +205,57 @@ public class LoginControllerImpl implements LoginController {
 		mRequestQueue.add(gsonRequest);		
 	}
 
+	@Override
+	public void getExistShouji(RequestQueue mRequestQueue, Object[] parm,final ResultListener<BaseEntity> listener) {
+		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(
+				String.format(URL_GET_EXIST_SHOUJI, parm), BaseEntity.class,
+				new Listener<BaseEntity>() {
+
+					@Override
+					public void onResponse(BaseEntity response) {
+						if (listener != null) {
+							listener.onResponse(response);
+						}
+					}
+				}, new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_GET_EXIST_SHOUJI);
+		mRequestQueue.add(gsonRequest);
+	}
+
+	@Override
+	public void getFindPwd(RequestQueue mRequestQueue, Object[] parm, final ResultListener<BaseEntity> listener) {
+		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(
+				String.format(URL_GET_FIND_PWD, parm), BaseEntity.class,
+				new Listener<BaseEntity>() {
+
+					@Override
+					public void onResponse(BaseEntity response) {
+						if (listener != null) {
+							listener.onResponse(response);
+						}
+					}
+				}, new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_GET_FIND_PWD);
+		mRequestQueue.add(gsonRequest);
+	}
+
+
 }

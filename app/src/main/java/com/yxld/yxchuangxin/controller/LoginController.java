@@ -70,4 +70,26 @@ public interface LoginController extends API{
 	 * @throws
 	 */
 	void getUpdateCard(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
+
+
+	/**
+	 * @Title: getExistShouji
+	 * @Description: 是否存在手机号码
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getExistShouji(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
+
+
+	/**
+	 * @Title: getFindPwd
+	 * @Description: 找回密码
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getFindPwd(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
 }

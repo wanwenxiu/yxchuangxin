@@ -516,7 +516,6 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			view.loadUrl(url);
-			Log.d("geek", "url"+url);
 			return true;
 		}
 

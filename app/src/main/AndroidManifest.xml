@@ -397,6 +397,9 @@
             android:screenOrientation="behind">
         </activity>
 
+        <activity android:name=".activity.login.FindPwdActivity"
+            android:label="找回密码"></activity>
+
         <!--微信支付-->
         <activity
             android:name="com.yxld.yxchuangxin.activity.order.PayWaySelectActivity"

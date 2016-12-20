@@ -131,7 +131,13 @@ public class CartControllerImpl implements CartController{
 						Log.d("geek","购物车删除response ="+response);
 						BaseEntity info = null;
 						if(response != null){
-							info = gson.fromJson(response, BaseEntity.class);
+							try {
+								info = gson.fromJson(response, BaseEntity.class);
+							}catch (Exception e){
+								info = new BaseEntity();
+								info.status = 1;
+								info.MSG = "删除失败";
+							}
 						}
 						if (listener != null) {
 							listener.onResponse(info);

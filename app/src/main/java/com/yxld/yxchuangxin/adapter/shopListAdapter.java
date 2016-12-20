@@ -138,7 +138,7 @@ public class shopListAdapter extends BaseAdapter {
 
 			holder.tv_name.setText(curProduct.getShangpinShangpName()+"	"+curProduct.getShangpinGuige());
 			holder.tv_money.setText("￥"+curProduct.getShangpinRmb() + " ");
-			holder.recommendCunt.setText("库存:"+curProduct.getShangpinNum()+"");
+			holder.recommendCunt.setText("销量:"+curProduct.getShangpinNum()+"");
 			if(curProduct.getShangpinHave() != null && curProduct.getShangpinHave() == 0){
 				holder.recommendCunt.setText("已下架");
 			}

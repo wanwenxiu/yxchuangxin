@@ -14,9 +14,9 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 //  String menjinIP = "http://192.168.8.21:8080/";
-    String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-    String PIC = "http://192.168.8.166:8080";
-    String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+  String PIC = "http://192.168.8.166:8080";
+  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
 //   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
 //   String PIC="http://www.hnchxwl.com";
 //   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
@@ -138,6 +138,19 @@ public interface API {
    */
   String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
           + "/mall/androidUser_isExistYonghu?shouji=%1$s&chuangxinhao=%2$s";
+
+  /**
+   * 判断手机号码是否注册
+   */
+  String URL_GET_EXIST_SHOUJI = IP_PRODUCT
+          + "/mall/androidUser_isExistYonghuByShouji?shouji=%1$s";
+
+
+  /**
+   * 找回密码
+   */
+  String URL_GET_FIND_PWD = IP_PRODUCT
+          + "/mall/androidUser_findPwd?shouji=%1$s&pwd=%2$s";
 
     /**
      * 用户评价商品

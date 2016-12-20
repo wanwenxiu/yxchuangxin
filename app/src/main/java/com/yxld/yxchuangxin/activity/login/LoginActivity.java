@@ -42,7 +42,7 @@ import static com.yxld.yxchuangxin.R.id.register_pwd;
 
 public class LoginActivity extends BaseActivity {
 
-	private TextView txt_register;
+	private TextView txt_register,txt_findPwd;
 	private EditText login_tel;
 	private EditText login_pwd;
 	private Button loginSubmit;
@@ -67,11 +67,13 @@ public class LoginActivity extends BaseActivity {
 	}
 	@Override
 	protected void initView() {
+		txt_findPwd = (TextView) findViewById(R.id.txt_findPwd);
 		txt_register = (TextView) findViewById(R.id.txt_register);
 		login_tel = (EditText) findViewById(R.id.login_tel);
 		login_pwd = (EditText) findViewById(R.id.login_pwd);
 		loginSubmit = (Button) findViewById(R.id.loginSubmit);
 		checkBox1 = (CheckBox) findViewById(R.id.checkBox1);
+		txt_findPwd.setOnClickListener(this);
 		txt_register.setOnClickListener(this);
 		mExplosionField = ExplosionField.attach2Window(this);
 		addListener(findViewById(R.id.loginSubmit));
@@ -224,6 +226,11 @@ public class LoginActivity extends BaseActivity {
 			Intent register = new Intent(LoginActivity.this,
 					RegisterActivity.class);
 			startActivity(register);
+			break;
+		case R.id.txt_findPwd:
+			Intent findpwd = new Intent(LoginActivity.this,
+					FindPwdActivity.class);
+			startActivity(findpwd);
 			break;
 		}
 	}
