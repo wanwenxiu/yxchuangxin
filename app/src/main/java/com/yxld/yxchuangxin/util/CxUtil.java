@@ -131,9 +131,9 @@ public class CxUtil {
 	 * 退出登录
 	 */
 	public static void clearData(SharedPreferences sp){
-		Logger.d("CxUtil clearData()");
 		Contains.curSelectXiaoQuName = "";
 		Contains.curSelectXiaoQuId = 0;
+		Contains.curFangwu = 0;
 		Contains.user = null;
 		Contains.appYezhuFangwus.clear();
 		Contains.CartList.clear();

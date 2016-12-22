@@ -86,7 +86,6 @@ public class CartAdapter extends BaseAdapter {
     /** 当前商品数量*/
     private int curNum = 0;
 
-    private myWatcher mWatcher;
     private int index=-1;//记录选中的位置
 
 
@@ -252,84 +251,19 @@ public class CartAdapter extends BaseAdapter {
             }
         });
 
-//        listItemView.cartGoodsNum.setOnTouchListener(new View.OnTouchListener() {
-//
-//            @SuppressLint("ClickableViewAccessibility")
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                // TODO Auto-generated method stub
-//                if(event.getAction()==MotionEvent.ACTION_UP){
-//                    index=position;
-//                }
-//                return false;
-//            }
-//        });
-//
-//        listItemView.cartGoodsNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            //设置焦点监听，当获取到焦点的时候才给它设置内容变化监听解决卡的问题
-//
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                EditText et=(EditText) v;
-//                if(mWatcher==null){
-//                    mWatcher=new myWatcher();
-//                }
-//                if(hasFocus){
-//                    et.addTextChangedListener(mWatcher);//设置edittext内容监听
-//                }else {
-//                    et.removeTextChangedListener(mWatcher);
-//                }
-//
-//            }
-//        });
-//
-//        listItemView.cartGoodsNum.clearFocus();//防止点击以后弹出键盘，重新getview导致的焦点丢失
-//        if (index != -1 && index == position) {
-//            // 如果当前的行下标和点击事件中保存的index一致，手动为EditText设置焦点。
-//            listItemView.cartGoodsNum.requestFocus();
-//        }
-//        listItemView.cartGoodsNum.setText(goodsVo.getCartNum());//这一定要放在clearFocus()之后，否则最后输入的内容在拉回来时会消失
-//        listItemView.cartGoodsNum.setSelection(listItemView.cartGoodsNum.getText().length());
-////		viewHolder.editText.addTextChangedListener(new myWatcher());//放弃直接的为每一个edittext设置监听内容变化
         return convertView;
     }
 
-    class myWatcher implements TextWatcher{
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-//           // text[index]=s.toString();//为输入的位置内容设置数组管理器，防止item重用机制导致的上下内容一样的问题
-//            if(index == -1){
-//                return;
-//            }
-//            if(listData.get(index).getCartNum().equals(s.toString())){
-//                Log.d("geek","afterTextChanged 修改时数量一致 ="+index);
-//                return;
-//            }
-//            if(s == null || s.toString().equals("")){
-//                Log.d("geek","afterTextChanged 没有修改值 ="+index);
-//                return;
-//            }
-//            listData.get(index).setCartNum(s.toString());
-//            Log.d("geek","afterTextChanged index ="+index);
-//            cartController.updateCartInfoFromID(mRequestQueues, new Object[]{Contains.CartList.get(index).getCartId(), s.toString(),Contains.CartList.get(index).getCartShangpNum()}, updateListener);
-//            curNum = Integer.parseInt(s.toString());
-//            curPosition = index;
-        }
-    }
-
+    /** 上一次点击时间*/
+    private long lastClickTime = 0;
 
     private void setCount(int position, boolean operate) {
+        if(lastClickTime != 0 && (System.currentTimeMillis()-lastClickTime) < 1000){
+            Toast.makeText(mContext, "客官别急嘛 O(∩_∩)O", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        lastClickTime = System.currentTimeMillis();
+
         int count = Integer.parseInt(Contains.CartList.get(position).getCartNum());
         if (operate) {
             count++;

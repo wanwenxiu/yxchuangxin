@@ -214,7 +214,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			}
 
 			if(curGood.getShangpinHave() == 0 ){
-				goodNum.setText("已下架");
+				goodNum.setText("已缺货");
 			}
 
 			if(Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)){
@@ -262,7 +262,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 					return;
 				}
 				if(curGood.getShangpinHave() != null && curGood.getShangpinHave() == 0 ){
-					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经缺货哦");
 					return;
 				}
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
@@ -305,7 +305,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 					return;
 				}
 				if(curGood.getShangpinHave() == 0 ){
-					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经缺货哦");
 					return;
 				}
 
@@ -321,7 +321,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 					return;
 				}
 				if(curGood.getShangpinHave() == 0 ){
-					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经缺货哦");
 					return;
 				}
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){
@@ -336,7 +336,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 					return;
 				}
 				if(curGood.getShangpinHave() == 0 ){
-					ToastUtil.show(GoodsDestailActivity.this,"商品已经下架哦");
+					ToastUtil.show(GoodsDestailActivity.this,"商品已经缺货哦");
 					return;
 				}
 				if(cartGoodsNum.getText().toString() == null || "".equals(cartGoodsNum.getText().toString()) || "0".equals(cartGoodsNum.getText().toString())){

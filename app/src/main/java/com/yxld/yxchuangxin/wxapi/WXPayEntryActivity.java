@@ -25,6 +25,7 @@ import com.yxld.yxchuangxin.controller.OrderController;
 import com.yxld.yxchuangxin.controller.PayController;
 import com.yxld.yxchuangxin.controller.YeZhuController;
 import com.yxld.yxchuangxin.controller.impl.OrderControllerImpl;
+import com.yxld.yxchuangxin.controller.impl.PayControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.listener.ResultListener;
@@ -32,6 +33,9 @@ import com.yxld.yxchuangxin.listener.ResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,7 +111,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             bundle.putInt("ORDERTYPE", 2);
             startActivity(OrderListActivity.class, bundle);
             finish();
-            Contains.weixinPayresult = -1;
         }
 
         @Override
@@ -153,52 +156,67 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     };
 
 
-//    private void surePay() {
-//        if(payController == null){
-//            payController = new PayControllerImpl();
-//        }
-//        progressDialog.show();
-//
-//        Map<String, String> parm = new HashMap<String, String>();
-//        int count = -1;
-//        for (int i = 0; i < adapter.getListData().size(); i++) {
-//            if(adapter.getListData().get(i).isChecked()){
-//                count++;
-//                parm.put(TagListName+"["+count+"]."+TagIdName, adapter.getListData().get(i).getId()+"");
-//            }
-//        }
-//        parm.put("i", urlType);
-//        parm.put("payType",payType);
-//        parm.put("userid",Contains.cxwyMallUser.getUserId()+"");
-//        parm.put("payTotalPrice",adapter.getTotalPrice()+"");
-//        Log.d("geek","支付"+parm.toString());
-//        payController.getWuyePay(mRequestQueue, parm, payListener);
-//    }
+    private void surePay() {
+        if (payController == null) {
+            payController = new PayControllerImpl();
+        }
+        String jiaofei;
+        if (Contains.user == null || Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
+            jiaofei = "业主信息未完善";
+        } else {
+            jiaofei = Contains.user.getYezhuName();
+        }
+        Logger.d(jiaofei);
+        int yue;
+        if (Contains.wymonth < 0) {
+            yue = Contains.month;
+        }else {
+            yue=Contains.wymonth+Contains.month;
+        }
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat datef = new SimpleDateFormat("yyyy-MM-dd");
+        //当前月的最后一天
+        cal.set(Calendar.DATE, 1);
+        cal.roll(Calendar.DATE, -1);
+        Date endTime = cal.getTime();
+        String endTime1 = datef.format(endTime);
+        Logger.d(endTime1);
+        String add=addDay(endTime1, Contains.month) + " 00:00:00";
+        Logger.d(add);
+        progressDialog.show();
+        Map<String, String> parm = new HashMap<String, String>();
+        parm.put("wp.fwId",Contains.fwid);//缴费房屋id(必填)
+        parm.put("wp.month",add );//缴费之后的使用截止时间(必填，格式：2016-12-31 00:00:00 )
+        parm.put("wp.s", yue+"");//月数，缴几个月的物业费(必填,用数字 1，2，3。。。)
+        parm.put("wp.jfUser", jiaofei);//缴费人名称(选填，APP端使用业主名称)
+        parm.put("wp.jsType","2" );//缴费结算方式:0现金；1支付宝；2微信；3银联
+        parm.put("wp.znj", Contains.fee.toString());//滞纳金(必填，如果没有，则传递0)
+        parm.put("wp.remark","0" );//备注(选填)
+        parm.put("wp.chanquanren",jiaofei);//产权人(必填，用户业主本身)
+        parm.put("jfWyRecLiushui",Contains.orderBianhao);//流水号（选填）
+        Log.d("geek","支付"+parm.toString());
+        payController.getWuyePay(mRequestQueue, parm, payListener);
+    }
 
-//    ResultListener<BaseEntity> payListener = new ResultListener<BaseEntity>(){
-//
-//        @Override
-//        public void onResponse(BaseEntity info) {
-//            Log.d("geek","支付"+info.toString());
-//            progressDialog.hide();
-//            if (info.status != STATUS_CODE_OK) {
-//                onError(info.MSG);
-//                return;
-//            }else{
-//                if(info.MSG.contains(",")){
-//                    String[] price = info.MSG.split(",");
-//                    info.MSG = price[0]+",当前余额为:"+price[1]+"元";
-//                    Contains.cxwyMallUser.setUserIntegral(price[1]);
-//                }
-//            }
-//        }
-//
-//        @Override
-//        public void onErrorResponse(String errMsg) {
-//            onError(errMsg);
-//        }
-//
-//    };
+    ResultListener<BaseEntity> payListener = new ResultListener<BaseEntity>() {
+
+        @Override
+        public void onResponse(BaseEntity info) {
+            Log.d("geek", "支付" + info.toString());
+            progressDialog.hide();
+            if (info.status != STATUS_CODE_OK) {
+                onError(info.MSG);
+                return;
+            }
+        }
+
+        @Override
+        public void onErrorResponse(String errMsg) {
+            onError(errMsg);
+        }
+
+    };
+
 
     @Override
     public void onClick(View v) {
@@ -236,11 +254,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                      }else if (Contains.pay==2){
                          initDataFromNet();//充值支付
                      }else if(Contains.pay == 3){//物业缴费
-                         Intent intentCart = new Intent(getResources().getString(
-                                 R.string.wuyeweixinpay_broad));
-                         sendBroadcast(intentCart);
-                         finish();
-                         Contains.weixinPayresult = -1;
+                         surePay();
                      }else if (Contains.pay==4){ //车位费付款
                          finish();
                      }
@@ -250,6 +264,18 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                  }
             finish();
             Logger.d("onResp  Contains.pay="+ Contains.pay);
+        }
+    }
+
+    public static String addDay(String s, int n) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cd = Calendar.getInstance();
+            cd.setTime(sdf.parse(s));
+            cd.add(Calendar.MONTH, n);//增加一个月
+            return sdf.format(cd.getTime());
+        } catch (Exception e) {
+            return null;
         }
     }
 }

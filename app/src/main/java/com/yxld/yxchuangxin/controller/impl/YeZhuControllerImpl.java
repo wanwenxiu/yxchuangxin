@@ -15,11 +15,13 @@ import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.YeZhuController;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
+import com.yxld.yxchuangxin.entity.CxwyJfWyRecord;
 import com.yxld.yxchuangxin.entity.CxwyMallUseDaijinquan;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyMallUserBalance;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.WuyeRecordAndroid;
+import com.yxld.yxchuangxin.entity.WyFwApp;
 import com.yxld.yxchuangxin.http.GsonRequest;
 import com.yxld.yxchuangxin.listener.ResultListener;
 
@@ -421,5 +423,54 @@ public class YeZhuControllerImpl implements YeZhuController{
 		stringRequest.setTag(url);
 		stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
 		mRequestQueue.add(stringRequest);
+	}
+
+
+	public void getHouse(RequestQueue mRequestQueue, Object[] parm,final ResultListener<WyFwApp> listener) {
+		GsonRequest<WyFwApp> gsonRequest = new GsonRequest<WyFwApp>(String.format(URL_HOUSE, parm), WyFwApp.class, new Response.Listener<WyFwApp>() {
+
+			@Override
+			public void onResponse(WyFwApp response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
+
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_HOUSE);
+		mRequestQueue.add(gsonRequest);
+	}
+
+	public void getWUYE(RequestQueue mRequestQueue, Object[] parm,final ResultListener<CxwyJfWyRecord> listener) {
+		GsonRequest<CxwyJfWyRecord> gsonRequest = new GsonRequest<CxwyJfWyRecord>(String.format(URL_PAYMENT_RECORDS_WUYE, parm), CxwyJfWyRecord.class, new Response.Listener<CxwyJfWyRecord>() {
+
+			@Override
+			public void onResponse(CxwyJfWyRecord response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
+
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_PAYMENT_RECORDS_WUYE);
+		mRequestQueue.add(gsonRequest);
 	}
 }

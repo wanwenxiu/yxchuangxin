@@ -1,4 +1,4 @@
- package com.yxld.yxchuangxin.controller;
+package com.yxld.yxchuangxin.controller;
 
 
 /**
@@ -13,13 +13,13 @@ public interface API {
     String yuming = "http://www.hnchxwl.com/wygl";
 
     String menjinIP = "http://120.25.78.92/";
-//  String menjinIP = "http://192.168.8.21:8080/";
-  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-  String PIC = "http://192.168.8.166:8080";
-  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
-//   String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//   String PIC="http://www.hnchxwl.com";
-//   String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
+    //  String menjinIP = "http://192.168.8.21:8080/";
+//  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+//  String PIC = "http://192.168.8.166:8080";
+//  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+    String PIC = "http://www.hnchxwl.com";
+    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
 
     /**
      * 获取商品一级分类URL
@@ -27,8 +27,10 @@ public interface API {
     String URL_GET_ALL_ATTENDANCE = IP_PRODUCT
             + "/mall/androidClassify_findClassifyOne";
 
-  /** 根据一级分类获取二级分类 */
-  String URL_GET_ALL_SECONDCLASS = IP_PRODUCT
+    /**
+     * 根据一级分类获取二级分类
+     */
+    String URL_GET_ALL_SECONDCLASS = IP_PRODUCT
             + "/mall/androidClassify_findByclassifyOne?classify.classifyId=%1$s";
 
     /**
@@ -45,9 +47,9 @@ public interface API {
     String URL_GET_ALL_SHOPLIST_BY_KEY = IP_PRODUCT
             + "/mall/androidProduct_searchByKeys?";
 
-  /***
-   * 获取商品详情根据商品ID 1202
-   */
+    /***
+     * 获取商品详情根据商品ID 1202
+     */
     String URL_GETPRODUCT_BYGOODID = IP_PRODUCT
             + "/mall/androidProduct_findGoodsById?id=%1$s";
 
@@ -127,30 +129,30 @@ public interface API {
 //    String URL_GET_ALL_REGISTER = IP_PRODUCT
 //            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s";
 
-  /**
-   * 注册接口
-   */
-  String URL_GET_ALL_REGISTER = IP_PRODUCT
-          + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s&chuangxinhao=%3$s";
+    /**
+     * 注册接口
+     */
+    String URL_GET_ALL_REGISTER = IP_PRODUCT
+            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s&chuangxinhao=%3$s";
 
-  /**
-   * 判断是否已注册
-   */
-  String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
-          + "/mall/androidUser_isExistYonghu?shouji=%1$s&chuangxinhao=%2$s";
+    /**
+     * 判断是否已注册
+     */
+    String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
+            + "/mall/androidUser_isExistYonghu?shouji=%1$s&chuangxinhao=%2$s";
 
-  /**
-   * 判断手机号码是否注册
-   */
-  String URL_GET_EXIST_SHOUJI = IP_PRODUCT
-          + "/mall/androidUser_isExistYonghuByShouji?shouji=%1$s";
+    /**
+     * 判断手机号码是否注册
+     */
+    String URL_GET_EXIST_SHOUJI = IP_PRODUCT
+            + "/mall/androidUser_isExistYonghuByShouji?shouji=%1$s";
 
 
-  /**
-   * 找回密码
-   */
-  String URL_GET_FIND_PWD = IP_PRODUCT
-          + "/mall/androidUser_findPwd?shouji=%1$s&pwd=%2$s";
+    /**
+     * 找回密码
+     */
+    String URL_GET_FIND_PWD = IP_PRODUCT
+            + "/mall/androidUser_findPwd?shouji=%1$s&pwd=%2$s";
 
     /**
      * 用户评价商品
@@ -360,11 +362,25 @@ public interface API {
     String URL_add_chengyuan = IP_PRODUCT
             + "/daily/androidHousehold_saveyezhu?";
 
+
+    /**
+     * 业主房屋查询：
+     */
+    String URL_HOUSE = IP_PRODUCT
+            + "/daily/fangwu_fbyyz.action?lpid=%1$s";
+
     /**
      * 物业费缴费记录
      */
     String URL_PAYMENT_RECORDS_WUYE = IP_PRODUCT
-            + "/sdushu/androidSdushu_findAllYezhuNameWuye.action?";
+            + "/jfgl/jf_ywyfeilist.action?fwId=%1$s";
+
+    /**
+     * 物业费添加
+     */
+    String URL_WUYE_ADD = IP_PRODUCT
+            + "/jfgl/jf_addwyfei.action?";
+
 
     /**
      * 水费缴费记录

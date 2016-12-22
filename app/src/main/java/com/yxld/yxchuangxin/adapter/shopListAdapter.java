@@ -69,6 +69,9 @@ public class shopListAdapter extends BaseAdapter {
 	private RelativeLayout imgView;
 	public int[] start_locations;
 
+	/** 上一次点击时间*/
+	private long lastClickTime = 0;
+
 	public shopListAdapter(RequestQueue mRequestQueue,List<CxwyMallProduct> list, Context context, Window window,RelativeLayout imgView,TextView view) {
 		this.mRequestQueues = mRequestQueue;
 		this.mInflater = LayoutInflater.from(context);
@@ -138,9 +141,9 @@ public class shopListAdapter extends BaseAdapter {
 
 			holder.tv_name.setText(curProduct.getShangpinShangpName()+"	"+curProduct.getShangpinGuige());
 			holder.tv_money.setText("￥"+curProduct.getShangpinRmb() + " ");
-			holder.recommendCunt.setText("销量:"+curProduct.getShangpinNum()+"");
+			holder.recommendCunt.setText("库存:"+curProduct.getShangpinNum()+"");
 			if(curProduct.getShangpinHave() != null && curProduct.getShangpinHave() == 0){
-				holder.recommendCunt.setText("已下架");
+				holder.recommendCunt.setText("已缺货");
 			}
 
 			if (holder.bt_button != null) {
@@ -157,13 +160,19 @@ public class shopListAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
+				if(lastClickTime != 0 && (System.currentTimeMillis()-lastClickTime) < 1000){
+                	Toast.makeText(mContext, "客官别急嘛 O(∩_∩)O", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				lastClickTime = System.currentTimeMillis();
+
 				num = Integer.parseInt(v.getTag().toString());
 				if( mlist.get(num).getShangpinNum() == 0){
 					ToastUtil.show(mContext,"商品缺货哦");
 					return;
 				}
-				if(mlist.get(num).getShangpinHave() != null &&mlist.get(num).getShangpinHave() == 0 ){
-					ToastUtil.show(mContext,"商品已经下架哦");
+				if(mlist.get(num).getShangpinHave() != null &&mlist.get(num).getShangpinHave() == 0){
+					ToastUtil.show(mContext,"商品已经缺货哦");
 					return;
 				}
 				start_locations = new int[2];

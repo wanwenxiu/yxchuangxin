@@ -24,7 +24,7 @@ public class PayControllerImpl implements PayController{
 	public void getWuyePay(RequestQueue mRequestQueue,
 			final Map<String, String> parm, final ResultListener<BaseEntity> listener) {
 		StringRequest stringRequest =new StringRequest(
-				Method.POST,URL_WUYE_PAY,
+				Method.POST,URL_WUYE_ADD,
 				new Response.Listener<String>() {
 
 					@Override

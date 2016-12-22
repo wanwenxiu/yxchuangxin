@@ -179,15 +179,17 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         JSONObject node = new JSONObject();
-        try {
-            node.put("status", data.getStringExtra("backstring"));
-            node.put("platform", data.getStringExtra("lx"));
-            node.put("numberId", data.getStringExtra("bianhao") );
-            webView.loadUrl("javascript:callFromJava(" + node  + ")");
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(data != null && data.getStringExtra("backstring") != null && data.getStringExtra("lx") != null
+                && data.getStringExtra("bianhao") != null){
+            try {
+                node.put("status", data.getStringExtra("backstring"));
+                node.put("platform", data.getStringExtra("lx"));
+                node.put("numberId", data.getStringExtra("bianhao") );
+                webView.loadUrl("javascript:callFromJava(" + node  + ")");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

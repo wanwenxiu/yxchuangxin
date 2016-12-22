@@ -79,9 +79,10 @@ public class EmployerActivity extends BaseActivity {
 		yz_mj = (TextView) findViewById(R.id.yz_mj);
 		yz_card = (TextView) findViewById(R.id.yz_card);
 		yz_fdid = (TextView) findViewById(R.id.yz_fdid);
-		if (Contains.user !=null) {
+		if (Contains.user !=null && Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() ==1) {
 			fwxx.setVisibility(View.GONE);
-			xixi(0);
+			xixi(Contains.curFangwu);
+			spinner1.setSelection(Contains.curFangwu);
 		} else {
 			String[] fc = {};
 			fc = new String[Contains.appYezhuFangwus.size()];
@@ -103,7 +104,7 @@ public class EmployerActivity extends BaseActivity {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
-					xixi(position);
+					  xixi(position);
 				}
 
 				@Override
@@ -158,6 +159,10 @@ public class EmployerActivity extends BaseActivity {
 		}else{
 			yz_card.setText("******************");
 		}
+
+		Contains.curSelectXiaoQuId = Contains.appYezhuFangwus.get(position).getFwLoupanId();
+		Contains.curSelectXiaoQuName = Contains.appYezhuFangwus.get(position).getXiangmuLoupan();
+		Contains.curFangwu = position;
 //		yz_fdid.setText(Contains.cxwyYezhu.get(position).getYezhuParentId()
 //				.toString());
 	}

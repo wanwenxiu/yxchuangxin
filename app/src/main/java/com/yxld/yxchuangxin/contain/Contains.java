@@ -59,6 +59,8 @@ public class Contains {
 	public static String  curSelectXiaoQuName = "";
 	/** 选择小区ID*/
 	public static int  curSelectXiaoQuId = 0;
+	/** 当前选择房屋*/
+	public static int curFangwu = 0;
 
 	/** 确认订单集合*/
 	public static List<SureOrderEntity> sureOrderList = new ArrayList<SureOrderEntity>();
@@ -83,4 +85,12 @@ public class Contains {
 	public static int weixinPayresult = -1;
 	//通知活动
 	public static int badgeImageView=0;
+
+	//物业缴费
+	public static String fwid;
+	public static int wymonth=0;
+	public static Double fee=0.00;
+	public static int month=0;
+
+
 }

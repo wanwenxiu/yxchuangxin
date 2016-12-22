@@ -32,7 +32,7 @@
                     android:layout_height="fill_parent"
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:text="请选择房屋信息"
+                    android:text="请选择房屋"
                     android:textColor="@color/color_333"
                     android:textSize="@dimen/size_15"
                     tools:ignore="RtlHardcoded" />
@@ -49,10 +49,11 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="46dp"
-                android:layout_marginTop="-1dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/banner_border_bottom"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp" >
+                android:paddingRight="15dp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.R;
@@ -72,6 +73,9 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     private final String save_mall_imgurl = "save_mall_imgurl";
     private SharedPreferences sp;
     private  Gson gson = new Gson();
+
+    /** 上一次点击时间*/
+    private long lastClickTime = 0;
 
     @Override
     public void onDestroy() {
@@ -197,6 +201,13 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
     }
 
     public void onRefresh() {
+        if(lastClickTime != 0 && (System.currentTimeMillis()-lastClickTime) < 1000){
+            if(swipe_container != null){
+                swipe_container.setRefreshing(false);
+            }
+            return;
+        }
+        lastClickTime = System.currentTimeMillis();
         initDataFromNet();
         getlunbotubiao();
     }
@@ -324,7 +335,7 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
         if(!isEmptyList(info.getTblist())) {
             msctbList = info.getTblist();
-            if(msctbList != null){
+            if(adapter != null && msctbList != null){
                 adapter.setmList(msctbList);
             }
         }
@@ -343,5 +354,4 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
         super.onPause();
         Log.d("geek","商城首页 onPause()");
     }
-
 }

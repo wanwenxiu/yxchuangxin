@@ -4,11 +4,13 @@ import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
+import com.yxld.yxchuangxin.entity.CxwyJfWyRecord;
 import com.yxld.yxchuangxin.entity.CxwyMallUseDaijinquan;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.entity.CxwyMallUserBalance;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
 import com.yxld.yxchuangxin.entity.WuyeRecordAndroid;
+import com.yxld.yxchuangxin.entity.WyFwApp;
 import com.yxld.yxchuangxin.listener.ResultListener;
 
 import java.util.Map;
@@ -137,4 +139,24 @@ public interface YeZhuController extends API{
 	 * @Description: 查询所有支出记录
 	 */
 	 void getAllExpenditure(RequestQueue mRequestQueue, String url, Map<String, String> parm, final ResultListener<CxwyMallUserBalance> listener);
+
+	/**
+	 * @Title: getDeleteChengyuanList
+	 * @Description: 业主房屋查询
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getHouse(RequestQueue mRequestQueue, Object[] parm, ResultListener<WyFwApp> listener);
+
+	/**
+	 * @Title: getDeleteChengyuanList
+	 * @Description: 业主房屋查询
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getWUYE(RequestQueue mRequestQueue, Object[] parm, ResultListener<CxwyJfWyRecord> listener);
 }

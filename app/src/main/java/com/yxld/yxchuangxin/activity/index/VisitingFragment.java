@@ -237,14 +237,28 @@ public class VisitingFragment extends BaseFragment  {
             cursor.moveToFirst();
 //取得联系人姓名
             int nameFieldColumnIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
-            contact[0] = cursor.getString(nameFieldColumnIndex);
+            if(contact[0] != null){
+                contact[0] = cursor.getString(nameFieldColumnIndex);
+            }else{
+                contact[0] = "";
+                contact[1] = "";
+                ToastUtil.show(getActivity(),"未获取到信息：请检查您是否已经允许欣社区访问通讯录权限");
+                return contact;
+            }
 //取得电话号码
             String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
             Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
             if (phone != null) {
                 phone.moveToFirst();
-                contact[1] = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                if(contact[1] != null){
+                    contact[1] = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                }else{
+                    contact[0] = "";
+                    contact[1] = "";
+                    ToastUtil.show(getActivity(),"未获取到信息：请检查您是否已经允许欣社区访问通讯录权限");
+                    return contact;
+                }
             }
             phone.close();
             cursor.close();

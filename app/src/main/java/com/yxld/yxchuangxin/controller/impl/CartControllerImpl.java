@@ -13,6 +13,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.CartController;
 import com.yxld.yxchuangxin.entity.CxwyMallCart;
@@ -131,13 +132,13 @@ public class CartControllerImpl implements CartController{
 						Log.d("geek","购物车删除response ="+response);
 						BaseEntity info = null;
 						if(response != null){
-							try {
+//							try {
 								info = gson.fromJson(response, BaseEntity.class);
-							}catch (Exception e){
-								info = new BaseEntity();
-								info.status = 1;
-								info.MSG = "删除失败";
-							}
+//							}catch (Exception e){
+//								info = new BaseEntity();
+//								info.status = 1;
+//								info.MSG = "删除失败";
+//							}
 						}
 						if (listener != null) {
 							listener.onResponse(info);

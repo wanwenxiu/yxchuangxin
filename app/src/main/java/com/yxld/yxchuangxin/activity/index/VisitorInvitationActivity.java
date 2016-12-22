@@ -240,16 +240,47 @@ public class VisitorInvitationActivity extends BaseActivity  {
         Cursor cursor = cr.query(uri, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
-//取得联系人姓名
+            //取得联系人姓名
             int nameFieldColumnIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
-            contact[0] = cursor.getString(nameFieldColumnIndex);
-//取得电话号码
+           try{
+               contact[0] = cursor.getString(nameFieldColumnIndex);
+           }catch(Exception e){
+               contact[0] = "";
+               contact[1] = "";
+               ToastUtil.show(this,"未获取到姓名：请检查您是否已经允许欣社区访问通讯录权限");
+               return contact;
+           }
+//            if(cursor.getString(nameFieldColumnIndex) != null){
+//                contact[0] = cursor.getString(nameFieldColumnIndex);
+//            }else{
+//                contact[0] = "";
+//                contact[1] = "";
+//                ToastUtil.show(this,"未获取到姓名：请检查您是否已经允许欣社区访问通讯录权限");
+//                return contact;
+//            }
+
+            //取得电话号码
             String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
             Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
             if (phone != null) {
                 phone.moveToFirst();
-                contact[1] = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                try{
+                    contact[1] = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                }catch(Exception e){
+                    contact[1] = "";
+                    ToastUtil.show(this,"未获取到手机号码：请检查您是否已经允许欣社区访问通讯录权限");
+                    return contact;
+                }
+//                contact[1] = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+//                if((phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))) != null){
+//                    contact[1] = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+//                }else{
+//                    contact[1] = "";
+//                    ToastUtil.show(this,"未获取到手机号码：请检查您是否已经允许欣社区访问通讯录权限");
+//                    return contact;
+//                }
             }
             phone.close();
             cursor.close();
