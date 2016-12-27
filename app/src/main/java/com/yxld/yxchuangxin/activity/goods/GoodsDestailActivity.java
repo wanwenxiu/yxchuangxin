@@ -221,10 +221,12 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 				address.setText(Contains.curSelectXiaoQuName);
 			}
 
+			goods_wuliu.setText("正常配送");
 			if(curGood.getShangpinBeiyong5() != null && "1".equals(curGood.getShangpinBeiyong5())){
-				goods_wuliu.setText("配送：￥3.00配送费");
+//				goods_wuliu.setText("配送：￥3.00配送费");
+				goods_wuliu.setText("大件配送");
 			}else{
-				goods_wuliu.setText("配送：免配送费");
+//				goods_wuliu.setText("配送：免配送费");
 			}
 		}
 	}

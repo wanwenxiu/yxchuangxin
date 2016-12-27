@@ -7,11 +7,20 @@
     android:orientation="vertical" 
     >
 
+    <TextView
+        android:id="@+id/addr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="创欣号只可修改一次，必须为6-16个数字,小写字母和下划线,且不能以cx开始"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/size_14"
+        android:gravity="bottom"
+        android:paddingLeft="10dp"
+        />
 
-  <LinearLayout
+    <LinearLayout
       android:layout_width="fill_parent"
       android:layout_height="45dp"
-      android:layout_marginTop="10dp"
       android:background="@drawable/banner_border_bottom"
       android:orientation="horizontal" >
 
@@ -20,7 +29,7 @@
           android:layout_height="fill_parent"
           android:layout_weight="4"
           android:gravity="center"
-          android:text="昵称"
+          android:text="创欣号"
           android:textColor="@android:color/black"
           android:textSize="14sp" />
 
@@ -31,12 +40,11 @@
           android:layout_margin="1dp"
           android:layout_weight="1"
           android:background="@android:color/white"
-          android:maxLength="18"
-          android:hint="请输入您的用户名"
+          android:hint=""
           android:paddingLeft="15dp"
+          android:maxLength="16"
+          android:digits="0123456789abcdefghigklmnopqrstuvwxyz_"
           android:textSize="14sp" >
-
-          <requestFocus />
       </EditText>
 
       <ImageView

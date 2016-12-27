@@ -194,7 +194,7 @@ public class VisitingFragment extends BaseFragment  {
 
         @Override
         public void onErrorResponse(String errMsg) {
-            onError(errMsg);
+            onError("获取二维码失败");
         }
     };
 

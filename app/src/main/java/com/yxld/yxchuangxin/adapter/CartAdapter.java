@@ -88,7 +88,6 @@ public class CartAdapter extends BaseAdapter {
 
     private int index=-1;//记录选中的位置
 
-
     class ListItemView { // 自定义控件集合
         /**
          * 选中状态
@@ -197,11 +196,11 @@ public class CartAdapter extends BaseAdapter {
         }
 
         listItemView.cartGoodsChecked.setChecked(goodsVo.isChecked());
-
         //设置点击事件
         listItemView.cartGoodsChecked.setOnCheckedChangeListener(new SmoothCheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SmoothCheckBox checkBox, boolean isChecked) {
+                Log.d("geek","position"+position+"isChecked="+isChecked);
                 Contains.CartList.get(position).setChecked(isChecked);
                 if (!isChecked) {
                     handler.sendEmptyMessage(CartMainFragment.updateNoCheck);

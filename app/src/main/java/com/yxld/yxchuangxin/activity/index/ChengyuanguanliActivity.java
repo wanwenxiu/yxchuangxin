@@ -68,7 +68,14 @@ public class ChengyuanguanliActivity extends BaseActivity {
 	@Override
 	protected void initView() {
 		addr = (TextView) findViewById(R.id.addr);
-		addr.setText(Contains.appYezhuFangwus.get(0).getXiangmuLoupan()+"-"+Contains.user.getYezhuName());
+		//addr.setText(Contains.appYezhuFangwus.get(Contains.curFangwu).getXiangmuLoupan()+"-"+Contains.user.getYezhuName());
+		addr.setText(Contains.appYezhuFangwus.get(Contains.curFangwu).getXiangmuLoupan()
+				+ Contains.appYezhuFangwus.get(Contains.curFangwu).getFwLoudong()
+				+ "栋 "
+				+ Contains.appYezhuFangwus.get(Contains.curFangwu).getFwDanyuan()
+				+ "单元 "
+				+ Contains.appYezhuFangwus.get(Contains.curFangwu).getFwFanghao()
+				.toString() + "号");
 		AuthorizedList = (ListView) findViewById(R.id.AuthorizedList);
 		adapter = new ChengyuanListAdapter(listdata,this,handler);
 		AuthorizedList.setAdapter(adapter);
@@ -114,14 +121,16 @@ public class ChengyuanguanliActivity extends BaseActivity {
 		if(yezhuController == null){
 			yezhuController = new YeZhuControllerImpl();
 		}
-		if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() >0 && Contains.appYezhuFangwus.get(0) != null
-				&& Contains.appYezhuFangwus.get(0).getFwId() != null
-				&& !"".equals(Contains.appYezhuFangwus.get(0).getFwId())){
-				yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.appYezhuFangwus.get(0).getFwId()}, new ResultListener<AppYezhuFangwu>() {
+		if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() >0 && Contains.appYezhuFangwus.get(Contains.curFangwu) != null
+				&& Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId() != null
+				&& !"".equals(Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId())){
+				yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId()}, new ResultListener<AppYezhuFangwu>() {
 					@Override
 					public void onResponse(AppYezhuFangwu info) {
 						if (isEmptyList(info.getRows())) {
-							ToastUtil.show(ChengyuanguanliActivity.this, "没有查询到记录");
+							ToastUtil.show(ChengyuanguanliActivity.this, "没有成员信息");
+							listdata.clear();
+							adapter.setListDatas(listdata);
 						} else {
 							//yz.yezhu_id,yz.yezhu_shouji, yz.yezhu_name,fwyz.fwyzType
 							listdata = info.getRows();

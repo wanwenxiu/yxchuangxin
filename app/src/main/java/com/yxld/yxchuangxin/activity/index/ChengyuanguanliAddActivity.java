@@ -94,15 +94,18 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 			}
 		});
 
-
 		submit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(StringUitl.isNotEmpty(ChengyuanguanliAddActivity.this,name,"请输入成员姓名")){
 					if(StringUitl.isNotEmpty(ChengyuanguanliAddActivity.this,tel,"请输入成员电话")){
+							if(!StringUitl.isMobileNum(tel.getText().toString())){
+								ToastUtil.show(ChengyuanguanliAddActivity.this,"请输入正确手机号码");
+								return;
+							}
 							if(isIdCard(idcard.getText().toString())){
 									initDataFromNet();
-						}
+							}
 					}
 				}
 			}
@@ -151,7 +154,7 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 		map.put("yezhuName", name.getText().toString()+"");
 		map.put("yezhuSex", curSex);
 		map.put("yezhuShouji", tel.getText().toString()+"");
-		map.put("fwyzFw",Contains.appYezhuFangwus.get(0).getFwId()+"");
+		map.put("fwyzFw",Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId()+"");
 		map.put("yezhuGzdw", Contains.user.getYezhuGzdw());
 		Log.d("geek","map="+map.toString());
 

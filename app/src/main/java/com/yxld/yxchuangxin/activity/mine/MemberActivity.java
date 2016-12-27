@@ -31,10 +31,9 @@ import static com.yxld.yxchuangxin.R.id.phone;
  */
 public class MemberActivity extends BaseActivity {
 	private TextView account_id;
-	private TextView account_name;
-	private TextView account_card,yz_zhenshiname;
+	private TextView account_card,yz_zhenshiname,yz_chuangxinhao;
 	private View securityAccountWrap;
-	private View menberNameWrap;
+	private View menberChuangXinWrap;
 	
 	private RelativeLayout mineVisionUpdate;
 	
@@ -60,9 +59,9 @@ public class MemberActivity extends BaseActivity {
 	@Override
 	protected void initView() {
 		account_id = (TextView) findViewById(R.id.yz_name);
-		account_name = (TextView) findViewById(R.id.yz_id);
 		account_card = (TextView) findViewById(R.id.account_card);
 		yz_zhenshiname = (TextView) findViewById(R.id.yz_zhenshiname);
+		yz_chuangxinhao = (TextView) findViewById(R.id.yz_chuangxinhao);
 
 		if(Contains.user == null || Contains.appYezhuFangwus == null ||Contains.appYezhuFangwus.size() ==0){
 			yz_zhenshiname.setText("业主信息未完善");
@@ -70,8 +69,15 @@ public class MemberActivity extends BaseActivity {
 			yz_zhenshiname.setText(Contains.user.getYezhuName());
 		}
 
+		if(Contains.user == null || Contains.user.getYezhuChuangxinhao() == null || "".equals(Contains.user.getYezhuChuangxinhao())){
+			yz_chuangxinhao.setText("");
+		}else{
+			yz_chuangxinhao.setText(Contains.user.getYezhuChuangxinhao());
+		}
+
 		securityAccountWrap=findViewById(R.id.securityAccountWrap);
-		menberNameWrap=findViewById(R.id.menberNameWrap);
+		menberChuangXinWrap=findViewById(R.id.menberChuangXinWrap);
+		menberChuangXinWrap.setOnClickListener(this);
 		
 		mineVisionUpdate = (RelativeLayout)findViewById(R.id.mineVisionUpdate);
 		
@@ -93,7 +99,6 @@ public class MemberActivity extends BaseActivity {
 			account_id.setText(sb.toString());
 		}
 		
-		account_name.setOnClickListener(this);
 		account_card.setOnClickListener(this);
 		securityAccountWrap.setOnClickListener(this);
 		
@@ -107,7 +112,6 @@ public class MemberActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		account_name.setText(Contains.user.getYezhuName());
 		String card=Contains.user.getYezhuCardNum();
 
 		if(!TextUtils.isEmpty(card) && card.length() >= 18 ){
@@ -122,16 +126,22 @@ public class MemberActivity extends BaseActivity {
 			}
 			account_card.setText(sb.toString());
 		}
+
+		if(Contains.user == null || Contains.user.getYezhuChuangxinhao() == null || "".equals(Contains.user.getYezhuChuangxinhao())){
+			yz_chuangxinhao.setText("");
+		}else{
+			yz_chuangxinhao.setText(Contains.user.getYezhuChuangxinhao());
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.yz_id:
-			Intent aname = new Intent(MemberActivity.this, UpdateName.class);
-			startActivity(aname);
-			break;
-		case R.id.menberNameWrap:
+		case R.id.menberChuangXinWrap:
+			if(Contains.user != null && Contains.user.getYezhuChuangxinhao() != null && !"".equals(Contains.user.getYezhuChuangxinhao()) && !Contains.user.getYezhuChuangxinhao().startsWith("cx")){
+				ToastUtil.show(MemberActivity.this,"你已经修改过创欣号，不能重复修改");
+				return;
+			}
 			Intent NameWrap = new Intent(MemberActivity.this, UpdateName.class);
 			startActivity(NameWrap);
 			break;

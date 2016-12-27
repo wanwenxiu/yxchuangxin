@@ -23,6 +23,8 @@ import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.StringUitl;
+import com.yxld.yxchuangxin.util.ToastUtil;
 
 public class UpdateName extends BaseActivity {
 	private EditText old_name;
@@ -34,7 +36,7 @@ public class UpdateName extends BaseActivity {
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_updatename);
-		getSupportActionBar().setTitle("修改昵称");
+		getSupportActionBar().setTitle("修改创欣号");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
@@ -57,8 +59,6 @@ public class UpdateName extends BaseActivity {
 		old_name = (EditText) findViewById(R.id.old_name);
 		clear = (ImageView) findViewById(R.id.clear);
 		update_name = (TextView) findViewById(R.id.update_name);
-
-		old_name.setText(Contains.user.getYezhuName());
 		old_name.setSelection(old_name.getText().length());
 		clear.setOnClickListener(this);
 		mExplosionField = ExplosionField.attach2Window(this);
@@ -71,11 +71,14 @@ public class UpdateName extends BaseActivity {
 			loginController = new LoginControllerImpl();
 		}
 		String id = Contains.user.getYezhuId().toString();
-		String name = old_name.getText().toString();
-		Map<String, String> parm = new HashMap<String, String>();
-		parm.put("user.userId", id);
-		parm.put("user.userUserName", name);
-		loginController.getUpdateName(mRequestQueue, parm, listener);
+		if(StringUitl.isNotEmpty(this,old_name,"请输入新的创欣号")){
+			String chuangxinhao = old_name.getText().toString();
+			if(chuangxinhao.length() <6 || chuangxinhao.length() >16 || chuangxinhao.startsWith("cx")){
+				ToastUtil.show(this,"创欣号必须为6-16个数字,小写字母和下划线,且不能以cx开始");
+				return;
+			}
+			loginController.getUpdateChuangXinHao(mRequestQueue, new Object[]{id,old_name.getText().toString()}, listener);
+		}
 	}
 
 	private ResultListener<BaseEntity> listener = new ResultListener<BaseEntity>() {
@@ -90,8 +93,8 @@ public class UpdateName extends BaseActivity {
 			mExplosionField.explode(update_name);
 			update_name.setOnClickListener(null);
 			Contains.user
-					.setYezhuName(old_name.getText().toString());
-			Toast.makeText(UpdateName.this, "修改成功", Toast.LENGTH_SHORT).show();
+					.setYezhuChuangxinhao(old_name.getText().toString());
+			Toast.makeText(UpdateName.this, info.MSG, Toast.LENGTH_SHORT).show();
 			new Thread() {
 				public void run() {
 					try {

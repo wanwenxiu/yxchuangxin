@@ -257,5 +257,31 @@ public class LoginControllerImpl implements LoginController {
 		mRequestQueue.add(gsonRequest);
 	}
 
+	@Override
+	public void getUpdateChuangXinHao(RequestQueue mRequestQueue, Object[] parm,final ResultListener<BaseEntity> listener) {
+		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(
+				String.format(URL_GET_ALL_UPDATE_CHUANGXINHAO, parm), BaseEntity.class,
+				new Listener<BaseEntity>() {
+
+					@Override
+					public void onResponse(BaseEntity response) {
+						if (listener != null) {
+							listener.onResponse(response);
+						}
+					}
+				}, new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_GET_ALL_UPDATE_CHUANGXINHAO);
+		mRequestQueue.add(gsonRequest);
+	}
+
 
 }

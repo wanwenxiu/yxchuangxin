@@ -52,7 +52,7 @@ import cn.smssdk.SMSSDK;
 public class RegisterActivity extends BaseActivity {
 
 	private LoginController loginController;
-	private EditText register_tel,register_pwd,register_yzm,register_cxh;
+	private EditText register_tel,register_pwd,register_yzm;
 	private Button regsubmit;
 	private TimeButton register_button_phone;
 	private ExplosionField mExplosionField;
@@ -87,7 +87,7 @@ public class RegisterActivity extends BaseActivity {
 	protected void initView() {
 		ptxi= (AutoLinkStyleTextView) findViewById(R.id.ptxi);
 		register_tel = (EditText) findViewById(R.id.register_tel);
-		register_cxh= (EditText) findViewById(R.id.register_cxh);
+//		register_cxh= (EditText) findViewById(R.id.register_cxh);
 		register_pwd = (EditText) findViewById(R.id.register_pwd);
 		regsubmit = (Button) findViewById(R.id.regsubmit);
 		register_yzm= (EditText) findViewById(R.id.register_yzm);
@@ -175,8 +175,11 @@ public class RegisterActivity extends BaseActivity {
 		MiPushClient.setAlias(RegisterActivity.this, account, null);
 		MiPushClient.setUserAccount(RegisterActivity.this,alias, null);
 
+//		loginController.getRegisterAlready(mRequestQueue,
+//				new Object[] { register_tel.getText().toString(),register_cxh.getText().toString() },
+//				Alreadylistener);
 		loginController.getRegisterAlready(mRequestQueue,
-				new Object[] { register_tel.getText().toString(),register_cxh.getText().toString() },
+				new Object[] { register_tel.getText().toString()},
 				Alreadylistener);
 
 	}
@@ -200,11 +203,13 @@ public class RegisterActivity extends BaseActivity {
 				register_button_phone.setTextAfter("该手机号已经注册").setTextBefore("获取验证码").setLenght(5 * 1000);
 				Toast.makeText(RegisterActivity.this,
 						"你输入的手机号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
-			} else if (info.MSG.equals("该创欣号已经注册")){
-				register_button_phone.setTextAfter("该创欣号已经注册").setTextBefore("获取验证码").setLenght(5 * 1000);
-				Toast.makeText(RegisterActivity.this,
-						"你输入的创欣号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
-			}else {
+			}
+//			else if (info.MSG.equals("该创欣号已经注册")){
+//				register_button_phone.setTextAfter("该创欣号已经注册").setTextBefore("获取验证码").setLenght(5 * 1000);
+//				Toast.makeText(RegisterActivity.this,
+//						"你输入的创欣号已经注册了    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
+//			}
+			else {
 				String str = register_tel.getText().toString();
 				String str1 = str.replaceAll(" ", "");
 				Toast.makeText(RegisterActivity.this, str1, Toast.LENGTH_SHORT).show();
@@ -235,7 +240,7 @@ public class RegisterActivity extends BaseActivity {
 				return;
 			}
 			if (info.MSG !=null && !"".equals(info.MSG) ) {
-				Toast.makeText(RegisterActivity.this,info.MSG,Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegisterActivity.this,info.MSG,Toast.LENGTH_LONG).show();
 				register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(1 * 1000);
 				mExplosionField.explode(regsubmit);
 				regsubmit.setOnClickListener(null);
@@ -302,11 +307,12 @@ public class RegisterActivity extends BaseActivity {
 				break;
 			case R.id.register_button_phone:
 				int len = register_pwd.getText().toString().length();
-				int len1= register_cxh.getText().toString().length();
-				if (len >= 6 && len1>=6 ) {
+//				int len1= register_cxh.getText().toString().length();
+//				if (len >= 6 && len1>=6 ) {
+				if (len >= 6) {
 					initDataFromNet();
 				} else {
-					register_button_phone.setTextAfter("密码或创欣号错误").setTextBefore("获取验证码").setLenght(5 * 1000);
+					register_button_phone.setTextAfter("密码错误").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
 				break;
 		}
@@ -342,9 +348,12 @@ public class RegisterActivity extends BaseActivity {
 					if (result == SMSSDK.RESULT_COMPLETE) {
 						Toast.makeText(getApplicationContext(), "短信验证成功", Toast.LENGTH_SHORT).show();
 						register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(30 * 1000);
+//						loginController.getRegister(mRequestQueue, new Object[] {
+//								register_tel.getText().toString(),
+//								StringUitl.getMD5(register_pwd.getText().toString()),register_cxh.getText().toString() }, listener);
 						loginController.getRegister(mRequestQueue, new Object[] {
 								register_tel.getText().toString(),
-								StringUitl.getMD5(register_pwd.getText().toString()),register_cxh.getText().toString() }, listener);
+								StringUitl.getMD5(register_pwd.getText().toString())}, listener);
 					}
 				} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
 					Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();

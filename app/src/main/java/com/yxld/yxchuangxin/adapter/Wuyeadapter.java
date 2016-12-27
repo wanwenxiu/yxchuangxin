@@ -36,14 +36,20 @@ public class Wuyeadapter extends BaseAdapter {
     private String[] title;
     private Context context;
 
-    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
-    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
+//    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
+//    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
 
-    int[] icon1 = {R.mipmap.wuyefei, R.mipmap.shuifei, R.mipmap.dianfei, R.mipmap.tingchechang};
-    String[] name1 = {"物业服务费", "水费", "电费", "车位费"};
+//    int[] icon1 = {R.mipmap.wuyefei, R.mipmap.shuifei, R.mipmap.dianfei, R.mipmap.tingchechang};
+//    String[] name1 = {"物业服务费", "水费", "电费", "车位费"};
+
+    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang,  R.mipmap.zufang};
+    String[] name = {"门禁管理", "车辆管理", "房屋出租"};
+
+    int[] icon1 = {R.mipmap.wuyefei};
+    String[] name1 = {"物业服务费"};
 
     int[] icon2 = {R.mipmap.tongzhi, R.mipmap.baoxiu, R.mipmap.shouq, R.mipmap.kuaidi, R.mipmap.tousu, R.mipmap.manyi};
-    String[] name2 = {"通知公告", "维修服务", "授权放行", "邮包查寄", "投诉建议", "满意度调查"};
+    String[] name2 = {"通知活动", "维修服务", "授权放行", "邮包查寄", "投诉建议", "满意度调查"};
 
     int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.zhanghao, R.mipmap.gengxin, R.mipmap.guanyu};
     String[] name3 = {"房屋信息", "入住成员", "账号管理", "版本更新", "关于我们"};
@@ -111,11 +117,11 @@ public class Wuyeadapter extends BaseAdapter {
                                     Toast.makeText(context, "请至物业完善业主身份证和手机号码信息再进行查询", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
+//                            case 2:
+//                                ToastUtil.show(context, "敬请期待");
+//                                // startActivity(CameraActivity.class);
+//                                break;
                             case 2:
-                                ToastUtil.show(context, "敬请期待");
-                                // startActivity(CameraActivity.class);
-                                break;
-                            case 3:
                                 if (Contains.user == null || Contains.user.getYezhuCardNum() == null
                                         || Contains.user.getYezhuShouji() == null) {
                                     ToastUtil.show(context, "请至物业完善业主身份证和手机号码信息再进行查询");
@@ -153,33 +159,33 @@ public class Wuyeadapter extends BaseAdapter {
                                 bundle.putString("curType", "物业服务");
                                 startActivity(FeiYongListActivity.class, bundle);
                                 break;
-                            case 1:
-                                ToastUtil.show(context, "敬请期待");
-//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-//                                    return;
-//                                }
-//                                bundle.putString("curType", "水");
-//                                startActivity(FeiYongListActivity.class, bundle);
-                                break;
-                            case 2:
-                                ToastUtil.show(context, "敬请期待");
-//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-//                                    return;
-//                                }
-//                                bundle.putString("curType", "电");
-//                                startActivity(FeiYongListActivity.class, bundle);
-                                break;
-                            case 3:
-                                ToastUtil.show(context, "敬请期待");
-//                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
-//                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
-//                                    return;
-//                                }
-//                                bundle.putString("curType", "机动车停放服务");
-//                                startActivity(FeiYongListActivity.class, bundle);
-                                break;
+//                            case 1:
+//                                ToastUtil.show(context, "敬请期待");
+////                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+////                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+////                                    return;
+////                                }
+////                                bundle.putString("curType", "水");
+////                                startActivity(FeiYongListActivity.class, bundle);
+//                                break;
+//                            case 2:
+//                                ToastUtil.show(context, "敬请期待");
+////                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+////                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+////                                    return;
+////                                }
+////                                bundle.putString("curType", "电");
+////                                startActivity(FeiYongListActivity.class, bundle);
+//                                break;
+//                            case 3:
+//                                ToastUtil.show(context, "敬请期待");
+////                                if (Contains.cxwyYezhu == null || Contains.cxwyYezhu.size() == 0) {
+////                                    ToastUtil.show(context, "请配置房屋信息再进行查询");
+////                                    return;
+////                                }
+////                                bundle.putString("curType", "机动车停放服务");
+////                                startActivity(FeiYongListActivity.class, bundle);
+//                                break;
                         }
                     }
                 });

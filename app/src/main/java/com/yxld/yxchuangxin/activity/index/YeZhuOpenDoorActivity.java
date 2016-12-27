@@ -127,7 +127,7 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		shareSms = (TextView)findViewById(R.id.shareSms);
 		shareSms.setVisibility(View.INVISIBLE);
 		shareSms.setOnClickListener(this);
-		youxiaoqi.setText("二维码即时更新中,复制无效。");
+		youxiaoqi.setText("网络不稳定，二维码未加载成功"+'\n'+"请等待或退出当前界面重新进入");
 	}
 
 	@Override
@@ -170,9 +170,11 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 				codeImg.setVisibility(View.INVISIBLE);
 			}
 			if(youxiaoqi != null){
-				youxiaoqi.setText("更新二维码失败！请检查您的网络状态");
+				youxiaoqi.setText("网络不稳定，二维码未加载成功"+'\n'+"请等待或退出当前界面重新进入");
 			}
-
+			if(progressDialog != null && progressDialog.isShowing()){
+				progressDialog.hide();
+			}
 			return;
 		}
 		if(doorController == null ){
@@ -231,7 +233,7 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 		public void onErrorResponse(String errMsg)
 		{
 			if(youxiaoqi != null){
-				youxiaoqi.setText("网络连接失败！");
+				youxiaoqi.setText("网络不稳定，二维码未加载成功"+'\n'+"请等待或退出当前界面重新进入");
 			}
 			if(progressDialog != null && progressDialog.isShowing()){
 				progressDialog.hide();

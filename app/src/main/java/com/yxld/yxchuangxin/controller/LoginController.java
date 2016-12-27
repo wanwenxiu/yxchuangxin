@@ -92,4 +92,14 @@ public interface LoginController extends API{
 	 * @throws
 	 */
 	void getFindPwd(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
+
+	/**
+	 * @Title: getUpdateChuangXinHao
+	 * @Description: 修改创欣号
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getUpdateChuangXinHao(RequestQueue mRequestQueue,Object[] parm, ResultListener<BaseEntity> listener);
 }

@@ -14,9 +14,9 @@ public interface API {
 
     String menjinIP = "http://120.25.78.92/";
 //  String menjinIP = "http://192.168.8.21:8080/";
-  String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-  String PIC = "http://192.168.8.166:8080";
-  String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+    String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+    String PIC = "http://192.168.8.166:8080";
+    String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
 
 //  String IP_PRODUCT = "http://120.24.163.177/wygl";
 //  String PIC = "http://120.24.163.177";
@@ -137,13 +137,15 @@ public interface API {
      * 注册接口
      */
     String URL_GET_ALL_REGISTER = IP_PRODUCT
-            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s&chuangxinhao=%3$s";
+            + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s";
+//    + "/mall/androidUser_addUser?shouji=%1$s&pwd=%2$s&chuangxinhao=%3$s";
 
     /**
      * 判断是否已注册
      */
     String URL_GET_ALL_REGISTER_ALREADY = IP_PRODUCT
-            + "/mall/androidUser_isExistYonghu?shouji=%1$s&chuangxinhao=%2$s";
+            + "/mall/androidUser_isExistYonghu?shouji=%1$s";
+//            + "/mall/androidUser_isExistYonghu?shouji=%1$s&chuangxinhao=%2$s";
 
     /**
      * 判断手机号码是否注册
@@ -196,6 +198,12 @@ public interface API {
      */
     String URL_GET_ALL_UPDATE_CARD = IP_PRODUCT
             + "/mall/androidUser_mergeUser?user.userId=%1$s&user.userIdCard=%2$s";
+
+    /**
+     * 修改创欣号
+     */
+    String URL_GET_ALL_UPDATE_CHUANGXINHAO = IP_PRODUCT
+            + "/mall/androidUser_updateChuangXinHao?yezhuId=%1$s&chuangxinhao=%2$s";
 
     /**
      * 收藏商品

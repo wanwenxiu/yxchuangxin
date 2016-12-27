@@ -346,14 +346,14 @@ public class Repair extends BaseActivity {
 					public void onClick(View v) {
 						if(!Contains.repairQuyu.equals("3")){
 							if ("".equals(address.getText().toString())) {
-								Toast.makeText(getApplication(), "请输入保修地点", Toast.LENGTH_SHORT)
+								Toast.makeText(getApplication(), "请输入报修地点", Toast.LENGTH_SHORT)
 										.show();
 								return;
 							}
 						}
 
 						if ("".equals(edContext.getText().toString())) {
-							Toast.makeText(getApplication(), "请输入保修详情", Toast.LENGTH_SHORT)
+							Toast.makeText(getApplication(), "请输入报修详情", Toast.LENGTH_SHORT)
 									.show();
 							return;
 						}
@@ -385,11 +385,7 @@ public class Repair extends BaseActivity {
 									fileUpload.upload();
 									}catch (Exception e){
 										Log.d("geek", e.getMessage()+"eee");
-										if (progressDialog != null) {
-											progressDialog.hide();
-										}
-										Toast.makeText(Repair.this, "上传失败,请稍后再试!",
-												Toast.LENGTH_LONG).show();
+										mHandler.sendEmptyMessage(uploadFaild);
 									}
 								}
 							}).start();

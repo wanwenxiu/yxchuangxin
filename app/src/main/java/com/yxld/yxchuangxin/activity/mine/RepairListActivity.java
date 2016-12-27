@@ -210,11 +210,11 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 				showEmptyDataPage(true);
 				return;
 			}
+			adapter.setListOrderDatas(listData);
 
 			if (totals <= adapter.getListOrderDatas().size()) {// 加载更多禁止
 				xlistView.setPullLoadEnable(false);
 			}
-			adapter.setListOrderDatas(listData);
 		} else {// 不是第一次加载
 			if ((isEmptyList(listData)) || totals <= adapter.getListOrderDatas().size()) {// 加载更多禁止
 				xlistView.setPullLoadEnable(false);

@@ -39,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/banner_border_bottom"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="70dp"

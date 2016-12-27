@@ -112,6 +112,8 @@ public class EmployerActivity extends BaseActivity {
 
 				}
 			});
+
+			spinner1.setSelection(Contains.curFangwu);
 		}
 
 	}
