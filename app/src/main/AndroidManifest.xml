@@ -115,7 +115,6 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -144,15 +143,18 @@
         </activity>
         <activity
             android:name="com.yxld.yxchuangxin.activity.goods.ShopListActivity"
-            android:label="商品列表">
+            android:label="商品列表"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.yxld.yxchuangxin.activity.order.AddressListActivity"
-            android:label="地址管理">
+            android:label="地址管理"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.yxld.yxchuangxin.activity.order.addAddressActivity"
-            android:label="新建地址">
+            android:label="新建地址"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.yxld.yxchuangxin.activity.goods.SearchActivity"
@@ -324,17 +326,20 @@
 
         <activity
             android:name=".activity.mine.SaveMoneyActivity"
-            android:label="充值">
+            android:label="充值"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activity.index.ChengyuanguanliActivity"
-            android:label="成员管理">
+            android:label="成员管理"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activity.index.ChengyuanguanliAddActivity"
-            android:label="成员添加">
+            android:label="成员添加"
+            android:screenOrientation="portrait">
 
         </activity>
 
@@ -360,18 +365,22 @@
         <activity
             android:name=".activity.index.CameraActivity"
             android:label="摄像头"
+            android:screenOrientation="portrait"
             ></activity>
 
         <!--交易记录-->
         <activity
             android:name=".activity.mine.RecordAcitvity"
             android:label="交易记录"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".activity.index.YeZhuOpenDoorActivity"
-            android:label="业主开门"></activity>
+            android:label="业主开门"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".activity.index.AccessActivity"
-            android:label="门禁管理"></activity>
+            android:label="门禁管理"
+            android:screenOrientation="portrait"></activity>
 
         <!--web-->
         <activity android:name=".activity.Main.WebViewActivity"
@@ -387,7 +396,8 @@
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind">
+            android:screenOrientation="behind"
+            >
         </activity>
 
         <activity
@@ -398,7 +408,8 @@
         </activity>
 
         <activity android:name=".activity.login.FindPwdActivity"
-            android:label="找回密码"></activity>
+            android:label="找回密码"
+            android:screenOrientation="portrait"></activity>
 
         <!--微信支付-->
         <activity
@@ -414,7 +425,8 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
 
         <!--推送-->
@@ -423,7 +435,8 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":pushservice"/>
+            android:process=":pushservice"
+            />
 
         <service
             android:name="com.xiaomi.push.service.XMPushService"

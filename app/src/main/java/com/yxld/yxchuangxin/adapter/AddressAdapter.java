@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.order.addAddressActivity;
+import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.entity.CxwyMallAdd;
 
 /**
@@ -142,6 +143,7 @@ public class AddressAdapter extends BaseAdapter {
 			holder.defule.setClickable(false);
 			holder.img.setImageResource(R.mipmap.cart_06);
 			holder.img.setClickable(false);
+			Contains.defuleAddress = sb;
 		}else{
 			holder.defule.setText("设为默认");
 			holder.defule.setTextColor(mContext.getResources().getColor(R.color.black));

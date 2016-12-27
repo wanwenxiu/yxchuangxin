@@ -283,6 +283,22 @@
                     android:textColor="@color/color_ff0033"
                     android:textSize="@dimen/size_14" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="left|center_vertical"
+                    android:text="提示:普通商品:20元以上免配送费（限每单）,20元以下加收1元配送费（限每单）。大件商品固定一单3元配送费。"
+                    android:textColor="@color/color_797979"
+                    android:textSize="@dimen/size_12" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

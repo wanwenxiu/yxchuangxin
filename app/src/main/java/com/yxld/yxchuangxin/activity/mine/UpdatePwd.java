@@ -80,7 +80,7 @@ public class UpdatePwd extends BaseActivity {
 		new_pwd = new_password.getText().toString();
 		String repeat_pwd = repeat_password.getText().toString();
 		String shouji = Contains.user.getYezhuShouji();
-		if(Contains.user == null || "".equals(Contains.user.getYezhuPwd()) || !Contains.user.getYezhuPwd().equals(StringUitl.getMD5(old_pwd))){
+		if(Contains.user == null || "".equals(Contains.user.getYezhuPwd()) || !Contains.user.getYezhuPwd().equalsIgnoreCase(StringUitl.getMD5(old_pwd))){
 			ToastUtil.show(this,"原密码输入有误");
 			return;
 		}

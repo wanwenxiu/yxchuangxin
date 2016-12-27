@@ -42,11 +42,11 @@ public class Wuyeadapter extends BaseAdapter {
     int[] icon1 = {R.mipmap.wuyefei, R.mipmap.shuifei, R.mipmap.dianfei, R.mipmap.tingchechang};
     String[] name1 = {"物业服务费", "水费", "电费", "车位费"};
 
-    int[] icon2 = {R.mipmap.tongzhi, R.mipmap.baoxiu, R.mipmap.shouq, R.mipmap.kuaidi,R.mipmap.tousu,R.mipmap.manyi};
-    String[] name2 = {"通知公告", "维修服务","授权放行","邮包查寄","投诉建议","满意度调查"};
+    int[] icon2 = {R.mipmap.tongzhi, R.mipmap.baoxiu, R.mipmap.shouq, R.mipmap.kuaidi, R.mipmap.tousu, R.mipmap.manyi};
+    String[] name2 = {"通知公告", "维修服务", "授权放行", "邮包查寄", "投诉建议", "满意度调查"};
 
-    int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.zhanghao,R.mipmap.gengxin, R.mipmap.guanyu};
-    String[] name3 = {"房屋信息", "入住成员","账号管理", "版本更新", "关于我们"};
+    int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.zhanghao, R.mipmap.gengxin, R.mipmap.guanyu};
+    String[] name3 = {"房屋信息", "入住成员", "账号管理", "版本更新", "关于我们"};
 
 
     public Wuyeadapter(String[] title, Context context) {
@@ -91,8 +91,8 @@ public class Wuyeadapter extends BaseAdapter {
                         Log.d("...", "我的物业" + position);
                         switch (position) {
                             case 0://门禁管理
-                                if(Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() ==0){
-                                    ToastUtil.show(context,"业主信息不完善");
+                                if (Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
+                                    ToastUtil.show(context, "业主信息不完善");
                                     return;
                                 }
                                 startActivity(AccessActivity.class);
@@ -104,29 +104,29 @@ public class Wuyeadapter extends BaseAdapter {
                                             WebViewActivity.class);// 跳转的activity
                                     Bundle cl1 = new Bundle();
                                     cl1.putString("name", "车辆管理");
-                                    cl1.putString("address", API.menjinIP+"cxwy_daozha/daozha/mobile?url=unlockList&lpId="+Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&userId="+Contains.appYezhuFangwus.get(0).getYezhuId());
+                                    cl1.putString("address", API.menjinIP + "cxwy_daozha/daozha/mobile?url=unlockList&lpId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId() + "&userId=" + Contains.appYezhuFangwus.get(0).getYezhuId());
                                     cl.putExtras(cl1);
                                     context.startActivity(cl, cl1);
-                                }else {
+                                } else {
                                     Toast.makeText(context, "请至物业完善业主身份证和手机号码信息再进行查询", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
                             case 2:
                                 ToastUtil.show(context, "敬请期待");
-                               // startActivity(CameraActivity.class);
+                                // startActivity(CameraActivity.class);
                                 break;
                             case 3:
                                 if (Contains.user == null || Contains.user.getYezhuCardNum() == null
                                         || Contains.user.getYezhuShouji() == null) {
                                     ToastUtil.show(context, "请至物业完善业主身份证和手机号码信息再进行查询");
                                     return;
-                                }else {
+                                } else {
                                     Intent cz = new Intent();
                                     cz.setClass(context, // context
                                             WebViewActivity.class);// 跳转的activity
                                     Bundle cz1 = new Bundle();
                                     cz1.putString("name", "房屋出租");
-                                    cz1.putString("address", API.IP_PRODUCT+"/houseRent.jsp?shenfenzheng="+Contains.user.getYezhuCardNum()+"&shouji="+Contains.user.getYezhuShouji());
+                                    cz1.putString("address", API.IP_PRODUCT + "/houseRent.jsp?shenfenzheng=" + Contains.user.getYezhuCardNum() + "&shouji=" + Contains.user.getYezhuShouji());
                                     cz.putExtras(cz1);
                                     context.startActivity(cz);
                                 }
@@ -194,7 +194,7 @@ public class Wuyeadapter extends BaseAdapter {
                             case 0://通知公告
                                 if (Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)
                                         && Contains.curSelectXiaoQuId != 0) {
-                                    int  xiaoqu =Contains.curSelectXiaoQuId;
+                                    int xiaoqu = Contains.curSelectXiaoQuId;
                                     Intent tz = new Intent();
                                     tz.setClass(context, // context
                                             WebViewActivity.class);// 跳转的activity
@@ -204,7 +204,7 @@ public class Wuyeadapter extends BaseAdapter {
                                     tz1.putString("address", API.IP_PRODUCT + "/MyJsp.jsp?luopan=" + xiaoqu);
                                     tz.putExtras(tz1);
                                     context.startActivity(tz, tz1);
-                                }else {
+                                } else {
                                     Toast.makeText(context, "您没有选择小区", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
@@ -217,30 +217,68 @@ public class Wuyeadapter extends BaseAdapter {
                                 startActivity(Repair.class);
                                 break;
                             case 2:
-                                ToastUtil.show(context, "敬请期待");
+                                //授权放行
+                                if (Contains.user == null || Contains.appYezhuFangwus.size() == 0 || Contains.appYezhuFangwus.get(0) == null || Contains.appYezhuFangwus.get(0).getFwLoupanId() == null
+                                        || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())) {
+                                    Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (Contains.appYezhuFangwus.get(0).getFwyzType()>=1){
+                                        Intent sq = new Intent();
+                                        sq.setClass(context, // context
+                                                WebViewActivity.class);// 跳转的activity
+                                        Bundle sq1 = new Bundle();
+                                        sq1.putString("name", "授权放行");
+                                        sq1.putString("address", API.IP_PRODUCT + "/warrantList.html?yezhuId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
+                                        sq.putExtras(sq1);
+                                        context.startActivity(sq);
+                                    }else {
+                                        Intent sq = new Intent();
+                                        sq.setClass(context, // context
+                                                WebViewActivity.class);// 跳转的activity
+                                        Bundle sq1 = new Bundle();
+                                        sq1.putString("name", "授权放行");
+                                        sq1.putString("address", API.IP_PRODUCT + "/demandList.jsp?userid=" + Contains.user.getYezhuId());
+                                        sq.putExtras(sq1);
+                                        context.startActivity(sq);
+                                    }
+
+
+                                }
                                 break;
                             case 3:
                                 startActivity(ExpressActivity.class);
                                 break;
                             case 4://投诉建议
-                                if(Contains.user == null || Contains.appYezhuFangwus.size() ==0 || Contains.appYezhuFangwus.get(0) == null || Contains.appYezhuFangwus.get(0).getFwLoupanId() == null
-                                        || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())){
+                                if (Contains.user == null || Contains.appYezhuFangwus.size() == 0 || Contains.appYezhuFangwus.get(0) == null || Contains.appYezhuFangwus.get(0).getFwLoupanId() == null
+                                        || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())) {
                                     Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
-                                }else{
+                                } else {
                                     Intent ts = new Intent();
                                     ts.setClass(context, // context
                                             WebViewActivity.class);// 跳转的activity
                                     Bundle ts1 = new Bundle();
                                     ts1.putString("name", "投诉建议");
-                                    ts1.putString("address", API.IP_PRODUCT+"/tousujianyi.jsp?yezhuid="+Contains.user.getYezhuId()+"&tousuXiangmuId="+Contains.appYezhuFangwus.get(0).getFwLoupanId());
+                                    ts1.putString("address", API.IP_PRODUCT + "/tousujianyi.jsp?yezhuid=" + Contains.user.getYezhuId() + "&tousuXiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
                                     ts.putExtras(ts1);
-                                    Log.d("...", Contains.user.getYezhuId()+"");
-                                    Log.d("...",Contains.appYezhuFangwus.get(0).getFwLoupanId()+"");
+                                    Log.d("...", Contains.user.getYezhuId() + "");
+                                    Log.d("...", Contains.appYezhuFangwus.get(0).getFwLoupanId() + "");
                                     context.startActivity(ts);
                                 }
                                 break;
                             case 5://满意度调查
-                                ToastUtil.show(context, "敬请期待");
+                                if (Contains.user == null || Contains.appYezhuFangwus.size() == 0 || Contains.appYezhuFangwus.get(0) == null || Contains.appYezhuFangwus.get(0).getFwLoupanId() == null
+                                        || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())) {
+                                    Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Intent myd = new Intent();
+                                    myd.setClass(context, // context
+                                            WebViewActivity.class);// 跳转的activity
+                                    Bundle myd1 = new Bundle();
+                                    myd1.putString("name", "满意度调查");
+                                    myd1.putString("address", API.IP_PRODUCT + "/questionnaire.jsp?userId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
+                                    myd.putExtras(myd1);
+                                    context.startActivity(myd);
+                                }
                                 break;
                         }
                     }
@@ -248,72 +286,73 @@ public class Wuyeadapter extends BaseAdapter {
 
                 break;
 
-        case "个人中心":
-        viewHolder.mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("...", "个人中心" + position);
-                switch (position) {
-                    case 0:
-                        if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() != 0) {
-                            startActivity(EmployerActivity.class);
-                        } else {
-                            Toast.makeText(context, "业主信息尚未完善", Toast.LENGTH_SHORT).show();
+            case "个人中心":
+                viewHolder.mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.d("...", "个人中心" + position);
+                        switch (position) {
+                            case 0:
+                                if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() != 0) {
+                                    startActivity(EmployerActivity.class);
+                                } else {
+                                    Toast.makeText(context, "业主信息尚未完善", Toast.LENGTH_SHORT).show();
+                                }
+                                break;
+                            case 1:
+                                if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() != 0) {
+                                    startActivity(ChengyuanguanliActivity.class);
+                                } else {
+                                    ToastUtil.show(context, "您没有权限查看");
+                                }
+                                break;
+                            case 2:
+                                startActivity(MemberActivity.class);
+                                break;
+                            case 3:
+                                startActivity(MineVisionUpdateMainActivity.class);
+                                break;
+                            case 4:
+                                startActivity(AboutUsActivity.class);
+                                break;
                         }
-                        break;
-                    case 1:
-                        if (Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() != 0) {
-                            startActivity(ChengyuanguanliActivity.class);
-                        } else {
-                            ToastUtil.show(context, "您没有权限查看");
-                        }
-                        break;
-                    case 2:
-                        startActivity(MemberActivity.class);
-                        break;
-                    case 3:
-                        startActivity(MineVisionUpdateMainActivity.class);
-                        break;
-                    case 4:
-                        startActivity(AboutUsActivity.class);
-                        break;
-                }
-            }
-        });
-        break;
+                    }
+                });
+                break;
 
+        }
+
+
+        switch (position) {
+            case 0:
+                Wuyeadapter1 testadapter = new Wuyeadapter1(icon, name, context);
+                viewHolder.mGridView.setAdapter(testadapter);
+                break;
+            case 1:
+                Wuyeadapter1 testadapter1 = new Wuyeadapter1(icon1, name1, context);
+                viewHolder.mGridView.setAdapter(testadapter1);
+                break;
+            case 2:
+                Wuyeadapter1 testadapter2 = new Wuyeadapter1(icon2, name2, context);
+                viewHolder.mGridView.setAdapter(testadapter2);
+                break;
+            case 3:
+                Wuyeadapter1 testadapter3 = new Wuyeadapter1(icon3, name3, context);
+                viewHolder.mGridView.setAdapter(testadapter3);
+                break;
+        }
+
+        return convertView;
     }
 
-
-    switch(position) {
-        case 0:
-            Wuyeadapter1 testadapter = new Wuyeadapter1(icon, name, context);
-            viewHolder.mGridView.setAdapter(testadapter);
-            break;
-        case 1:
-            Wuyeadapter1 testadapter1 = new Wuyeadapter1(icon1, name1, context);
-            viewHolder.mGridView.setAdapter(testadapter1);
-            break;
-        case 2:
-            Wuyeadapter1 testadapter2 = new Wuyeadapter1(icon2, name2, context);
-            viewHolder.mGridView.setAdapter(testadapter2);
-            break;
-        case 3:
-            Wuyeadapter1 testadapter3 = new Wuyeadapter1(icon3, name3, context);
-            viewHolder.mGridView.setAdapter(testadapter3);
-            break;
+    class ViewHolder {
+        TextView mName;
+        MyGridView mGridView;
     }
-
-    return convertView;
-}
-
-class ViewHolder {
-    TextView mName;
-    MyGridView mGridView;
-}
 
     /**
      * 启动Activity
+     *
      * @param <T>
      * @param clazz
      */
@@ -322,8 +361,8 @@ class ViewHolder {
         try {
             context.startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(context, "敬请期待！"+ clazz.getSimpleName()
-                    + "未注册！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "敬请期待！" + clazz.getSimpleName()
+                    + "未注册！", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -339,8 +378,8 @@ class ViewHolder {
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(context, "敬请期待！"+ clazz.getSimpleName()
-                    + "未注册！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "敬请期待！" + clazz.getSimpleName()
+                    + "未注册！", Toast.LENGTH_SHORT).show();
         }
     }
 

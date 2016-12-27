@@ -1,109 +1,93 @@
 package com.yxld.yxchuangxin.adapter;
 
-import java.util.List;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
-import com.yxld.yxchuangxin.entity.WuyeRecordAndroid;
+import com.yxld.yxchuangxin.entity.CxwyJfWyRecord;
+import com.yxld.yxchuangxin.entity.CxwyMallOrder;
+
+import java.util.List;
 
 /**
- * @ClassName: QianFeiListAdapter 
- * @Description: 欠费列表 
- * @author wwx
- * @date 2016年4月7日 下午4:53:44 
+ * Created by yishangfei on 2016/10/18 0018.
  */
-@SuppressLint("InflateParams")
-public class FeiYongListAdapter extends BaseAdapter {
-	private Context mContext;
-	private List<WuyeRecordAndroid> listDatas;
 
-	/** 视图容器 */
-	private LayoutInflater listContainer;
-	/** 自定义视图 */
-	private ViewHolder holder = null;
+public class FeiYongListAdapter extends RecyclerView.Adapter<FeiYongListAdapter.ItemViewHolder> {
+    private List<CxwyJfWyRecord> mlist;
+    private LayoutInflater mInflater;
+    private Context context;
+    private int bianhao;
+    private int curposition;
 
-	public FeiYongListAdapter(List<WuyeRecordAndroid> listData,
-			Context context) {
-		this.mContext = context;
-		this.listDatas = listData;
-		this.listContainer = LayoutInflater.from(mContext); // 创建视图容器并设置上下文
+    public FeiYongListAdapter(Context context, List<CxwyJfWyRecord> list) {
+        this.mlist = list;
+        this.context=context;
+        mInflater = LayoutInflater.from(context);
+    }
 
-	}
+    @Override
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /**
+         * 使用RecyclerView，ViewHolder是可以复用的。这根使用ListView的VIewHolder复用是一样的
+         * ViewHolder创建的个数好像是可见item的个数+3
+         */
+        ItemViewHolder holder = new ItemViewHolder(mInflater.inflate(
+                R.layout.feiyong_list_item_layout, parent, false));
+        return holder;
+    }
 
-	// 是获取显示数据的数量
-	@Override
-	public int getCount() {
-		return listDatas.size();
-	}
+    @Override
+    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
+        // 填充数据
+        final CxwyJfWyRecord cm = mlist.get(position);
+        holder.mDestail.setText(cm.getJfWyRecFwStatus());
+        holder.mTime.setText(cm.getuString());
+        holder.mRemarks.setText(cm.getJfWyRecRemark());
+        holder.mJiaofei_name.setText("缴费人:"+cm.getJfWyRecJiaofeirenName());
+        switch (cm.getJfWyRecJiaofeiType()){
+            case 0:
+                holder.mPay_status.setText("支付方式:现金");
+                break;
+            case 1:
+                holder.mPay_status.setText("支付方式:支付宝");
+                break;
+            case 2:
+                holder.mPay_status.setText("支付方式:微信");
+                break;
+            case 3:
+                holder.mPay_status.setText("支付方式:银联");
+                break;
+        }
 
-	// 获得当前位置的元素
-	@Override
-	public Object getItem(int arg0) {
-		return listDatas.get(arg0);
-	}
+    }
 
-	// 获取当前控件的id号
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
-	}
+    @Override
+    public int getItemCount() {
+        return mlist.size();
+    }
 
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			// 获取list_item布局文件的视图
-			convertView = listContainer.inflate(
-					R.layout.feiyong_list_item_layout, null);
-			holder = new ViewHolder();
-			holder.time = (TextView) convertView
-					.findViewById(R.id.time);
-			holder.destail = (TextView) convertView
-					.findViewById(R.id.destail);
-			holder.type = (TextView) convertView
-					.findViewById(R.id.type);
-			// 设置控件集到convertView
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
+        private TextView mDestail;
+        private TextView mPay_status;
+        private TextView mTime;
+        private TextView mRemarks;
+        private TextView mJiaofei_name;
 
-		// 加载数据
-		final WuyeRecordAndroid goodsVo = listDatas.get(position);
-
-		holder.time.setText(goodsVo.getTime()+"-"+goodsVo.getBeiyong());
-		holder.type.setText(goodsVo.getType());
-		holder.destail.setText("本期费用合计:"+goodsVo.getMmoney());
-		
-		if (goodsVo.getType() != null) {
-			if (goodsVo.getType().contains("欠")) {
-				holder.type.setTextColor(mContext.getResources()
-						.getColor(R.color.red));
-			} else {
-				holder.type.setTextColor(mContext.getResources()
-						.getColor(R.color.color_7AC356));
-			}
-		}
-		return convertView;
-	}
-
-	public List<WuyeRecordAndroid> getListDatas() {
-		return listDatas;
-	}
-
-	public void setListDatas(List<WuyeRecordAndroid> listDatas) {
-		this.listDatas = listDatas;
-		notifyDataSetChanged();
-	}
-
-	class ViewHolder {
-		TextView time;
-		TextView destail;
-		TextView type;
-	}
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+            mDestail = (TextView) itemView.findViewById(R.id.destail);
+            mPay_status = (TextView) itemView.findViewById(R.id.pay_status);
+            mTime = (TextView) itemView.findViewById(R.id.time);
+            mRemarks= (TextView) itemView.findViewById(R.id.remarks);
+            mJiaofei_name= (TextView) itemView.findViewById(R.id.jiaofei_name);
+        }
+    }
 }
