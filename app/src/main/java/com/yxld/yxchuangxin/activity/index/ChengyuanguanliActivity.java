@@ -149,7 +149,6 @@ public class ChengyuanguanliActivity extends BaseActivity {
 			ToastUtil.show(this,"业主房屋信息不完善");
 		}
 
-
 	}
 	private android.os.Handler handler = new android.os.Handler(){
 		@Override
@@ -157,7 +156,7 @@ public class ChengyuanguanliActivity extends BaseActivity {
 			if(msg.what == 0){
 				int id = msg.arg1;
 				Log.d("geek","id");
-				yezhuController.getDeleteChengyuanList(mRequestQueue, new Object[]{id}, new ResultListener<BaseEntity>() {
+				yezhuController.getDeleteChengyuanList(mRequestQueue, new Object[]{id,Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId()}, new ResultListener<BaseEntity>() {
 					@Override
 					public void onResponse(BaseEntity info) {
 						// 获取请求码

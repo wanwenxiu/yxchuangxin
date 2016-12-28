@@ -337,7 +337,7 @@ public class OrderListActivity extends BaseActivity {
 						for (int i = 0; i < listSaleData.size(); i++) {
 							CxwyMallSale mallSale = listSaleData.get(i);
 							if(mallSale.getSaleDingdanId() == orderId){
-								money = mallSale.getSaleTotalRmb()+"";
+//								money = mallSale.getSaleTotalRmb()+"";
 								shop += mallSale.getSaleShangpName();
 								details += mallSale.getSaleGuige();
 							}
@@ -346,6 +346,7 @@ public class OrderListActivity extends BaseActivity {
 						for (int i= 0; i<listOrderData.size();i++){
 							if(orderId == listOrderData.get(i).getDingdanId()){
 								dingdanbianhao = listOrderData.get(i).getDingdanBianhao();
+								money = listOrderData.get(i).getDingdanTotalRmb()+"";
 								Log.d("...",dingdanbianhao);
 							}
 						}

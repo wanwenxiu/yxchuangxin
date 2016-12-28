@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -88,6 +90,8 @@ public class CartAdapter extends BaseAdapter {
 
     private int index=-1;//记录选中的位置
 
+    private boolean[] checks; //用于保存checkBox的选择状态
+
     class ListItemView { // 自定义控件集合
         /**
          * 选中状态
@@ -141,6 +145,7 @@ public class CartAdapter extends BaseAdapter {
         if (cartController == null) {
             cartController = new CartControllerImpl();
         }
+        checks = new boolean[list.size()];
     }
 
     public int getCount() {
@@ -173,6 +178,7 @@ public class CartAdapter extends BaseAdapter {
             listItemView = (ListItemView) convertView.getTag();
         }
 
+        Log.d("geek","所有数据为"+listData.toString());
         //加载数据
         final CxwyMallCart goodsVo = listData.get(position);
         Log.d(LOG_TAG, "goods =" + goodsVo);
@@ -195,13 +201,16 @@ public class CartAdapter extends BaseAdapter {
             }
         }
 
-        listItemView.cartGoodsChecked.setChecked(goodsVo.isChecked());
-        //设置点击事件
+        Log.d("geek",position+"position+"+goodsVo.toString());
+//        listItemView.cartGoodsChecked.setChecked(goodsVo.isChecked());
+        final int pos  = position; //pos必须声明为final
+//        设置点击事件
         listItemView.cartGoodsChecked.setOnCheckedChangeListener(new SmoothCheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SmoothCheckBox checkBox, boolean isChecked) {
+                checks[pos] = isChecked;
                 Log.d("geek","position"+position+"isChecked="+isChecked);
-                Contains.CartList.get(position).setChecked(isChecked);
+                Contains.CartList.get(pos).setChecked(isChecked);
                 if (!isChecked) {
                     handler.sendEmptyMessage(CartMainFragment.updateNoCheck);
                 }
@@ -216,9 +225,26 @@ public class CartAdapter extends BaseAdapter {
                     handler.sendEmptyMessage(CartMainFragment.updateAllCheck);
                 }
                 handler.sendEmptyMessage(CartMainFragment.updateCurPrise);
+//                Log.d("geek","position"+position+"isChecked="+isChecked);
+//                Contains.CartList.get(position).setChecked(isChecked);
+//                if (!isChecked) {
+//                    handler.sendEmptyMessage(CartMainFragment.updateNoCheck);
+//                }
+//                int count = 0;
+//                for (int i = 0; i < Contains.CartList.size(); i++) {
+//                    CxwyMallCart goodsVo = Contains.CartList.get(i);
+//                    if (goodsVo.isChecked()) {
+//                        count++;
+//                    }
+//                }
+//                if (count == Contains.CartList.size()) {
+//                    handler.sendEmptyMessage(CartMainFragment.updateAllCheck);
+//                }
+//                handler.sendEmptyMessage(CartMainFragment.updateCurPrise);
             }
         });
 
+        listItemView.cartGoodsChecked.setChecked(checks[pos]);
 
         //减号
         listItemView.SubtractNum.setOnClickListener(new OnClickListener() {
@@ -283,8 +309,12 @@ public class CartAdapter extends BaseAdapter {
         return listData;
     }
 
-    public void setListData(List<CxwyMallCart> cartList) {
+    public void setListData(List<CxwyMallCart> cartList,boolean isAllSelect) {
         this.listData = cartList;
+        checks = new boolean[listData.size()];
+            for (int i = 0; i<checks.length;i++){
+                checks[i] = isAllSelect;
+            }
     }
 
     /**

@@ -37,6 +37,8 @@ public class Contains {
 	
 //	/** 购物车集合 */
 	public static List<CxwyMallCart> CartList = new ArrayList<CxwyMallCart>();
+	/** 购物车总数量*/
+	public static int cartTotalNum = 0;
 
 	/** 收货地址 */
 	public static CxwyMallAdd defuleAddress = new CxwyMallAdd();

@@ -41,6 +41,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.refactor.library.SmoothCheckBox;
+
 /**
  * @author wwx
  * @ClassName: CartMainFragment
@@ -82,7 +84,8 @@ public class CartMainFragment extends BaseFragment {
     // 购物车删除按钮
     TextView cart_delete, cart_sure, cartPriceConnt;
     // 购物车全选按钮
-    CheckBox cartIsAllSelect;
+//    CheckBox cartIsAllSelect;
+    SmoothCheckBox cartIsAllSelect;
     /**
      * 列表
      */
@@ -115,6 +118,9 @@ public class CartMainFragment extends BaseFragment {
         getChildrenView();
         InitializationView();
 //        initDataFromNet();
+
+        Map<String, String> map = new HashMap<String, String>();
+        getCurSelectGoods(map);
         return view;
     }
 
@@ -128,7 +134,7 @@ public class CartMainFragment extends BaseFragment {
         cart_delete = (TextView) view.findViewById(R.id.cart_delete);
         cart_delete.setOnClickListener(this);
         // 全选按钮
-        cartIsAllSelect = (CheckBox) view.findViewById(R.id.cartIsAllSelect);
+        cartIsAllSelect = (SmoothCheckBox) view.findViewById(R.id.cartIsAllSelect);
         // 删除商品的面板
         cart_editWrap = (RelativeLayout) view.findViewById(R.id.cart_editWrap);
         cartPriceConnt = (TextView) view.findViewById(R.id.cartPriceConnt);
@@ -182,11 +188,19 @@ public class CartMainFragment extends BaseFragment {
                         if (isEmptyList(info.getCart())) {
                             Contains.CartList.clear();
                             resetView();
+                            Contains.cartTotalNum = 0;
                             getGoodList();
                         } else {
                             Contains.CartList = info.getCart();
                             resetView();
                             getGoodList();
+                            Contains.cartTotalNum = 0;
+                            for (CxwyMallCart cart:Contains.CartList) {
+                                if(cart != null && cart.getCartNum() != null){
+                                    Contains.cartTotalNum +=Integer.parseInt(cart.getCartNum());
+                                }
+                            }
+                            Log.d("geek", Contains.cartTotalNum+"");
                         }
                     }
 
@@ -267,7 +281,6 @@ public class CartMainFragment extends BaseFragment {
                         .get(i).getCartShangpName(), Contains.CartList
                         .get(i).getCartSpec(),Contains.CartList.get(i).getCartSpare2());
                 Contains.sureOrderList.add(entity);
-
             }
         }
     }
@@ -291,7 +304,7 @@ public class CartMainFragment extends BaseFragment {
                 Contains.CartList, mHandler);
         // 把内容装载进去
         listView.setAdapter(cartApater);
-        listView.setLayoutAnimation(CxUtil.getListAnim());
+//        listView.setLayoutAnimation(CxUtil.getListAnim());
 
 //        if(isFrist){
 //            isFrist = false;
@@ -348,11 +361,21 @@ public class CartMainFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 boolean isChecked = cartIsAllSelect.isChecked();
+                if(isChecked){
+                    isChecked = false;
+                }else{
+                    isChecked = true;
+                }
+                cartIsAllSelect.setChecked(isChecked);
                 for (int i = 0; i < Contains.CartList.size(); i++) {
                     Contains.CartList.get(i).setChecked(isChecked);
                 }
                 if (cartApater != null) {
-                    cartApater.setListData(Contains.CartList);
+                    if(isChecked){
+                        cartApater.setListData(Contains.CartList,true);
+                    }else{
+                        cartApater.setListData(Contains.CartList,false);
+                    }
                     cartApater.notifyDataSetChanged();
                 }
                 mHandler.sendEmptyMessage(updateCurPrise);

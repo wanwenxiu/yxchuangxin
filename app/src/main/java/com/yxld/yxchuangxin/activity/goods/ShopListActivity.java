@@ -153,11 +153,11 @@ public class ShopListActivity extends BaseActivity implements
 
 		// 如果购物车不为空 购物车的数量不少于0的话 就显示装载购物车数量的容器
 		if (Contains.CartList != null && Contains.CartList.size() != 0) {
-			goodsDetalsNum.setVisibility(0);
-			goodsDetalsNum.setText(Contains.CartList.size() + "");
+			goodsDetalsNum.setVisibility(View.VISIBLE);
+			goodsDetalsNum.setText(Contains.cartTotalNum + "");
 		} else {
 			// 否则就隐藏
-			goodsDetalsNum.setVisibility(8);
+			goodsDetalsNum.setVisibility(View.GONE);
 		}
 
 		xlistView.setOnScrollListener(new OnScrollListener() {
@@ -170,10 +170,10 @@ public class ShopListActivity extends BaseActivity implements
 					int visibleItemCount, int totalItemCount) {
 				if (xlistView.getLastVisiblePosition() >= 10) {
 					((ImageView) findViewById(R.id.return_top))
-							.setVisibility(0);
+							.setVisibility(View.VISIBLE);
 				} else {
 					((ImageView) findViewById(R.id.return_top))
-							.setVisibility(8);
+							.setVisibility(View.GONE);
 				}
 			}
 		});
@@ -201,8 +201,8 @@ public class ShopListActivity extends BaseActivity implements
 		super.onResume();
 		if (Contains.CartList != null && Contains.CartList.size() >= 0
 				&& goodsDetalsNum != null) {
-			goodsDetalsNum.setVisibility(0);
-			goodsDetalsNum.setText(Contains.CartList.size() + "");
+			goodsDetalsNum.setVisibility(View.VISIBLE);
+			goodsDetalsNum.setText(Contains.cartTotalNum + "");
 		}
 	}
 

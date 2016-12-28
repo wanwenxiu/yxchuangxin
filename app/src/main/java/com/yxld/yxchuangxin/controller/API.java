@@ -366,7 +366,7 @@ public interface API {
      * 根据删除业主成员  1202
      */
     String URL_delete_chengyuan = IP_PRODUCT
-            + "/daily/androidHousehold_deletecy?yezhuId=%1$s";
+            + "/daily/androidHousehold_deletecy?yezhuId=%1$s&fwyzFw=%2$s";
 
     /**
      * 根据保存业主成员  1202

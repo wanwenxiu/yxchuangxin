@@ -3,6 +3,7 @@ package com.yxld.yxchuangxin.activity.mine;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +104,23 @@ public class MallMineFragment extends BaseFragment {
         llth = (TextView) view.findViewById(R.id.llth);
         llth.setOnClickListener(this);
         touxiang = (TextView) view.findViewById(R.id.touxiang);
-        touxiang.setText(Contains.user.getYezhuShouji()); // animate
+
+        String phone=Contains.user.getYezhuShouji();
+
+        if(!TextUtils.isEmpty(phone) && phone.length() >= 11 ){
+            StringBuilder sb  =new StringBuilder();
+            for (int i = 0; i < phone.length(); i++) {
+                char c = phone.charAt(i);
+                if (i >= 3 && i <= 6) {
+                    sb.append('*');
+                } else {
+                    sb.append(c);
+                }
+            }
+            touxiang.setText(sb.toString());
+        }
+
+        //touxiang.setText(Contains.user.getYezhuShouji()); // animate
         touxiang.setOnClickListener(this);
         coupon=view.findViewById(R.id.coupon);
         coupon.setOnClickListener(this);

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@color/white" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
 
     <!-- 购物车头部 -->
 
@@ -160,7 +161,7 @@
 
         tools:ignore="UselessParent,ObsoleteLayoutParam" >
 
-        <CheckBox
+     <!--   <CheckBox
             android:id="@+id/cartIsAllSelect"
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -168,7 +169,17 @@
             android:layout_marginLeft="20dp"
             android:button="@drawable/checkbox_selector"
             android:checked="false"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded" />-->
+
+        <cn.refactor.library.SmoothCheckBox
+            android:id="@+id/cartIsAllSelect"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:button="@drawable/checkbox_selector"
+            android:checked="false"
+            app:color_checked="#447eeb"/>
 
         <TextView
             android:id="@+id/all_selete"

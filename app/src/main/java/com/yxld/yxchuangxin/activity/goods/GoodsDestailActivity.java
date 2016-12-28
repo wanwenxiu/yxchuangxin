@@ -478,6 +478,7 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			}
 			mAnimImageView.setVisibility(View.VISIBLE);
 			mAnimImageView.startAnimation(mAnimation);
+			Contains.cartTotalNum +=Integer.parseInt(cartGoodsNum.getText().toString());
 		}
 
 		@Override

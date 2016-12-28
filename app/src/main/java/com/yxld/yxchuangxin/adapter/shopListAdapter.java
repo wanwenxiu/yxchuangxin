@@ -55,9 +55,7 @@ public class shopListAdapter extends BaseAdapter {
 	 * 网络请求列队
 	 */
 	private RequestQueue mRequestQueues;
-	
-	private int cartNum = 0;
-	
+
 	private LayoutInflater mInflater;
 	private List<CxwyMallProduct> mlist;
 	private Context mContext;
@@ -83,7 +81,6 @@ public class shopListAdapter extends BaseAdapter {
 		if (cartController == null) {
 			cartController = new CartControllerImpl();
 		}
-		cartNum = Contains.CartList.size();
 	}
 
 	// 是获取显示数据的数量
@@ -242,7 +239,7 @@ public class shopListAdapter extends BaseAdapter {
 					if (views.getVisibility() == View.GONE) {
 						views.setVisibility(view.VISIBLE);
 					}
-					views.setText(cartNum+"");
+					views.setText(Contains.cartTotalNum+"");
 					CxUtil.actionAndAction(imgView, mContext);
 				}
 			});
@@ -324,7 +321,7 @@ public class shopListAdapter extends BaseAdapter {
 					ToastUtil.show(mContext, ((BaseEntity) info).MSG);
 				return;
 			}
-			cartNum++;
+			Contains.cartTotalNum++;
 			//请求成功，开始执行动画
 			buyImg = new ImageView(mContext);// buyImg是动画的图片，我的是一个小球（R.drawable.sign）
 			buyImg.setImageResource(R.mipmap.sign);// 设置buyImg的图片

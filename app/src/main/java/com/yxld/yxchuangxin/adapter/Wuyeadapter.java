@@ -234,7 +234,7 @@ public class Wuyeadapter extends BaseAdapter {
                                                 WebViewActivity.class);// 跳转的activity
                                         Bundle sq1 = new Bundle();
                                         sq1.putString("name", "授权放行");
-                                        sq1.putString("address", API.IP_PRODUCT + "/warrantList.html?yezhuId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
+                                        sq1.putString("address", API.IP_PRODUCT + "/warrantList.html?yezhuId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&fwId="+Contains.appYezhuFangwus.get(0).getFwId());
                                         sq.putExtras(sq1);
                                         context.startActivity(sq);
                                     }else {
