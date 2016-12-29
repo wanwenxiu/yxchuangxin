@@ -198,10 +198,11 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             @Override
             public void run() {
                 main.setRefreshing(false);
-                if (Contains.user == null || Contains.appYezhuFangwus.size() == 0) {
+                if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
                     ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
                     return;
                 }
+
                 Intent intent = new Intent(NewMainActivity2.this,
                         YeZhuOpenDoorActivity.class);
                 ActivityOptions opts = null;
@@ -217,18 +218,19 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.wuyeWarp:
-                if (Contains.user != null && Contains.user.getYezhuType() != null && Contains.user.getYezhuType() == 0) {
-                    startActivity(WuyeActivity.class);
-                } else {
-                    Toast.makeText(this, "您暂时没有业主权限", Toast.LENGTH_SHORT).show();
+                if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
+                    ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
+                    return;
                 }
+                startActivity(WuyeActivity.class);
+
                 break;
             case R.id.serviceWarp:
                 bundle.putInt("tag", 0);
                 startActivity(ServiceMainActivity.class, bundle);
                 break;
             case R.id.goMall:
-                if(Contains.curSelectXiaoQuId == 0 || Contains.curSelectXiaoQuName == null || "".equals(Contains.curSelectXiaoQuName)){
+                if(Contains.curSelectXiaoQuId == 0 || Contains.curSelectXiaoQuName == null || "".equals(Contains.curSelectXiaoQuName) ){
                     new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).setTitleText("游客身份").setContentText("请手动选择小区").setConfirmText("确认").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
@@ -367,13 +369,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                                 @Override
                                 public void onImageClick(int position, View imageView) {
                                     if (position == 0) {
-                                        if (Contains.user == null || Contains.appYezhuFangwus.size() == 0) {
+                                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
                                             ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
                                             return;
                                         }
                                         startActivity(YeZhuOpenDoorActivity.class);
                                     } else if (position == 1) {
-                                        if (Contains.user == null || Contains.appYezhuFangwus.size() == 0) {
+                                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
                                             ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
                                             return;
                                         }

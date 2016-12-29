@@ -473,4 +473,29 @@ public class YeZhuControllerImpl implements YeZhuController{
 		gsonRequest.setTag(URL_PAYMENT_RECORDS_WUYE);
 		mRequestQueue.add(gsonRequest);
 	}
+
+	@Override
+	public void getManYiDuTiaoChaExist(RequestQueue mRequestQueue, Object[] parm,final ResultListener<BaseEntity> listener) {
+		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(String.format(URL_GET_MANYIDUTIAOCHAEXIST, parm), BaseEntity.class, new Response.Listener<BaseEntity>() {
+
+			@Override
+			public void onResponse(BaseEntity response) {
+				if(listener != null) {
+					listener.onResponse(response);
+				}
+
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_GET_MANYIDUTIAOCHAEXIST);
+		mRequestQueue.add(gsonRequest);
+	}
 }

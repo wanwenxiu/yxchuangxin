@@ -48,16 +48,13 @@ public interface CartController extends API{
 	 */
 	void updateCartInfoFromID(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
 
-	
 	/**
-	 * @Title: deleteInfoToCart 
+	 * @Title: deleteInfoToCart
 	 * @Description: 删除商品至购物车
 	 * @param mRequestQueue
-	 * @param parm
-	 * @param listener    
+	 * @param listener
 	 * @return void
 	 * @throws
 	 */
-	void deleteInfoToCart(RequestQueue mRequestQueue, Map<String, String> parm,
-						  final ResultListener<BaseEntity> listener);
+	void deleteInfoToCart(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
 }

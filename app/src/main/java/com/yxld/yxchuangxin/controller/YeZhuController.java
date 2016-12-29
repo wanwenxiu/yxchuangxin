@@ -159,4 +159,14 @@ public interface YeZhuController extends API{
 	 * @throws
 	 */
 	void getWUYE(RequestQueue mRequestQueue, Object[] parm, ResultListener<CxwyJfWyRecord> listener);
+
+	/**
+	 * @Title: getManYiDuTiaoChaExist
+	 * @Description: 是否已经做了满意度调查接口
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getManYiDuTiaoChaExist(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
 }

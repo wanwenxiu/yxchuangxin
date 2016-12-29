@@ -483,7 +483,6 @@ public class PayWaySelectActivity extends BaseActivity {
      * create the order info. 创建订单信息
      */
     private String getOrderInfo(String dingdanBianhao, String subject, String body, String price) {
-
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + PARTNER + "\"";
 

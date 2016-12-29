@@ -54,8 +54,7 @@ public class ForumDestailDynamicItemAdapter extends BaseAdapter {
 	 * 实例化Adapter
 	 * 
 	 * @param context
-	 * @param data
-	 * @param resource
+	 * @param listData
 	 */
 	public ForumDestailDynamicItemAdapter(Context context,List<CxwyMallComment> listData) {
 		this.mContext = context;
@@ -113,7 +112,7 @@ public class ForumDestailDynamicItemAdapter extends BaseAdapter {
 			listItemView.dynamicName.setText(comment.getPingjiaName());
 		}
 		listItemView.dynamicTime.setText(comment.getPingjiaNowTime());
-		listItemView.dynamicSum.setText(position+"楼");
+		listItemView.dynamicSum.setText((position+1)+"楼");
 		return convertView;
 	}
 

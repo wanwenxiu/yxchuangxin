@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +68,8 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 	private TextView address;
 	/** 商品名*/
 	private TextView goodNum;
+
+	private ScrollView goodScroll;
 
 	/** 商品评价总条数*/
 	private TextView praiseTotal;
@@ -133,6 +138,8 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		ToCart = (ImageView) findViewById(R.id.ToCart);
 		ToCart.setOnClickListener(this);
 
+		goodScroll = (ScrollView) findViewById(R.id.goodScroll);
+
 		indexAdvs = (SlideShowView) findViewById(R.id.ad_view);
 
 		findViewById(R.id.returnImg).setOnClickListener(this);
@@ -166,9 +173,17 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		goBuy.setOnClickListener(this);
 
 		goodsDestailHtml = (WebView) findViewById(R.id.webview);
+
+		cartGoodsNum.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				goodScroll.scrollTo(0,1000);
+			}
+		});
 	}
 
-	@Override
+
+		@Override
 	protected void initDataFromLocal() {
 		Intent intent = this.getIntent();
 		curGood = (CxwyMallProduct)intent.getSerializableExtra("goods");

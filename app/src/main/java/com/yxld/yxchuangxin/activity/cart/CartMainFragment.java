@@ -101,6 +101,8 @@ public class CartMainFragment extends BaseFragment {
 
     private GoodsController goodsController;
 
+    private String deleteCartId ="";
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -174,7 +176,7 @@ public class CartMainFragment extends BaseFragment {
 
                     @Override
                     public void onResponse(CxwyMallCart info) {
-                        Log.d("geek","购物车 initDataFromNet（） onResponse");
+                        Log.d("geek","购物车 initDataFromNet（） onResponse"+info.getCart().size());
                         progressDialog.hide();
 
                         Log.d("geek","queryCartInfo"+queryCartInfo);
@@ -220,14 +222,19 @@ public class CartMainFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.cart_delete:// 删除按钮点击事件
                 //如果选择了商品，则进行下单或删除操作
-                if (map.size() != 0) {
-                    cartController.deleteInfoToCart(mRequestQueue, map,
+                if (deleteCartId != null && !"".equals(deleteCartId)) {
+                    if(progressDialog != null &&  !progressDialog.isShowing()){
+                        progressDialog.show();
+                    }
+                    cartController.deleteInfoToCart(mRequestQueue, new Object[]{deleteCartId},
                             new ResultListener<BaseEntity>() {
-
                                 @Override
                                 public void onResponse(BaseEntity info) {
-                                    // 把数据放进控件 更新购物车商品列表的UI
-                                    // 获取请求码
+                                    Log.d("geek", "onResponse: info"+info.status+",msg"+info.MSG);
+                                    if(progressDialog != null && progressDialog.isShowing()){
+                                        progressDialog.hide();
+                                    }
+                                    // 把数据放进控件 更新购物车商品列表的UI。获取请求码
                                     if (info.status != STATUS_CODE_OK) {
                                         onError(info.MSG);
                                         return;
@@ -237,6 +244,9 @@ public class CartMainFragment extends BaseFragment {
 
                                 @Override
                                 public void onErrorResponse(String errMsg) {
+                                    if(progressDialog != null && progressDialog.isShowing()){
+                                        progressDialog.hide();
+                                    }
                                     onError(errMsg);
                                 }
                             });
@@ -264,6 +274,7 @@ public class CartMainFragment extends BaseFragment {
         Contains.sureOrderList.clear();
         // 判断是否已选择商品
         int count = -1;
+        deleteCartId = "";
         for (int i = 0; i < Contains.CartList.size(); i++) {
             if (Contains.CartList.get(i).isChecked()) {
                 count++;
@@ -281,8 +292,15 @@ public class CartMainFragment extends BaseFragment {
                         .get(i).getCartShangpName(), Contains.CartList
                         .get(i).getCartSpec(),Contains.CartList.get(i).getCartSpare2());
                 Contains.sureOrderList.add(entity);
+
+                if (i == 0) {
+                    deleteCartId = String.valueOf(Contains.CartList.get(i).getCartId());
+                } else {
+                    deleteCartId = deleteCartId + "," + String.valueOf(Contains.CartList.get(i).getCartId());
+                }
             }
         }
+        Log.d("geek", "getCurSelectGoods: deleteCartId"+deleteCartId);
     }
 
     // 获取购物车里面的商品list

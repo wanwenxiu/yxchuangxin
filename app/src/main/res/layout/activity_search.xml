@@ -39,11 +39,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="4"
-                android:drawableRight="@mipmap/sort_icon_05"
                 android:gravity="center"
                 android:text="商品"
                 android:textSize="@dimen/size_12"
                 tools:ignore="NestedWeights,RtlHardcoded" />
+
+            <!--android:drawableRight="@mipmap/sort_icon_05"-->
 
             <EditText
                 android:id="@+id/searchText"

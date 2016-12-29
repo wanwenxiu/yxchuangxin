@@ -143,20 +143,20 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:background="@null"
-            android:checked="true" />
+            android:checked="false" />
 
         <com.yxld.yxchuangxin.view.AutoLinkStyleTextView
             android:id="@+id/ptxi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/checkBox_forcheck"
-            android:text="我已阅读并同意创欣物业平台“用户协议”"
+            android:text="我已阅读并同意创欣物业平台《用户协议》"
             android:textSize="@dimen/size_12"
             android:layout_marginLeft="5dp"
             android:textColor="@color/gray"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            app:AutoLinkStyleTextView_text_value="“用户协议”," />
+            app:AutoLinkStyleTextView_text_value="《用户协议》," />
     </RelativeLayout>
 
     <View

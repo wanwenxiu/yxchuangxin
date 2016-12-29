@@ -409,18 +409,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		if(!this.isFinishing()){
 			if(!netWorkIsAvailable()){
 				ToastUtil.show(this,"网络连接失败，请检查您的网络状态");
-//				new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-//						.setTitleText("连接失败")
-//						.setContentText("网络连接失败，请检查您的网络状态")
-//						.show();
 			}else{
 				if(StringUitl.isNoEmpty(errMsg)){
 					ToastUtil.show(this,errMsg);
-//					new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-//							.setTitleText("提示")
-//							.setContentText(errMsg)
-//							.show();
-//					Logger.d(errMsg);
 				}
 			}
 			resetView();

@@ -27,6 +27,7 @@ import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.StringUitl;
+import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.TimeButton;
 
 import org.json.JSONException;
@@ -170,7 +171,7 @@ public class FindPwdActivity extends BaseActivity {
 				return;
 			}
 			if (info.status == 0) {
-				register_button_phone.setTextAfter("该手机号未注册").setTextBefore("获取验证码").setLenght(5 * 1000);
+				register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
 				Toast.makeText(FindPwdActivity.this,
 						"你输入的手机号未注册哦    O(∩_∩)O谢谢", Toast.LENGTH_LONG).show();
 			}else {
@@ -269,7 +270,8 @@ public class FindPwdActivity extends BaseActivity {
 				if (len >=6 && len <= 16) {
 					initDataFromNet();
 				} else {
-					register_button_phone.setTextAfter("密码必须为6-16个数字/大小字母").setTextBefore("获取验证码").setLenght(5 * 1000);
+					ToastUtil.show(FindPwdActivity.this,"密码必须为6-16个数字/大小字母");
+					register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
 				break;
 		}

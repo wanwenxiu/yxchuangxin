@@ -132,7 +132,7 @@ public class EmployerActivity extends BaseActivity {
 		yz_lp.setText(Contains.appYezhuFangwus.get(position).getXiangmuLoupan());
 		yz_ld.setText(Contains.appYezhuFangwus.get(position).getFwLoudong());
 		yz_dy.setText(Contains.appYezhuFangwus.get(position).getFwDanyuan());
-		yz_fh.setText(Contains.appYezhuFangwus.get(position).getFwDanyuan()
+		yz_fh.setText(Contains.appYezhuFangwus.get(position).getFwFanghao()
 				.toString());
 //		yz_jf.setText(Contains.cxwyYezhu.get(position).getYezhuJiaofangtime());
 //		yz_rz.setText(Contains.cxwyYezhu.get(position).getYezhuRuzhutime());

@@ -81,8 +81,8 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 		tvWclRepair = (TextView) findViewById(R.id.tvbad);
 
 		tvAllRepair.setText("全部报修");
-		tvYclRepair.setText("已报修");
-		tvWclRepair.setText("未处理");
+		tvYclRepair.setText("处理完");
+		tvWclRepair.setText("处理中");
 
 		listTextView.add(tvAllRepair);
 		listTextView.add(tvYclRepair);

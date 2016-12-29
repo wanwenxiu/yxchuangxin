@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <com.yxld.yxchuangxin.view.ScrollViewContainer
         android:layout_width="match_parent"
@@ -17,26 +18,15 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
-            android:scrollbars="none" >
+            android:scrollbars="none"
+            android:id="@+id/goodScroll"
+            >
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <!-- <com.yxld.yxchuangxin.view.ImageCycleView
-                     android:id="@+id/ad_view"
-                     android:layout_width="match_parent"
-                     android:layout_height="300dp"
-                     android:adjustViewBounds="true"
-                     android:background="@drawable/banner_border_bottom" />-->
-
-                <!-- <ImageView
-                     android:id="@+id/ad_view"
-                     android:layout_width="match_parent"
-                     android:layout_height="300dp"
-                     android:adjustViewBounds="true"
-                     android:background="@drawable/banner_border_bottom" />-->
 
                 <com.yxld.yxchuangxin.view.SlideShowView
                     android:id="@+id/ad_view"
@@ -177,7 +167,8 @@
                         android:layout_height="30dp"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/cart_goods_Num"
-                        android:background="@mipmap/car_jian" />
+                        android:background="@mipmap/car_jian"
+                        />
 
                     <EditText
                         android:id="@+id/cart_goods_Num"
@@ -229,7 +220,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/plugin_camera_no_pictures"
+                        android:src="@mipmap/phone"
                         android:visibility="gone" />
 
                     <TextView

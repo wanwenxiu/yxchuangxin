@@ -74,11 +74,11 @@ public interface API {
     String URL_UPDATE_INFO__CART_FROM_ID = IP_PRODUCT
             + "/mall/cart_mergeCart?cart.cartId=%1$s&cart.cartNum=%2$s&cart.cartShangpNum=%3$s";
 
-    /**
-     * 根据购物车Id删除购物车信息
-     */
-    String URL_DELETE_INFO__CART_FROM_ID = IP_PRODUCT
-            + "/mall/cart_deleteCart?";
+  /**
+   * 根据购物车Id删除购物车信息
+   */
+  String URL_DELETE_INFO__CART_FROM_ID = IP_PRODUCT
+                  + "/mall/cart_deleteCart?deleteCartId=%1$s";
 
     /**
      * 提交订单
@@ -457,4 +457,11 @@ public interface API {
      */
     String URL_GET_NEWMAINTONGZHI = IP_PRODUCT
             + "/tongzhi/tongzhi_findTitle.action?";
+
+
+    /**
+     * 判断业主是否已经做了满意度调查接口
+     */
+    String URL_GET_MANYIDUTIAOCHAEXIST = IP_PRODUCT
+            + "/shouquan/manyidu_finduserid?userId=%1$s";
 }

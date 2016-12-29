@@ -420,6 +420,7 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 			intent.putExtra("orderDetails",details);
 			intent.putExtra("orderBianhao",orderid[1]);
 			intent.putExtra("paystatus","商城支付");
+			Contains.isAgenWeixinPay = 1;
 			startActivity(intent);
 			finish();
 		}

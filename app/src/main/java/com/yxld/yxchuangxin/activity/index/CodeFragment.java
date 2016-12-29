@@ -141,7 +141,7 @@ public class CodeFragment extends BaseFragment {
 				shareInfo.setBitmap(qrCodeBitmap);
 				shareUrl = API.yuming+"/qr_code.html?timr="+time+"&code="+contentString;
 				shareInfo.setImgUrl(shareUrl);
-				youxiaoqi.setText("二维码即时更新中,复制无效。");
+				youxiaoqi.setText("二维码即时更新中，复制无效"+'\n'+"若光线太暗，请调亮屏幕亮度");
 				codeImg.setVisibility(View.VISIBLE);
 			}else {
 				Toast.makeText(getActivity(), "生成二维码失败", Toast.LENGTH_SHORT).show();

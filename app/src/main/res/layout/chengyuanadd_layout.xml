@@ -81,7 +81,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入成员身份证号码"
-            android:inputType="textPassword"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyz"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="14sp"

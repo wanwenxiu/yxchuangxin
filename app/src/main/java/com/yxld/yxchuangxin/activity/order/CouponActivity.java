@@ -64,7 +64,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
 
     public void onResponse(CxwyMallUseDaijinquan info) {
         // 获取请求码
-        Log.d("......", info.toString());
+        Log.d("geek", info.toString());
         if (info.status != STATUS_CODE_OK) {
             onError(info.MSG);
             return;

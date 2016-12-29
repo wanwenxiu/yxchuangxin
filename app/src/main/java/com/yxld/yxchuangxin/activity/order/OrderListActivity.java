@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.adapter.OrderListItemAdapter;
 import com.yxld.yxchuangxin.base.BaseActivity;
@@ -337,7 +338,6 @@ public class OrderListActivity extends BaseActivity {
 						for (int i = 0; i < listSaleData.size(); i++) {
 							CxwyMallSale mallSale = listSaleData.get(i);
 							if(mallSale.getSaleDingdanId() == orderId){
-//								money = mallSale.getSaleTotalRmb()+"";
 								shop += mallSale.getSaleShangpName();
 								details += mallSale.getSaleGuige();
 							}
@@ -358,6 +358,7 @@ public class OrderListActivity extends BaseActivity {
 						intent.putExtra("orderDetails",details );
 						intent.putExtra("orderBianhao",dingdanbianhao);
 						intent.putExtra("paystatus","商城支付");
+						Contains.isAgenWeixinPay = 2;
 						startActivity(intent);
 						finish();
 					}else{
@@ -379,12 +380,22 @@ public class OrderListActivity extends BaseActivity {
 
 		@Override
 		public void onResponse(BaseEntity info) {
+			Logger.d(info.toString());
 			// 获取请求码
-			if (info.status != STATUS_CODE_OK) {
-				onError(info.MSG);
+			if (info.status != STATUS_CODE_OK ) {
+				if(info.MSG != null && !"".equals(info.MSG) && !info.MSG.equals("获取订单失败,请刷新重试")){
+					onError(info.MSG);
+				}
+				//首先清空list
+				listOrderData.clear();
+				adapter.setListOrderDatas(listOrderData);
+
+				//请求数据
+				pageCode = 0;
+				initDataFromNet();
 				return;
 			}
-			
+
 			//首先清空list
 			listOrderData.clear();
 			adapter.setListOrderDatas(listOrderData);

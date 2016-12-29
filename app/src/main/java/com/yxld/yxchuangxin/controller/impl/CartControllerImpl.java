@@ -121,45 +121,27 @@ public class CartControllerImpl implements CartController{
 	}
 
 	@Override
-	public void deleteInfoToCart(RequestQueue mRequestQueue,
-			final Map<String, String> params, final ResultListener<BaseEntity> listener) {
-		StringRequest stringRequest =new StringRequest(
-				Method.POST,URL_DELETE_INFO__CART_FROM_ID,
-				new Response.Listener<String>() {
+	public void deleteInfoToCart(RequestQueue mRequestQueue, Object[] parm,final ResultListener<BaseEntity> listener) {
+		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(String.format(URL_DELETE_INFO__CART_FROM_ID, parm), BaseEntity.class, new Listener<BaseEntity>() {
 
-					@Override
-					public void onResponse(String response) {
-						Log.d("geek","购物车删除response ="+response);
-						BaseEntity info = null;
-						if(response != null){
-//							try {
-								info = gson.fromJson(response, BaseEntity.class);
-//							}catch (Exception e){
-//								info = new BaseEntity();
-//								info.status = 1;
-//								info.MSG = "删除失败";
-//							}
-						}
-						if (listener != null) {
-							listener.onResponse(info);
-						}
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						if (listener != null) {
-							listener.onErrorResponse(error.getMessage());
-						}
-					}
-				}) {
 			@Override
-			protected Map<String, String> getParams()
-					throws AuthFailureError {
-				return params;
+			public void onResponse(BaseEntity response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
 			}
-		};
-		stringRequest.setTag(URL_DELETE_INFO__CART_FROM_ID);
-		mRequestQueue.add(stringRequest);	
+		}, new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_DELETE_INFO__CART_FROM_ID);
+		mRequestQueue.add(gsonRequest);
 	}
+
 }

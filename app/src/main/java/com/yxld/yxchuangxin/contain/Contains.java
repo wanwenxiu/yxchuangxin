@@ -94,5 +94,8 @@ public class Contains {
 	public static Double fee=0.00;
 	public static int month=0;
 
+	/** 微信再付款*/
+	public static int isAgenWeixinPay = 0;
+
 
 }

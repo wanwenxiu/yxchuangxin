@@ -20,7 +20,6 @@ public class CouponAdapter extends BaseAdapter {
 	Context mContext;
 
 	public CouponAdapter(List<CxwyMallUseDaijinquan> list, Context context) {
-		// TODO Auto-generated constructor stub
 		mlist = list;
 		mContext = context;
 	}
@@ -28,14 +27,12 @@ public class CouponAdapter extends BaseAdapter {
 	// 是获取显示数据的数量
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mlist.size();
 	}
 
 	// 获得当前位置的元素
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return mlist.get(arg0);
 	}
 
@@ -50,7 +47,6 @@ public class CouponAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, // 当前要构造的位置
 						View view, ViewGroup arg2) {
-		// TODO Auto-generated method stub
 		final ViewHolder holder;
 		final int p = position;
 		if (view == null) {

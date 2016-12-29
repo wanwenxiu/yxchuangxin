@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yxld.yxchuangxin.R;
-import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.activity.index.AccessActivity;
 import com.yxld.yxchuangxin.activity.index.ChengyuanguanliActivity;
@@ -26,6 +25,7 @@ import com.yxld.yxchuangxin.activity.mine.MemberActivity;
 import com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
+import com.yxld.yxchuangxin.controller.YeZhuController;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.MyGridView;
 
@@ -35,6 +35,7 @@ import com.yxld.yxchuangxin.view.MyGridView;
 public class Wuyeadapter extends BaseAdapter {
     private String[] title;
     private Context context;
+    private int manyidu = 0;
 
 //    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
 //    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
@@ -53,7 +54,7 @@ public class Wuyeadapter extends BaseAdapter {
 
     int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.zhanghao, R.mipmap.gengxin, R.mipmap.guanyu};
     String[] name3 = {"房屋信息", "入住成员", "账号管理", "版本更新", "关于我们"};
-
+    private YeZhuController YeZhuController;
 
     public Wuyeadapter(String[] title, Context context) {
         this.title = title;
@@ -276,6 +277,12 @@ public class Wuyeadapter extends BaseAdapter {
                                         || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())) {
                                     Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    Log.d("geek", "onItemClick: manyidu"+manyidu);
+                                    if(manyidu == 0){
+                                        Toast.makeText(context, "您已经做过调查啦", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    manyidu = 0;
                                     Intent myd = new Intent();
                                     myd.setClass(context, // context
                                             WebViewActivity.class);// 跳转的activity
@@ -389,4 +396,11 @@ public class Wuyeadapter extends BaseAdapter {
         }
     }
 
+    public int getManyidu() {
+        return manyidu;
+    }
+
+    public void setManyidu(int manyidu) {
+        this.manyidu = manyidu;
+    }
 }
