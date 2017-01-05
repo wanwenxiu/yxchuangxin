@@ -25,6 +25,7 @@ public class WechatPay {
 	 * @return
 	 */
 	public static String createOrder(String tradeNo, String totalFee, String subject) {
+		Log.d("geek", "createOrder: 'createOrder"+subject);
 		String result = "";
 		//http://222.240.1.133/WechatPayServer/UnifiedOrderServlet?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject
 		String URL_PREPAY = Contains.URL_PAY_CALLBACK + "/UnifiedOrderServlet";
@@ -32,6 +33,7 @@ public class WechatPay {
 		try {
 			subject = URLEncoder.encode(subject, "UTF-8");
 			String url = URL_PREPAY + "?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject;
+			Log.d("geek", "createOrder: 'url"+url);
 			result = HttpUtils.doGet(url);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

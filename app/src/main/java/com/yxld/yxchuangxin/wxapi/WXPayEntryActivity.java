@@ -160,19 +160,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         if (payController == null) {
             payController = new PayControllerImpl();
         }
-        String jiaofei;
-        if (Contains.user == null || Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
-            jiaofei = "业主信息未完善";
-        } else {
-            jiaofei = Contains.user.getYezhuName();
-        }
-        Logger.d(jiaofei);
-        int yue;
-        if (Contains.wymonth < 0) {
-            yue = Contains.month;
-        }else {
-            yue=Contains.wymonth+Contains.month;
-        }
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat datef = new SimpleDateFormat("yyyy-MM-dd");
         //当前月的最后一天
@@ -185,15 +172,18 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         Logger.d(add);
         progressDialog.show();
         Map<String, String> parm = new HashMap<String, String>();
+        parm.put("wp.yzId",Contains.user.getYezhuId()+"");//缴费业主id(必填)
         parm.put("wp.fwId",Contains.fwid);//缴费房屋id(必填)
         parm.put("wp.month",add );//缴费之后的使用截止时间(必填，格式：2016-12-31 00:00:00 )
-        parm.put("wp.s", yue+"");//月数，缴几个月的物业费(必填,用数字 1，2，3。。。)
-        parm.put("wp.jfUser", jiaofei);//缴费人名称(选填，APP端使用业主名称)
-        parm.put("wp.jsType","2" );//缴费结算方式:0现金；1支付宝；2微信；3银联
-        parm.put("wp.znj", Contains.fee.toString());//滞纳金(必填，如果没有，则传递0)
+        parm.put("wp.s", Contains.month+"");//月数，缴几个月的物业费(必填,用数字 1，2，3。。。)
+        parm.put("wp.jfUser", Contains.user.getYezhuName());//缴费人名称(选填，APP端使用业主名称)
+        parm.put("wp.jsType","1" );//缴费结算方式:0现金；1支付宝；2微信；3银联
+        parm.put("wp.znj", Contains.payment+"");//滞纳金(必填，如果没有，则传递0)
         parm.put("wp.remark","0" );//备注(选填)
-        parm.put("wp.chanquanren",jiaofei);//产权人(必填，用户业主本身)
-        parm.put("jfWyRecLiushui",Contains.orderBianhao);//流水号（选填）
+        parm.put("wp.chanquanren",Contains.user.getYezhuName());//产权人(必填，用户业主本身)
+        parm.put("wp.jfWyRecLiushui",Contains.orderBianhao);//流水号（选填）
+        parm.put("wp.jfTotal",Contains.total);//实缴物业费
+
         Log.d("geek","支付"+parm.toString());
         payController.getWuyePay(mRequestQueue, parm, payListener);
     }

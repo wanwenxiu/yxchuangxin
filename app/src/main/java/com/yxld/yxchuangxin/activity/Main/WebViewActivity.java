@@ -55,6 +55,7 @@ public class WebViewActivity extends BaseActivity {
         Bundle bundle = intent.getExtras();
         name = bundle.getString("name");
         address = bundle.getString("address");
+        Log.d("geek", "initContentView: address"+address);
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
      }

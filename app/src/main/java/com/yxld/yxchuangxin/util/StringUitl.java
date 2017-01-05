@@ -152,4 +152,9 @@ public class StringUitl {
 			return "";
 		}
 	}
+
+	public static int getCurYear() {
+		Calendar a = Calendar.getInstance();
+		return  a.get(Calendar.YEAR);
+	}
 }

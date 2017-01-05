@@ -11,66 +11,35 @@ import java.util.List;
 public class WyFwApp extends BaseEntity{
 
 	private List<WyFwApp> house;
+	private Object fwyzYezhu;//业主id
+	private String fwId;//房屋id
+	private String fwAddr;//地址
+	private String fwJiaofangTime;//交房时间
+	private Object fwLoupanName;//楼盘名称
+	private Object fwZhuangtai;//房屋状态
+	private Object fwShouFangTime;//收房时间
+	
+	private Object jfWyIsLateFees;//是否需缴纳滞纳金
+	private Object jfWyTypeFwLeixing;//房屋类型id
+	private String jfWyTypeFeiyong;//每平米费用
+	private Object jfWyTypeName;//缴费类型名称
+	private Object jfWyTypeLateFees;//滞纳金比例
+	private Object jfFwTypeLeixing;//房屋类型名称
+	private String jfWyUseEndTime;//使用截止时间
+	
+	private String arrearages;//欠费金额
+	private String arrearLateFees;//欠费滞纳金额
 
+
+	
+	public WyFwApp() {
+	}
 	public List<WyFwApp> getHouse() {
 		return house;
 	}
 
 	public void setHouse(List<WyFwApp> house) {
 		this.house = house;
-	}
-
-	private Object fwyzYezhu;//业主id
-	private String fwId;//房屋id
-	private Object fwLoudong;//楼栋
-	private Object fwDanyuan;//单元
-	private Object fwFanghao;//房号
-	private Object fwHuxing;//户型
-	private Object fwMianji;//面积
-	private String fwJiaofangTime;//交房时间
-	private Object fwLoupanId;//楼盘id
-	private Object fwLoupanName;//楼盘名称
-	private Object fwIsChuzu;//是否出租
-	private Object fwZhuangtai;//房屋状态
-	private String fwZhuangxiuTime;//装修时间
-	private String fwShouFangTime;//交房时间
-	private Object jfWyIsLateFees;//是否需缴纳滞纳金
-	private Object jfWyTypeFwLeixing;//房屋类型id
-	private Object jfWyTypeFeiyong;//每平米费用
-	private Object jfWyTypeName;//缴费类型名称
-	private Object jfWyTypeLateFees;//滞纳金比例
-	private Object jfFwTypeLeixing;//房屋类型名称
-	private String jfWyUseEndTime;//使用截止时间
-	
-	public WyFwApp() {
-	}
-
-	public WyFwApp(Object fwyzYezhu, String fwId, Object fwLoudong, Object fwDanyuan, Object fwFanghao, Object fwHuxing,
-			Object fwMianji, String fwJiaofangTime, Object fwLoupanId, Object fwLoupanName, Object fwIsChuzu,
-			Object fwZhuangtai, String fwZhuangxiuTime, String fwShouFangTime, Object jfWyIsLateFees,
-			Object jfWyTypeFwLeixing, Object jfWyTypeFeiyong, Object jfWyTypeName, Object jfWyTypeLateFees,
-			Object jfFwTypeLeixing, String jfWyUseEndTime) {
-		this.fwyzYezhu = fwyzYezhu;
-		this.fwId = fwId;
-		this.fwLoudong = fwLoudong;
-		this.fwDanyuan = fwDanyuan;
-		this.fwFanghao = fwFanghao;
-		this.fwHuxing = fwHuxing;
-		this.fwMianji = fwMianji;
-		this.fwJiaofangTime = fwJiaofangTime;
-		this.fwLoupanId = fwLoupanId;
-		this.fwLoupanName = fwLoupanName;
-		this.fwIsChuzu = fwIsChuzu;
-		this.fwZhuangtai = fwZhuangtai;
-		this.fwZhuangxiuTime = fwZhuangxiuTime;
-		this.fwShouFangTime = fwShouFangTime;
-		this.jfWyIsLateFees = jfWyIsLateFees;
-		this.jfWyTypeFwLeixing = jfWyTypeFwLeixing;
-		this.jfWyTypeFeiyong = jfWyTypeFeiyong;
-		this.jfWyTypeName = jfWyTypeName;
-		this.jfWyTypeLateFees = jfWyTypeLateFees;
-		this.jfFwTypeLeixing = jfFwTypeLeixing;
-		this.jfWyUseEndTime = jfWyUseEndTime;
 	}
 
 	public Object getFwyzYezhu() {
@@ -85,35 +54,11 @@ public class WyFwApp extends BaseEntity{
 	public void setFwId(String fwId) {
 		this.fwId = fwId;
 	}
-	public Object getFwLoudong() {
-		return fwLoudong;
+	public String getFwAddr() {
+		return fwAddr;
 	}
-	public void setFwLoudong(Object fwLoudong) {
-		this.fwLoudong = fwLoudong;
-	}
-	public Object getFwDanyuan() {
-		return fwDanyuan;
-	}
-	public void setFwDanyuan(Object fwDanyuan) {
-		this.fwDanyuan = fwDanyuan;
-	}
-	public Object getFwFanghao() {
-		return fwFanghao;
-	}
-	public void setFwFanghao(Object fwFanghao) {
-		this.fwFanghao = fwFanghao;
-	}
-	public Object getFwHuxing() {
-		return fwHuxing;
-	}
-	public void setFwHuxing(Object fwHuxing) {
-		this.fwHuxing = fwHuxing;
-	}
-	public Object getFwMianji() {
-		return fwMianji;
-	}
-	public void setFwMianji(Object fwMianji) {
-		this.fwMianji = fwMianji;
+	public void setFwAddr(String fwAddr) {
+		this.fwAddr = fwAddr;
 	}
 	public String getFwJiaofangTime() {
 		return fwJiaofangTime;
@@ -121,23 +66,11 @@ public class WyFwApp extends BaseEntity{
 	public void setFwJiaofangTime(String fwJiaofangTime) {
 		this.fwJiaofangTime = fwJiaofangTime;
 	}
-	public Object getFwLoupanId() {
-		return fwLoupanId;
-	}
-	public void setFwLoupanId(Object fwLoupanId) {
-		this.fwLoupanId = fwLoupanId;
-	}
 	public Object getFwLoupanName() {
 		return fwLoupanName;
 	}
 	public void setFwLoupanName(Object fwLoupanName) {
 		this.fwLoupanName = fwLoupanName;
-	}
-	public Object getFwIsChuzu() {
-		return fwIsChuzu;
-	}
-	public void setFwIsChuzu(Object fwIsChuzu) {
-		this.fwIsChuzu = fwIsChuzu;
 	}
 	public Object getFwZhuangtai() {
 		return fwZhuangtai;
@@ -145,16 +78,10 @@ public class WyFwApp extends BaseEntity{
 	public void setFwZhuangtai(Object fwZhuangtai) {
 		this.fwZhuangtai = fwZhuangtai;
 	}
-	public String getFwZhuangxiuTime() {
-		return fwZhuangxiuTime;
-	}
-	public void setFwZhuangxiuTime(String fwZhuangxiuTime) {
-		this.fwZhuangxiuTime = fwZhuangxiuTime;
-	}
-	public String getFwShouFangTime() {
+	public Object getFwShouFangTime() {
 		return fwShouFangTime;
 	}
-	public void setFwShouFangTime(String fwShouFangTime) {
+	public void setFwShouFangTime(Object fwShouFangTime) {
 		this.fwShouFangTime = fwShouFangTime;
 	}
 	public Object getJfWyIsLateFees() {
@@ -169,10 +96,10 @@ public class WyFwApp extends BaseEntity{
 	public void setJfWyTypeFwLeixing(Object jfWyTypeFwLeixing) {
 		this.jfWyTypeFwLeixing = jfWyTypeFwLeixing;
 	}
-	public Object getJfWyTypeFeiyong() {
+	public String getJfWyTypeFeiyong() {
 		return jfWyTypeFeiyong;
 	}
-	public void setJfWyTypeFeiyong(Object jfWyTypeFeiyong) {
+	public void setJfWyTypeFeiyong(String jfWyTypeFeiyong) {
 		this.jfWyTypeFeiyong = jfWyTypeFeiyong;
 	}
 	public Object getJfWyTypeName() {
@@ -198,6 +125,18 @@ public class WyFwApp extends BaseEntity{
 	}
 	public void setJfWyUseEndTime(String jfWyUseEndTime) {
 		this.jfWyUseEndTime = jfWyUseEndTime;
+	}
+	public String getArrearages() {
+		return arrearages;
+	}
+	public void setArrearages(String arrearages) {
+		this.arrearages = arrearages;
+	}
+	public String getArrearLateFees() {
+		return arrearLateFees;
+	}
+	public void setArrearLateFees(String arrearLateFees) {
+		this.arrearLateFees = arrearLateFees;
 	}
 	
 }

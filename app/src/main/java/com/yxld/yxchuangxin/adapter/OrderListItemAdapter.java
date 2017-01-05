@@ -321,7 +321,13 @@ public class OrderListItemAdapter extends BaseAdapter {
             orderType1.setVisibility(View.VISIBLE);
             orderType2.setVisibility(View.GONE);
             orderType3.setVisibility(View.GONE);
-        } else if (state.equals("待收货")) {
+        } else if (state.equals("待取货")) {
+            llOperate.setVisibility(View.VISIBLE);
+            orderType1.setVisibility(View.GONE);
+            orderType2.setVisibility(View.GONE);
+            orderType3.setVisibility(View.GONE);
+        }
+        else if (state.equals("待收货")) {
             llOperate.setVisibility(View.VISIBLE);
             orderType1.setText("确认收货");
             orderType1.setVisibility(View.VISIBLE);

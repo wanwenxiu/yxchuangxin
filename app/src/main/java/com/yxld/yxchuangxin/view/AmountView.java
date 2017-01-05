@@ -46,7 +46,7 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         etAmount.addTextChangedListener(this);
         etAmount.setSelection(etAmount.getText().length());
         TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.AmountView);
-        int btnWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_btnWidth, LayoutParams.WRAP_CONTENT);
+        int btnWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_btnWidth, LayoutParams.MATCH_PARENT);
         int tvWidth = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_tvWidth, 80);
         int tvTextSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_tvTextSize, 0);
         int btnTextSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.AmountView_btnTextSize, 0);
@@ -64,12 +64,16 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         etAmount.setLayoutParams(textParams);
         if (tvTextSize != 0) {
             etAmount.setTextSize(tvTextSize);
-            etAmount.setSelection(etAmount.getText().length());
         }
     }
 
     public void setOnAmountChangeListener(OnAmountChangeListener onAmountChangeListener) {
         this.mListener = onAmountChangeListener;
+    }
+
+    public void setText(String text){
+        etAmount.setText(text);
+        etAmount.setSelection(etAmount.getText().length());
     }
 
     public void setGoods_storage(int goods_storage) {
@@ -117,7 +121,6 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         amount = Integer.valueOf(s.toString());
         if (amount > goods_storage) {
             etAmount.setText(goods_storage + "");
-            etAmount.setSelection(etAmount.getText().length());
             return;
         }
 

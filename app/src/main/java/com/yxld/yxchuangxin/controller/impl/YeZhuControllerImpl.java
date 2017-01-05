@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.YeZhuController;
+import com.yxld.yxchuangxin.entity.AppWuYeFei;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.entity.CxwyJfWyRecord;
@@ -286,7 +287,7 @@ public class YeZhuControllerImpl implements YeZhuController{
 
 	public void getAllYHQ(RequestQueue mRequestQueue, String url, final Map<String, String> parm, final ResultListener<CxwyMallUseDaijinquan> listener) {
 		StringRequest stringRequest =new StringRequest(
-				Request.Method.POST,url,
+				Method.POST,url,
 				new Response.Listener<String>() {
 
 					@Override
@@ -322,7 +323,7 @@ public class YeZhuControllerImpl implements YeZhuController{
 
 	public void getAllNOYHQ(RequestQueue mRequestQueue, String url, final Map<String, String> parm, final ResultListener<CxwyMallUseDaijinquan> listener) {
 		StringRequest stringRequest =new StringRequest(
-				Request.Method.POST,url,
+				Method.POST,url,
 				new Response.Listener<String>() {
 
 					@Override
@@ -357,7 +358,7 @@ public class YeZhuControllerImpl implements YeZhuController{
 
 	public void getAllRecharge(RequestQueue mRequestQueue, String url, final Map<String, String> parm, final ResultListener<CxwyMallUserBalance> listener) {
 		StringRequest stringRequest =new StringRequest(
-				Request.Method.POST,url,
+				Method.POST,url,
 				new Response.Listener<String>() {
 
 					@Override
@@ -392,7 +393,7 @@ public class YeZhuControllerImpl implements YeZhuController{
 
 	public void getAllExpenditure(RequestQueue mRequestQueue, String url, final Map<String, String> parm, final ResultListener<CxwyMallUserBalance> listener) {
 		StringRequest stringRequest =new StringRequest(
-				Request.Method.POST,url,
+				Method.POST,url,
 				new Response.Listener<String>() {
 
 					@Override
@@ -426,6 +427,7 @@ public class YeZhuControllerImpl implements YeZhuController{
 	}
 
 
+	@Override
 	public void getHouse(RequestQueue mRequestQueue, Object[] parm,final ResultListener<WyFwApp> listener) {
 		GsonRequest<WyFwApp> gsonRequest = new GsonRequest<WyFwApp>(String.format(URL_HOUSE, parm), WyFwApp.class, new Response.Listener<WyFwApp>() {
 
@@ -450,6 +452,7 @@ public class YeZhuControllerImpl implements YeZhuController{
 		mRequestQueue.add(gsonRequest);
 	}
 
+	@Override
 	public void getWUYE(RequestQueue mRequestQueue, Object[] parm,final ResultListener<CxwyJfWyRecord> listener) {
 		GsonRequest<CxwyJfWyRecord> gsonRequest = new GsonRequest<CxwyJfWyRecord>(String.format(URL_PAYMENT_RECORDS_WUYE, parm), CxwyJfWyRecord.class, new Response.Listener<CxwyJfWyRecord>() {
 
@@ -475,12 +478,37 @@ public class YeZhuControllerImpl implements YeZhuController{
 	}
 
 	@Override
+	public void getDETAIL(RequestQueue mRequestQueue, Object[] parm,final ResultListener<AppWuYeFei> listener) {
+		GsonRequest<AppWuYeFei> gsonRequest = new GsonRequest<AppWuYeFei>(String.format(URL_DETAIL, parm), AppWuYeFei.class, new Response.Listener<AppWuYeFei>() {
+
+			@Override
+			public void onResponse(AppWuYeFei response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
+
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_DETAIL);
+		mRequestQueue.add(gsonRequest);
+	}
+
+	@Override
 	public void getManYiDuTiaoChaExist(RequestQueue mRequestQueue, Object[] parm,final ResultListener<BaseEntity> listener) {
 		GsonRequest<BaseEntity> gsonRequest = new GsonRequest<BaseEntity>(String.format(URL_GET_MANYIDUTIAOCHAEXIST, parm), BaseEntity.class, new Response.Listener<BaseEntity>() {
 
 			@Override
 			public void onResponse(BaseEntity response) {
-				if(listener != null) {
+				if (listener != null) {
 					listener.onResponse(response);
 				}
 
@@ -498,4 +526,6 @@ public class YeZhuControllerImpl implements YeZhuController{
 		gsonRequest.setTag(URL_GET_MANYIDUTIAOCHAEXIST);
 		mRequestQueue.add(gsonRequest);
 	}
+
+
 }

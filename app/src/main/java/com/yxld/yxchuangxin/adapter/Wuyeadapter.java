@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
 import com.yxld.yxchuangxin.activity.index.AccessActivity;
@@ -23,9 +24,12 @@ import com.yxld.yxchuangxin.activity.mine.AboutUsActivity;
 import com.yxld.yxchuangxin.activity.mine.EmployerActivity;
 import com.yxld.yxchuangxin.activity.mine.MemberActivity;
 import com.yxld.yxchuangxin.activity.mine.MineVisionUpdateMainActivity;
+import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.controller.YeZhuController;
+import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
+import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.MyGridView;
 
@@ -35,7 +39,6 @@ import com.yxld.yxchuangxin.view.MyGridView;
 public class Wuyeadapter extends BaseAdapter {
     private String[] title;
     private Context context;
-    private int manyidu = 0;
 
 //    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
 //    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
@@ -55,10 +58,12 @@ public class Wuyeadapter extends BaseAdapter {
     int[] icon3 = {R.mipmap.fangwu, R.mipmap.ruzhu, R.mipmap.zhanghao, R.mipmap.gengxin, R.mipmap.guanyu};
     String[] name3 = {"房屋信息", "入住成员", "账号管理", "版本更新", "关于我们"};
     private YeZhuController YeZhuController;
+    private RequestQueue mRequestQueue;
 
-    public Wuyeadapter(String[] title, Context context) {
+    public Wuyeadapter(String[] title, Context context,RequestQueue mRequestQueue) {
         this.title = title;
         this.context = context;
+        this.mRequestQueue = mRequestQueue;
     }
 
     @Override
@@ -152,7 +157,6 @@ public class Wuyeadapter extends BaseAdapter {
                         Log.d("...", "缴费服务" + position);
                         switch (position) {
                             case 0:
-//                                ToastUtil.show(context, "敬请期待");
                                 if (Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
                                     ToastUtil.show(context, "请配置房屋信息再进行查询");
                                     return;
@@ -235,7 +239,7 @@ public class Wuyeadapter extends BaseAdapter {
                                                 WebViewActivity.class);// 跳转的activity
                                         Bundle sq1 = new Bundle();
                                         sq1.putString("name", "授权放行");
-                                        sq1.putString("address", API.IP_PRODUCT + "/warrantList.html?yezhuId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&fwId="+Contains.appYezhuFangwus.get(0).getFwId());
+                                        sq1.putString("address", API.IP_PRODUCT + "/demandList.jsp?userid=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&fwId="+Contains.appYezhuFangwus.get(0).getFwId()+"&type=1");
                                         sq.putExtras(sq1);
                                         context.startActivity(sq);
                                     }else {
@@ -244,11 +248,19 @@ public class Wuyeadapter extends BaseAdapter {
                                                 WebViewActivity.class);// 跳转的activity
                                         Bundle sq1 = new Bundle();
                                         sq1.putString("name", "授权放行");
-                                        sq1.putString("address", API.IP_PRODUCT + "/demandList.jsp?userid=" + Contains.user.getYezhuId());
+                                        sq1.putString("address", API.IP_PRODUCT + "/demandList.jsp?userid=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&fwId="+Contains.appYezhuFangwus.get(0).getFwId()+"&type=0");
                                         sq.putExtras(sq1);
                                         context.startActivity(sq);
                                     }
-
+//                                    Intent sq = new Intent();
+//                                    sq.setClass(context, // context
+//                                            WebViewActivity.class);// 跳转的activity
+//                                    Bundle sq1 = new Bundle();
+//                                    sq1.putString("name", "授权放行");
+//                                    // sq1.putString("address", API.IP_PRODUCT + "/demandList.jsp?userid=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId()+"&fwId="+Contains.appYezhuFangwus.get(0).getFwId()+"&type=0");
+//                                    sq1.putString("address", API.IP_PRODUCT + "/demandList.jsp?userid=362&type=1&fwId=109&xiangmuId=321");
+//                                    sq.putExtras(sq1);
+//                                    context.startActivity(sq);
 
                                 }
                                 break;
@@ -277,20 +289,10 @@ public class Wuyeadapter extends BaseAdapter {
                                         || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())) {
                                     Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Log.d("geek", "onItemClick: manyidu"+manyidu);
-                                    if(manyidu == 0){
-                                        Toast.makeText(context, "您已经做过调查啦", Toast.LENGTH_SHORT).show();
-                                        return;
+                                    if(YeZhuController == null){
+                                        YeZhuController = new YeZhuControllerImpl();
                                     }
-                                    manyidu = 0;
-                                    Intent myd = new Intent();
-                                    myd.setClass(context, // context
-                                            WebViewActivity.class);// 跳转的activity
-                                    Bundle myd1 = new Bundle();
-                                    myd1.putString("name", "满意度调查");
-                                    myd1.putString("address", API.IP_PRODUCT + "/questionnaire.jsp?userId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
-                                    myd.putExtras(myd1);
-                                    context.startActivity(myd);
+                                    YeZhuController.getManYiDuTiaoChaExist(mRequestQueue,new Object[]{Contains.user.getYezhuId()},menlister);
                                 }
                                 break;
                         }
@@ -396,11 +398,27 @@ public class Wuyeadapter extends BaseAdapter {
         }
     }
 
-    public int getManyidu() {
-        return manyidu;
-    }
+    ResultListener<BaseEntity> menlister = new ResultListener<BaseEntity>() {
+        @Override
+        public void onResponse(BaseEntity info) {
+            if(info != null && info.status == 0){
+                Toast.makeText(context, "您已经做过调查啦", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent myd = new Intent();
+            myd.setClass(context, // context
+                    WebViewActivity.class);// 跳转的activity
+            Bundle myd1 = new Bundle();
+            myd1.putString("name", "满意度调查");
+            myd1.putString("address", API.IP_PRODUCT + "/questionnaire.jsp?userId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
+//            myd1.putString("address", "http://www.hnchxwl.com/wygl"+ "/questionnaire.jsp?userId=" + Contains.user.getYezhuId() + "&xiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
+            myd.putExtras(myd1);
+            context.startActivity(myd);
+        }
 
-    public void setManyidu(int manyidu) {
-        this.manyidu = manyidu;
-    }
+        @Override
+        public void onErrorResponse(String errMsg) {
+        }
+    };
+
 }

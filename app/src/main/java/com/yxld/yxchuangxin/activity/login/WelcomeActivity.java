@@ -119,10 +119,15 @@ public class WelcomeActivity extends BaseActivity implements
 				String curVersion = CxUtil.getVersion(WelcomeActivity.this);
 				String newVersion = entity.getVersionUId();
 				Log.d("geek", "curVersion=" + curVersion + ",newVersion=" + newVersion);
-				if (Float.valueOf(newVersion) > Float.valueOf(curVersion)) {
+				if(Float.valueOf(curVersion) <= Float.valueOf("4.1") && Float.valueOf(newVersion) == Float.valueOf("4.2")  && Float.valueOf(curVersion) != Float.valueOf("1.0")){
 					checkPermission(REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+					return;
 				}else{
-					handler.sendEmptyMessage(LOCATION_FINISH);
+					if (Float.valueOf(newVersion) > Float.valueOf(curVersion) && !(newVersion.equals("4.2"))) {
+						checkPermission(REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+					}else{
+						handler.sendEmptyMessage(LOCATION_FINISH);
+					}
 				}
 			}else{
 				handler.sendEmptyMessage(LOCATION_FINISH);

@@ -88,6 +88,7 @@ public class CodeFragment extends BaseFragment {
 		}
 		update = (TextView)view.findViewById(R.id.update);
 		update.setOnClickListener(this);
+		update.setVisibility(View.GONE);
 		codeImg = (ImageView) view.findViewById(R.id.codeImg);
 		youxiaoqi = (TextView) view.findViewById(R.id.youxiaoqi);
 		shareSms = (TextView)view.findViewById(R.id.shareSms);

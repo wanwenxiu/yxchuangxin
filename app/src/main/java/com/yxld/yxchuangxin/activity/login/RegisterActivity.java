@@ -52,7 +52,7 @@ import cn.smssdk.SMSSDK;
 public class RegisterActivity extends BaseActivity {
 
 	private LoginController loginController;
-	private EditText register_tel,register_pwd,register_yzm;
+	private EditText register_tel,register_pwd,register_yzm,register_sure_pwd;
 	private Button regsubmit;
 	private TimeButton register_button_phone;
 	private ExplosionField mExplosionField;
@@ -91,6 +91,7 @@ public class RegisterActivity extends BaseActivity {
 		register_pwd = (EditText) findViewById(R.id.register_pwd);
 		regsubmit = (Button) findViewById(R.id.regsubmit);
 		register_yzm= (EditText) findViewById(R.id.register_yzm);
+		register_sure_pwd = (EditText) findViewById(R.id.register_sure_pwd);
 		checkBox_forcheck= (CheckBox) findViewById(R.id.checkBox_forcheck);
 		mExplosionField = ExplosionField.attach2Window(this);
 		ptxi.setOnClickCallBack(new AutoLinkStyleTextView.ClickCallBack() {
@@ -306,13 +307,23 @@ public class RegisterActivity extends BaseActivity {
 				finish();
 				break;
 			case R.id.register_button_phone:
-				int len = register_pwd.getText().toString().length();
+				if(StringUitl.isNotEmpty(RegisterActivity.this,register_sure_pwd,"请确认密码")){
+
+					int len = register_pwd.getText().toString().length();
 //				int len1= register_cxh.getText().toString().length();
 //				if (len >= 6 && len1>=6 ) {
-				if (len >= 6) {
-					initDataFromNet();
-				} else {
-					register_button_phone.setTextAfter("密码错误").setTextBefore("获取验证码").setLenght(5 * 1000);
+					if (len >= 6) {
+						if(register_pwd.getText().toString().equals(register_sure_pwd.getText().toString())){
+							initDataFromNet();
+						}else{
+							Toast.makeText(RegisterActivity.this,"两次密码输入不一致",Toast.LENGTH_LONG).show();
+							register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
+						}
+					} else {
+						register_button_phone.setTextAfter("密码错误").setTextBefore("获取验证码").setLenght(5 * 1000);
+					}
+				}else{
+					register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
 				break;
 		}

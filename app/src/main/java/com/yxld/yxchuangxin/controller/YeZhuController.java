@@ -2,6 +2,7 @@ package com.yxld.yxchuangxin.controller;
 
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
+import com.yxld.yxchuangxin.entity.AppWuYeFei;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
 import com.yxld.yxchuangxin.entity.CxwyJfWyRecord;
@@ -80,7 +81,7 @@ public interface YeZhuController extends API{
 	 * @throws
 	 */
 	void addChengyuan(RequestQueue mRequestQueue, Map<String, String> parm,
-							  final ResultListener<BaseEntity> listener);
+					  final ResultListener<BaseEntity> listener);
 
 	/**
 	 * @param mRequestQueue
@@ -161,12 +162,23 @@ public interface YeZhuController extends API{
 	void getWUYE(RequestQueue mRequestQueue, Object[] parm, ResultListener<CxwyJfWyRecord> listener);
 
 	/**
+	 * @Title: getDeleteChengyuanList
+	 * @Description: 物业费明细查询
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getDETAIL(RequestQueue mRequestQueue, Object[] parm, ResultListener<AppWuYeFei> listener);
+
+	/**
 	 * @Title: getManYiDuTiaoChaExist
-	 * @Description: 是否已经做了满意度调查接口
+	 * @Description: 满意度调查
 	 * @param mRequestQueue
 	 * @param listener
 	 * @return void
 	 * @throws
 	 */
 	void getManYiDuTiaoChaExist(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
+
 }

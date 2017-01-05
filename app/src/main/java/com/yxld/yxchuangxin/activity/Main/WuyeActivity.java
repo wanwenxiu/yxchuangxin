@@ -20,19 +20,17 @@ import com.yxld.yxchuangxin.controller.impl.YeZhuControllerImpl;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
-public class WuyeActivity extends BaseActivity implements ResultListener<BaseEntity>{
+public class WuyeActivity extends BaseActivity{
     private ListView listView;
     String[] title = { "我的物业","缴费服务","综合服务","个人中心"};
-    private YeZhuController YeZhuController;
     private Wuyeadapter testadapter;
 
     @Override
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        initDataFromNet();
         listView= (ListView) findViewById(R.id.listview);
-        testadapter =new Wuyeadapter(title,this);
+        testadapter =new Wuyeadapter(title,this,mRequestQueue);
         listView.setAdapter(testadapter);
     }
 
@@ -55,27 +53,8 @@ public class WuyeActivity extends BaseActivity implements ResultListener<BaseEnt
     }
 
     @Override
-    protected void initDataFromNet() {
-        if(YeZhuController == null){
-            YeZhuController = new YeZhuControllerImpl();
-        }
-        YeZhuController.getManYiDuTiaoChaExist(mRequestQueue,new Object[]{Contains.user.getYezhuId()},this);
-    }
-
-    @Override
     public void onClick(View v) {
 
     }
 
-    @Override
-    public void onResponse(BaseEntity info) {
-        if(info != null){
-            testadapter.setManyidu(info.status);
-        }
-    }
-
-    @Override
-    public void onErrorResponse(String errMsg) {
-
-    }
 }

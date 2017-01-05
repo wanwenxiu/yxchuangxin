@@ -8,6 +8,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,6 +46,8 @@ public class AddressListActivity extends BaseActivity {
 	
 	private List<CxwyMallAdd> mList = new ArrayList<CxwyMallAdd>();
 	private AddressAdapter adapter;
+	/** 是否删除地址 1删除 */
+	private int isdelect = 0;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -117,7 +120,6 @@ public class AddressListActivity extends BaseActivity {
 		if(addressController == null){
 			addressController = new AddressControllerImpl();
 		}
-		
 		addressController.getAddressListFromID(mRequestQueue, new Object[]{Contains.user.getYezhuId()}, getListListener);
 	}
 	
@@ -125,7 +127,7 @@ public class AddressListActivity extends BaseActivity {
 		
 		@Override
 		public void onResponse(CxwyMallAdd info) {
-			if (info.status != STATUS_CODE_OK) {  
+			if (info.status != STATUS_CODE_OK) {
 				onError(info.MSG);
 				return;
 			} 
@@ -165,6 +167,7 @@ public class AddressListActivity extends BaseActivity {
 			switch (msg.what) {
 			case ADDRESS_DELETE:
 				int addId = msg.arg1;
+				isdelect = msg.arg2;
 				progressDialog.show();
 				addressController.deleteAddressFromID(mRequestQueue, new Object[]{addId}, listener);
 				break;
@@ -186,6 +189,9 @@ public class AddressListActivity extends BaseActivity {
 			if (info.status != STATUS_CODE_OK) {  
 				onError(info.MSG);
 				return;
+			}
+			if(isdelect == 1){
+				Contains.defuleAddress = null;
 			}
 			initDataFromNet();
 		}

@@ -239,6 +239,15 @@ public class SureOrderActivity extends BaseActivity implements ResultListener<Ba
 			updateAddress(Contains.defuleAddress.getAddName(),
 					Contains.defuleAddress.getAddTel(),Contains.defuleAddress.getAddSpare1()+Contains.defuleAddress.getAddVillage()+
 							Contains.defuleAddress.getAddAdd());
+		}else{
+			//提示默认地址为空
+			user_name.setText("");
+			user_name.setVisibility(View.GONE);
+			user_phone.setText("");
+			user_phone.setVisibility(View.GONE);
+			user_addr.setText("");
+			user_addr.setVisibility(View.GONE);
+			llAddrTip.setVisibility(View.VISIBLE);
 		}
 
 		refushPrice(MyCouponActivity.yhqjine);

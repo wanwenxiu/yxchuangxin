@@ -45,7 +45,7 @@ import cn.smssdk.SMSSDK;
 public class FindPwdActivity extends BaseActivity {
 
 	private LoginController loginController;
-	private EditText register_tel,register_pwd,register_yzm;
+	private EditText register_tel,register_pwd,register_yzm,register_sure_pwd;
 	private Button regsubmit;
 	private TimeButton register_button_phone;
 	private ExplosionField mExplosionField;
@@ -80,6 +80,7 @@ public class FindPwdActivity extends BaseActivity {
 		register_pwd = (EditText) findViewById(R.id.register_pwd);
 		regsubmit = (Button) findViewById(R.id.regsubmit);
 		register_yzm= (EditText) findViewById(R.id.register_yzm);
+		register_sure_pwd = (EditText) findViewById(R.id.register_sure_pwd);
 		mExplosionField = ExplosionField.attach2Window(this);
 		addListener(findViewById(R.id.regsubmit));
 		//获取短信sdk
@@ -266,11 +267,20 @@ public class FindPwdActivity extends BaseActivity {
 				finish();
 				break;
 			case R.id.register_button_phone:
-				int len = register_pwd.getText().toString().length();
-				if (len >=6 && len <= 16) {
-					initDataFromNet();
-				} else {
-					ToastUtil.show(FindPwdActivity.this,"密码必须为6-16个数字/大小字母");
+				if(StringUitl.isNotEmpty(FindPwdActivity.this,register_sure_pwd,"请确认密码")){
+					int len = register_pwd.getText().toString().length();
+					if (len >=6 && len <= 16) {
+						if(register_pwd.getText().toString().equals(register_sure_pwd.getText().toString())){
+							initDataFromNet();
+						}else{
+							Toast.makeText(FindPwdActivity.this,"两次密码输入不一致",Toast.LENGTH_LONG).show();
+							register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
+						}
+					} else {
+						ToastUtil.show(FindPwdActivity.this,"密码必须为6-16个数字/大小字母");
+						register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
+					}
+				}else{
 					register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
 				}
 				break;

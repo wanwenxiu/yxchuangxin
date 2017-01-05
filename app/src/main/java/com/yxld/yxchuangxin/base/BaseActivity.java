@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ClearCacheRequest;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.Volley;
+import com.jaeger.library.StatusBarUtil;
 import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.login.LoginActivity;
@@ -173,6 +175,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		initTitle();
 		initView();
 		initDataFromLocal();
+//		setStatusBar();
+	}
+
+	/**
+	 * 设置透明状态栏
+	 */
+	protected void setStatusBar() {
+		StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.color_main_color_1));
 	}
 
 

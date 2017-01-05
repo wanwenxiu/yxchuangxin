@@ -238,6 +238,7 @@ public class OrderListActivity extends BaseActivity {
 
 		@Override
 		public void onResponse(CxwyMallOrder info) {
+			Log.d("geek", "onResponse: info"+info.toString());
 			onMyResponse(info);
 			totals = info.getTotal();
 			listOrderData = info.getOrderList();
@@ -395,6 +396,7 @@ public class OrderListActivity extends BaseActivity {
 				initDataFromNet();
 				return;
 			}
+			ToastUtil.show(OrderListActivity.this,"操作成功");
 
 			//首先清空list
 			listOrderData.clear();
@@ -433,7 +435,6 @@ public class OrderListActivity extends BaseActivity {
 				map.put("ord.dingdanBeiyong4", cities[which]);
 				Log.d("geek", " 取消订单 原因map"+map.toString());
 				orderController.updateOrderState(mRequestQueue, map, listenerUpdateOrder);
-				
             }
         });
         builder.show();

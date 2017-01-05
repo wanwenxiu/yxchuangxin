@@ -21,10 +21,14 @@ import com.orhanobut.logger.Logger;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.index.AccessActivity;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
+import com.yxld.yxchuangxin.activity.index.FeiYongListActivity;
 import com.yxld.yxchuangxin.activity.index.VisitorInvitationActivity;
 import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
+import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
+import com.yxld.yxchuangxin.activity.mine.MemberActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
@@ -170,6 +174,52 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         if(secondaryActions != null && info != null){
             secondaryActions.startWithList(info);
         }
+        secondaryActions.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, TextView textView) {
+                switch (position){
+                    case 0: //我的物业
+                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
+                            ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
+                            return;
+                        }
+                        startActivity(WuyeActivity.class);
+                        break;
+                    case 1: //专享服务
+                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
+                            ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
+                            return;
+                        }
+                        startActivity(Repair.class);
+                        break;
+                    case 2: //邮包查寄
+                            startActivity(ExpressActivity.class);
+                        break;
+                    case 3: //个人中心
+                        startActivity(MemberActivity.class);
+                        break;
+                    case 4: //投诉建议
+                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
+                            ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
+                            return;
+                        }
+                        if (Contains.user == null || Contains.appYezhuFangwus.size() == 0 || Contains.appYezhuFangwus.get(0) == null || Contains.appYezhuFangwus.get(0).getFwLoupanId() == null
+                                || "".equals(Contains.appYezhuFangwus.get(0).getFwLoupanId())) {
+                            Toast.makeText(NewMainActivity2.this, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent ts = new Intent();
+                            ts.setClass(NewMainActivity2.this, // context
+                                    WebViewActivity.class);// 跳转的activity
+                            Bundle ts1 = new Bundle();
+                            ts1.putString("name", "投诉建议");
+                            ts1.putString("address", API.IP_PRODUCT + "/tousujianyi.jsp?yezhuid=" + Contains.user.getYezhuId() + "&tousuXiangmuId=" + Contains.appYezhuFangwus.get(0).getFwLoupanId());
+                            ts.putExtras(ts1);
+                            startActivity(ts);
+                        }
+                        break;
+                }
+            }
+        });
 
         marqueeTv = (TextView) findViewById(R.id.marqueeTv);
         marqueeTv.setOnClickListener(this);
@@ -368,20 +418,32 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                             new ImageCycleView.ImageCycleViewListener() {
                                 @Override
                                 public void onImageClick(int position, View imageView) {
-                                    if (position == 0) {
+                                    if (position == 0) {  //手机开门
                                         if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
                                             ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
                                             return;
                                         }
-                                        startActivity(YeZhuOpenDoorActivity.class);
-                                    } else if (position == 1) {
-                                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
-                                            ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
+                                        startActivity(AccessActivity.class);
+                                    } else if (position == 1) {  //物业缴费
+                                        if (Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
+                                            ToastUtil.show(NewMainActivity2.this, "请配置房屋信息再进行查询");
                                             return;
                                         }
-                                        startActivity(VisitorInvitationActivity.class);
-                                    } else if (position == 2) {
-                                        startActivity(ExpressActivity.class);
+                                        startActivity(FeiYongListActivity.class);
+                                    } else if (position == 2) {  //居家安防
+                                        ToastUtil.show(NewMainActivity2.this, "即将上线");
+                                    } else if (position == 3) {  //便利商店
+                                        if(Contains.curSelectXiaoQuId == 0 || Contains.curSelectXiaoQuName == null || "".equals(Contains.curSelectXiaoQuName) ){
+                                            new SweetAlertDialog(NewMainActivity2.this, SweetAlertDialog.WARNING_TYPE).setTitleText("游客身份").setContentText("请手动选择小区").setConfirmText("确认").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    startActivity(SelectPlaceActivity.class);
+                                                    sDialog.dismissWithAnimation();
+                                                }
+                                            }).show();
+                                            return;
+                                        }
+                                        startActivity(MallMainActivity.class);
                                     }
                                 }
                             }, 0);

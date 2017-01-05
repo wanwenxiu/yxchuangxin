@@ -1,208 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-
-    <com.zhy.autolayout.AutoRelativeLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:gravity="center"
-        android:background="@drawable/banner_border_bottom"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="房屋:长沙华菱蓝调国际"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20px"
-            android:layout_toRightOf="@+id/address"
-            android:text="欠款:880元"
-            android:textColor="@color/red"
-            android:textSize="13sp" />
-
-
-    </com.zhy.autolayout.AutoRelativeLayout>
-
-
-    <com.zhy.autolayout.AutoRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:background="@drawable/banner_border_bottom"
-        android:orientation="horizontal">
-
-        <TextView
-            android:text="您可以选择提前预交"
-            android:id="@+id/yujiao_text"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="20px"
-            android:layout_height="wrap_content" />
-
-
-        <com.yxld.yxchuangxin.view.AmountView
-            android:id="@+id/amount_view"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/yujiao_text"
-            android:layout_width="wrap_content"
-            android:layout_height="120px"
-            app:btnTextSize="14sp"
-            android:layout_marginLeft="30px"
-            app:btnWidth="36dp"
-            app:tvWidth="50dp"/>
-
-        <TextView
-            android:text="月"
-            android:layout_toRightOf="@+id/amount_view"
-            android:layout_width="wrap_content"
-            android:textSize="23sp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="40px"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content" />
-
-    </com.zhy.autolayout.AutoRelativeLayout>
-
-
-    <com.zhy.autolayout.AutoRelativeLayout
-        android:layout_width="match_parent"
-        android:background="@color/cccccc"
-        android:layout_marginTop="50px"
-        android:layout_height="120px">
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:paddingLeft="40px"
-            android:gravity="center_vertical"
-            android:text="选择付款方式:"
-            android:textColor="#777777"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/real_price"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentRight="true"
-            android:paddingRight="40px"
-            android:textColor="@color/red"
-            android:textSize="14sp" />
-
-    </com.zhy.autolayout.AutoRelativeLayout>
-
-
-    <!-- 支付宝支付 -->
-
-    <com.zhy.autolayout.AutoRelativeLayout
-        android:id="@+id/zfb"
-        android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:background="@drawable/banner_border_bottom">
-
-        <ImageView
-            android:id="@+id/alipayicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="20px"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="20px"
-            android:src="@mipmap/alipay_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30px"
-            android:layout_toRightOf="@id/alipayicon"
-            android:text="支付宝"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-        <cn.refactor.library.SmoothCheckBox
-            android:id="@+id/checkBoxAliPay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40px"
-            android:button="@drawable/categort_class_checkbox_selector"
-            app:color_checked="#447eeb"/>
-
-    </com.zhy.autolayout.AutoRelativeLayout>
-
-    <!-- 微信 -->
-
-    <com.zhy.autolayout.AutoRelativeLayout
-        android:id="@+id/wx"
-        android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:background="@drawable/banner_border_bottom">
-
-        <ImageView
-            android:id="@+id/weixinicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="20px"
-            android:layout_marginLeft="40px"
-            android:layout_marginTop="20px"
-            android:src="@mipmap/weixin_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30px"
-            android:layout_toRightOf="@id/weixinicon"
-            android:text="微信"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-
-        <cn.refactor.library.SmoothCheckBox
-            android:id="@+id/checkBoxWeiXin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40px"
-            android:button="@drawable/categort_class_checkbox_selector"
-            app:color_checked="#447eeb"/>
-
-    </com.zhy.autolayout.AutoRelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/sure"
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:background="#383838"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="提交账单"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-    </RelativeLayout>
+            android:textColor="@color/black"
+            android:text="时间" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="状态" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="金额" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="滞纳金" />
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

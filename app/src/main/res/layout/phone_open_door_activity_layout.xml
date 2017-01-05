@@ -48,7 +48,6 @@
         android:layout_weight="1"
         android:weightSum="2"
         android:orientation="horizontal"
-        android:visibility="gone"
         >
 
         <TextView
@@ -59,7 +58,8 @@
             android:gravity="center"
             android:text="分享至短信"
             android:textColor="@color/black"
-            android:textSize="@dimen/size_15"/>
+            android:textSize="@dimen/size_15"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/update"
@@ -67,7 +67,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="更新二维码"
+            android:text="手动刷新"
             android:textColor="@color/black"
             android:textSize="@dimen/size_15"/>
     </LinearLayout>

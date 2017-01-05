@@ -97,6 +97,11 @@ public class AddressAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Message msg = new Message();
+				if(sb.getAddStatus()  == 0){ //删除默认地址
+					msg.arg2 = 1;
+				}else{
+					msg.arg2 = 0;
+				}
 				msg.arg1 = sb.getAddId();
 				msg.what = ADDRESS_DELETE;
 				mhandler.sendMessage(msg);

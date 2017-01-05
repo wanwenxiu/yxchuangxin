@@ -1,61 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:orientation="vertical"
-    android:background="@color/white" 
-    android:paddingLeft="5dp"
-    android:paddingRight="10dp"
-    >
-
-    <TextView 
-        android:id="@+id/destail"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="居家电梯房"
-        android:textColor="@color/black"
-        android:textSize="@dimen/size_13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"/>
-    
-      <TextView
-          android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="2017-10-31"
-        android:textSize="@dimen/size_13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"/>
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content">
 
     <TextView
-        android:text="支付宝"
-        android:id="@+id/pay_status"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/month"
+        android:paddingLeft="15dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="2016-10-1"/>
 
     <TextView
-        android:text="缴费人："
-        android:id="@+id/jiaofei_name"
-        android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true"        android:textColor="@color/black"
+        android:id="@+id/status"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:text="欠缴费"/>
 
     <TextView
-        android:text="备注："
-        android:id="@+id/remarks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        android:textColor="@color/black"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/jiaofei_name"/>
+        android:id="@+id/money"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="300"/>
 
+    <TextView
+        android:id="@+id/payment"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="20"/>
 
-
-
-
-</com.zhy.autolayout.AutoRelativeLayout>
+</LinearLayout>

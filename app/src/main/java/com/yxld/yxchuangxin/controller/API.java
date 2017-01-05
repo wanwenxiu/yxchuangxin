@@ -13,17 +13,22 @@ public interface API {
     String yuming = "http://www.hnchxwl.com/wygl";
 
     String menjinIP = "http://120.25.78.92/";
-//  String menjinIP = "http://192.168.8.21:8080/";
-    String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-    String PIC = "http://192.168.8.166:8080";
-    String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+//   String menjinIP = "http://192.168.8.21:8080/";
+//   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+//   String PIC = "http://192.168.8.166:8080";
+//   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
 
-//  String IP_PRODUCT = "http://120.24.163.177/wygl";
-//  String PIC = "http://120.24.163.177";
-//  String uploadImage = "http://120.24.163.177/wygl/mall/upload_uploadAndroidFile";
-//  String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//  String PIC = "http://www.hnchxwl.com";
-//  String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
+    /** 测试专用 本地192.168.8.22*/
+    String IP_PRODUCT = "http://192.168.8.22:8080/wygl";
+    String PIC = "http://192.168.8.22:8080";
+    String uploadImage = "http://192.168.8.22:8080/wygl/mall/upload_uploadAndroidFile";
+
+//   String IP_PRODUCT = "http://120.24.163.177/wygl";
+//   String PIC = "http://120.24.163.177/";
+//   String uploadImage = "http://120.24.163.177/wygl/mall/upload_uploadAndroidFile";
+//    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
+//    String PIC = "http://www.hnchxwl.com";
+//    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
 
     /**
      * 获取商品一级分类URL
@@ -374,6 +379,11 @@ public interface API {
     String URL_add_chengyuan = IP_PRODUCT
             + "/daily/androidHousehold_saveyezhu?";
 
+  /**
+   * 业主缴费明细查询：
+   */
+  String URL_DETAIL= IP_PRODUCT
+          + "/jfgl/jf_yzWyMonthList.action?fwId=%1$s";
 
     /**
      * 业主房屋查询：

@@ -90,9 +90,9 @@ public class Contains {
 
 	//物业缴费
 	public static String fwid;
-	public static int wymonth=0;
-	public static Double fee=0.00;
 	public static int month=0;
+	public static String total;
+	public static Double payment=0.00;
 
 	/** 微信再付款*/
 	public static int isAgenWeixinPay = 0;

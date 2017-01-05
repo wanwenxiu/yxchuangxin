@@ -133,6 +133,9 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+			case R.id.update:
+				initDataFromNet();
+				break;
 		}
 	}
 

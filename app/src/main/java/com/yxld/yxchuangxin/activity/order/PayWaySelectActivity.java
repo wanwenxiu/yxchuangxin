@@ -499,7 +499,7 @@ public class PayWaySelectActivity extends BaseActivity {
         orderInfo += "&body=" + "\"" + body + "\"";
 
         // 商品金额
-        orderInfo += "&total_fee=" + "\"" + price + "\"";
+        orderInfo += "&total_fee=" + "\"" + "0.01" + "\"";
 
         // 服务器异步通知页面路径
         orderInfo += "&notify_url=" + "\"" + "http://222.240.1.133/wygl/notify_url.jsp" + "\"";
@@ -636,7 +636,7 @@ public class PayWaySelectActivity extends BaseActivity {
             Contains.orderBianhao = trade_no;
             final String total_fee = orderMoney;
             final String subject = orderShop;
-            String result = WechatPay.createOrder(trade_no, total_fee, subject);
+            String result = WechatPay.createOrder(trade_no, "0.01", subject);
             Message msg = createOrderHandler.obtainMessage();
             msg.what = 0;
             msg.obj = result;

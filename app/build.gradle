@@ -9,8 +9,8 @@ android {
             storePassword '898763'
         }
     }
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
     aaptOptions {
         cruncherEnabled = false
         useNewCruncher = false
@@ -20,8 +20,8 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 38
-        versionName "3.8"
+        versionCode 42
+        versionName "1.0"
         ndk {
             abiFilters "armeabi"
         }
@@ -50,8 +50,8 @@ repositories {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:multidex:1.0.0'
     compile files('libs/explosionfield.jar')
     compile files('libs/gson-2.2.4.jar')
@@ -85,7 +85,7 @@ dependencies {
     compile name: 'SmoothCheckBox', ext: 'aar'
     // -------------------- 以下三个库是必须依赖的 ----------------------------
     compile 'cn.bingoogolapple:bga-banner:2.0.9@aar'
-    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:support-v4:25.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
     // 以下几个库是演示案例所使用到的
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -103,6 +103,10 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     //下拉框
     compile 'com.jaredrummler:material-spinner:1.1.0'
+    //列表及适配器
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.9'
+    //透明状态栏
+    compile 'com.jaeger.statusbaruitl:library:1.3.2'
 }
 
 
