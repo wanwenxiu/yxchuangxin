@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.ysf.explosionfield.ExplosionField;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.login.LoginActivity;
+import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
@@ -20,6 +22,7 @@ import com.yxld.yxchuangxin.controller.LoginController;
 import com.yxld.yxchuangxin.controller.impl.LoginControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallUser;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.CxUtil;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
@@ -106,7 +109,7 @@ public class UpdatePwd extends BaseActivity {
 		public void onResponse(BaseEntity info) {
 			Log.d("...", info.toString());
 			if (info.status != STATUS_CODE_OK) {
-				if (info.MSG.equals("旧密码错误")) {
+				if (info.MSG.equals("用户名或者旧密码错误")) {
 					Toast.makeText(UpdatePwd.this, "旧密码输入错误，请重新输入",
 							Toast.LENGTH_SHORT).show();
 					return;
@@ -116,13 +119,18 @@ public class UpdatePwd extends BaseActivity {
 			}
 			mExplosionField.explode(next_step);
 			next_step.setOnClickListener(null);
-			Contains.user.setYezhuPwd(StringUitl.getMD5(new_pwd));
+//			Contains.user.setYezhuPwd(StringUitl.getMD5(new_pwd));
 			SharedPreferences.Editor editor = sp.edit();
 			editor.putString("NAME", Contains.user.getYezhuShouji());
-			editor.putString("PASSWORD", new_password.getText().toString());
+//			editor.putString("PASSWORD", new_password.getText().toString());
 			editor.commit();
 			ToastUtil.show(UpdatePwd.this,"密码修改成功");
+
+			//退出登录信息
+			CxUtil.clearData(sp);
 			finish();
+			AppConfig.getInstance().exit();
+			startActivity(LoginActivity.class);
 		}
 
 		@Override

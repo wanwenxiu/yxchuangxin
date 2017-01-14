@@ -281,6 +281,18 @@
                     android:textColor="#3f3f3f"
                     android:textSize="13dp"
                     tools:ignore="RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:id="@+id/orderPeisongPhone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/deliverGoods"
+                    android:gravity="center|right"
+                    android:text=""
+                    android:textColor="@color/color_main_color"
+                    android:textSize="13dp"
+                    android:layout_marginRight="20dp"
+                    tools:ignore="RtlHardcoded,SpUsage" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"

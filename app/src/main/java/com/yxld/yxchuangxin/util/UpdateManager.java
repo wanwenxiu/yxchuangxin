@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.alipay.security.mobile.module.commonutils.LOG;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 
@@ -92,6 +93,7 @@ public class UpdateManager {
 		this.mContext = context;
 		this.apkUrl = apkUrl;
 		this.mhander = handler;
+		Log.d("geek","apkUrl"+apkUrl);
 	}
 
 	// 外部接口让主Activity调用

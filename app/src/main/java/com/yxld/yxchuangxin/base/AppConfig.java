@@ -2,11 +2,9 @@ package com.yxld.yxchuangxin.base;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +12,6 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
@@ -26,7 +23,6 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
-import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.util.MemoryCache;
 import com.yxld.yxchuangxin.view.LoadingImg;
@@ -59,6 +55,8 @@ public class AppConfig extends Application {
 
 	private RequestQueue mRequestQueue;
 	public static ImageLoader mImageLoader;
+	/** 七牛*/
+//	public static UploadManager uploadManager = new UploadManager();
 
 	public RequestQueue getRequestQueue() {
 		return mRequestQueue;

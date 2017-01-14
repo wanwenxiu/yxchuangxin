@@ -32,6 +32,7 @@ import android.util.Log;
 
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 
+
 public class HttpworkTask extends Thread {
 	private static HttpClient httpClient;
 	private final static int CONNECTIONTIMEOUT = 10000;//http链接超时

@@ -41,19 +41,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
-import com.qiniu.android.common.Zone;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.Configuration;
-import com.qiniu.android.storage.KeyGenerator;
-import com.qiniu.android.storage.Recorder;
-import com.qiniu.android.storage.UpCancellationSignal;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UpProgressHandler;
-import com.qiniu.android.storage.UploadManager;
-import com.qiniu.android.storage.UploadOptions;
-import com.qiniu.android.storage.persistent.FileRecorder;
-import com.qiniu.android.utils.UrlSafeBase64;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.index.selectimg.util.AlbumHelper;
 import com.yxld.yxchuangxin.activity.index.selectimg.util.Bimp;
@@ -66,20 +53,14 @@ import com.yxld.yxchuangxin.activity.mine.RepairListActivity;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
+import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.controller.RepairController;
 import com.yxld.yxchuangxin.controller.impl.ReparirControllerImpl;
-import com.yxld.yxchuangxin.entity.QiniuToken;
+import com.yxld.yxchuangxin.http.FileUpload;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.ToastUtil;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,7 +70,7 @@ import java.util.Map;
  * @author wwx
  * @date 2016年4月14日 上午9:46:31 
  */
-public class Repair extends BaseActivity {
+public class RepairCopy extends BaseActivity {
 	private GridView noScrollgridview;
 	private GridAdapter adapter;
 	private View parentView;
@@ -133,16 +114,10 @@ public class Repair extends BaseActivity {
 	private RepairController repairController;
 
 	private TextView bxlt;
-	UploadManager uploadManager;
-	private volatile boolean isCancelled = false;
-	private String token;
-
-	//上传完成之后图片路径
-	public  String uploadImgUrl = "";
-	public int curUploadImgIndex;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
+
 		getSupportActionBar().setTitle("我要报修");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -154,72 +129,6 @@ public class Repair extends BaseActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-
-	public Repair() {
-		Logger.d("1111");
-		//断点上传
-		String dirPath = "/storage/emulated/0/Download";
-		Recorder recorder = null;
-		try{
-			File f = File.createTempFile("qiniu_xxxx", ".tmp");
-			Log.d("qiniu", f.getAbsolutePath().toString());
-			dirPath = f.getParent();
-			//设置记录断点的文件的路径
-			recorder = new FileRecorder(dirPath);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-
-		final String dirPath1 = dirPath;
-		//默认使用 key 的url_safe_base64编码字符串作为断点记录文件的文件名。
-		//避免记录文件冲突（特别是key指定为null时），也可自定义文件名(下方为默认实现)：
-		KeyGenerator keyGen = new KeyGenerator(){
-			public String gen(String key, File file){
-				// 不必使用url_safe_base64转换，uploadManager内部会处理
-				// 该返回值可替换为基于key、文件内容、上下文的其它信息生成的文件名
-				String path = key + "_._" + new StringBuffer(file.getAbsolutePath()).reverse();
-				Log.d("qiniu", path);
-				File f = new File(dirPath1, UrlSafeBase64.encodeToString(path));
-				BufferedReader reader = null;
-				try {
-					reader = new BufferedReader(new FileReader(f));
-					String tempString = null;
-					int line = 1;
-					try {
-						while ((tempString = reader.readLine()) != null) {
-//                          System.out.println("line " + line + ": " + tempString);
-							Log.d("qiniu", "line " + line + ": " + tempString);
-							line++;
-						}
-
-					} catch (IOException e) {
-						e.printStackTrace();
-					} finally {
-						try{
-							reader.close();
-						} catch(Exception e) {
-							e.printStackTrace();
-						}
-					}
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return path;
-			}
-		};
-
-		Configuration config = new Configuration.Builder()
-				// recorder 分片上传时，已上传片记录器
-				// keyGen 分片上传时，生成标识符，用于片记录器区分是那个文件的上传记录
-				.recorder(recorder, keyGen)
-				.zone(Zone.zone2) // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
-				.build();
-		// 实例化一个上传的实例
-		uploadManager = new UploadManager(config);
-	}
-
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -285,7 +194,7 @@ public class Repair extends BaseActivity {
 					"论坛SeleteImgMainActivity onCreate Bimp.tempSelectBitmap.size()==null");
 		}
 		
-
+		initDataFromNet();
 	}
 
 	@Override
@@ -361,7 +270,7 @@ public class Repair extends BaseActivity {
 				if (!helper.getThumbnail()) {
 					return;
 				}
-				Intent intent = new Intent(Repair.this,
+				Intent intent = new Intent(RepairCopy.this,
 						AlbumActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.activity_translate_in,
@@ -391,16 +300,16 @@ public class Repair extends BaseActivity {
 				Log.d("geek","Bimp.tempSelectBitmap.size() ="+Bimp.tempSelectBitmap.size());
 				if (position == Bimp.tempSelectBitmap.size()) {
 					if(Bimp.tempSelectBitmap.size() >=PublicWay.num){
-						Toast.makeText(Repair.this,"最多只能上传3张图片",Toast.LENGTH_SHORT).show();
+						Toast.makeText(RepairCopy.this,"最多只能上传3张图片",Toast.LENGTH_SHORT).show();
 						return;
 					}
 					ll_popup.startAnimation(AnimationUtils.loadAnimation(
-							Repair.this,
+							RepairCopy.this,
 							R.anim.activity_translate_in));
 					pop.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
 				}
 				else {
-					Intent intent = new Intent(Repair.this,
+					Intent intent = new Intent(RepairCopy.this,
 							GalleryActivity.class);
 					intent.putExtra("position", "1");
 					intent.putExtra("ID", position);
@@ -456,21 +365,29 @@ public class Repair extends BaseActivity {
 							return;
 						}
 
-						//获取上传图片token
-						initDataFromNet();
+						final FileUpload fileUpload = new FileUpload(API.uploadImage,mHandler);
+						for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
+							String path = Bimp.tempSelectBitmap.get(i).toString();
+								File file = new File(Bimp.tempSelectBitmap.get(
+										i).getImagePath());
+								if (!file.exists()) {
+									continue;
+								}
+							fileUpload.addFile(file);
+							Log.d("geek", i+" fileUpload path= "+file);
+						}
 
-//						final FileUpload fileUpload = new FileUpload(API.uploadImage,mHandler);
-//							new Thread(new Runnable() {
-//								@Override
-//								public void run() {
-//									try {
-//									fileUpload.upload();
-//									}catch (Exception e){
-//										Log.d("geek", e.getMessage()+"eee");
-//										mHandler.sendEmptyMessage(uploadFaild);
-//									}
-//								}
-//							}).start();
+							new Thread(new Runnable() {
+								@Override
+								public void run() {
+									try {
+									fileUpload.upload();
+									}catch (Exception e){
+										Log.d("geek", e.getMessage()+"eee");
+										mHandler.sendEmptyMessage(uploadFaild);
+									}
+								}
+							}).start();
 
 					}
 				});
@@ -480,14 +397,13 @@ public class Repair extends BaseActivity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case uploadSuccess:
-//				Log.d("geek", "uploadSuccess: uploadImgUrl="+uploadImgUrl);
 				saveOrUpdateTalk();
 				break;
 			case uploadFaild:
 				if (progressDialog != null) {
 					progressDialog.hide();
 				}
-				Toast.makeText(Repair.this, "上传失败,请稍后再试!",
+				Toast.makeText(RepairCopy.this, "上传失败,请稍后再试!",
 						Toast.LENGTH_LONG).show();
 				break;
 			default:
@@ -515,14 +431,8 @@ public class Repair extends BaseActivity {
 			parm.put("bx.baoxiuPlace", Contains.repairAddressStr+"");
 		}
 		parm.put("bx.baoxiuProject",Contains.repairContextStr);
-		if(uploadImgUrl != null && !"".equals(uploadImgUrl)){
-			parm.put("bx.baoxiuPicture",uploadImgUrl);
-		}
 
 		Log.d("geek", "提交报修"+parm.toString());
-		if(repairController ==  null){
-			repairController = new ReparirControllerImpl();
-		}
 		repairController.getRepairPSubmit(mRequestQueue, parm,Psubmitlistener);
 	}
 
@@ -535,7 +445,7 @@ public class Repair extends BaseActivity {
 				onError(info.MSG);
 				return;
 			}
-			ToastUtil.show(Repair.this, "报修成功");
+			ToastUtil.show(RepairCopy.this, "报修成功");
 			exitThis(true);
 		}
 
@@ -688,7 +598,7 @@ public class Repair extends BaseActivity {
 					takePhoto.setImagePath(path);
 					Bimp.tempSelectBitmap.add(takePhoto);
 				} else {
-					Toast.makeText(Repair.this, "",
+					Toast.makeText(RepairCopy.this, "",
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -752,79 +662,36 @@ public class Repair extends BaseActivity {
 		if(repairController ==  null){
 			repairController = new ReparirControllerImpl();
 		}
-		repairController.getQiniuToken(mRequestQueue, listener);
+		//repairController.getRepairXiangmu(mRequestQueue, listener);
 	}
-
-	private ResultListener<QiniuToken> listener = new ResultListener<QiniuToken>() {
-
-		@Override
-		public void onResponse(QiniuToken qinniuToken) {
-			progressDialog.hide();
-			token=qinniuToken.getUptoken();
-			Logger.d(qinniuToken.getUptoken());
-			uploadImgUrl = "";
-			curUploadImgIndex = 0;
-			for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
-				//设定需要添加的自定义变量为Map<String, String>类型 并且放到UploadOptions第一个参数里面
-				//上传策略中使用了自定义变量
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("Android", "我要报修");
-				isCancelled = false;
-				SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM");
-				String date=sdf.format(new java.util.Date());
-//				Log.d("...", "文件位置："+Bimp.tempSelectBitmap.get(
-//						i).getImagePath());
-				final String curUrl = "upload/baoxiu/img/"+date+"/"+"android_"+System.currentTimeMillis()+"";
-				//put第二个参数设置文件名
-				uploadManager.put(Bimp.tempSelectBitmap.get(
-						i).getImagePath(),curUrl, token,
-						new UpCompletionHandler() {
-							public void complete(String key,
-												 ResponseInfo info, JSONObject res) {
-								curUploadImgIndex++;
-//								Log.d("geek", "complete: res="+res+",info="+info+",key="+key);
-								if(info.isOK()==true){
-									String urlkey ="";
-									try{
-										urlkey = res.getString("key");
-									}catch (Exception e){
-										urlkey = "";
-									}
-									uploadImgUrl += curUrl+";";
-									Log.d("geek", "complete: urlkey="+urlkey+",uploadImgUrl="+uploadImgUrl);
-									Log.d("geek", "complete: curUploadImgIndex="+curUploadImgIndex+","+",size="+Bimp.tempSelectBitmap.size());
-									if((curUploadImgIndex) == Bimp.tempSelectBitmap.size()){
-										Toast.makeText(Repair.this, "图片上传成功", Toast.LENGTH_SHORT).show();
-										mHandler.sendEmptyMessage(uploadSuccess);
-									}
-								}else{
-									mHandler.sendEmptyMessage(uploadFaild);
-								}
-							}
-						}, new UploadOptions(map, null, false,
-								new UpProgressHandler() {
-									public void progress(String key, double percent){
-										Log.i("qiniu", key + ": " + percent);
-//													progressDialog.show();
-//													int progress = (int)(percent*1000);
-//                                                  Log.d("qiniu", progress+"");
-//													if(progress==1000){
-//														progressDialog.hide();
-//													}
-									}
-
-								}, new UpCancellationSignal(){
-							@Override
-							public boolean isCancelled() {
-								return isCancelled;
-							}
-						}));
-			}
-		}
-
-		@Override
-		public void onErrorResponse(String errMsg) {
-			onError("请求失败");
-		}
-	};
+//	
+//	private ResultListener<CxwyWxxiangmu> listener = new ResultListener<CxwyWxxiangmu>() {
+//
+//		@Override
+//		public void onResponse(CxwyWxxiangmu info) {
+//			progressDialog.hide();
+//			// 获取请求码
+//			if (info.status != STATUS_CODE_OK) {
+//				onError(info.MSG);
+//				return;
+//			}
+//			if (isEmptyList(info.getRows())) {
+//				onError("获取失败");
+//			} else {
+//				xiangmu = new String[info.getRows().size()];
+//				for (int i = 0; i < info.getRows().size(); i++) {
+//					String xq = info.getRows().get(i).getName();
+//					xiangmu[i] = xq;
+//				}
+//				ArrayAdapter aa = new ArrayAdapter(Repair.this,
+//						android.R.layout.simple_dropdown_item_1line, xiangmu);
+//				private_spinner1.setAdapter(aa);
+//			}
+//		}
+//
+//		@Override
+//		public void onErrorResponse(String errMsg) {
+//			onError("请求失败");
+//		}
+//	};
 }

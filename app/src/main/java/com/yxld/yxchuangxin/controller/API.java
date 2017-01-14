@@ -8,26 +8,23 @@ package com.yxld.yxchuangxin.controller;
  * @date 2016年3月11日 下午4:53:29
  */
 public interface API {
-
-    //域名
-    String yuming = "http://www.hnchxwl.com/wygl";
-
+  //  String menjinIP = "http://dz.hnchxwl.com/door/";
+  //门禁，暂用IP ，楼上域名访问有问题 20170107
     String menjinIP = "http://120.25.78.92/";
-//   String menjinIP = "http://192.168.8.21:8080/";
-//   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-//   String PIC = "http://192.168.8.166:8080";
-//   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+  //加载图片
+   String PIC = "http://img0.hnchxwl.com/";
 
-    /** 测试专用 本地192.168.8.22*/
-    String IP_PRODUCT = "http://192.168.8.22:8080/wygl";
-    String PIC = "http://192.168.8.22:8080";
-    String uploadImage = "http://192.168.8.22:8080/wygl/mall/upload_uploadAndroidFile";
+//  /** 测试专用 本地192.168.8.22*/
+//    String IP_PRODUCT = "http://192.168.8.22:8080/wygl";
+//    String uploadImage = "http://192.168.8.22:8080/wygl/mall/upload_uploadAndroidFile";
 
-//   String IP_PRODUCT = "http://120.24.163.177/wygl";
-//   String PIC = "http://120.24.163.177/";
-//   String uploadImage = "http://120.24.163.177/wygl/mall/upload_uploadAndroidFile";
+//  /** 本地专用 本地192.168.8.166*/
+   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+
+  /** 打包 本地192.168.8.22*/
+    String yuming_api = "http://www.hnchxwl.com";
 //    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
-//    String PIC = "http://www.hnchxwl.com";
 //    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
 
     /**
@@ -124,7 +121,6 @@ public interface API {
     String URL_GET_ORDER_DESTAIL_FROM_ID = IP_PRODUCT
             + "/mall/androidOrder_findSaleByOrder?sale.saleDingdanId=%1$s";
 
-
     /**
      * 根据订单ID查询库存信息，判断是否可以付款
      */
@@ -192,6 +188,7 @@ public interface API {
      */
     String URL_GET_ALL_UPDATE_PWD = IP_PRODUCT
             + "/mall/androidUser_changePassWord?yezhu.yezhuShouji=%1$s&yezhu.yezhuPwd=%2$s&newPassWord=%3$s";
+//            + "/mall/androidUser_changePassWord?shouji=%1$s&pwd=%2$s&newPassWord=%3$s";
 
     /**
      * 修改昵称
@@ -365,13 +362,13 @@ public interface API {
      * 根据业主id获取业主成员列表 http://localhost:8080/wygl/daily/androidHousehold_findrz?parentid=0
      */
     String URL_findall_chengyuan = IP_PRODUCT
-            + "/daily/androidHousehold_findrz?fwyzFw=%1$s";
+            + "/daily/androidHousehold_findrz?fwyzFw=%1$s&fwyzId=%2$s";
 
     /**
      * 根据删除业主成员  1202
      */
     String URL_delete_chengyuan = IP_PRODUCT
-            + "/daily/androidHousehold_deletecy?yezhuId=%1$s&fwyzFw=%2$s";
+            + "/daily/androidHousehold_deletecy?yezhuId=%1$s&fwyzFw=%2$s&fwyzId=%3$s";
 
     /**
      * 根据保存业主成员  1202
@@ -474,4 +471,9 @@ public interface API {
      */
     String URL_GET_MANYIDUTIAOCHAEXIST = IP_PRODUCT
             + "/shouquan/manyidu_finduserid?userId=%1$s";
+  /**
+   * 七牛token
+   */
+  String URL_GET_QINIU_TOKEN = IP_PRODUCT
+          + "/qiniu/qiniu_getQiniuToken.action";
 }

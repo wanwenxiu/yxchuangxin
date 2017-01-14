@@ -42,7 +42,7 @@ public class Wuyeadapter extends BaseAdapter {
 
 //    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
 //    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
-
+//
 //    int[] icon1 = {R.mipmap.wuyefei, R.mipmap.shuifei, R.mipmap.dianfei, R.mipmap.tingchechang};
 //    String[] name1 = {"物业服务费", "水费", "电费", "车位费"};
 
@@ -220,7 +220,7 @@ public class Wuyeadapter extends BaseAdapter {
                                 }
                                 break;
                             case 1://维修服务
-//                                ToastUtil.show(context, "敬请期待");
+//                               ToastUtil.show(context, "敬请期待");
                                 if (Contains.appYezhuFangwus == null || Contains.appYezhuFangwus.size() == 0) {
                                     Toast.makeText(context, "需要在后台去配置您的业主信息", Toast.LENGTH_SHORT).show();
                                     return;

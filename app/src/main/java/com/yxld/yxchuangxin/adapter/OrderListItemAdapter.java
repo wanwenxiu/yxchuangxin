@@ -160,7 +160,11 @@ public class OrderListItemAdapter extends BaseAdapter {
 
         CxwyMallOrder order = listOrderDatas.get(position);
         listItemView.orderTime.setText("下单时间:" + order.getDingdanXiadanTime());
-        listItemView.orderState.setText(order.getDingdanZhuangtai());
+        if(order.getDingdanZhuangtai() != null && "待取货".equals(order.getDingdanZhuangtai())){
+            listItemView.orderState.setText("配送中");
+        }else{
+            listItemView.orderState.setText(order.getDingdanZhuangtai());
+        }
         totalPrice = order.getDingdanTotalRmb() + "";
         //默认总价
 

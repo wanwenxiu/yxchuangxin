@@ -62,7 +62,6 @@ public class ImagesLoader {
 						conn.setConnectTimeout(5000); //设置连接超时为5秒
 						conn.setRequestMethod("GET"); //设定请求方式
   						conn.connect();
-						DataInputStream dis = new DataInputStream(conn.getInputStream());
 						if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 							InputStream in = conn.getInputStream();
 							Bitmap bm = BitmapFactory.decodeStream(in);

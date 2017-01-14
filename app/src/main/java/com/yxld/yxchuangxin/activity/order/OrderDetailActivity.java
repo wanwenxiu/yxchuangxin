@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.yxld.yxchuangxin.controller.impl.OrderControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallOrder;
 import com.yxld.yxchuangxin.entity.CxwyMallSale;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.StringUitl;
 
 /**
  * @ClassName: OrderDetailActivity 
@@ -34,7 +37,7 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 	private TextView orderDetailsOrderNum, orderDetailsOrderCate,
 			sureOrderUserName, sureOrderUserTell, sureOrderAdressInfo,
 			orderTimeText, cartPriceConnt, robOrder_buyerText,
-			orderTradingStyle,order_totalnum,orderpaytype,ordercancelinfo,orderPeisongPraise,orderyouhuiqjia;
+			orderTradingStyle,order_totalnum,orderpaytype,ordercancelinfo,orderPeisongPraise,orderyouhuiqjia,orderPeisongPhone;
 
 	private ListView orderGoodList = null;
 	
@@ -85,6 +88,7 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 		cartPriceConnt = (TextView) findViewById(R.id.cartPriceConnt);
 		robOrder_buyerText = (TextView) findViewById(R.id.robOrder_buyerText);
 		orderTradingStyle = (TextView) findViewById(R.id.orderTradingStyle);
+		orderPeisongPhone = (TextView) findViewById(R.id.orderPeisongPhone);
 		orderPeisongPraise = (TextView) findViewById(R.id.orderPeisongPraise);
 		orderyouhuiqjia = (TextView) findViewById(R.id.orderyouhuiqjia);
 		order_totalnum = (TextView)findViewById(R.id.order_totalnum);
@@ -92,6 +96,21 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 		ordercancelinfo = (TextView)findViewById(R.id.ordercancelinfo);
 
 		orderGoodList = (ListView) findViewById(R.id.orderGoodList);
+
+		orderPeisongPhone.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(StringUitl.isNoEmpty(orderPeisongPhone.getText().toString())){
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_CALL);
+					//url:统一资源定位符
+					//uri:统一资源标示符（更广）
+					intent.setData(Uri.parse("tel:" + orderPeisongPhone.getText().toString()));
+					//开启系统拨号器
+					startActivity(intent);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -123,7 +142,7 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 			onError(info.MSG);
 			return;
 		}
-		initData(info.getSaleList(),info.getOrder());
+		initData(info.getSaleList(),info.getOrder(),info.getPhone());
 		progressDialog.hide();
 	}
 
@@ -132,7 +151,7 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 		onError(errMsg);
 	}
 	
-	private void initData(List<CxwyMallSale> info,CxwyMallOrder order) {
+	private void initData(List<CxwyMallSale> info,CxwyMallOrder order,String phone) {
 		if (info != null) {
 			// 创建一个集合来装图片和文字
 			ArrayList<HashMap<String, Object>> lstImageItem = new ArrayList<HashMap<String, Object>>();
@@ -198,12 +217,20 @@ public class OrderDetailActivity extends BaseActivity implements ResultListener<
 
 			//订单状态
 			orderDetailsOrderCate.setText(order.getDingdanZhuangtai()+"");
+			if("待取货".equals(order.getDingdanZhuangtai())){
+				orderDetailsOrderCate.setText("配送中");
+			}
 
 			//商品总数
 			order_totalnum.setText(order.getDingdanGoodsnum()+"件");
 
 			//取消原因
 			ordercancelinfo.setText(order.getDingdanBeiyong4()+"");
+		}
+
+		if(phone != null && !"".equals(phone)){
+			//配送人
+			orderPeisongPhone.setText(phone);
 		}
 	}
 	

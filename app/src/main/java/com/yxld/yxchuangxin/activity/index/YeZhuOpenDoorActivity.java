@@ -150,7 +150,7 @@ public class YeZhuOpenDoorActivity extends BaseActivity {
 				Bitmap qrCodeBitmap =CodeUtils.createImage(contentString, 450, 450, BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg));
 				codeImg.setImageBitmap(qrCodeBitmap);
 				shareInfo.setBitmap(qrCodeBitmap);
-				shareUrl = API.yuming+"/qr_code.html?timr="+time+"&code="+contentString;
+				shareUrl = API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+contentString;
 				shareInfo.setImgUrl(shareUrl);
 				youxiaoqi.setText("二维码即时更新中，复制无效"+'\n'+"若光线太暗，请调亮屏幕亮度");
 				codeImg.setVisibility(View.VISIBLE);

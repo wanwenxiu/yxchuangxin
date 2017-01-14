@@ -119,7 +119,7 @@ public class WelcomeActivity extends BaseActivity implements
 				String curVersion = CxUtil.getVersion(WelcomeActivity.this);
 				String newVersion = entity.getVersionUId();
 				Log.d("geek", "curVersion=" + curVersion + ",newVersion=" + newVersion);
-				if(Float.valueOf(curVersion) <= Float.valueOf("4.1") && Float.valueOf(newVersion) == Float.valueOf("4.2")  && Float.valueOf(curVersion) != Float.valueOf("1.0")){
+			   /*	if(Float.valueOf(curVersion) <= Float.valueOf("4.1") && Float.valueOf(newVersion) == Float.valueOf("4.2")  && Float.valueOf(curVersion) != Float.valueOf("1.0")){
 					checkPermission(REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 					return;
 				}else{
@@ -128,6 +128,16 @@ public class WelcomeActivity extends BaseActivity implements
 					}else{
 						handler.sendEmptyMessage(LOCATION_FINISH);
 					}
+				}*/
+
+				Log.d("geek", "版本开始前onResponse: curVersion="+curVersion+",newVersion="+newVersion);
+				curVersion = curVersion.replace(".","");
+				newVersion = newVersion.replace(".","");
+				Log.d("geek", "版本开始后onResponse: curVersion="+curVersion+",newVersion="+newVersion);
+				if (Float.valueOf(newVersion) > Float.valueOf(curVersion)) {
+					checkPermission(REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+				}else{
+					handler.sendEmptyMessage(LOCATION_FINISH);
 				}
 			}else{
 				handler.sendEmptyMessage(LOCATION_FINISH);
@@ -278,7 +288,7 @@ public class WelcomeActivity extends BaseActivity implements
 	 */
 	private void alertUpdate() {
 		// 这里来检测版本是否需要更新
-		UpdateManager mUpdateManager = new UpdateManager(this, API.PIC + entity.getVersionDownloadUrl(),handler);
+		UpdateManager mUpdateManager = new UpdateManager(this, entity.getVersionDownloadUrl(),handler);
 		mUpdateManager.checkUpdateInfo(entity.getVersionUId(), entity.getVersionExplain(), entity.getVersionIsCompulsory());
 	}
 

@@ -160,15 +160,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         if (payController == null) {
             payController = new PayControllerImpl();
         }
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat datef = new SimpleDateFormat("yyyy-MM-dd");
-        //当前月的最后一天
-        cal.set(Calendar.DATE, 1);
-        cal.roll(Calendar.DATE, -1);
-        Date endTime = cal.getTime();
-        String endTime1 = datef.format(endTime);
-        Logger.d(endTime1);
-        String add=addDay(endTime1, Contains.month) + " 00:00:00";
+        String add=addDay(Contains.endtime, Contains.month);
         Logger.d(add);
         progressDialog.show();
         Map<String, String> parm = new HashMap<String, String>();
@@ -259,7 +251,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
     public static String addDay(String s, int n) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar cd = Calendar.getInstance();
             cd.setTime(sdf.parse(s));
             cd.add(Calendar.MONTH, n);//增加一个月

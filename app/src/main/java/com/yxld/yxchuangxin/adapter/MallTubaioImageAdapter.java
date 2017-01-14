@@ -76,6 +76,7 @@ public class MallTubaioImageAdapter extends BaseAdapter{
 		if(peizhi.getMallPeizhiValue() != null){
 			Uri uri = Uri.parse(API.PIC + peizhi.getMallPeizhiValue());
 			holder.icon.setImageURI(uri);
+			Log.d("geek", "mall getView: uri="+uri);
 		}
 		return view;
 	}

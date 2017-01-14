@@ -17,14 +17,12 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.orhanobut.logger.Logger;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.index.AccessActivity;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
 import com.yxld.yxchuangxin.activity.index.FeiYongListActivity;
-import com.yxld.yxchuangxin.activity.index.VisitorInvitationActivity;
 import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
@@ -196,7 +194,12 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
                             startActivity(ExpressActivity.class);
                         break;
                     case 3: //个人中心
-                        startActivity(MemberActivity.class);
+//                        startActivity(MemberActivity.class);
+                        if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {
+                            ToastUtil.show(NewMainActivity2.this, "业主信息不完善");
+                            return;
+                        }
+                        startActivity(WuyeActivity.class);
                         break;
                     case 4: //投诉建议
                         if (Contains.user == null || Contains.user.getYezhuType() == null || Contains.user.getYezhuType() != 0 || Contains.appYezhuFangwus.size() == 0) {

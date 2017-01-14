@@ -6,6 +6,7 @@ import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.entity.CxwyBaoxiu;
 import com.yxld.yxchuangxin.entity.CxwyWxxiangmu;
+import com.yxld.yxchuangxin.entity.QiniuToken;
 import com.yxld.yxchuangxin.entity.RepairList;
 import com.yxld.yxchuangxin.entity.RepairLoupan;
 import com.yxld.yxchuangxin.listener.ResultListener;
@@ -100,4 +101,16 @@ public interface RepairController extends API{
 	 */
 	void getRepairOtherList(RequestQueue mRequestQueue, Map<String, String> parm,
 							final ResultListener<CxwyBaoxiu> listener);
+
+
+	/**
+	 * @Title: getQiniuToken
+	 * @Description: 七牛token
+	 * @param mRequestQueue
+	 * @param listener
+	 * @return void
+	 * @throws
+	 */
+	void getQiniuToken(RequestQueue mRequestQueue, ResultListener<QiniuToken> listener);
+
 }

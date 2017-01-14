@@ -13,6 +13,8 @@ public class CxwyMallSale extends BaseEntity implements java.io.Serializable {
 
 	private List<CxwyMallSale> saleList;
 	private CxwyMallOrder order;
+
+	private String phone;
 	
 	// Fields
 	private Integer saleId;//id
@@ -183,6 +185,14 @@ public class CxwyMallSale extends BaseEntity implements java.io.Serializable {
 
 	public void setSaleJinhuojia(String saleJinhuojia) {
 		this.saleJinhuojia = saleJinhuojia;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public CxwyMallSale(String saleTime, Integer saleShangpNum, Integer saleDingdanId, String saleShangpName, Integer saleNum, String saleGuige, Float saleTotalRmb, Float saleOneRmb, String saleImgSrc, String saleUseTime, String saleProject, String saleCardId, String saleOrderState, String saleOrderBianhao, String saleJinhuojia) {

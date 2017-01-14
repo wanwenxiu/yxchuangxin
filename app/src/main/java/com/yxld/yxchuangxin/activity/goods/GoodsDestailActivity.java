@@ -214,6 +214,8 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 			String[] urlArray =  curGood.getShangpinImgSrc1().split(";");
 			for (int i = 0; i <urlArray.length; i++) {
 				urls.add(API.PIC+urlArray[i]);
+				Log.d("geek", "initdata: ZHiqn:"+urlArray[i]);
+				Log.d("geek", "initdata: uri"+API.PIC+urlArray[i]);
 			}
 		}
 

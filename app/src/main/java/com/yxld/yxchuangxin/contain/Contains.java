@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyMallAdd;
 import com.yxld.yxchuangxin.entity.CxwyMallCart;
@@ -71,7 +72,7 @@ public class Contains {
 	public static String token="";
 
 	/** Pay Callback Server URL **/
-	public final static String URL_PAY_CALLBACK = "http://222.240.1.133/WechatPayServer";
+	public final static String URL_PAY_CALLBACK = API.yuming_api+"/WechatPayServer";
 	// 微信开放平台审核通过的应用APPID
 	public static final String WX_APP_ID = "wx474645d31f239239";
 	// 微信支付分配的商户号
@@ -92,7 +93,9 @@ public class Contains {
 	public static String fwid;
 	public static int month=0;
 	public static String total;
+	public static String endtime;
 	public static Double payment=0.00;
+
 
 	/** 微信再付款*/
 	public static int isAgenWeixinPay = 0;

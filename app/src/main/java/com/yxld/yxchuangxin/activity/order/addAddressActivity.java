@@ -1,36 +1,29 @@
 package com.yxld.yxchuangxin.activity.order;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.yxld.yxchuangxin.R;
-import com.yxld.yxchuangxin.addresspicker.AddressPicker;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.controller.AddressController;
 import com.yxld.yxchuangxin.controller.RepairController;
 import com.yxld.yxchuangxin.controller.impl.AddressControllerImpl;
-import com.yxld.yxchuangxin.controller.impl.ReparirControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallAdd;
 import com.yxld.yxchuangxin.entity.CxwyXiangmu;
-import com.yxld.yxchuangxin.entity.RepairList;
 import com.yxld.yxchuangxin.listener.ResultListener;
 import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yishangfei on 2016/3/4.
@@ -62,6 +55,9 @@ public class addAddressActivity extends BaseActivity {
 
 	/** 添加地址 为 true 。修改地址为false*/
 	private boolean isADD = true;
+
+	/** 0为默认地址，1不位默认地址*/
+	private int  updateIsDefalu = 1;
 
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
@@ -123,8 +119,10 @@ public class addAddressActivity extends BaseActivity {
 //			selectAddress.setText(address.getAddSpare1());
 			editDestail.setText(address.getAddAdd());
 			xiaoqu.setText(address.getAddVillage());
+			updateIsDefalu = address.getAddStatus();
 		}else{
 			isADD = true;
+			updateIsDefalu = 1;
 			setTitle("新增收获地址");
 		}
 	}
@@ -232,7 +230,7 @@ public class addAddressActivity extends BaseActivity {
 //		map.put("add.addSpare1", selectAddress.getText().toString());
 		map.put("add.addAdd", editDestail.getText().toString());
 		map.put("add.addUserName", Contains.user.getYezhuName()+"");
-		map.put("add.addStatus", "1");
+		map.put("add.addStatus", String.valueOf(updateIsDefalu));
 		map.put("add.addSpare2", Contains.user.getYezhuId()+"");
 		Log.d("geek","添加修改地址map"+map.toString());
 		if(isADD){

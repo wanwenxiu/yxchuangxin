@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yxld.yxchuangxin.view.VerticalSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:vswitch="http://schemas.android.com/apk/res-auto"
+<com.yxld.yxchuangxin.view.VerticalSwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/main_bg">
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--  -->
 
     <LinearLayout
         android:id="@+id/main1"
@@ -118,7 +120,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_weight="0.3"
                 android:gravity="center_vertical"
-                android:text="你好，尊敬的用户"
+                android:text="您好，尊敬的用户"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 />

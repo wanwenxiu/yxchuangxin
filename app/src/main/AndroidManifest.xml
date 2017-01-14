@@ -162,12 +162,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="com.yxld.yxchuangxin.activity.index.selectimg.Repair"
-            android:label="报修"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
             android:name="com.yxld.yxchuangxin.activity.mine.MemberActivity"
             android:label="账号设置"
             android:screenOrientation="portrait">
@@ -264,6 +258,8 @@
             android:name="com.yxld.yxchuangxin.activity.index.selectimg.ShowAllPhoto"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".activity.index.selectimg.Repair"></activity>
         <!--  报修列表-->
         <activity
             android:name="com.yxld.yxchuangxin.activity.mine.RepairListActivity"
@@ -520,7 +516,8 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
 
         <!-- 微信回调activity
         <activity

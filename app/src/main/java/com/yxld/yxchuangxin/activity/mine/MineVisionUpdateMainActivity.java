@@ -108,7 +108,7 @@ public class MineVisionUpdateMainActivity extends BaseActivity implements Result
 
 	private  void alertUpdate(){
 		// 这里来检测版本是否需要更新
-		UpdateManager mUpdateManager = new UpdateManager(this,API.PIC +newVersionUrl);
+		UpdateManager mUpdateManager = new UpdateManager(this,newVersionUrl);
 		mUpdateManager.checkUpdateInfo(entity.getVersionUId(),entity.getVersionExplain(),entity.getVersionIsCompulsory());
 	}
 	
@@ -140,7 +140,8 @@ public class MineVisionUpdateMainActivity extends BaseActivity implements Result
 			
 			cur_vision.setText("您的当前版本号:"+curVersion);
 			new_vision.setText("最新版本号:"+newVersion);
-
+			curVersion = curVersion.replace(".","");
+			newVersion = newVersion.replace(".","");
 			if (Float.valueOf(newVersion) > Float.valueOf(curVersion)) {
 				update_vision.setVisibility(View.VISIBLE);
 			}else{

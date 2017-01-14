@@ -27,18 +27,18 @@ public class WechatPay {
 	public static String createOrder(String tradeNo, String totalFee, String subject) {
 		Log.d("geek", "createOrder: 'createOrder"+subject);
 		String result = "";
-		//http://222.240.1.133/WechatPayServer/UnifiedOrderServlet?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject
+		//http://www..../WechatPayServer/UnifiedOrderServlet?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject
 		String URL_PREPAY = Contains.URL_PAY_CALLBACK + "/UnifiedOrderServlet";
 
 		try {
 			subject = URLEncoder.encode(subject, "UTF-8");
 			String url = URL_PREPAY + "?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject;
-			Log.d("geek", "createOrder: 'url"+url);
+			Log.d("geek", "createOrder: 'url="+url);
 			result = HttpUtils.doGet(url);
-		} catch (UnsupportedEncodingException e) {
+			Log.d("geek","微信创建订单 result="+result.toString());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Log.d("geek","微信创建订单 result="+result.toString());
 		return result;
 	}
 

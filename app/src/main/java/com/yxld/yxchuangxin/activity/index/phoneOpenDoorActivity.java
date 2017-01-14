@@ -53,7 +53,7 @@ public class phoneOpenDoorActivity extends BaseActivity {
 	@Override
 	protected void initContentView(Bundle savedInstanceState) {
 		setContentView(R.layout.phone_open_door_activity_layout);
-		getSupportActionBar().setTitle("手机开门");
+		getSupportActionBar().setTitle("访客邀请码");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		intent = getIntent();
 		bundle1 = intent.getExtras();
@@ -114,28 +114,29 @@ public class phoneOpenDoorActivity extends BaseActivity {
 		}
 	}
 
-	public static String getFormatedDateTime(String pattern, long dateTime) {
-		Log.d("geek", "getFormatedDateTime: pattern"+pattern+",dateTime="+dateTime);
-		SimpleDateFormat sDateFormat = new SimpleDateFormat(pattern);
-		return sDateFormat.format(new Date(dateTime));
-	}
-
 	private void getOpenDoor(String contentString)  throws  Exception{
 			if (!contentString.equals("")) {
 				//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
 				Bitmap qrCodeBitmap = CodeUtils.createImage(contentString, 450, 450, BitmapFactory.decodeResource(getResources(), R.mipmap.login_icon_bg));
 				//设置二维码图片
 				codeImg.setImageBitmap(qrCodeBitmap);
-				Log.d("geek", "getOpenDoor: time"+time);
+				Log.d("geek","getOpenDoor:time"+time);
 				Timestamp dateStr = new Timestamp(Long.parseLong(time));
 
-				System.out.println(time.toString());
-				Log.d("geek", "getOpenDoor: dateStr"+dateStr);
-				youxiaoqi.setText("有效期至："+dateStr);
+				try {
+					dateStr = Timestamp.valueOf(dateStr.toString());
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Log.d("geek", "getOpenDoor: sdf"+sdf.format(dateStr));
+					youxiaoqi.setText("有效期至："+sdf.format(dateStr));
+				} catch (Exception e) {
+					e.printStackTrace();
+					youxiaoqi.setText("有效期至："+dateStr);
+				}
+
 
 				//设置分享内容
 				shareInfo.setBitmap(qrCodeBitmap);
-				String qqurl = API.yuming+"/qr_code.html?timr="+time+"&code="+codestr;
+				String qqurl = API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+codestr;
 				shareInfo.setQQImgUrl(qqurl);
 
 				try{
@@ -143,7 +144,7 @@ public class phoneOpenDoorActivity extends BaseActivity {
 				}catch (Exception e){
 					e.printStackTrace();
 				}
-				shareInfo.setImgUrl(API.yuming+"/qr_code.html?timr="+time+"&code="+codestr);
+				shareInfo.setImgUrl(API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+codestr);
 
 				Log.d("geek","手机界面设置完成shareInfo ="+shareInfo.toString());
 

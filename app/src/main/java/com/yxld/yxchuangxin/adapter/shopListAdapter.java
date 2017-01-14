@@ -130,11 +130,15 @@ public class shopListAdapter extends BaseAdapter {
 			// 加载图片
 			if (curProduct.getShangpinImgSrc1() != null
 					&& !"".equals(curProduct.getShangpinImgSrc1())) {
-				Uri uri = Uri.parse(API.PIC + curProduct.getShangpinImgSrc1().split(";")[0]);
+				Uri uri = Uri.parse(API.PIC + curProduct.getShangpinImgSrc1().split(";")[0] +"?imageView2/0/w/150/h/150");
 				holder.iv.setImageURI(uri);
+				Log.d("geek", "getView: ZHiqn:"+curProduct.getShangpinImgSrc1().split(";")[0]);
+				Log.d("geek", "getView: uri"+uri);
 			}else{
 				holder.iv.setImageURI(API.PIC+"/wygl/files/img/201605/empty_photo.png");
 			}
+
+
 
 			holder.tv_name.setText(curProduct.getShangpinShangpName()+"	"+curProduct.getShangpinGuige());
 			holder.tv_money.setText("￥"+curProduct.getShangpinRmb() + " ");

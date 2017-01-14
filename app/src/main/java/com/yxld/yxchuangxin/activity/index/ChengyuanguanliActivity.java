@@ -1,5 +1,7 @@
 package com.yxld.yxchuangxin.activity.index;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -124,7 +126,7 @@ public class ChengyuanguanliActivity extends BaseActivity {
 		if(Contains.appYezhuFangwus != null && Contains.appYezhuFangwus.size() >0 && Contains.appYezhuFangwus.get(Contains.curFangwu) != null
 				&& Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId() != null
 				&& !"".equals(Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId())){
-				yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId()}, new ResultListener<AppYezhuFangwu>() {
+				yezhuController.getAllChengyuanList(mRequestQueue, new Object[]{Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId(),Contains.user.getYezhuId()}, new ResultListener<AppYezhuFangwu>() {
 					@Override
 					public void onResponse(AppYezhuFangwu info) {
 						if (isEmptyList(info.getRows())) {
@@ -154,24 +156,57 @@ public class ChengyuanguanliActivity extends BaseActivity {
 		@Override
 		public void handleMessage(Message msg) {
 			if(msg.what == 0){
-				int id = msg.arg1;
-				Log.d("geek","id");
-				yezhuController.getDeleteChengyuanList(mRequestQueue, new Object[]{id,Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId()}, new ResultListener<BaseEntity>() {
+				 final  int id = msg.arg1;
+				AlertDialog.Builder builder = new AlertDialog.Builder(ChengyuanguanliActivity.this);
+				builder.setTitle("提示:成员删除后将无法恢复");
+				//    指定下拉列表的显示数据
+				final String[] cities = {"确定","取消"};
+				//    设置一个下拉的列表选择项
+				builder.setItems(cities, new DialogInterface.OnClickListener()
+				{
 					@Override
-					public void onResponse(BaseEntity info) {
-						// 获取请求码
-						if (info.status != STATUS_CODE_OK) {
-							onError(info.MSG);
-							return;
-						}
-						initDataFromNet();
-					}
+					public void onClick(DialogInterface dialog, int which)
+					{
+						if(which == 0){
+							Log.d("geek","id");
+							yezhuController.getDeleteChengyuanList(mRequestQueue, new Object[]{id,Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId(),Contains.user.getYezhuId()}, new ResultListener<BaseEntity>() {
+								@Override
+								public void onResponse(BaseEntity info) {
+									// 获取请求码
+									if (info.status != STATUS_CODE_OK) {
+										onError(info.MSG);
+										return;
+									}
+									initDataFromNet();
+								}
 
-					@Override
-					public void onErrorResponse(String errMsg) {
-						onError(errMsg);
+								@Override
+								public void onErrorResponse(String errMsg) {
+									onError(errMsg);
+								}
+							});
+						}
 					}
 				});
+				builder.show();
+//				int id = msg.arg1;
+//				Log.d("geek","id");
+//				yezhuController.getDeleteChengyuanList(mRequestQueue, new Object[]{id,Contains.appYezhuFangwus.get(Contains.curFangwu).getFwId(),Contains.user.getYezhuId()}, new ResultListener<BaseEntity>() {
+//					@Override
+//					public void onResponse(BaseEntity info) {
+//						// 获取请求码
+//						if (info.status != STATUS_CODE_OK) {
+//							onError(info.MSG);
+//							return;
+//						}
+//						initDataFromNet();
+//					}
+//
+//					@Override
+//					public void onErrorResponse(String errMsg) {
+//						onError(errMsg);
+//					}
+//				});
 			}
 		}
 	};

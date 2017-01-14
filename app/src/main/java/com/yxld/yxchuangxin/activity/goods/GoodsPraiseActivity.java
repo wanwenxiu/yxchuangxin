@@ -95,6 +95,11 @@ public class GoodsPraiseActivity extends BaseActivity implements
 				ToastUtil.show(this, "请选择评价等级");
 				return;
 			}
+
+			if(comment.getPingjiaBody() == null || "".equals(comment.getPingjiaBody())){
+				ToastUtil.show(this, "请输入评价内容");
+				return;
+			}
 		}
 
 		if (praiseContaoller == null) {

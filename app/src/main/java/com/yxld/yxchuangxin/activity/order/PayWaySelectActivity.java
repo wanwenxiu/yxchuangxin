@@ -28,6 +28,7 @@ import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.contain.Contains;
+import com.yxld.yxchuangxin.controller.API;
 import com.yxld.yxchuangxin.controller.OrderController;
 import com.yxld.yxchuangxin.controller.impl.OrderControllerImpl;
 import com.yxld.yxchuangxin.activity.order.YinlLianWebViewActivity;
@@ -49,6 +50,8 @@ import java.util.Map;
 import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.yxld.yxchuangxin.controller.API.yuming_api;
 
 /**
  * @author wwx
@@ -297,7 +300,7 @@ public class PayWaySelectActivity extends BaseActivity {
                             YinlLianWebViewActivity.class);// 跳转的activity\
                     Bundle ylzf = new Bundle();
                     ylzf.putString("name", "银联支付");
-                    ylzf.putString("address", "http://222.240.1.133/CHINAPAY_DEMO/signServlet.do?BusiType=0001&Version=20140728&CommodityMsg=wwxtest&MerPageUrl=http://222.240.1.133/CHINAPAY_DEMO/pgReturn.do&MerBgUrl=http://222.240.1.133/CHINAPAY_DEMO/bgReturn.do&MerId=531121608230001&" +
+                    ylzf.putString("address", API.yuming_api+"/CHINAPAY_DEMO/signServlet.do?BusiType=0001&Version=20140728&CommodityMsg=wwxtest&MerPageUrl=http://www.hnchxwl.com/CHINAPAY_DEMO/pgReturn.do&MerBgUrl=http://www.hnchxwl.com/CHINAPAY_DEMO/bgReturn.do&MerId=531121608230001&" +
                             "MerOrderNo=" + orderBianhao + "&OrderAmt=" + money + "&TranDate=" + getNowDateShort() + "&TranTime=" + getTimeShort() + "&MerResv=1");
                     intent.putExtras(ylzf);
                     startActivity(intent);
@@ -499,10 +502,10 @@ public class PayWaySelectActivity extends BaseActivity {
         orderInfo += "&body=" + "\"" + body + "\"";
 
         // 商品金额
-        orderInfo += "&total_fee=" + "\"" + "0.01" + "\"";
+        orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://222.240.1.133/wygl/notify_url.jsp" + "\"";
+        orderInfo += "&notify_url=" + "\"" + API.IP_PRODUCT+"/notify_url.jsp" + "\"";
         //http://222.240.1.133/wygl/mall/androidOrder_alipayUpdateOrder
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";
@@ -636,7 +639,7 @@ public class PayWaySelectActivity extends BaseActivity {
             Contains.orderBianhao = trade_no;
             final String total_fee = orderMoney;
             final String subject = orderShop;
-            String result = WechatPay.createOrder(trade_no, "0.01", subject);
+            String result = WechatPay.createOrder(trade_no, total_fee, subject);
             Message msg = createOrderHandler.obtainMessage();
             msg.what = 0;
             msg.obj = result;

@@ -6,6 +6,7 @@ package com.yxld.yxchuangxin.http;
 
 import android.os.Handler;
 
+
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 
 import org.apache.http.HttpResponse;
@@ -15,7 +16,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

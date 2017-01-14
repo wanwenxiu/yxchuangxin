@@ -195,8 +195,10 @@ public class CartAdapter extends BaseAdapter {
         if (goodsVo.getCartImgSrc() != null && !"".equals(goodsVo.getCartImgSrc())) {
             if (goodsVo.getCartImgSrc().indexOf(";") > 0) {
                 String[] urlArray = goodsVo.getCartImgSrc().split(";");
+                Log.d("geek", "getView: 图片路径"+API.PIC + urlArray[0]);
                 Contains.loadingImg.displayImage(API.PIC + urlArray[0], listItemView.cartGoodsImg, LoadingImg.option1);
             } else {
+                Log.d("geek", "getView: 图片路径"+API.PIC + goodsVo.getCartImgSrc());
                 Contains.loadingImg.displayImage(API.PIC + goodsVo.getCartImgSrc(), listItemView.cartGoodsImg, LoadingImg.option1);
             }
         }

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 
+
 public class BitmapCache extends Activity {
 
 	public Handler h = new Handler();

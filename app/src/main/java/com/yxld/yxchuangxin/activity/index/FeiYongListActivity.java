@@ -74,7 +74,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
     private PayController payController;
     private double[] Amount, Payment;//欠缴金额  欠缴滞纳金额
     private String[] Fwid, Endtime,Area,Feiyong,total;
-    private String fwid, bianhao;
+    private String fwid, bianhao,endtime;
     private double Monthly, payment;//一个月的物业费价格
     private int month;//月份数
 
@@ -199,7 +199,8 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                         details_money.setText("0.00");
                         sure.setText("合计支付:0.00");
                     }
-                    endTime.setText("缴费截止时间：" + Endtime[0]);
+                    endtime=Endtime[0];
+                    endTime.setText("缴费截止时间：" + endtime);
                     fwid = Fwid[0];
                     Monthly=Double.parseDouble(Feiyong[0])*Double.parseDouble(Area[0]);
                 }
@@ -238,7 +239,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                         Contains.fwid=fwid;
                         Contains.payment=payment;
                         Contains.total=total[1];
-                        Contains.pay = 3;
+                        Contains.endtime=endtime;
                         Contains.pay = 3;
                         new CreateOrderThread().start();
                     }
@@ -258,7 +259,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                     bianhao = System.currentTimeMillis() + "";
 //                    fq = fq.substring(5, fq.length());
 //                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳", fq);
-                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳", total[1]);
+                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳", "0.01");
                     /**
                      * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
                      */
@@ -314,7 +315,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
         double amount = Amount[position];
         payment = Payment[position];
         double money = amount + payment;
-        String endtime = Endtime[position];
+        endtime = Endtime[position];
         String feiyong=Feiyong[position];
         String area=Area[position];
         Monthly=Double.parseDouble(feiyong)*Double.parseDouble(area);
@@ -573,21 +574,8 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
         if (payController == null) {
             payController = new PayControllerImpl();
         }
-//        int yue;
-//        if (wymonth < 1) {
-//            yue = month;
-//        }else {
-//            yue=wymonth+month;
-//        }
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat datef = new SimpleDateFormat("yyyy-MM-dd");
-        //当前月的最后一天
-        cal.set(Calendar.DATE, 1);
-        cal.roll(Calendar.DATE, -1);
-        Date endTime = cal.getTime();
-        String endTime1 = datef.format(endTime);
-        Logger.d(endTime1);
-        String add = addDay(endTime1, month) + " 00:00:00";
+        String add = addDay(endtime, month);
+        Logger.d(endtime);
         Logger.d(add);
         String[] total = sure.getText().toString().split("\\:");//实缴物业费
         progressDialog.show();
@@ -629,7 +617,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
 
     public static String addDay(String s, int n) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar cd = Calendar.getInstance();
             cd.setTime(sdf.parse(s));
             cd.add(Calendar.MONTH, n);//增加一个月
@@ -639,5 +627,16 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        amount_view.setText(0 + "");
+        initFangwu();
+    }
 }
 

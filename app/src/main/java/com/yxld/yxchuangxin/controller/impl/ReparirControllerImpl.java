@@ -21,6 +21,7 @@ import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.RepairController;
 import com.yxld.yxchuangxin.entity.CxwyBaoxiu;
 import com.yxld.yxchuangxin.entity.CxwyWxxiangmu;
+import com.yxld.yxchuangxin.entity.QiniuToken;
 import com.yxld.yxchuangxin.entity.RepairList;
 import com.yxld.yxchuangxin.entity.RepairLoupan;
 import com.yxld.yxchuangxin.http.GsonRequest;
@@ -167,7 +168,7 @@ public class ReparirControllerImpl implements RepairController {
 			final Map<String, String> parm,
 			final ResultListener<BaseEntity> listener) {
 		StringRequest stringRequest = new StringRequest(Method.POST,
-				URL_GET_ALL_PRIVATE_SUBMIT, new Response.Listener<String>() {
+				URL_GET_ALL_PRIVATE_SUBMIT, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -191,7 +192,7 @@ public class ReparirControllerImpl implements RepairController {
 							listener.onResponse(info);
 						}
 					}
-				}, new Response.ErrorListener() {
+				}, new ErrorListener() {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
@@ -239,7 +240,7 @@ public class ReparirControllerImpl implements RepairController {
 	public void getRepairAllList(RequestQueue mRequestQueue,
 			final Map<String, String> parm, final ResultListener<CxwyBaoxiu> listener) {
 		StringRequest stringRequest = new StringRequest(Method.POST,
-				URL_REPAIR_ALL, new Response.Listener<String>() {
+				URL_REPAIR_ALL, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -253,7 +254,7 @@ public class ReparirControllerImpl implements RepairController {
 							listener.onResponse(info);
 						}
 					}
-				}, new Response.ErrorListener() {
+				}, new ErrorListener() {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
@@ -275,7 +276,7 @@ public class ReparirControllerImpl implements RepairController {
 	public void getRepairOtherList(RequestQueue mRequestQueue,
 			final Map<String, String> parm, final ResultListener<CxwyBaoxiu> listener) {
 		StringRequest stringRequest = new StringRequest(Method.POST,
-				URL_REPAIR_OTHER, new Response.Listener<String>() {
+				URL_REPAIR_OTHER, new Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
@@ -288,7 +289,7 @@ public class ReparirControllerImpl implements RepairController {
 							listener.onResponse(info);
 						}
 					}
-				}, new Response.ErrorListener() {
+				}, new ErrorListener() {
 
 					@Override
 					public void onErrorResponse(VolleyError error) {
@@ -304,5 +305,31 @@ public class ReparirControllerImpl implements RepairController {
 		};
 		stringRequest.setTag(URL_REPAIR_OTHER);
 		mRequestQueue.add(stringRequest);
+	}
+
+
+	@Override
+	public void getQiniuToken(RequestQueue mRequestQueue,
+							  final ResultListener<QiniuToken> listener) {
+		GsonRequest<QiniuToken> gsonRequest = new GsonRequest<QiniuToken>(String.format(URL_GET_QINIU_TOKEN), QiniuToken.class, new Listener<QiniuToken>() {
+
+			@Override
+			public void onResponse(QiniuToken response) {
+				if (listener != null) {
+					listener.onResponse(response);
+				}
+			}
+		}, new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		});
+		gsonRequest.setShouldCache(true);
+		gsonRequest.setTag(URL_GET_QINIU_TOKEN);
+		mRequestQueue.add(gsonRequest);
 	}
 }
