@@ -68,6 +68,9 @@ public class OrderListActivity extends BaseActivity {
 
 	private  int orderId;
 
+	/** 操作提示*/
+	private String operation;
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -289,12 +292,14 @@ public class OrderListActivity extends BaseActivity {
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("ord.dingdanId", id+"");
 				map.put("ord.dingdanZhuangtai", state);
-
+				operation = "操作成功";
 				//点击为取消订单时，弹出取消订单原因。
 				if(state.equals("取消订单")){
+					operation = "取消订单成功";
 					cancelOrderDialog(map);
 					return;
 				}else if(state.equals("退款中")){
+					operation = "申请成功";
 					TuikuanOrderDialog(map);
 					return;
 				}else if(state.equals("待发货")){
@@ -302,9 +307,13 @@ public class OrderListActivity extends BaseActivity {
 					//首先判断是否库存足够，
 					orderController.getOrderKuncunFromID(mRequestQueue,new Object[]{id},listenerForOrderKuncun);
 				}else if(state.equals("用户删除订单")){
+					operation = "删除订单成功";
 					deleteOrderDialog(map);
 				}else{
 					Log.d("geek", "修改不是取消订单map"+map.toString());
+					if(state.equals("待评价")){
+						operation = "确认收货成功";
+					}
 					orderController.updateOrderState(mRequestQueue, map, listenerUpdateOrder);
 				}
 				break;
@@ -396,7 +405,7 @@ public class OrderListActivity extends BaseActivity {
 				initDataFromNet();
 				return;
 			}
-			ToastUtil.show(OrderListActivity.this,"操作成功");
+			ToastUtil.show(OrderListActivity.this,operation);
 
 			//首先清空list
 			listOrderData.clear();

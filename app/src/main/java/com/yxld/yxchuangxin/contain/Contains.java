@@ -71,8 +71,8 @@ public class Contains {
 	/** token*/
 	public static String token="";
 
-	/** Pay Callback Server URL **/
-	public final static String URL_PAY_CALLBACK = API.yuming_api+"/WechatPayServer";
+	/** Pay Callback Server URL API.yuming_api+**/
+	public final static String URL_PAY_CALLBACK = "http://192.168.8.166:8080"+"/WechatPayServer";
 	// 微信开放平台审核通过的应用APPID
 	public static final String WX_APP_ID = "wx474645d31f239239";
 	// 微信支付分配的商户号

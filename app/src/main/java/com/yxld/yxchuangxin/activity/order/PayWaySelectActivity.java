@@ -290,20 +290,20 @@ public class PayWaySelectActivity extends BaseActivity {
                     payThread.start();
                 } else if (arg2 == 2) {
                     if (paystatus.equals("商城支付")){
-                    if (orderMoney == null || "".equals(orderMoney)) {
-                        return;
-                    }
-                    float a = Float.parseFloat(orderMoney) * 100;
-                    int money = (int) a;
-                    Intent intent = new Intent();
-                    intent.setClass(PayWaySelectActivity.this, // context
-                            YinlLianWebViewActivity.class);// 跳转的activity\
-                    Bundle ylzf = new Bundle();
-                    ylzf.putString("name", "银联支付");
-                    ylzf.putString("address", API.yuming_api+"/CHINAPAY_DEMO/signServlet.do?BusiType=0001&Version=20140728&CommodityMsg=wwxtest&MerPageUrl=http://www.hnchxwl.com/CHINAPAY_DEMO/pgReturn.do&MerBgUrl=http://www.hnchxwl.com/CHINAPAY_DEMO/bgReturn.do&MerId=531121608230001&" +
-                            "MerOrderNo=" + orderBianhao + "&OrderAmt=" + money + "&TranDate=" + getNowDateShort() + "&TranTime=" + getTimeShort() + "&MerResv=1");
-                    intent.putExtras(ylzf);
-                    startActivity(intent);
+                        if (orderMoney == null || "".equals(orderMoney)) {
+                            return;
+                        }
+                        float a = Float.parseFloat(orderMoney) * 100;
+                        int money = (int) a;
+                        Intent intent = new Intent();
+                        intent.setClass(PayWaySelectActivity.this, // context
+                                YinlLianWebViewActivity.class);// 跳转的activity\
+                        Bundle ylzf = new Bundle();
+                        ylzf.putString("name", "银联支付");
+                        ylzf.putString("address", API.yuming_api+"/CHINAPAY_DEMO/signServlet.do?BusiType=0001&Version=20140728&CommodityMsg=wwxtest&MerPageUrl=http://www.hnchxwl.com/CHINAPAY_DEMO/pgReturn.do&MerBgUrl=http://www.hnchxwl.com/CHINAPAY_DEMO/bgReturn.do&MerId=531121608230001&" +
+                                "MerOrderNo=" + orderBianhao + "&OrderAmt=" + money + "&TranDate=" + getNowDateShort() + "&TranTime=" + getTimeShort() + "&MerResv=1");
+                        intent.putExtras(ylzf);
+                        startActivity(intent);
                     }else {
                         Toast.makeText(PayWaySelectActivity.this, "暂时只支持微信支付宝支付", Toast.LENGTH_SHORT).show();
                     }

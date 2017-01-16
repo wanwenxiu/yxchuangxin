@@ -76,6 +76,11 @@ public class AmountView extends LinearLayout implements View.OnClickListener, Te
         etAmount.setSelection(etAmount.getText().length());
     }
 
+    public int getText(){
+         int sum=Integer.parseInt(etAmount.getText().toString());
+        return sum;
+    }
+
     public void setGoods_storage(int goods_storage) {
         this.goods_storage = goods_storage;
     }

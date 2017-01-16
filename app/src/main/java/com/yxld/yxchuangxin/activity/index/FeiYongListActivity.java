@@ -76,7 +76,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
     private String[] Fwid, Endtime,Area,Feiyong,total;
     private String fwid, bianhao,endtime;
     private double Monthly, payment;//一个月的物业费价格
-    private int month;//月份数
+    private int month,zmonth;//月份数,支付宝付钱月份
 
     //支付宝
     public final String PARTNER = "2088121188417300";
@@ -259,7 +259,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                     bianhao = System.currentTimeMillis() + "";
 //                    fq = fq.substring(5, fq.length());
 //                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳", fq);
-                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳", "0.01");
+                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳","0.01");
                     /**
                      * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
                      */
@@ -357,6 +357,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
             switch (msg.what) {
                 case 1:
                     month = msg.arg1;//用户输入月份
+
                     double jg = Monthly * month;//一个月物业费价格* 月份  = 需缴物业费金额
                     prepaid_money.setText(decimalFormat.format(jg));
                     double dmoney = Double.parseDouble(details_money.getText().toString());
@@ -549,6 +550,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
+                        zmonth=month;
                         Toast.makeText(FeiYongListActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         Log.d("geek", "支付成功result" + payResult.getResult());
                         surePay();
@@ -574,8 +576,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
         if (payController == null) {
             payController = new PayControllerImpl();
         }
-        String add = addDay(endtime, month);
-        Logger.d(endtime);
+        String add = addDay(endtime, zmonth);
         Logger.d(add);
         String[] total = sure.getText().toString().split("\\:");//实缴物业费
         progressDialog.show();
