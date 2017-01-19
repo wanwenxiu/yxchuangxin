@@ -3,8 +3,7 @@ package com.yxld.yxchuangxin.yoosee;
 import android.content.Intent;
 
 import com.p2p.core.P2PInterface.IP2P;
-import com.yxld.yxchuangxin.activity.index.CameraActivity;
-import com.yxld.yxchuangxin.activity.index.CameraActivity;
+import com.yxld.yxchuangxin.activity.camera.CameraActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
 
 /**
@@ -17,12 +16,13 @@ public class P2PListener implements IP2P {
     }
 
     @Override
-    public void vReject(int reason_code) {
+    public void vReject(String deviceId, int reason_code) {
         Intent intent = new Intent();
         intent.setAction(CameraActivity.P2P_REJECT);
         intent.putExtra("reason_code", reason_code);
         AppConfig.app.sendBroadcast(intent);
     }
+
 
     @Override
     public void vAccept(int type, int state) {
@@ -70,9 +70,10 @@ public class P2PListener implements IP2P {
     }
 
     @Override
-    public void vRetPlayNumber(int iNumber) {
+    public void vRetPlayNumber(int iNumber, int[] data) {
 
     }
+
 
     @Override
     public void vRecvAudioVideoData(byte[] AudioBuffer, int AudioLen, int AudioFrames, long AudioPTS, byte[] VideoBuffer, int VideoLen, long VideoPTS) {
@@ -96,6 +97,11 @@ public class P2PListener implements IP2P {
 
     @Override
     public void vRetPostFromeNative(int what, int iDesID, int arg1, int arg2, String msgStr) {
+
+    }
+
+    @Override
+    public void vRetUserData(byte cmd, byte option, int[] data) {
 
     }
 }

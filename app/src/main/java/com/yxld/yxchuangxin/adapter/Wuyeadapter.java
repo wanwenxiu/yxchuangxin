@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.WebViewActivity;
+import com.yxld.yxchuangxin.activity.camera.CameraActivity;
 import com.yxld.yxchuangxin.activity.index.AccessActivity;
 import com.yxld.yxchuangxin.activity.index.ChengyuanguanliActivity;
 import com.yxld.yxchuangxin.activity.index.ExpressActivity;
@@ -40,14 +41,14 @@ public class Wuyeadapter extends BaseAdapter {
     private String[] title;
     private Context context;
 
-//    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
-//    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
+    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang, R.mipmap.anfangzaijia, R.mipmap.zufang};
+    String[] name = {"门禁管理", "车辆管理", "居家安防", "房屋出租"};
 //
 //    int[] icon1 = {R.mipmap.wuyefei, R.mipmap.shuifei, R.mipmap.dianfei, R.mipmap.tingchechang};
 //    String[] name1 = {"物业服务费", "水费", "电费", "车位费"};
 
-    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang,  R.mipmap.zufang};
-    String[] name = {"门禁管理", "车辆管理", "房屋出租"};
+//    int[] icon = {R.mipmap.menjin, R.mipmap.cheliang,  R.mipmap.zufang};
+//    String[] name = {"门禁管理", "车辆管理", "房屋出租"};
 
     int[] icon1 = {R.mipmap.wuyefei};
     String[] name1 = {"物业服务费"};
@@ -123,11 +124,11 @@ public class Wuyeadapter extends BaseAdapter {
                                     Toast.makeText(context, "请至物业完善业主身份证和手机号码信息再进行查询", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
-//                            case 2:
-//                                ToastUtil.show(context, "敬请期待");
-//                                // startActivity(CameraActivity.class);
-//                                break;
                             case 2:
+//                                ToastUtil.show(context, "敬请期待");
+                                 startActivity(CameraActivity.class);
+                                break;
+                            case 3:
                                 if (Contains.user == null || Contains.user.getYezhuCardNum() == null
                                         || Contains.user.getYezhuShouji() == null) {
                                     ToastUtil.show(context, "请至物业完善业主身份证和手机号码信息再进行查询");

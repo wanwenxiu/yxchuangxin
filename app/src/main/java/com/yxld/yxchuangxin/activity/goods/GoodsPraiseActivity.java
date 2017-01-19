@@ -100,6 +100,13 @@ public class GoodsPraiseActivity extends BaseActivity implements
 				ToastUtil.show(this, "请输入评价内容");
 				return;
 			}
+
+			//评级内容
+			String neirong = comment.getPingjiaBody();
+			if(neirong.length()<10){
+				ToastUtil.show(this, "不能少于10个字");
+				return;
+			}
 		}
 
 		if (praiseContaoller == null) {

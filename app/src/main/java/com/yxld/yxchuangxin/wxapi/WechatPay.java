@@ -24,7 +24,7 @@ public class WechatPay {
 	 * @param subject 详细描述
 	 * @return
 	 */
-	public static String createOrder(String tradeNo, String totalFee, String subject) {
+	public static String createOrder(String tradeNo, String totalFee, String subject,String payType) {
 		Log.d("geek", "createOrder: 'createOrder"+subject);
 		String result = "";
 		//http://www..../WechatPayServer/UnifiedOrderServlet?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject
@@ -32,7 +32,9 @@ public class WechatPay {
 
 		try {
 			subject = URLEncoder.encode(subject, "UTF-8");
-			String url = URL_PREPAY + "?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject;
+			payType = URLEncoder.encode(payType, "UTF-8");
+			String url = URL_PREPAY + "?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject +"&payType="+payType;
+//			String url = URL_PREPAY + "?trade_no=" + tradeNo + "&total_fee=" + totalFee + "&subject=" + subject;
 			Log.d("geek", "createOrder: 'url="+url);
 			result = HttpUtils.doGet(url);
 			Log.d("geek","微信创建订单 result="+result.toString());
@@ -55,6 +57,13 @@ public class WechatPay {
 		try {
 			jsonObject = new JSONObject(result);
 			PayReq payReq = new PayReq();
+//			payReq.appId = Contains.WX_APP_ID;
+//			payReq.partnerId = Contains.WX_MCH_ID;
+//			payReq.prepayId = jsonObject.getString("prepay_id");
+//			payReq.nonceStr = jsonObject.getString("nonce_str");
+//			payReq.timeStamp = jsonObject.getString("timestamp");
+//			payReq.packageValue = jsonObject.getString("package");
+//			payReq.sign = jsonObject.getString("sign");
 			payReq.appId = Contains.WX_APP_ID;
 			payReq.partnerId = Contains.WX_MCH_ID;
 			payReq.prepayId = jsonObject.getString("prepayid");
@@ -62,6 +71,7 @@ public class WechatPay {
 			payReq.timeStamp = jsonObject.getString("timestamp");
 			payReq.packageValue = jsonObject.getString("package");
 			payReq.sign = jsonObject.getString("sign");
+			Log.d("geek", "pay: payReq="+payReq.toString());
 			api.sendReq(payReq);
 		} catch (JSONException e) {
 			e.printStackTrace();

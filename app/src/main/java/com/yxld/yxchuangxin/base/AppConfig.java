@@ -19,6 +19,7 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.p2p.core.P2PSpecial.P2PSpecial;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
@@ -69,6 +70,12 @@ public class AppConfig extends Application {
 	public static Map<String, Long> map;
 	public static AppConfig app;
 
+	//摄像头
+	public final static String APPID="3b5766f0a536880c6a75e5a3965d81fa";
+	public final static String APPToken="14a19defd28f919d6d5bda9856bb1a93983a8441e57a9c990c319669ffda78a1";
+	public final static String APPVersion="03.94.00.01";
+
+
 	public AppConfig() {
 
 	}
@@ -108,6 +115,7 @@ public class AppConfig extends Application {
 	public void onCreate() {
 		super.onCreate();
 		app = this;
+		initP2P(app);
 		FIR.init(this);
 		ZXingLibrary.initDisplayOpinion(this);
 		// 创建加载图片
@@ -311,6 +319,10 @@ public class AppConfig extends Application {
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		MultiDex.install(this);
+	}
+
+	private void initP2P(AppConfig app) {
+		P2PSpecial.getInstance().init(app,APPID,APPToken,APPVersion);
 	}
 
 }

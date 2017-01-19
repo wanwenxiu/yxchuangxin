@@ -21,8 +21,8 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 54
-        versionName "1.3.2"
+        versionCode 56
+        versionName "1.3.4"
         ndk {
             abiFilters "armeabi"
         }
@@ -84,7 +84,6 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.11.0'
     compile 'com.haozhang.libary:android-slanted-textview:1.2'
     compile 'com.sunfusheng:marqueeview:1.1.0'
-    compile name: 'p2pcore', ext: 'aar'
     compile name: 'circularanim', ext: 'aar'
     compile name: 'SMSSDK-2.1.0', ext: 'aar'
     compile name: 'SmoothCheckBox', ext: 'aar'
@@ -114,6 +113,8 @@ dependencies {
     compile 'com.jaeger.statusbaruitl:library:1.3.2'
     //七牛
     compile 'com.qiniu:qiniu-android-sdk:7.3.2'
+    //摄像头
+    compile 'com.p2p.core:p2p-core:0.1.4'
 }
 
 

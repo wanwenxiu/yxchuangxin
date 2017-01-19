@@ -16,6 +16,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.activity.index.FeiYongListActivity;
 import com.yxld.yxchuangxin.activity.order.OrderListActivity;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
@@ -190,6 +191,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                 onError(info.MSG);
                 return;
             }
+            FeiYongListActivity.amount_view.setText(0 + "");
         }
 
         @Override
@@ -232,7 +234,12 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                      Toast.makeText(this, "支付成功", Toast.LENGTH_SHORT).show();
                      //判断是什么付钱的
                      if (Contains.pay==1){
-                         initSuccessPay();//下单支付
+                         Log.d("geek", "onResp: 微信支付成功");
+                         Bundle bundle = new Bundle();
+                         bundle.putInt("ORDERTYPE", 2);
+                         startActivity(OrderListActivity.class, bundle);
+                         finish();
+//                         initSuccessPay();//下单支付
                      }else if (Contains.pay==2){
                          initDataFromNet();//充值支付
                      }else if(Contains.pay == 3){//物业缴费

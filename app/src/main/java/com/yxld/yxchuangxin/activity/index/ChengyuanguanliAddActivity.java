@@ -86,9 +86,9 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 		guanxi.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				if(checkedId == R.id.family){
+				if(checkedId == R.id.family){  //家人
 					curGuanxi = "1";
-				}else{
+				}else{  //租客
 					curGuanxi = "2";
 				}
 			}
@@ -103,8 +103,15 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 								ToastUtil.show(ChengyuanguanliAddActivity.this,"请输入正确手机号码");
 								return;
 							}
-							if(isIdCard(idcard.getText().toString())){
+							if(curGuanxi.equals("2")){
+								if(StringUitl.isIDCard15(idcard.getText().toString()) || StringUitl.isIDCard18(idcard.getText().toString())){
 									initDataFromNet();
+								}else{
+									ToastUtil.show(ChengyuanguanliAddActivity.this,"身份证不合法");
+									return;
+								}
+							}else{
+								initDataFromNet();
 							}
 					}
 				}
@@ -112,22 +119,6 @@ public class ChengyuanguanliAddActivity extends BaseActivity {
 		});
 	}
 
-	public boolean isIdCard(String num) {
-		if (isNull(num)) {
-			ToastUtil.show(this,"身份证不能为空");
-			return false;
-		}
-
-		if (num.length() == 18 || num.length() == 15) {
-			return true;
-		}
-		ToastUtil.show(this,"身份证长度不正确");
-		return false;
-	}
-
-	public boolean isNull(String str) {
-		return (str == null) || (str.trim().length() == 0);
-	}
 
 
 	@Override

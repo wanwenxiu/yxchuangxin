@@ -1,7 +1,6 @@
-package com.yxld.yxchuangxin.activity.index;
+package com.yxld.yxchuangxin.activity.camera;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;

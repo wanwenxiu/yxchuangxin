@@ -639,7 +639,13 @@ public class PayWaySelectActivity extends BaseActivity {
             Contains.orderBianhao = trade_no;
             final String total_fee = orderMoney;
             final String subject = orderShop;
-            String result = WechatPay.createOrder(trade_no, total_fee, subject);
+            String payType = "";
+            if (paystatus.equals("商城支付")){
+                payType = "mall_"+Contains.orderId;
+            }else if(paystatus.equals("车费支付")){
+                payType = "car_"+Contains.orderId;
+            }
+            String result = WechatPay.createOrder(trade_no, total_fee, subject,payType);
             Message msg = createOrderHandler.obtainMessage();
             msg.what = 0;
             msg.obj = result;

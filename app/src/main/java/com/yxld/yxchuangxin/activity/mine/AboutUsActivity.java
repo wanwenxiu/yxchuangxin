@@ -39,7 +39,7 @@ public class AboutUsActivity extends BaseActivity{
     @Override
     protected void initView() {
         nianfen = (TextView) findViewById(R.id.textView2);
-        nianfen.setText("Copyright  2016-"+StringUitl.getCurYear()+"   湖南创欣物联科技有限公司");
+        nianfen.setText("Copyright  ©2016-"+StringUitl.getCurYear()+"   湖南创欣物联科技有限公司");
     }
 
     @Override

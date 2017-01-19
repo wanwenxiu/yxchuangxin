@@ -488,7 +488,7 @@ public class SaveMoneyActivity extends BaseActivity {
 			final String subject = shop;
 			Contains.payPrice=payPrice.getText().toString();
 
-			String result = WechatPay.createOrder(trade_no, total_fee, subject);
+			String result = WechatPay.createOrder(trade_no, total_fee, subject,"");
 			Message msg = createOrderHandler.obtainMessage();
 			msg.what = 0;
 			msg.obj = result;

@@ -1,12 +1,18 @@
 package com.yxld.yxchuangxin.yoosee;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.p2p.core.P2PInterface.ISetting;
+import com.yxld.yxchuangxin.base.AppConfig;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * Created by wzy on 2016/6/22.
+ * Created by dansesshou on 16/11/30.
  */
+
 public class SettingListener implements ISetting {
     @Override
     public void ACK_vRetSetDeviceTime(int msgId, int result) {
@@ -140,7 +146,7 @@ public class SettingListener implements ISetting {
 
     @Override
     public void ACK_vRetCustomCmd(int msgId, int result) {
-
+        Log.e("dxsTest","ACK_vRetCustomCmd:"+msgId+"result:"+result);
     }
 
     @Override
@@ -259,7 +265,7 @@ public class SettingListener implements ISetting {
     }
 
     @Override
-    public void ACK_VRetGetNvrInfo(int msgId, int state) {
+    public void ACK_VRetGetNvrInfo(String deviceId, int msgId, int state) {
 
     }
 
@@ -272,6 +278,67 @@ public class SettingListener implements ISetting {
     public void ACK_vRetGetFTPInfo(int msgId, int state) {
 
     }
+
+    @Override
+    public void ACK_vRetGetPIRLight(int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_vRetSetPIRLight(int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_vRetGetDefenceWorkGroup(int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_VRetGetPresetPos(int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_VRetSetKeepClient(String contactId, int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_VRetGetLed(String contactId, int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_VRetSetLed(String contactId, int msgId, int state) {
+
+    }
+
+    @Override
+    public void ACK_vRetSetNpcSettingsMotionSens(int msgId, int result) {
+
+    }
+
+    @Override
+    public void ACK_vRetGetVideoQuality(int msgId, int result) {
+
+    }
+
+    @Override
+    public void ACK_vRetSetVideoQuality(int msgId, int result) {
+
+    }
+
+    @Override
+    public void ACK_vRetGetApIsWifiSetting(String contactId, int msgId, int result) {
+
+    }
+
+    @Override
+    public void ACK_vRetSetApStaWifiInfo(String contactId, int msgId, int result) {
+
+    }
+
 
     @Override
     public void vRetGetRemoteDefenceResult(String contactId, int state) {
@@ -464,12 +531,12 @@ public class SettingListener implements ISetting {
     }
 
     @Override
-    public void vRetGetFriendStatus(int count, String[] contactIds, int[] status, int[] types) {
+    public void vRetGetFriendStatus(int count, String[] contactIds, int[] status, int[] types, boolean isFinish) {
 
     }
 
     @Override
-    public void vRetGetRecordFiles(String[] names) {
+    public void vRetGetRecordFiles(String[] names, byte option0, byte option1) {
 
     }
 
@@ -485,7 +552,8 @@ public class SettingListener implements ISetting {
 
     @Override
     public void vRetCustomCmd(int contactId, int len, byte[] cmd) {
-
+        Log.e("dxsTest","ACK_vRetCustomCmd:"+contactId+"cmd:"+ Arrays.toString(cmd));
+        Toast.makeText(AppConfig.app,""+contactId, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -644,7 +712,7 @@ public class SettingListener implements ISetting {
     }
 
     @Override
-    public void vRetDeleteDeviceAlarmID(int result, int result1) {
+    public void vRetDeleteDeviceAlarmID(String deviceId, int result, int result1) {
 
     }
 
@@ -754,17 +822,69 @@ public class SettingListener implements ISetting {
     }
 
     @Override
-    public void vRetSettingEx(int iSrcID, int iCount, int[] iSettingID, int[] iValue, int iResult) {
+    public void vRetGetPIRLightControl(int value) {
 
     }
 
     @Override
-    public void ACK_vRetSetOrGetEx(int msgId, int result) {
+    public void vRetFishInfo(String contactid, byte[] data) {
 
     }
 
     @Override
-    public void vRetExtenedCmd(int iSrcID, byte[] data, int datasize) {
+    public void vRetGetAutoSnapshotSwitch(int value) {
 
     }
+
+    @Override
+    public void vRetSetAutoSnapshotSwitch(int result) {
+
+    }
+
+    @Override
+    public void vRecvGetPrepointSurpporte(String deviceId, int result) {
+
+    }
+
+    @Override
+    public void vRetGetMotionSensResult(int value) {
+
+    }
+
+    @Override
+    public void vRetSetMotionSensResult(int iResult) {
+
+    }
+
+    @Override
+    public void vRetVideoQuality(String contactId, byte[] data) {
+
+    }
+
+    @Override
+    public void vRetGetIndexFriendStatus(int count, String[] contactIds, int[] IdProtery, int[] status, int[] DevTypes, int[] SubType, int[] DefenceState, byte bRequestResult) {
+
+    }
+
+    @Override
+    public void vRetGetIRLEDResult(int value) {
+
+    }
+
+    @Override
+    public void vRetSetIRLEDResult(String contactId, int iResult) {
+
+    }
+
+    @Override
+    public void vRetGetApIsWifiSetting(String contactId, byte[] data) {
+
+    }
+
+    @Override
+    public void vRetSetApStaWifiInfo(String contactId, byte[] data) {
+
+    }
+
+
 }

@@ -54,6 +54,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
 
     <!--推送-->
@@ -309,7 +310,7 @@
         </activity>
 
         <activity
-            android:name=".activity.index.CameraConfigActivity"
+            android:name=".activity.camera.CameraConfigActivity"
             android:label="居家安防"
             android:screenOrientation="portrait">
         </activity>
@@ -359,7 +360,7 @@
 
         <!--摄像头-->
         <activity
-            android:name=".activity.index.CameraActivity"
+            android:name=".activity.camera.CameraActivity"
             android:label="摄像头"
             android:screenOrientation="portrait"
             ></activity>

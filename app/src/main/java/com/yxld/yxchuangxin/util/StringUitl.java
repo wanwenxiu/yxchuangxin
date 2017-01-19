@@ -1,5 +1,9 @@
 package com.yxld.yxchuangxin.util;
 
+import android.content.Context;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,10 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.content.Context;
-import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * 
@@ -22,6 +22,15 @@ import android.widget.Toast;
  *
  */
 public class StringUitl {
+
+	/**
+	 * 正则：身份证号码15位
+	 */
+	public static final String REGEX_ID_CARD15     = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$";
+	/**
+	 * 正则：身份证号码18位
+	 */
+	public static final String REGEX_ID_CARD18     = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$";
 
 	/**
 	 * @Title: isEmepty
@@ -157,4 +166,53 @@ public class StringUitl {
 		Calendar a = Calendar.getInstance();
 		return  a.get(Calendar.YEAR);
 	}
+
+	public boolean isNull(String str) {
+		return (str == null) || (str.trim().length() == 0);
+	}
+
+	public boolean isIdCard(String num) {
+		if (isNull(num)) {
+//			ToastUtil.show(this,"身份证不能为空");
+			return false;
+		}
+
+		if (num.length() == 18 || num.length() == 15) {
+			return true;
+		}
+//		ToastUtil.show(this,"身份证长度不正确");
+		return false;
+	}
+
+	/**
+	 * 验证身份证号码15位
+	 *
+	 * @param input 待验证文本
+	 * @return {@code true}: 匹配<br>{@code false}: 不匹配
+	 */
+	public static boolean isIDCard15(CharSequence input) {
+		return isMatch(REGEX_ID_CARD15, input);
+	}
+
+	/**
+	 * 验证身份证号码18位
+	 *
+	 * @param input 待验证文本
+	 * @return {@code true}: 匹配<br>{@code false}: 不匹配
+	 */
+	public static boolean isIDCard18(CharSequence input) {
+		return isMatch(REGEX_ID_CARD18, input);
+	}
+
+	/**
+	 * 判断是否匹配正则
+	 *
+	 * @param regex 正则表达式
+	 * @param input 要匹配的字符串
+	 * @return {@code true}: 匹配<br>{@code false}: 不匹配
+	 */
+	public static boolean isMatch(String regex, CharSequence input) {
+		return input != null && input.length() > 0 && Pattern.matches(regex, input);
+	}
+
 }

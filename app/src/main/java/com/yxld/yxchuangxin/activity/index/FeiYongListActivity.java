@@ -63,7 +63,7 @@ import static u.aly.df.i;
  */
 public class FeiYongListActivity extends BaseActivity implements MaterialSpinner.OnItemSelectedListener, AmountView.OnAmountChangeListener {
     private MaterialSpinner address;//下拉地址
-    private AmountView amount_view;//选择月份
+    public static  AmountView amount_view;//选择月份
     private Button sure;//提交订单
     private TextView endTime, details, details_money, prepaid_money;//截止时间 查看明细 欠费金额  预交金额
     private SmoothCheckBox checkBoxAliPay, checkBoxWeiXin, checkBoxYl;//支付宝  微信  银联
@@ -410,7 +410,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
             Contains.orderBianhao = trade_no;
             final String total_fee = fq[1];
             final String subject = "物业费缴纳";
-            String result = WechatPay.createOrder(trade_no, total_fee, subject);
+            String result = WechatPay.createOrder(trade_no, total_fee, subject,"");
             Message msg = createOrderHandler.obtainMessage();
             msg.what = 0;
             msg.obj = result;
@@ -607,6 +607,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                 onError(info.MSG);
                 return;
             }
+            amount_view.setText("0");
         }
 
         @Override
@@ -636,7 +637,6 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
     @Override
     protected void onResume() {
         super.onResume();
-        amount_view.setText(0 + "");
         initFangwu();
     }
 }
