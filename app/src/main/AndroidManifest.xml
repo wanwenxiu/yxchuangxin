@@ -203,6 +203,7 @@
             android:name="com.yxld.yxchuangxin.activity.goods.GoodsDestailActivity"
             android:label="商品详情"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity

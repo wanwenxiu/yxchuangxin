@@ -50,7 +50,7 @@
             android:layout_height="fill_parent"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:text="真实姓名"
+            android:text="姓名"
             android:textColor="@color/color_333"
             android:textSize="@dimen/size_15"
             tools:ignore="RtlHardcoded" />

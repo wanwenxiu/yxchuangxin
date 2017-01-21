@@ -19,17 +19,17 @@ public interface API {
 //    String uploadImage = "http://192.168.8.22:8080/wygl/mall/upload_uploadAndroidFile";
 
 //  /** 本地专用 本地192.168.8.166*/
-   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
-   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
+//   String IP_PRODUCT = "http://192.168.8.166:8080/wygl";
+//   String uploadImage = "http://192.168.8.166:8080/wygl/mall/upload_uploadAndroidFile";
 
   /** 打包 本地192.168.8.22*/
-    String yuming_api = "http://www.hnchxwl.com";
+//    String yuming_api = "http://www.hnchxwl.com";
 //    String IP_PRODUCT = "http://www.hnchxwl.com/wygl";
 //    String uploadImage = "http://www.hnchxwl.com/wygl/mall/upload_uploadAndroidFile";
 
-//  String yuming_api = "http://222.240.1.133";
-//  String IP_PRODUCT = "http://222.240.1.133/wygl";
-//  String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadAndroidFile";
+  String yuming_api = "http://222.240.1.133";
+  String IP_PRODUCT = "http://222.240.1.133/wygl";
+  String uploadImage = "http://222.240.1.133/wygl/mall/upload_uploadAndroidFile";
 
     /**
      * 获取商品一级分类URL

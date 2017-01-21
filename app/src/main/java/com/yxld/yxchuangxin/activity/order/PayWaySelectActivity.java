@@ -694,6 +694,12 @@ public class PayWaySelectActivity extends BaseActivity {
             setResult(101, intent);
             finish();
             Contains.weixinPayresult = -1;
+        }else if (Contains.weixinPayresult== 0 && paystatus != null&&  paystatus.equals("商城支付") && Contains.pay==1){
+            Bundle bundle = new Bundle();
+            bundle.putInt("ORDERTYPE", 2);
+            startActivity(OrderListActivity.class, bundle);
+            finish();
+            Contains.weixinPayresult = -1;
         }
     }
 }

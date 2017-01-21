@@ -184,18 +184,18 @@ public class MallIndexFragment extends BaseFragment implements View.OnClickListe
 
         scrollView = (ScrollView) view.findViewById(R.id.scrollView2);
         scrollView.scrollTo(0, 0);
-        if(sp.getString(save_mall_imgurl, "") != null && !"".equals(sp.getString(save_mall_imgurl, "")))
-        {
-            //默认本地存在图片
-            Log.d("geek","默认本地存在图片 ");
-            String tupian = sp.getString(save_mall_imgurl, "");
-            CxwyMallPezhi peuzhi = gson.fromJson(tupian, CxwyMallPezhi.class);
-            setPeizhiImg(peuzhi,true);
-        }else{
-            Log.d("geek","默认本地不不不存在图片 ");
-            progressDialog.show();
-            getlunbotubiao();
-        }
+//        if(sp.getString(save_mall_imgurl, "") != null && !"".equals(sp.getString(save_mall_imgurl, "")))
+//        {
+//            //默认本地存在图片
+//            Log.d("geek","默认本地存在图片 ");
+//            String tupian = sp.getString(save_mall_imgurl, "");
+//            CxwyMallPezhi peuzhi = gson.fromJson(tupian, CxwyMallPezhi.class);
+//            setPeizhiImg(peuzhi,true);
+//        }else{
+//            Log.d("geek","默认本地不不不存在图片 ");
+//            progressDialog.show();
+//        }
+        getlunbotubiao();
         initDataFromNet();
         return view;
     }

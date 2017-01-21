@@ -57,7 +57,7 @@
             android:background="@null"
             android:hint="6-16位数字、字母、下划线组成"
             android:maxLength="16"
-            android:digits="0123456789abcdefghigklmnopqrstuvwxyz_"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyz_"
             android:textColorHint="@color/gray"
             android:textSize="14sp" />
     </LinearLayout>

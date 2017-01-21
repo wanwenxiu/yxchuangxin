@@ -267,7 +267,11 @@ public class FindPwdActivity extends BaseActivity {
 				finish();
 				break;
 			case R.id.register_button_phone:
-				if(StringUitl.isNotEmpty(FindPwdActivity.this,register_sure_pwd,"请确认密码")){
+				if(!StringUitl.isNotEmpty(FindPwdActivity.this,register_tel,"请输入手机号码")){
+					register_button_phone.setTextAfter("重新发送").setTextBefore("获取验证码").setLenght(5 * 1000);
+					return;
+				}
+				if(StringUitl.isNotEmpty(FindPwdActivity.this,register_sure_pwd,"请输入密码")){
 					int len = register_pwd.getText().toString().length();
 					if (len >=6 && len <= 16) {
 						if(register_pwd.getText().toString().equals(register_sure_pwd.getText().toString())){

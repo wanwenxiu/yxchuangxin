@@ -201,9 +201,10 @@ public class GoodsDestailActivity extends BaseActivity implements ResultListener
 		webSettings.setAllowFileAccess(true);
 		// 设置支持缩放
 		webSettings.setBuiltInZoomControls(false);
-		// 加载需要显示的网页
+		webSettings.setAppCacheEnabled(false);
+			// 加载需要显示的网页
 		goodsDestailHtml.loadUrl(API.URL_GOODS_DESTAIL_WEB+curGood.getShangpinId());
-		// 设置Web视图 监听
+			// 设置Web视图 监听
 		goodsDestailHtml.setWebViewClient(new webViewClient());
 	}
 

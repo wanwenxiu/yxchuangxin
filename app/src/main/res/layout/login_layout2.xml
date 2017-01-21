@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="请输入手机号/创欣号"
-                android:digits="0123456789abcdefghigklmnopqrstuvwxyz_"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz_"
                 android:maxLength="16"
                 android:inputType="number"
                 android:textColorHint="@color/gray"

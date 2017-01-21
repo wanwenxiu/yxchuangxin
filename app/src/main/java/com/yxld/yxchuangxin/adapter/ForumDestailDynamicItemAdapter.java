@@ -113,6 +113,8 @@ public class ForumDestailDynamicItemAdapter extends BaseAdapter {
 		}
 		listItemView.dynamicTime.setText(comment.getPingjiaNowTime());
 		listItemView.dynamicSum.setText((position+1)+"楼");
+
+		listItemView.dynamicDevice.setVisibility(View.INVISIBLE);
 		return convertView;
 	}
 

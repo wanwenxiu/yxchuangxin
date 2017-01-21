@@ -94,8 +94,9 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         map.put("ord.dingdanZhuangtai", "待发货");
         map.put("ord.dingdanBeiyong1", "微信支付");
         map.put("ord.dingdanPayJiaoyihao", Contains.orderBianhao);
-
-        orderController.updateOrderState(mRequestQueue, map, listenerUpdateOrder);
+        if(Contains.orderId != null && Contains.orderBianhao != null){
+            orderController.updateOrderState(mRequestQueue, map, listenerUpdateOrder);
+        }
     }
 
 
@@ -235,9 +236,9 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                      //判断是什么付钱的
                      if (Contains.pay==1){
                          Log.d("geek", "onResp: 微信支付成功");
-                         Bundle bundle = new Bundle();
-                         bundle.putInt("ORDERTYPE", 2);
-                         startActivity(OrderListActivity.class, bundle);
+//                         Bundle bundle = new Bundle();
+//                         bundle.putInt("ORDERTYPE", 2);
+//                         startActivity(OrderListActivity.class, bundle);
                          finish();
 //                         initSuccessPay();//下单支付
                      }else if (Contains.pay==2){
