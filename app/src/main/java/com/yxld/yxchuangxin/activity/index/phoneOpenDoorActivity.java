@@ -136,14 +136,17 @@ public class phoneOpenDoorActivity extends BaseActivity {
 
 				//设置分享内容
 				shareInfo.setBitmap(qrCodeBitmap);
-				String qqurl = API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+codestr;
-				shareInfo.setQQImgUrl(qqurl);
+//				String qqurl = API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+codestr;
+//				shareInfo.setQQImgUrl(qqurl);
 
 				try{
 					codestr = URLEncoder.encode(codestr,"UTF-8").toString();
 				}catch (Exception e){
 					e.printStackTrace();
 				}
+				String qqurl = API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+codestr;
+				shareInfo.setQQImgUrl(qqurl);
+
 				shareInfo.setImgUrl(API.IP_PRODUCT+"/qr_code.html?timr="+time+"&code="+codestr);
 
 				Log.d("geek","手机界面设置完成shareInfo ="+shareInfo.toString());

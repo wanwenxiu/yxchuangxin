@@ -16,6 +16,9 @@ import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.Main.NewMainActivity2;
 import com.yxld.yxchuangxin.activity.login.LoginActivity;
 import com.yxld.yxchuangxin.base.AppConfig;
+import com.yxld.yxchuangxin.entity.MsgEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -118,6 +121,7 @@ public class DemoMessageReceiver extends PushMessageReceiver {
         if(customs != null && "tongzhi".equals(customs)){
             //收到新通知推送
             Log.d("geek", "onNotificationMessageArrived: customs="+customs);
+            EventBus.getDefault().post("通知");
         }
         Message msg = Message.obtain();
         msg.obj = log;

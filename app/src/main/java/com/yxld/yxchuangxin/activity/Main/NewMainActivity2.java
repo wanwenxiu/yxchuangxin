@@ -17,6 +17,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
@@ -27,6 +28,7 @@ import com.yxld.yxchuangxin.activity.index.YeZhuOpenDoorActivity;
 import com.yxld.yxchuangxin.activity.index.selectimg.Repair;
 import com.yxld.yxchuangxin.activity.login.WelcomeActivity;
 import com.yxld.yxchuangxin.activity.mine.MemberActivity;
+import com.yxld.yxchuangxin.adapter.LearnAdapter;
 import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.base.BaseEntity;
@@ -39,13 +41,19 @@ import com.yxld.yxchuangxin.controller.impl.PeiZhiControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.ReparirControllerImpl;
 import com.yxld.yxchuangxin.controller.impl.TongzhiControllerImpl;
 import com.yxld.yxchuangxin.entity.CxwyMallPezhi;
+import com.yxld.yxchuangxin.entity.MsgEvent;
 import com.yxld.yxchuangxin.entity.RepairList;
 import com.yxld.yxchuangxin.listener.ResultListener;
+import com.yxld.yxchuangxin.util.StringUitl;
 import com.yxld.yxchuangxin.util.ToastUtil;
 import com.yxld.yxchuangxin.view.BadgeImageView;
 import com.yxld.yxchuangxin.view.ImageCycleView;
 import com.yxld.yxchuangxin.view.Utils;
 import com.yxld.yxchuangxin.view.VerticalSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,6 +127,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.new_main_activity_layouts);
         AppConfig.setMainActivity(this);
+        EventBus.getDefault().register(this);
         //当业主信息为空时或者业主手机号码为空，结束当前页进入欢迎页面
         if (Contains.user == null || Contains.user.getYezhuShouji() == null) {
             finish();
@@ -304,7 +313,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             case R.id.mine: //右上角按钮
                 if (Contains.curSelectXiaoQuName != null && !"".equals(Contains.curSelectXiaoQuName)
                         && Contains.curSelectXiaoQuId != 0) {
-                    Contains.badgeImageView=0;
+                    mine.setBadgeShown(false);
                     int  xiaoqu =Contains.curSelectXiaoQuId;
                     Intent tz = new Intent();
                     tz.setClass(NewMainActivity2.this, // context
@@ -465,6 +474,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
         Log.d("geek", "首页destory()");
         AppConfig.setMainActivity(null);
         destroyLocation();
+        EventBus.getDefault().unregister(this);
     }
 
     private long exitTime = 0;
@@ -681,12 +691,13 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
     @Override
     public void refreshLogInfo() {
         super.refreshLogInfo();
-        if (Contains.badgeImageView==1){
-            mine.setBadgeCount(0);
-            mine.setBadgeShown(true);
-        }else {
-            mine.setBadgeShown(false);
-        }
-        Log.d("...", Contains.badgeImageView+"...................");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void helloEventBus(String msg) {
+            if(msg.equals("通知")){
+                mine.setBadgeCount(0);
+                mine.setBadgeShown(true);
+            }
     }
 }

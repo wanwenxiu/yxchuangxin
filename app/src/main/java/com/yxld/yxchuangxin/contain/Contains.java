@@ -86,8 +86,6 @@ public class Contains {
 
 	/** 支付结果*/
 	public static int weixinPayresult = -1;
-	//通知活动
-	public static int badgeImageView=0;
 
 	//物业缴费
 	public static String fwid;
