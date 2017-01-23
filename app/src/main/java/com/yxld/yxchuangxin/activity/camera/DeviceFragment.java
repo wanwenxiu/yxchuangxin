@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 
 import com.yxld.yxchuangxin.R;
 
+
 /**
  * 作者：yishangfei on 2017/1/12 0012 14:30
  * 邮箱：yishangfei@foxmail.com
  */
-public class DeviceFragment extends Fragment{
+public class DeviceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

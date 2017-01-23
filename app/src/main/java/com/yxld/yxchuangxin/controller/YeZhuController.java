@@ -2,6 +2,7 @@ package com.yxld.yxchuangxin.controller;
 
 import com.android.volley.RequestQueue;
 import com.yxld.yxchuangxin.base.BaseEntity;
+import com.yxld.yxchuangxin.entity.APPCamera;
 import com.yxld.yxchuangxin.entity.AppWuYeFei;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
@@ -180,5 +181,18 @@ public interface YeZhuController extends API{
 	 * @throws
 	 */
 	void getManYiDuTiaoChaExist(RequestQueue mRequestQueue, Object[] parm, ResultListener<BaseEntity> listener);
+
+
+	/**
+	 * @param mRequestQueue
+	 * @param parm
+	 * @param listener
+	 * @return void
+	 * @throws
+	 * @Title: getAllRecharge
+	 * @Description: 摄像头登陆
+	 */
+	void getAllCamera(RequestQueue mRequestQueue, Map<String, String> parm,  ResultListener<APPCamera> listener);
+
 
 }

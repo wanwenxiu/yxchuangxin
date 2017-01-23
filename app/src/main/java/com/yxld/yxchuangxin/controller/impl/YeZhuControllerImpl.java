@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.yxld.yxchuangxin.base.BaseEntity;
 import com.yxld.yxchuangxin.controller.YeZhuController;
+import com.yxld.yxchuangxin.entity.APPCamera;
 import com.yxld.yxchuangxin.entity.AppWuYeFei;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.BaseEntity2;
@@ -527,5 +528,37 @@ public class YeZhuControllerImpl implements YeZhuController{
 		mRequestQueue.add(gsonRequest);
 	}
 
+	//摄像头
+	public void getAllCamera(RequestQueue mRequestQueue, final Map<String, String> parm, final ResultListener<APPCamera> listener) {
+		StringRequest stringRequest = new StringRequest(Method.POST,
+				URL_GET_CAMERA, new Response.Listener<String>() {
+
+			@Override
+			public void onResponse(String response) {
+				APPCamera info = null;
+				if(response != null){
+					info = gson.fromJson(response, APPCamera.class);
+				}
+				if (listener != null) {
+					listener.onResponse(info);
+				}
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				if (listener != null) {
+					listener.onErrorResponse(error.getMessage());
+				}
+			}
+		}) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				return parm;
+			}
+		};
+		stringRequest.setTag(URL_GET_CAMERA);
+		mRequestQueue.add(stringRequest);
+	}
 
 }

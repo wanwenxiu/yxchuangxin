@@ -21,8 +21,8 @@ android {
         multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 58
-        versionName "1.3.6"
+        versionCode 59
+        versionName "1.3.7"
         ndk {
             abiFilters "armeabi"
         }
@@ -107,14 +107,15 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     //下拉框
     compile 'com.jaredrummler:material-spinner:1.1.0'
-    //列表及适配器
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.6.9'
     //透明状态栏
     compile 'com.jaeger.statusbaruitl:library:1.3.2'
     //七牛
     compile 'com.qiniu:qiniu-android-sdk:7.3.2'
-    //摄像头
-    compile 'com.p2p.core:p2p-core:0.1.4'
+    //摄像头列表及适配器
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.7.8'
+    compile 'com.zaaach:toprightmenu:1.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile project(path: ':p2p-core')
 }
 
 

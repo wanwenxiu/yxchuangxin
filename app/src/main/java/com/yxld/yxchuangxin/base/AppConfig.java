@@ -73,7 +73,7 @@ public class AppConfig extends Application {
 	//摄像头
 	public final static String APPID="3b5766f0a536880c6a75e5a3965d81fa";
 	public final static String APPToken="14a19defd28f919d6d5bda9856bb1a93983a8441e57a9c990c319669ffda78a1";
-	public final static String APPVersion="03.94.00.01";
+	public final static String APPVersion="03.94.01.03";
 
 
 	public AppConfig() {

@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
  *
  */
 public class StringUitl {
+	private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
 	/**
 	 * 正则：身份证号码15位
@@ -213,6 +214,100 @@ public class StringUitl {
 	 */
 	public static boolean isMatch(String regex, CharSequence input) {
 		return input != null && input.length() > 0 && Pattern.matches(regex, input);
+	}
+
+
+	public static String Md5(String plainText) {
+		String result = null;
+		try {
+			MessageDigest md = MessageDigest.getInstance("md5");
+			md.update(plainText.getBytes());
+			byte b[] = md.digest();
+			int i;
+			StringBuffer buf = new StringBuffer("");
+			for (int offset = 0; offset < b.length; offset++) {
+				i = b[offset];
+				if (i < 0)
+					i += 256;
+				if (i < 16)
+					buf.append("0");
+				buf.append(Integer.toHexString(i));
+			}
+			result = buf.toString(); //md5 32bit
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * SHA256加密
+	 *
+	 * @param data 明文字符串
+	 * @return 16进制密文
+	 */
+	public static String encryptSHA256ToString(String data) {
+		return encryptSHA256ToString(data.getBytes());
+	}
+
+
+	/**
+	 * SHA256加密
+	 *
+	 * @param data 明文字节数组
+	 * @return 16进制密文
+	 */
+	public static String encryptSHA256ToString(byte[] data) {
+		return bytes2HexString(encryptSHA256(data));
+	}
+
+	/**
+	 * SHA256加密
+	 *
+	 * @param data 明文字节数组
+	 * @return 密文字节数组
+	 */
+	public static byte[] encryptSHA256(byte[] data) {
+		return hashTemplate(data, "SHA256");
+	}
+
+	/**
+	 * hash加密模板
+	 *
+	 * @param data      数据
+	 * @param algorithm 加密算法
+	 * @return 密文字节数组
+	 */
+	private static byte[] hashTemplate(byte[] data, String algorithm) {
+		if (data == null || data.length <= 0) return null;
+		try {
+			MessageDigest md = MessageDigest.getInstance(algorithm);
+			md.update(data);
+			return md.digest();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * byteArr转hexString
+	 * <p>例如：</p>
+	 * bytes2HexString(new byte[] { 0, (byte) 0xa8 }) returns 00A8
+	 *
+	 * @param bytes 字节数组
+	 * @return 16进制大写字符串
+	 */
+	public static String bytes2HexString(byte[] bytes) {
+		if (bytes == null) return null;
+		int len = bytes.length;
+		if (len <= 0) return null;
+		char[] ret = new char[len << 1];
+		for (int i = 0, j = 0; i < len; i++) {
+			ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
+			ret[j++] = hexDigits[bytes[i] & 0x0f];
+		}
+		return new String(ret);
 	}
 
 }

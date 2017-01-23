@@ -5,6 +5,9 @@ import android.widget.Toast;
 
 import com.p2p.core.P2PInterface.ISetting;
 import com.yxld.yxchuangxin.base.AppConfig;
+import com.yxld.yxchuangxin.entity.MsgEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,7 +149,7 @@ public class SettingListener implements ISetting {
 
     @Override
     public void ACK_vRetCustomCmd(int msgId, int result) {
-        Log.e("dxsTest","ACK_vRetCustomCmd:"+msgId+"result:"+result);
+        Log.e("dxsTest", "ACK_vRetCustomCmd:" + msgId + "result:" + result);
     }
 
     @Override
@@ -512,6 +515,8 @@ public class SettingListener implements ISetting {
 
     @Override
     public void vRetDefenceAreaResult(int result, ArrayList<int[]> data, int group, int item) {
+        Log.d("...", "防区信息返回 " + result);
+        EventBus.getDefault().post(new MsgEvent(data,result));
 
     }
 
@@ -552,8 +557,8 @@ public class SettingListener implements ISetting {
 
     @Override
     public void vRetCustomCmd(int contactId, int len, byte[] cmd) {
-        Log.e("dxsTest","ACK_vRetCustomCmd:"+contactId+"cmd:"+ Arrays.toString(cmd));
-        Toast.makeText(AppConfig.app,""+contactId, Toast.LENGTH_LONG).show();
+        Log.e("dxsTest", "ACK_vRetCustomCmd:" + contactId + "cmd:" + Arrays.toString(cmd));
+        Toast.makeText(AppConfig.app, "" + contactId, Toast.LENGTH_LONG).show();
     }
 
     @Override

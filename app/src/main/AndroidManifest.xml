@@ -365,6 +365,9 @@
             android:label="摄像头"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name=".activity.camera.LearnActivity"
+            android:label="学习设备"
+            android:screenOrientation="portrait"/>
 
         <!--交易记录-->
         <activity

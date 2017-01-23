@@ -23,7 +23,6 @@ public class P2PListener implements IP2P {
         AppConfig.app.sendBroadcast(intent);
     }
 
-
     @Override
     public void vAccept(int type, int state) {
         Intent accept = new Intent();
@@ -73,7 +72,6 @@ public class P2PListener implements IP2P {
     public void vRetPlayNumber(int iNumber, int[] data) {
 
     }
-
 
     @Override
     public void vRecvAudioVideoData(byte[] AudioBuffer, int AudioLen, int AudioFrames, long AudioPTS, byte[] VideoBuffer, int VideoLen, long VideoPTS) {

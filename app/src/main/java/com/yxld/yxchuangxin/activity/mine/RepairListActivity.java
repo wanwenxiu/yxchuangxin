@@ -158,6 +158,7 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 						getResources().getColor(R.color.black));
 			}
 		}
+
 		pageCode = 0;
 		initDataFromNet();
 	}
@@ -204,6 +205,7 @@ public class RepairListActivity extends BaseActivity implements ResultListener<C
 	 * 加载数据更新界面
 	 */
 	protected void showView() {
+		Log.d("geek", "showView: pageCode="+pageCode+",listData="+listData.size());
 		// 第一次加载
 		if (pageCode == 1) {
 			if (isEmptyList(listData)) {

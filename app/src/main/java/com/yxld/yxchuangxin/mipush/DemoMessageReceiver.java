@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
 import com.xiaomi.mipush.sdk.ErrorCode;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
@@ -116,7 +117,7 @@ public class DemoMessageReceiver extends PushMessageReceiver {
         String customs = map.get("custom");
         if(customs != null && "tongzhi".equals(customs)){
             //收到新通知推送
-
+            Log.d("geek", "onNotificationMessageArrived: customs="+customs);
         }
         Message msg = Message.obtain();
         msg.obj = log;

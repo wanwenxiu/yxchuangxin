@@ -1,18 +1,14 @@
 package com.yxld.yxchuangxin.activity.mine;
 
-import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 import com.yxld.yxchuangxin.util.StringUitl;
 
-import butterknife.OnClick;
 
 /**
  * 关于我们

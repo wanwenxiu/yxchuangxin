@@ -137,6 +137,7 @@ public class RepairListItemAdapter extends BaseAdapter {
 
 	public void setListOrderDatas(List<CxwyBaoxiu> listOrderDatas) {
 		this.listOrderDatas = listOrderDatas;
+		notifyDataSetChanged();
 	}
 
 	private void  setState(String states){

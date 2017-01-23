@@ -125,8 +125,8 @@ public class Wuyeadapter extends BaseAdapter {
                                 }
                                 break;
                             case 2:
-//                                ToastUtil.show(context, "敬请期待");
-                                 startActivity(CameraActivity.class);
+                                ToastUtil.show(context, "敬请期待");
+//                                 startActivity(CameraActivity.class);
                                 break;
                             case 3:
                                 if (Contains.user == null || Contains.user.getYezhuCardNum() == null

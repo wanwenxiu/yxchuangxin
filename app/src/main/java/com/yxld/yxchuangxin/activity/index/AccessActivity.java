@@ -11,9 +11,6 @@ import android.view.View;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.base.BaseActivity;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * Created by yishangfei on 2016/11/5 0005.
  * 门禁管理

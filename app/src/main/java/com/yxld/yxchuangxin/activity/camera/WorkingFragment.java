@@ -1,15 +1,16 @@
 package com.yxld.yxchuangxin.activity.camera;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.p2p.core.P2PHandler;
 import com.yxld.yxchuangxin.R;
 
@@ -47,6 +48,7 @@ public class WorkingFragment extends Fragment implements View.OnClickListener{
         });
         baojing.setOnClickListener(this);
         zhuatu.setOnClickListener(this);
+
         return view;
     }
 
@@ -69,8 +71,9 @@ public class WorkingFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.baojing:
-
-                Toast.makeText(getActivity(), "报警", Toast.LENGTH_SHORT).show();
+                Intent learn=new Intent(getActivity(),LearnActivity.class);
+                startActivity(learn);
+//                Toast.makeText(getActivity(), "报警", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.zhuatu:
                 mainActivity.captureScreen(-1);

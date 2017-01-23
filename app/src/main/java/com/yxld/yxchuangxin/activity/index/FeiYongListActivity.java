@@ -259,7 +259,7 @@ public class FeiYongListActivity extends BaseActivity implements MaterialSpinner
                     bianhao = System.currentTimeMillis() + "";
 //                    fq = fq.substring(5, fq.length());
 //                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳", fq);
-                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳","0.01");
+                    String orderInfo = getOrderInfo(bianhao, "物业费缴纳", "物业费缴纳",total[1]);
                     /**
                      * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
                      */
