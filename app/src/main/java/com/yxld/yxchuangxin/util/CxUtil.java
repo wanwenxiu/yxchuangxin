@@ -15,7 +15,9 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 
 import com.orhanobut.logger.Logger;
+import com.xiaomi.mipush.sdk.MiPushClient;
 import com.yxld.yxchuangxin.R;
+import com.yxld.yxchuangxin.base.AppConfig;
 import com.yxld.yxchuangxin.contain.Contains;
 import com.yxld.yxchuangxin.entity.AppYezhuFangwu;
 import com.yxld.yxchuangxin.entity.CxwyYezhu;
@@ -131,6 +133,9 @@ public class CxUtil {
 	 * 退出登录
 	 */
 	public static void clearData(SharedPreferences sp){
+		String alias = Contains.user.getYezhuShouji().toString();
+		MiPushClient.unsetAlias(AppConfig.app, alias, null);
+		MiPushClient.unsetUserAccount(AppConfig.app,alias,null);
 		Contains.curSelectXiaoQuName = "";
 		Contains.curSelectXiaoQuId = 0;
 		Contains.curFangwu = 0;

@@ -78,7 +78,7 @@ public class CodeFragment extends BaseFragment {
 
 		List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
 		if(list != null && list.size() != 0){
-			house = list.get(0);
+			house = list.get(Contains.curFangwu);
 			address = house.getXiangmuLoupan()+""+house.getFwLoudong()+"栋"+house.getFwDanyuan()+"单元" +house.getFwFanghao();
 			Log.d("geek","房屋"+house.toString());
 			//第一次进入弹出加载

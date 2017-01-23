@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xiaomi.mipush.sdk.MiPushClient;
+import com.yxld.yxchuangxin.MainActivity;
 import com.yxld.yxchuangxin.R;
 import com.yxld.yxchuangxin.activity.login.LoginActivity;
 import com.yxld.yxchuangxin.base.AppConfig;

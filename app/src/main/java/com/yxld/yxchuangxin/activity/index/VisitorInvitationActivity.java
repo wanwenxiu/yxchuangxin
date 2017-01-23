@@ -78,7 +78,7 @@ public class VisitorInvitationActivity extends BaseActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
         if(list != null){
-            house = list.get(0);
+            house = list.get(Contains.curFangwu);
             Log.d("geek", "业主" + house.toString());
         }
     }

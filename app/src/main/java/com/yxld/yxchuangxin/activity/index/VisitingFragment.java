@@ -81,7 +81,7 @@ public class VisitingFragment extends BaseFragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.visitor_invitation_activity_layout, container, false);
         List<AppYezhuFangwu> list = Contains.appYezhuFangwus;
-        house = list.get(0);
+        house = list.get(Contains.curFangwu);
         Log.d("geek", "业主" + house.toString());
         initview(view);
         return view;

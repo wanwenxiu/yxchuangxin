@@ -127,8 +127,7 @@ public class NewMainActivity2 extends BaseActivity implements View.OnClickListen
             return;
         }
         String alias = Contains.user.getYezhuShouji().toString();
-        String account = Contains.user.getYezhuShouji().toString();
-        MiPushClient.setAlias(NewMainActivity2.this, account, null);
+        MiPushClient.setAlias(NewMainActivity2.this, alias, null);
         MiPushClient.setUserAccount(NewMainActivity2.this, alias, null);
         initView();
         setToorBar(false);
