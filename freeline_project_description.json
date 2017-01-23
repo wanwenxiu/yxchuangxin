@@ -1,0 +1,96 @@
+{
+    "project_type": "gradle",
+    "android_gradle_plugin_version": "2.2.3",
+    "freeline_gradle_plugin_version": "0.8.4",
+    "java_home": "D:\\AndroidStudioInstall\\jre",
+    "freeline_cache_dir": "E:\\studio_workspace\\yxchuangxin",
+    "auto_dependency": true,
+    "product_flavor": "",
+    "build_script": "gradlew.bat :app:assembleDebug",
+    "build_script_work_directory": "",
+    "root_dir": "E:\\studio_workspace\\yxchuangxin",
+    "main_project_name": "app",
+    "main_project_dir": "app",
+    "build_directory": "E:\\studio_workspace\\yxchuangxin\\app\\build",
+    "build_cache_dir": "E:\\studio_workspace\\yxchuangxin\\app\\build\\freeline",
+    "build_tools_version": "25.0.0",
+    "sdk_directory": "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk",
+    "build_tools_directory": "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\build-tools\\25.0.0",
+    "compile_sdk_version": "android-25",
+    "compile_sdk_directory": "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\platforms\\android-25",
+    "package": "com.yxld.yxchuangxin",
+    "debug_package": "com.yxld.yxchuangxin",
+    "main_manifest_path": "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\AndroidManifest.xml",
+    "launcher": "com.yxld.yxchuangxin.activity.login.WelcomeActivity",
+    "apk_path": "E:\\studio_workspace\\yxchuangxin\\app\\build\\outputs\\apk\\app-debug.apk",
+    "extra_dep_res_paths": [
+        
+    ],
+    "exclude_dep_res_paths": [
+        
+    ],
+    "main_r_path": "E:\\studio_workspace\\yxchuangxin\\app\\build\\generated\\source\\r\\debug\\R.java",
+    "use_jdk8": true,
+    "main_src_directory": [
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\java",
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\java"
+    ],
+    "main_res_directory": [
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\res",
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\res"
+    ],
+    "main_assets_directory": [
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\assets",
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\assets"
+    ],
+    "main_jni_directory": [
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\jni",
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\jni"
+    ],
+    "main_jniLibs_directory": [
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\jniLibs",
+        "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\jniLibs"
+    ],
+    "project_source_sets": {
+        "app": {
+            "main_src_directory": [
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\java",
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\res",
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\assets",
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\jni",
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\debug\\jniLibs",
+                "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "E:\\studio_workspace\\yxchuangxin\\app\\src\\main\\AndroidManifest.xml"
+        }
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "E:\\studio_workspace\\yxchuangxin\\app"
+        }
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "databinding": [
+        
+    ],
+    "databinding_modules": [
+        
+    ]
+}
